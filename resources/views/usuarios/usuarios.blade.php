@@ -3,7 +3,9 @@
 <div class="container col-md-10" style="background-color: white;">
 	<br>
 	<div id="divTabla" class="col-md-12 divForm">
-		<table id="tablaUsuarios" class="display" cellspacing="0" width="100%"></table>
+		<div class="table-responsive">
+			<table id="tablaUsuarios" class="display" cellspacing="0" width="100%"></table>
+		</div>
 		<br />
 		<div class="col-md-12">
 			<div style="float:right;">

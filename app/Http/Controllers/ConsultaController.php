@@ -13,7 +13,7 @@ use SerializesModels;
 use Log;
 
 // Modelo
-// use App\Models\User;
+use App\Models\Consulta;
 
 class ConsultaController extends Controller
 {
@@ -25,5 +25,12 @@ class ConsultaController extends Controller
     protected function getConsultas(){
        $data['title'] = 'Consultas DTE';
        return View::make('consultas.consultas',$data);
+    }
+
+    protected function postConsultas(Request $request){
+        $datos = $request->all();
+        $model= new Consulta();
+        $result = $model->BuscarUsuario($datos);
+        return $result;
     }
 }

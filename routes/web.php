@@ -19,6 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
+Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Registro de usuarios
