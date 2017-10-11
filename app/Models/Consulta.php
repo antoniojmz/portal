@@ -46,7 +46,7 @@ class Consulta extends Authenticatable
         if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
             $desde = $this->formatearFecha($d['f_desde']);
             $hasta = $this->formatearFecha($d['f_hasta']);
-            $pre1= "auCreadoEl >= '".$desde."' and auCreadoEl <= '".$hasta."' ";
+            $pre1= "CAST(auModificadoEl AS DATE) >= '".$desde."' and CAST(auModificadoEl AS DATE) <= '".$hasta."' ";
             $sql .= $pre1;
             $var = 1;
         }
@@ -55,10 +55,10 @@ class Consulta extends Authenticatable
             if ($var >0){
                 $pre2 = "and "; 
             }      
-            $pre2 .= $d['Selectcampo']." like '%".$d['descripcion']."%'";
+            $pre2 .= "upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%'";
             $sql .= $pre2; 
         }
-        log::info($sql);
+        // log::info($sql);
         return DB::select($sql);
     }
 
