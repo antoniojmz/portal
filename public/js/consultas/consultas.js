@@ -50,6 +50,12 @@ var Boton_cancelar = function(){
 }
 
 var ProcesarConsulta = function(){
+    var desde = $('#f_desde').val();
+    var Selectcampo = $('#Selectcampo').val();
+    if (desde.length<1 && Selectcampo.length<1){
+        mensajesAlerta('Error','Desde seleccionar al menos un campo', 'error');
+        return;
+    }
     parametroAjax.ruta=ruta;
     parametroAjax.data = $("#FormConsultas").serialize();
     respuesta=procesarajax(parametroAjax);
@@ -76,44 +82,44 @@ $(document).ready(function(){
         $('#f_desde').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hasta').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
-    $(document).on('click','#consultar',validarC);
-    // $(document).on('click','#consultar',ProcesarConsulta);
+    // $(document).on('click','#consultar',validarC);
+    $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#volver',Boton_cancelar);
     // $(document).on('click','#agregar',Boton_agregar);
     // $(document).on('click','#nacionalidad',cambioNacionalidad);
     $(document).on('click','#btnCal',cal1);
-    $('#FormConsultas').formValidation({
-        // message: 'El módulo le falta un campo para ser completado',
-        fields: {
-            'f_hasta': {
-                verbose: false,
-                validators: {
-                    notEmpty: {
-                        message: 'El campo es requerido.'
-                    },
-                }
-            },
-            'f_desde': {
-                verbose: false,
-                validators: {
-                    notEmpty: {
-                        message: 'El campo es requerido.'
-                    },
-                }
-            },
-            'Selectcampo': {
-                validators: {
-                    notEmpty: {
-                        message: 'El campo es requerido.'
-                    },
-                }
-            },
-        }
-    })
-    .on('success.form.fv', function(e){
-        ProcesarConsulta();
-    })
-    .on('status.field.fv', function(e, data){
-        data.element.parents('.form-group').removeClass('has-success');
-    });
+    // $('#FormConsultas').formValidation({
+    //     // message: 'El módulo le falta un campo para ser completado',
+    //     fields: {
+    //         'f_hasta': {
+    //             verbose: false,
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: 'El campo es requerido.'
+    //                 },
+    //             }
+    //         },
+    //         'f_desde': {
+    //             verbose: false,
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: 'El campo es requerido.'
+    //                 },
+    //             }
+    //         },
+    //         'Selectcampo': {
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: 'El campo es requerido.'
+    //                 },
+    //             }
+    //         },
+    //     }
+    // })
+    // .on('success.form.fv', function(e){
+    //     ProcesarConsulta();
+    // })
+    // .on('status.field.fv', function(e, data){
+    //     data.element.parents('.form-group').removeClass('has-success');
+    // });
 });
