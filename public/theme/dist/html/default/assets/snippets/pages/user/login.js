@@ -31,17 +31,20 @@ var SnippetLogin = function() {
                     t = $(this).closest("form");
                 t.validate({
                     rules: {
-                        email: {
-                            required: !0,
-                            email: !0
+                        'usrUserName': {
+                            required: !0
                         },
-                        password: {
+                        'usrPassword': {
                             required: !0
                         }
+                    },
+                    messages:{
+                        'usrUserName': "Se requiere este campo.",
+                        'usrPassword': "Se requiere este campo."
                     }
                 }), t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({
                     url: "/login",
-                    success: function(e, r, n, l) {
+                  success: function(e, r, n, l) {
                         setTimeout(function() {
                             var response = JSON.parse(e);
                             if(response.code==200){
@@ -97,7 +100,7 @@ var SnippetLogin = function() {
                     n = $(this).closest("form");
                 n.validate({
                     rules: {
-                        email: {
+                        'email': {
                             required: !0,
                             email: !0
                         }

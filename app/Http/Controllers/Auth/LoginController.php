@@ -58,25 +58,22 @@ class LoginController extends Controller
 
 
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $data= $request->All();
-        if (!$data['usrUserName'] && !$data['usrPassword']){
-            return "No ingreso los valores correctos";
-        }else{
+        if ($data['usrUserName'] && $data['usrPassword']){
             $model= new User();
             $result = $model->verificarUsuario($data);
             if ($result>0){
-                $user = Auth::loginUsingId($result);
-                if ($user){
+                (isset($data['remember'])) ? $bool="true" : $bool="false";  
+                Auth::loginUsingId($result,$bool);
+                if (Auth::check())
                     return '{"code":"200","des_code":"home"}';
-                }else{
+                else
                     return '{"code":"-2","des_code":"Ocurrio un error al iniciar la session"}';
-                }
-            }else{
+            }else
                 return '{"code":"-2","des_code":"Usuario o contraseña incorrectos"}';
-            }
-        }
+        }else
+            return '{"code":"-2","des_code":"Debe ingresar valores correctos"}';
     }
 
     public function logout(Request $request)

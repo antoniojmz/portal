@@ -43,33 +43,19 @@
                             </div>
                             <form class="form-horizontal m-login__form m-form" method="POST" action="">
                                 {{ csrf_field() }}
-                                <div class="form-groupform-group{{ $errors->has('email') ? ' has-error' : '' }} m-form__group">
-                                    <!--<input class="form-control m-input" type="text" placeholder="Username" name="username" autocomplete="off"-->
-                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="Login" value="25834147-3" maxlength="10" autofocus>
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
+                                <div class="form-group{{ $errors->has('usrUserName') ? ' has-error' : '' }} m-form__group">
+                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="Login" value="25834147-3" maxlength="10" autofocus required>
                                 </div>
 
-                                
-
-
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} m-form__group">
+                                <div class="form-group{{ $errors->has('usrPassword') ? ' has-error' : '' }} m-form__group">
                                     <input id="usrPassword" class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="usrPassword" required>
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
                                 </div>
 
 
                                  <div class="row m-login__form-sub">
                                     <div class="col m--align-left">
                                         <label class="m-checkbox m-checkbox--focus">
-                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordarme
+                                            <input type="checkbox" id="remember" name="remember" value="0" {{ old('remember') ? 'checked' : '' }}> Recordarme
                                             <span></span>
                                         </label>
                                     </div>

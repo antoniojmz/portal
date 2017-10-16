@@ -323,3 +323,15 @@ function SaveToDisk(fileURL, fileName) {
         _window.close();
     }
 }
+// Carga de contenido para que no cambie la url de la aplicacion
+function load(route){
+    var url = document.createElement("a");
+    url.href = route;
+    console.log("Entre a cargar una pantalla");
+    console.log(url.href);
+    console.log("aqui esta mi url especifica");
+    console.log(url.pathname);
+    $.get(url.pathname,function(resul){
+
+    })
+}

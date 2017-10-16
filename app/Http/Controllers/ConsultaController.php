@@ -33,4 +33,5 @@ class ConsultaController extends Controller
         $result = $model->BuscarUsuario($datos);
         return $result;
     }
+    
 }

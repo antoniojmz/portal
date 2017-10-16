@@ -102,7 +102,6 @@
           });
 		</script>
 		<!--end::Web font -->
-
 	</head>
 	<!-- end::Head -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
@@ -115,7 +114,10 @@
 				@include('menu.menu_izquierdo')
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<br />
-					@yield('content')
+	         		@yield('content')
+					<div class="contenido">
+
+					</div>
 				</div>
 			</div>
 			<!-- end:: Body -->
