@@ -9,6 +9,7 @@ var parametroAjax = {
 var ManejoRespuestaC = function(respuesta){
     if (respuesta.code = '200'){
         $(".divForm").toggle();
+        $("#spanTitulo").text("Resultados de la busqueda");
         cargartablaReportes(respuesta.respuesta);
     }else{
         mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
@@ -23,18 +24,18 @@ var cargartablaReportes = function(data){
             },
             "data": data,
             "columns":[
-                {"title": "Id","data": "idUser",visible:0},
-                {"title": "Nombres","data": "usrNombreFull"},
-                {"title": "Login","data": "usrUserName"},
-                {"title": "idPerfil","data": "idPerfil",visible:0},
-                {"title": "Perfíl","data": "des_perfil"},
-                {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
-                {"title": "Creado id","data": "auCreadoPor",visible:0},
-                {"title": "Creado por","data": "creador"},
-                {"title": "Teléfono","data": "auModificadoEl",visible:0},
-                {"title": "Modificado id","data": "auModificadoPor",visible:0},
-                {"title": "Modificado por","data": "modificador"},
-                {"title": "Última visita","data": "usrUltimaVisita"}
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdProveedor","data": "IdProveedor",visible:0},
+                {"title": "IdCliente","data": "IdCliente",visible:0},
+                {"title": "Nombre Proveedor","data": "NombreProveedor"},
+                {"title": "Nombre Producto","data": "NombreProducto"},
+                {"title": "Nombre Cliente","data": "NombreCliente"},
+                {"title": "Monto Neto DTE","data": "MontoNetoDTE"},
+                {"title": "Monto Total DTE","data": "MontoTotalDTE"},
+                {"title": "Fecha Estado","data": "FechaEstado"},
+                {"title": "Fecha Referencia","data": "FechaReferencia"},
+                {"title": "Folio Referencia","data": "FolioReferencia"},
+                {"title": "Comentario del estado","data": "ComentarioEstado"}
             ],
         });
         limpiar=1;
@@ -46,6 +47,7 @@ var cargartablaReportes = function(data){
 
 var Boton_cancelar = function(){
     $(".divForm").toggle();
+    $("#spanTitulo").text("Consultas DTE");
     if(limpiar==1){destruirTablaS('tablaReportes');$('#tablaReportes thead').empty();}
 }
 
@@ -65,6 +67,7 @@ var ProcesarConsulta = function(){
 var validarC=function(){$('#FormConsultas').formValidation('validate');};
 var cal1 = function (){$("#fecha").click();};
 $(document).ready(function(){
+    $("#spanTitulo").text("Consultas DTE");
     // console.log("Hola desde las consultas");   
     // var v_reporte = '[{"id": 1,"name": "Aceptadas"},{"id": 2,"name": "Rechazadas"},{"id": 3, "name": "Anuladas"}]';
     crearcombo('#Selectcampo');

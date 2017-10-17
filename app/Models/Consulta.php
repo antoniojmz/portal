@@ -26,7 +26,7 @@ class Consulta extends Authenticatable
      * @var array
      */
 
-    protected $table = 'gpp_usuarios';
+    protected $table = 'usuarios';
 
     protected $primaryKey = 'idUser';
 
@@ -42,11 +42,11 @@ class Consulta extends Authenticatable
 
     public function BuscarUsuario($d){
         $var = 0;
-        $sql = "select * from v_usuarios where ";
+        $sql = "select * from v_dtes where ";
         if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
             $desde = $this->formatearFecha($d['f_desde']);
             $hasta = $this->formatearFecha($d['f_hasta']);
-            $pre1= "CAST(auModificadoEl AS DATE) >= '".$desde."' and CAST(auModificadoEl AS DATE) <= '".$hasta."' ";
+            $pre1= "CAST(FechaEstado AS DATE) >= '".$desde."' and CAST(FechaEstado AS DATE) <= '".$hasta."' ";
             $sql .= $pre1;
             $var = 1;
         }

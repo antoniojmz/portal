@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
 
-    protected $table = 'gpp_usuarios';
+    protected $table = 'usuarios';
 
     protected $primaryKey = 'idUser';
 
@@ -41,7 +41,7 @@ class User extends Authenticatable
     ];
 
     public function verificarUsuario($data){
-        $user = DB::table('gpp_usuarios')->where('usrUserName',$data['usrUserName'])->get();
+        $user = DB::table('v_usuarios')->where('usrUserName',$data['usrUserName'])->get();
         $result=0;
         if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
             $result=$user[0]->idUser;
@@ -81,12 +81,12 @@ class User extends Authenticatable
 
     public function registrarVisita($idUser){
         $now = new DateTime();
-        DB::table('gpp_usuarios')->where('idUser', $idUser)->update(['usrUltimaVisita' => $now]);
+        DB::table('usuarios')->where('idUser', $idUser)->update(['usrUltimaVisita' => $now]);
     }
 
     public function cambiarClave($data){
         $data= $data;
-        $pass = DB::table('gpp_usuarios')->where('idUser',$data['idUser'])->value('usrPassword');
+        $pass = DB::table('v_usuarios')->where('idUser',$data['idUser'])->value('usrPassword');
         if ($data['password_old']==$data['password']){
           $return='{"code":"-1","des_code":"La contraseña nueva no puede ser igual a la actual"}';
         }
@@ -95,7 +95,7 @@ class User extends Authenticatable
                     $data['password']=bcrypt($data['password']);
                     try{
                             DB::beginTransaction();
-                            DB::update('update gpp_usuarios set usrPassword = ? where idUser = ?', [$data['password'],$data['idUser']]);
+                            DB::update('update usuarios set usrPassword = ? where idUser = ?', [$data['password'],$data['idUser']]);
                             DB::commit();
                             $return='{"code":"200","des_code":"La contraseña se cambio exitosamente"}';
                     }catch (Exception $e) {
@@ -115,7 +115,7 @@ class User extends Authenticatable
         try{
             DB::beginTransaction();
             $values=array('usrNombreFull'=>$data['usrNombreFull'],'usrEmail'=>$data['usrEmail']);
-            $result=DB::table('gpp_usuarios')
+            $result=DB::table('usuarios')
                 ->where('idUser', $data['idUser'])
                 ->update($values);
              DB::commit();
@@ -131,7 +131,7 @@ class User extends Authenticatable
     public function actualizarFoto($idUser,$rutadelaimagen){
         try{
             DB::beginTransaction();
-            $result=DB::table('gpp_usuarios')
+            $result=DB::table('usuarios')
                 ->where('idUser', $idUser)
                 ->update(['usrUrlimage' => $rutadelaimagen ]);
             DB::commit();
@@ -146,7 +146,7 @@ class User extends Authenticatable
     public function eliminarFoto($datos){
         try{
             DB::beginTransaction();
-            $result=DB::table('gpp_usuarios')
+            $result=DB::table('usuarios')
                 ->where('idUser', $datos['idUser'])
                 ->update(['usrUrlimage' => null ]);
             DB::commit();
@@ -160,7 +160,7 @@ class User extends Authenticatable
     }
 
     public function cambiarPassword($datos){
-        $count = DB::table('gpp_usuarios')
+        $count = DB::table('v_usuarios')
             ->where('usrEmail', $datos['email'])
             ->count();
         if($count<1){
@@ -171,7 +171,7 @@ class User extends Authenticatable
         Log::info("Mi nuevo password: ".$pass);
         try{
             DB::beginTransaction();
-            $result=DB::table('gpp_usuarios')
+            $result=DB::table('usuarios')
                 ->where('usrEmail', $datos['email'])
                 ->update(['usrPassword' => $Password ]);
             DB::commit();
@@ -180,7 +180,7 @@ class User extends Authenticatable
             throw $t;
             return '{"code":"500","des_code":"Ocurrio un error al intentar recuperar el password"}';
         }
-        $usrNombreFull = DB::table('gpp_usuarios')
+        $usrNombreFull = DB::table('v_usuarios')
                         ->where('usrEmail',$datos['email'])->value('usrNombreFull');
         $notificacion = $this->enviarEmail($datos['email'],$usrNombreFull,$pass);
         return $notificacion;

@@ -86,7 +86,31 @@ var BotonModificar = function(){
 var validador = function(){
    $('#FormDatos').formValidation('validate');
 };
-var validar = function(){
+
+var eliminarFoto = function(){
+    parametroAjax.ruta=rutaE;
+    parametroAjax.data = {'idUser':$('#idUser').val(), 'usrUrlimage':$("#usrUrlimage").val()};
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaProcesarDelPic(respuesta);
+}
+var actualizarFoto = function(){
+    var form = $('#FormDatos').get(0);
+    var formData = new FormData(form);
+    parametroAjax.ruta=rutaC;
+    parametroAjax.data = formData;
+    respuesta=procesarajaxfile(parametroAjax);
+    ManejoRespuestaProcesarUpPic(respuesta);
+};
+
+$(document).ready(function(){
+    $('.input').prop('readonly', true);
+    pintarDatosActualizar(d.v_datos);
+    $(document).on('click','#modificar',BotonModificar);
+    $(document).on('click','#guardar',validador);
+    $(document).on('click','#cancelar',BotonCancelar);
+    $(document).on('click','#cargar',actualizarFoto);
+    $(document).on('click','#eliminar',eliminarFoto);
+
     $('#FormDatos').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
@@ -117,30 +141,4 @@ var validar = function(){
     .on('status.field.fv', function(e, data){
         data.element.parents('.form-group').removeClass('has-success');
     });
-};
-
-var eliminarFoto = function(){
-    parametroAjax.ruta=rutaE;
-    parametroAjax.data = {'idUser':$('#idUser').val(), 'usrUrlimage':$("#usrUrlimage").val()};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaProcesarDelPic(respuesta);
-}
-var actualizarFoto = function(){
-    var form = $('#FormDatos').get(0);
-    var formData = new FormData(form);
-    parametroAjax.ruta=rutaC;
-    parametroAjax.data = formData;
-    respuesta=procesarajaxfile(parametroAjax);
-    ManejoRespuestaProcesarUpPic(respuesta);
-};
-
-$(document).ready(function(){
-    $('.input').prop('readonly', true);
-    validar();
-    pintarDatosActualizar(d.v_datos);
-    $(document).on('click','#modificar',BotonModificar);
-    $(document).on('click','#guardar',validador);
-    $(document).on('click','#cancelar',BotonCancelar);
-    $(document).on('click','#cargar',actualizarFoto);
-    $(document).on('click','#eliminar',eliminarFoto);
 });

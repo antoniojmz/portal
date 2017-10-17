@@ -1,10 +1,14 @@
 @extends('menu.index')
 @section('content')
 <div class="container col-md-10" style="background-color: white;">
-    <br>
     <div id="divForm" class="col-md-12 form-control divForm">
-        <center><h3>Actualización de datos</h3></center>
-        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <center><span id="spanTitulo">Actualización de datos</span></center>
+                <hr>
+            </div>
+        </div>
         {!! Form::open(['id'=>'FormDatos','autocomplete' => 'off']) !!}
         {!! Form::hidden('idUser', '', [
         'id'            => 'idUser',
@@ -53,17 +57,17 @@
                         <div class="divBotonera">
                             {{ Form::button(' Modificar',
                             [ 'id'=> 'modificar', 'type' => 'button',
-                            'class' => 'btn btn-primary fa fa-times-circle'])}}
+                            'class' => 'btn m-btn--pill btn-outline-primary flaticon-edit'])}}
                         </div>
 
                         <div class="divBotonera" style="display:none;">
                             {{ Form::button(' Cancelar',
                             [ 'id'=> 'cancelar', 'type' => 'button',
-                            'class' => 'btn btn-primary fa fa-times-circle'])}}
+                            'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])}}
 
                             {{ Form::button(' Guardar',
                             [ 'id'=> 'guardar', 'type' => 'button',
-                            'class' => 'btn btn-primary fa fa-check-circle'])}}
+                            'class' => 'btn m-btn--pill btn-primary flaticon-interface'])}}
                         </div>
                     </div>
                 </div>
@@ -88,13 +92,13 @@
                          <label class="help-block">Archivo png o jpg no mayor a 2  megabytes (MB)</label>
                         <br>
                         <div>
-                            {{ Form::button(' Cargar',
-                                [ 'id'=> 'cargar', 'type' => 'button',
-                                'class' => 'btn btn-primary fa fa-check-circle'])
-                            }}
                             {{ Form::button(' Eliminar',
                                 [ 'id'=> 'eliminar', 'type' => 'button',
-                                'class' => 'btn btn-primary fa fa-check-circle'])
+                                'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])
+                            }}
+                            {{ Form::button(' Cargar',
+                                [ 'id'=> 'cargar', 'type' => 'button',
+                                'class' => 'btn m-btn--pill btn-primary flaticon-interface'])
                             }}
                         </div>
                     </center>

@@ -33,7 +33,10 @@ var cambiarClave = function(){
 var validador = function(){
  $('#Formclave').formValidation('validate');
 };
-var validar = function(){
+
+$(document).ready(function(){
+    $(document).on('click','#aceptar',validador);
+
     $('#Formclave').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
@@ -70,8 +73,4 @@ var validar = function(){
     .on('status.field.fv', function(e, data){
         data.element.parents('.form-group').removeClass('has-success');
     });
-};
-$(document).ready(function(){
-    validar();
-    $(document).on('click','#aceptar',validador);
 });

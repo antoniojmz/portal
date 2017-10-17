@@ -992,7 +992,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="{{ route('password') }}" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-chat-1"></i>
+															<i class="m-nav__link-icon flaticon-refresh"></i>
 															<span class="m-nav__link-text">
 																Cambiar contraseña
 															</span>

@@ -1,26 +1,37 @@
 @extends('menu.index')
 @section('content')
 <div class="container col-md-10" style="background-color: white;">
-	<br>
 	<div id="divTabla" class="col-md-12 divForm">
-		<div class="table-responsive m_datatable">
-			<table id="tablaUsuarios" class="display m-portlet__body" cellspacing="0" width="100%"></table>
-		</div>
-		<br />
-		<div class="col-md-12">
-			<div style="float:right;">
+		<div class="row">
+			<div class="col-md-12">
+				<br>
+				<center><span id="spanTitulo">Usuarios registrados</span></center>
+				<hr>
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col-md-12" style="float:right;">
 				{{ Form::button(' Agregar',
 				[ 'id'=> 'agregar', 'type' => 'button',
-				'class' => 'btn btn-primary fa fa-plus-circle'])}}
+				'style' => 'float:right',
+				'class' => 'btn m-btn--pill btn-primary flaticon-add'])}}
 			</div>
 		</div>
-		<br>
-		
-
+		<br />
+		<div class="row">
+			<div class="col-md-12 table-responsive">
+				<table id="tablaUsuarios" class="display m-portlet__body" cellspacing="0" width="100%"></table>
+			</div>
+		</div>
 	</div>
 	<div id="divForm" style="display:none;" class="col-md-12 divForm">
-		<center><h3>Registro de usuario</h3></center>
-		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<br>
+				<center><span id="spanTitulo">Registro de usuarios</span></center>
+				<hr>
+			</div>
+		</div>
 		{!! Form::open(['id'=>'FormUsuario','autocomplete' => 'off']) !!}
 		{!! Form::hidden('idUser', '', [
 		'id'            => 'idUser',
@@ -142,10 +153,11 @@
 			<div class="pull-rigth">
 				{{ Form::button(' Cancelar',
 				[ 'id'=> 'cancelar', 'type' => 'button',
-				'class' => 'btn btn-primary fa fa-times-circle'])}}
+				'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])}}
+
 				{{ Form::button(' Guardar',
 				[ 'id'=> 'guardar', 'type' => 'button',
-				'class' => 'btn btn-primary fa fa-check-circle'])}}
+				'class' => 'btn m-btn--pill btn-primary flaticon-interface'])}}
 			</div>
 		</div>
 		{!! Form::close() !!}

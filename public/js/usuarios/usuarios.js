@@ -146,7 +146,44 @@ var reiniciarClave = function(){
 var validador = function(){
  $('#FormUsuario').formValidation('validate');
 };
-var validar = function(){
+
+$(document).ready(function(){
+	cargarTablaUsuarios(d.v_usuarios);
+    crearallcombos(d);
+    var tableB = $('#tablaUsuarios').dataTable();
+    $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+     $(function() {
+        $.contextMenu({
+            selector: '#tablaUsuarios',
+            // selector: '.dataTable tbody tr',
+            callback: function(key, options) {
+                switch(key) {
+                    case "1":
+                        cargarFormulario();
+                        pintarDatosActualizar(RegistroUsuario);
+                        break;
+                    case "2":
+                        reiniciarClave();
+                    break;
+                }
+            },
+            items: {
+                "1": {name: "Editar", icon: "edit"},
+                "2": {name: "Reiniciar clave", icon: "quit"},
+            }
+        });
+    });
+    $(document).on('click','#guardar',validador);
+    $(document).on('click','#cancelar',BotonCancelar);
+    $(document).on('click','#agregar',BotonAgregar);
+
     $('#FormUsuario').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
@@ -201,43 +238,4 @@ var validar = function(){
     .on('status.field.fv', function(e, data){
         data.element.parents('.form-group').removeClass('has-success');
     });
-};
-
-$(document).ready(function(){
-    validar();
-	cargarTablaUsuarios(d.v_usuarios);
-    crearallcombos(d);
-    var tableB = $('#tablaUsuarios').dataTable();
-    $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
-        tableB.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-        RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
-    });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
-     $(function() {
-        $.contextMenu({
-            selector: '#tablaUsuarios',
-            // selector: '.dataTable tbody tr',
-            callback: function(key, options) {
-                switch(key) {
-                    case "1":
-                        cargarFormulario();
-                        pintarDatosActualizar(RegistroUsuario);
-                        break;
-                    case "2":
-                        reiniciarClave();
-                    break;
-                }
-            },
-            items: {
-                "1": {name: "Editar", icon: "edit"},
-                "2": {name: "Reiniciar clave", icon: "edit"},
-            }
-        });
-    });
-    $(document).on('click','#guardar',validador);
-    $(document).on('click','#cancelar',BotonCancelar);
-    $(document).on('click','#agregar',BotonAgregar);
 });

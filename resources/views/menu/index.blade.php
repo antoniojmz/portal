@@ -18,41 +18,16 @@
     	<!-- Estilos Plugins -->
     	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
-    	{!! Html::style('plugins/select404/css/select2.min.css') !!}
 		<!-- Waitme:: para bloquear los div mientras se ejecuta un ajax -->
     	{!! Html::style('plugins/waitme/waitMe.min.css') !!}
     	{!! Html::style('plugins/jquery-easyui/themes/gray/easyui.css') !!}
     	{!! Html::style('plugins/jquery-easyui/themes/icon.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
+    	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
 
     	<style TYPE="text/css">
-	    	.select2-container .select2-selection--single .select2-selection__rendered {
-	    		padding-top:0px;
-	    	}
 	    	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
-	    		margin-top:-1.5rem;
-	    	}
-	    	.select2-selection__arrow{
-	    		margin-left: 500px;
-	    	}
-	    	.select2-container--default .select2-selection--single .select2-selection__arrow {
-	    		font-family: LineAwesome;
-			    text-decoration: inherit;
-			    text-rendering: optimizeLegibility;
-			    text-transform: none;
-			    -moz-osx-font-smoothing: grayscale;
-			    -webkit-font-smoothing: antialiased;
-			    font-smoothing: antialiased;
-			    border: 0;
-			    top: 50%;
-			    position: absolute;
-			    margin-top: 0;
-			    margin-left: 0;
-			    font-size: .85rem;
-			    left: auto;
-			    display: inline-block;
-			    width: 1.9rem;
-
+	    		margin-top:-1.0rem;
 	    	}
 	    	.help-block{
 	    		color:#FF0000;
@@ -64,7 +39,10 @@
         		width:120px;
         		height:120px;
         		margin:20px;
-        	}    
+        	} 
+        	#spanTitulo{
+        		font-size: 150%;
+        	}   
 	    </style>
     	<!-- ////////////////////////////////////////////////////////////////////////////// -->
     	<!--begin::Base Scripts -->
@@ -76,8 +54,6 @@
 		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.min.js') }}
 		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
-		{{ HTML::script('plugins/select404/js/select2.full.min.js') }}
-		{{ HTML::script('plugins/select404/js/i18n/es.js') }}
 		{{ HTML::script('plugins/eonasdan-bootstrap-datetimepicker/node_modules/moment/moment.min.js') }}
 		{{ HTML::script('plugins/eonasdan-bootstrap-datetimepicker/node_modules/moment/locale/es.js') }}
     	<!-- date-range-picker -->
@@ -90,6 +66,9 @@
 		{{ HTML::script('plugins/validator/formValidation.min.js') }}
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
 		{{ HTML::script('plugins/validator/es_ES.js') }}
+		{{ HTML::script('plugins/BlockUI/jquery.blockUI.js') }}
+		{{ HTML::script('js/index/index.js') }}
+
 
 		<!--Begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
@@ -115,9 +94,6 @@
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<br />
 	         		@yield('content')
-					<div class="contenido">
-
-					</div>
 				</div>
 			</div>
 			<!-- end:: Body -->
