@@ -11,6 +11,7 @@ use View;
 use Redirect;
 use SerializesModels;
 use Log;
+use Auth;
 
 // Modelo
 use App\Models\Consulta;
@@ -24,13 +25,16 @@ class ConsultaController extends Controller
 
     protected function getConsultas(){
        $data['title'] = 'Consultas DTE';
+       $model= new Consulta();
+       $id = Auth::id();
+       $data['v_dtes'] = $model->listDtes($id);
        return View::make('consultas.consultas',$data);
     }
 
     protected function postConsultas(Request $request){
         $datos = $request->all();
         $model= new Consulta();
-        $result = $model->BuscarUsuario($datos);
+        $result = $model->BuscarDtes($datos);
         return $result;
     }
     

@@ -8,7 +8,7 @@ var parametroAjax = {
 
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
-        $(".divBotonera").toggle();
+        BotonCancelar();
     }else{
         mensajesAlerta('Error','Comuniquese con el personal de sopore técnico', 'error');
     }
@@ -73,14 +73,14 @@ var pintarDatosActualizar= function(data){
 
 var BotonCancelar = function(){
     $(".divBotonera").toggle(); 
-    $('.input').prop('readonly', true);
-    // $('#FormDatos')[0].reset();
-    // $("#idUser").val("");
+    $('.input').prop('disabled', true);
+    $('.input').addClass('spanDisable');
 }
 
 var BotonModificar = function(){
     $(".divBotonera").toggle(); 
-    $('.input').prop('readonly', false);
+    $('.input').prop('disabled', false);
+    $('.input').removeClass('spanDisable');
 }
 
 var validador = function(){
@@ -103,7 +103,9 @@ var actualizarFoto = function(){
 };
 
 $(document).ready(function(){
-    $('.input').prop('readonly', true);
+    $('.input').prop('disabled', true);
+    $('.input').addClass('spanDisable');
+    
     pintarDatosActualizar(d.v_datos);
     $(document).on('click','#modificar',BotonModificar);
     $(document).on('click','#guardar',validador);

@@ -25,6 +25,8 @@
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
     	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
 
+    	{!! Html::style('plugins/DataTables-1.10.10/extensions/Buttons/css/buttons.dataTables.min.css') !!}
+
     	<style TYPE="text/css">
 	    	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
 	    		margin-top:-1.0rem;
@@ -42,7 +44,10 @@
         	} 
         	#spanTitulo{
         		font-size: 150%;
-        	}   
+        	}
+        	.spanDisable{
+        		background-color: #F4F5F8;
+        	}
 	    </style>
     	<!-- ////////////////////////////////////////////////////////////////////////////// -->
     	<!--begin::Base Scripts -->
@@ -68,6 +73,15 @@
 		{{ HTML::script('plugins/validator/es_ES.js') }}
 		{{ HTML::script('plugins/BlockUI/jquery.blockUI.js') }}
 		{{ HTML::script('js/index/index.js') }}
+
+		{{ HTML::script('plugins/DataTables-1.10.10/extensions/Buttons/js/dataTables.buttons.min.js') }}
+
+		{{ HTML::script('plugins/DataTables-1.10.10/dataTables.buttons.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/jszip.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/pdfmake.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
 
 
 		<!--Begin::Web font -->

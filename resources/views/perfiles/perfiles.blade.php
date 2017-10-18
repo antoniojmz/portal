@@ -19,7 +19,7 @@
             <div class="col-md-4">
                 <div class="row form-group">
                     <label class="label" for="usrUserName"><b>Login:</b></label>
-                    <span id="usrUserName" class="form-control">Desconocido</span>
+                    <span id="usrUserName" class="form-control input">Desconocido</span>
                 </div>
                 <br>
                 <div class="row form-group">
@@ -44,30 +44,38 @@
                 <br>
                 <div class="row form-group">
                     <label class="label" for="usrUltimaVisita"><b>Última visita:</b></label>
-                    <span id="usrUltimaVisita" class="form-control">Desconocido</span>
+                    <span id="usrUltimaVisita" class="form-control input">Desconocido</span>
                 </div>
                 <br>
                 <div class="row">
                     <label class="label" for="auCreadoEl"><b>Fecha de creación:</b></label>
-                    <span id="auCreadoEl" class="form-control">Desconocido</span>
+                    <span id="auCreadoEl" class="form-control input">Desconocido</span>
                 </div>
                 <br>
                 <div align="center">
                     <div class="pull-rigth">
                         <div class="divBotonera">
-                            {{ Form::button(' Modificar',
-                            [ 'id'=> 'modificar', 'type' => 'button',
-                            'class' => 'btn m-btn--pill btn-outline-primary flaticon-edit'])}}
+                            <button name="modificar" id="modificar" class="btn m-btn--pill btn-outline-primary" type="button">
+                                <span>
+                                    <i class="la la-pencil"></i>
+                                    <span>Modificar</span>
+                                </span>
+                            </button>
                         </div>
 
                         <div class="divBotonera" style="display:none;">
-                            {{ Form::button(' Cancelar',
-                            [ 'id'=> 'cancelar', 'type' => 'button',
-                            'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])}}
-
-                            {{ Form::button(' Guardar',
-                            [ 'id'=> 'guardar', 'type' => 'button',
-                            'class' => 'btn m-btn--pill btn-primary flaticon-interface'])}}
+                            <button name="cancelar" id="cancelar" class="btn m-btn--pill btn-outline-primary" type="button">
+                                <span>
+                                    <i class="la la-times"></i>
+                                    <span>Cancelar</span>
+                                </span>
+                            </button>
+                            <button name="guardar" id="guardar" class="btn m-btn--pill btn-primary" type="button">
+                                <span>
+                                    <i class="la la-check"></i>
+                                    <span>Guardar</span>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -92,14 +100,18 @@
                          <label class="help-block">Archivo png o jpg no mayor a 2  megabytes (MB)</label>
                         <br>
                         <div>
-                            {{ Form::button(' Eliminar',
-                                [ 'id'=> 'eliminar', 'type' => 'button',
-                                'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])
-                            }}
-                            {{ Form::button(' Cargar',
-                                [ 'id'=> 'cargar', 'type' => 'button',
-                                'class' => 'btn m-btn--pill btn-primary flaticon-interface'])
-                            }}
+                            <button name="eliminar" id="eliminar" class="btn btn-sm m-btn--pill btn-outline-primary" type="button">
+                                <span>
+                                    <i class="la la-times"></i>
+                                    <span>Elimar</span>
+                                </span>
+                            </button>
+                            <button name="cargar" id="cargar" class="btn btn-sm m-btn--pill btn-primary" type="button">
+                                <span>
+                                    <i class="la la-check"></i>
+                                    <span>Cargar</span>
+                                </span>
+                            </button>
                         </div>
                     </center>
                 </div>

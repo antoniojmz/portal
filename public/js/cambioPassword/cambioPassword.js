@@ -33,10 +33,13 @@ var cambiarClave = function(){
 var validador = function(){
  $('#Formclave').formValidation('validate');
 };
+var boton_cancelar = function(){
+    $(".inputClear").val("");
+};
 
 $(document).ready(function(){
     $(document).on('click','#aceptar',validador);
-
+    $(document).on('click','#cancelar',boton_cancelar);
     $('#Formclave').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',

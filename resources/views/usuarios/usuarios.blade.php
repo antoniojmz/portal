@@ -10,11 +10,13 @@
 			</div>
 		</div>		
 		<div class="row">
-			<div class="col-md-12" style="float:right;">
-				{{ Form::button(' Agregar',
-				[ 'id'=> 'agregar', 'type' => 'button',
-				'style' => 'float:right',
-				'class' => 'btn m-btn--pill btn-primary flaticon-add'])}}
+			<div class="col-md-12">
+				<button style="float:right;" name="agregar" id="agregar" class="btn m-btn--pill btn-primary" type="button">
+					<span>
+						<i class="la la-plus"></i>
+						<span>Agregar</span>
+					</span>
+		        </button>
 			</div>
 		</div>
 		<br />
@@ -151,13 +153,18 @@
 		<br>
 		<div align="center">
 			<div class="pull-rigth">
-				{{ Form::button(' Cancelar',
-				[ 'id'=> 'cancelar', 'type' => 'button',
-				'class' => 'btn m-btn--pill btn-outline-primary flaticon-cancel'])}}
-
-				{{ Form::button(' Guardar',
-				[ 'id'=> 'guardar', 'type' => 'button',
-				'class' => 'btn m-btn--pill btn-primary flaticon-interface'])}}
+				<button name="cancelar" id="cancelar" class="btn m-btn--pill btn-outline-primary" type="button">
+					<span>
+						<i class="la la-times"></i>
+						<span>Cancelar</span>
+					</span>
+		        </button>
+		        <button name="guardar" id="guardar" class="btn m-btn--pill btn-primary" type="button">
+					<span>
+						<i class="la la-check"></i>
+						<span>Guardar</span>
+					</span>
+		        </button>
 			</div>
 		</div>
 		{!! Form::close() !!}

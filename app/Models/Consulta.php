@@ -26,27 +26,19 @@ class Consulta extends Authenticatable
      * @var array
      */
 
-    protected $table = 'usuarios';
+    public function listDtes($id){
+        $result = DB::table('v_dtes')->where('IdProveedor',$id)->get();
+        return $result;
+    }
 
-    protected $primaryKey = 'idUser';
-
-    protected $fillable = [
-        'auCreadoPor','auModificadoPor','idPerfil','usrEstado','usrNombreFull','usrUserName','usrEmail','usrUrlimage'
-    ];
-
-    protected $hidden = ['usrPassInit','usrPassword', 'remember_token'];
-
-    protected $dates = [
-        'auCreadoEl','auModificadoEl','usrUltimaVisita'
-    ];
-
-    public function BuscarUsuario($d){
+    public function BuscarDtes($d){
+        log::info($d);
         $var = 0;
         $sql = "select * from v_dtes where ";
         if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
             $desde = $this->formatearFecha($d['f_desde']);
             $hasta = $this->formatearFecha($d['f_hasta']);
-            $pre1= "CAST(FechaEstado AS DATE) >= '".$desde."' and CAST(FechaEstado AS DATE) <= '".$hasta."' ";
+            $pre1= "CAST(FechaEmision AS DATE) >= '".$desde."' and CAST(FechaEmision AS DATE) <= '".$hasta."' ";
             $sql .= $pre1;
             $var = 1;
         }
@@ -58,7 +50,10 @@ class Consulta extends Authenticatable
             $pre2 .= "upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%'";
             $sql .= $pre2; 
         }
-        // log::info($sql);
+        if ($d['SelectDTE'] <>null){       
+            $pre3 = "and TipoDTE=".$d['SelectDTE'];
+            $sql .= $pre3; 
+        }
         return DB::select($sql);
     }
 
