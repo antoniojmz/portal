@@ -66,6 +66,7 @@ class LoginController extends Controller
             if ($result>0){
                 (isset($data['remember'])) ? $bool="true" : $bool="false";  
                 Auth::loginUsingId($result,$bool);
+                $roll = $model->buscarRoll();
                 if (Auth::check())
                     return '{"code":"200","des_code":"home"}';
                 else

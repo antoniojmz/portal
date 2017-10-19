@@ -107,11 +107,11 @@ var procesarajaxfile = function(datos){
 };
 
 ///////////////////////////////////////////////////// DATATABLE //////////////////////////////////////////////////////
-var destruirTablaS = function(tabla){
-    if ($('#'+tabla).dataTable()){
-        $('#'+tabla).dataTable().fnClearTable();
-        $('#'+tabla).dataTable().fnDraw();
-        $('#'+tabla).dataTable().fnDestroy();
+var destruirTabla = function(tabla){
+    if ($(tabla).dataTable()){
+        $(tabla).dataTable().fnClearTable();
+        $(tabla).dataTable().fnDraw();
+        $(tabla).dataTable().fnDestroy();
     }
 };
 

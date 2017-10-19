@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@getIndex')->name('home');
 
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
+Route::post('/detalles', 'ConsultaController@postBuscardetalle')->name('detalles');
 
 Route::get('/clientes', 'ClienteController@getClientes')->name('clientes');
 Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');

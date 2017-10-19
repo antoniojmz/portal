@@ -39,11 +39,10 @@
 					{{ Form::label('null', 'Tipo de busqueda:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 					<select class="comboclear form-control m-select2" name="Selectcampo" id="Selectcampo" style='width:100%;height:35px;'>
 						<option value="">Seleccione...</option>
+						<option value="FolioDTE">Folio de referencia</option>
+						<option value="EstadoActualDTE">Estado DTE</option>
 						<option value="NombreCliente">Nombre de cliente</option>
 						<option value="NombreProveedor">Nombre de proveedor</option>
-						<option value="FolioReferencia">Folio de referencia</option>
-						<option value="NombreProducto">Nombre de producto</option>
-						<option value="CodigoProducto">Código de producto</option>
 					</select>						
 				</div>
 
@@ -117,66 +116,143 @@
 						
 						<!-- tab de cabecera -->
 						<div class="tab-pane active" id="m_builder_page" aria-expanded="true">
+							
 							<div class="form-group m-form__group row">
-								<label class="col-lg-4 col-form-label">Layout Type:</label>
-								<div class="col-lg-8 col-xl-4">
-									<select class="form-control" name="builder[layout][self][layout]">
-										<option value="fluid" selected="">Fluid</option>
-										<option value="boxed">Boxed</option>
-									</select>
-									<span class="m-form__help">Select page layout type</span>
+								<label class="col-lg-2 col-form-label">Tipo DTE:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="TipoDTE" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Folio Dte:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="FolioDTE" class="form-control span"></span>
 								</div>
 							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Fecha Recepción:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="FechaRecepcion" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Fecha Emisión:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="FechaEmision" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">RUT Cliente:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="RutCliente" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Nombre Cliente:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="NombreCliente" class="form-control span"></span>
+								</div>
+							</div>							
+						
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="RutProveedor" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="NombreProveedor" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Monto Neto:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoNetoCLP" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Monto Exento:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoExentoCLP" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Monto IVA:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoIVACLP" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Monto Total:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoTotalCLP" class="form-control span"></span>
+								</div>
+							</div>	
+							
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Monto Neto OM:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoNetoOM" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Monto Exento OM:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoExentoOM" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Monto IVA OM:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoIVAOM" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Monto Total OM:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="MontoTotalOM" class="form-control span"></span>
+								</div>
+							</div>		
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Estado Actual DTE:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="EstadoActualDTE" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Fecha Estado DTE:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="FechaEstadoActualDTE" class="form-control span"></span>
+								</div>
+							</div>											
 						</div>
 
 						<!-- tab de detalle DTE -->
 						<div class="tab-pane" id="m_builder_header" aria-expanded="false">
-							<div class="form-group m-form__group row">
-								<label class="col-lg-4 col-form-label">Display Header Menu:</label>
-								<div class="col-lg-8 col-xl-4">
-									<input type="hidden" name="builder[layout][menu][header_desktop][display]" value="false">
-									<span class="m-switch m-switch--icon-check">
-										<label>
-											<input type="checkbox" name="builder[layout][menu][header_desktop][display]" value="true" checked="">
-									        <span></span>
-									    </label>
-									</span>
-									<div class="m-form__help">Display header menu</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-10">
+									<div class="table-responsive">
+										<table id="tablaDetalles" class="display" cellspacing="0" width="100%"></table>
+									</div>
 								</div>
+								<div class="col-md-1"></div>
 							</div>
 						</div>
 
-						<!-- tab de REferneciaas -->
+						<!-- tab de Referencias -->
 						<div class="tab-pane" id="m_builder_left_aside" aria-expanded="false">
-							<div class="form-group m-form__group row">
-								<label class="col-lg-4 col-form-label">Dropdown Submenu Arrow:</label>
-								<div class="col-lg-8 col-xl-4">
-									<span class="m-switch m-switch--icon-check">
-										<input type="hidden" name="builder[layout][menu][aside][submenu][dropdown][arrow]" value="false">
-									    <label>	
-											<input type="checkbox" name="builder[layout][menu][aside][submenu][dropdown][arrow]" value="true" checked="">
-									        <span></span>
-									    </label>
-									</span>
-									<div class="m-form__help">Enable dropdown submenu arrow</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-10">
+									<div class="table-responsive">
+										<table id="tablaReferencias" class="display" cellspacing="0" width="100%"></table>
+									</div>
 								</div>
+								<div class="col-md-1"></div>
 							</div>
 						</div>
 
 						<!-- tab de Estados -->
 						<div class="tab-pane" id="m_builder_right_aside" aria-expanded="false">
-							<div class="form-group m-form__group row">
-								<label class="col-lg-4 col-form-label">Display Right Aside:</label>
-								<div class="col-lg-8 col-xl-4">
-									<span class="m-switch m-switch--icon-check">
-										<input type="hidden" name="builder[layout][aside][right][display]" value="false">
-									    <label>
-											<input type="checkbox" name="builder[layout][aside][right][display]" value="true">
-									        <span></span>
-									    </label>
-									</span>
-									<div class="m-form__help">Display right aside</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-10">
+									<div class="table-responsive">
+										<table id="tablaEstados" class="display" cellspacing="0" width="100%"></table>
+									</div>
 								</div>
+								<div class="col-md-1"></div>
 							</div>
 						</div>
 					</div>
@@ -204,6 +280,7 @@
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('consultas') }}" 
+	var rutaD = "{{ URL::route('detalles') }}" 
 	var d = [];
 	d['v_dtes'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
 </script>

@@ -15,6 +15,7 @@ use Session;
 use Mail;
 use Storage;
 use Exception;
+use Auth;
 
 
 class User extends Authenticatable
@@ -46,9 +47,26 @@ class User extends Authenticatable
         if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
             $result=$user[0]->idUser;
             // Guardar todo el menu del usuario en Session
-            Session::put('key', array(1,2,3,4,5));
+            // Session::put('key', array(1,2,3,4,5));
         }
         return $result;
+    }
+
+    public function buscarRoll(){
+        $usuario = Auth::user();
+        $result['idPerfil'] = $usuario->idPerfil;
+        $result['desPerfil'] = DB::table('v_usuarios')->where('idUser',$usuario->idUser)->value('des_perfil');
+        switch ($usuario->idPerfil) {
+            case 2:
+                $result['IdCliente']= DB::table('clientes_tienen_usuarios')
+                ->where('idUser',$usuario->idUser)->value('IdCliente');
+                break;
+            case 3:
+                $result['IdProveedor']= DB::table('proveedores_tienen_usuarios')
+                ->where('idUser',$usuario->idUser)->value('IdProveedor');
+                break;
+        }
+        Session::put('perfiles', $result);
     }
 
     public function listUsuario(){

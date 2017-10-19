@@ -12,6 +12,7 @@ use Redirect;
 use SerializesModels;
 use Log;
 use Auth;
+use Session;
 
 // Modelo
 use App\Models\Consulta;
@@ -38,4 +39,10 @@ class ConsultaController extends Controller
         return $result;
     }
     
+    protected function postBuscardetalle(Request $request){
+        $datos = $request->all();
+        $model= new Consulta();
+        $result = $model->BuscarDetalle($datos['IdDTE']);
+        return $result;
+    }
 }

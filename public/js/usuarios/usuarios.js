@@ -30,7 +30,7 @@ var ManejoRespuestaProcesar = function(respuesta){
         switch(res.code) {
             case '200':
                 mensajesAlerta('Procesado!',res.des_code, 'info');
-                destruirTablaS('tablaUsuarios');
+                destruirTabla('#tablaUsuarios');
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
                 $(".divForm").toggle();
                 $('#FormUsuario')[0].reset();
