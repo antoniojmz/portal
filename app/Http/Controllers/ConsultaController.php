@@ -27,8 +27,7 @@ class ConsultaController extends Controller
     protected function getConsultas(){
        $data['title'] = 'Consultas DTE';
        $model= new Consulta();
-       $id = Auth::id();
-       $data['v_dtes'] = $model->listDtes($id);
+       $data['v_dtes'] = $model->listDtes();
        return View::make('consultas.consultas',$data);
     }
 

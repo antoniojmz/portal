@@ -25,7 +25,7 @@ class Consulta extends Authenticatable
      * @var array
      */
 
-    public function listDtes($id){
+    public function listDtes(){
         $p = Session::get('perfiles');
         switch ($p['idPerfil']) {
             // Perfil administrador
@@ -40,6 +40,10 @@ class Consulta extends Authenticatable
             case 3:
                 $result = DB::table('v_dtes')->where('IdProveedor',$p['IdProveedor'])->get();
                 break;
+            default:
+                log::info("Se requieren permisos");
+                $result = "Se requieren permisos";
+            break;
         }
         return $result;
     }
@@ -75,8 +79,6 @@ class Consulta extends Authenticatable
             $pre3 .= "TipoDTE=".$d['SelectDTE'];
             $sql .= $pre3; 
         }
-        Log::info($sql);
-        Log::info("antes del case");
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
@@ -100,7 +102,6 @@ class Consulta extends Authenticatable
         return $result;
     }
     
-
     public function formatearFecha($d){
         $formato = explode("-", $d);
         $fecha = $formato[2]."-".$formato[1]."-".$formato[0];

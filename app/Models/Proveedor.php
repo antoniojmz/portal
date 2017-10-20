@@ -11,7 +11,7 @@ use Log;
 use DateTime;
 use Session;
 use Exception;
-
+use Auth;
 
 class Proveedor extends Authenticatable
 {
@@ -22,8 +22,70 @@ class Proveedor extends Authenticatable
      * @var array
      */
 
-    public function listProveedor($idCliente){
-        $result = DB::table('v_proveedores')->where('IdCliente',$idCliente)->get();
+    public function listProveedor(){
+        $idUser = Auth::id();
+        $p = Session::get('perfiles');
+        switch ($p['idPerfil']) {
+            // Perfil administrador
+            case 1:
+                $result = DB::table('v_proveedores_clientes')
+                ->select('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->groupBy('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->get();
+                break;
+            // Perfil Cliente
+            case 2:
+            $sql= "";
+                $result = DB::table('v_proveedores_clientes')
+                ->select('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->where('idUserCliente',$idUser)
+                ->groupBy('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->get();
+                break; 
+            // Perfil Proveedor
+            case 3:
+                $result = DB::table('v_proveedores_clientes')
+                ->select('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->where('idUserProveedor',$idUser)
+                ->groupBy('IdProveedor', 'RutProveedor', 'PersonaContacto', 'TelefonoContacto', 'DatosPago', 'EstadoProveedor')
+                ->get();
+                break; 
+            default:
+                log::info("Se requieren permisos");
+                $result = "Se requieren permisos";
+            break;
+        }
         return $result;
     }
+
+    
+    public function BuscarProveedor($d){
+        $idUser = Auth::id();
+        $var = 0;
+        $p = Session::get('perfiles');
+        $sql = "select IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor from v_proveedores_clientes where upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%' group by IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor";
+        switch ($p['idPerfil']){
+            // Perfil Cliente
+            case 2:
+                $sql .= " and idUserCliente=".$idUser;
+                break;
+            // Perfil Proveedor
+            case 3:
+                $sql .= " and idUserProveedor=".$idUser;
+                break;
+        }
+        return DB::select($sql);
+    }
+
+    public function BuscarDetalleP($id){
+    	$result['v_proveedor'] = DB::table('v_proveedores_clientes')
+                ->where('IdProveedor',$id)
+                ->limit(1)
+                ->get();
+        $result['v_dtes'] = DB::table('v_dtes')->where('IdProveedor',$id)->get();
+        $result['v_clientes_proveedores'] = DB::table('v_clientes_tienen_proveedores')->where('IdProveedor',$id)->get();
+        $result['v_proveedores_usuarios'] = DB::table('v_proveedores_tienen_usuarios')->where('IdProveedor',$id)->get();
+        return $result;	
+    }
+
 }

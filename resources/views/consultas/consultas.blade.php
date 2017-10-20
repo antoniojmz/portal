@@ -10,7 +10,6 @@
 			</div>
 		</div>
 		<div id="divForm" class="col-md-12 divForm">
-			<br />
 			{!! Form::open(['id'=>'FormConsultas',
 			'autocomplete' => 'off']) !!}
 			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
@@ -65,12 +64,11 @@
 						</span>
 			        </button>
 				</div>
-
 			</div>
 			{!! Form::close() !!}
 		</div>
 		<div id="divTabla">
-			<br />
+			<br /><br />
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
@@ -280,7 +278,7 @@
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('consultas') }}" 
-	var rutaD = "{{ URL::route('detalles') }}" 
+	var rutaD = "{{ URL::route('detallesDTE') }}" 
 	var d = [];
 	d['v_dtes'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
 </script>

@@ -125,6 +125,7 @@ var cargartablaReportes = function(data){
     if (data.length>0){
         $("#tablaReportes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "scrollX": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -152,6 +153,7 @@ var cargartablaReportes = function(data){
                     extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill',
+                    title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
                             page: 'current'
@@ -162,7 +164,7 @@ var cargartablaReportes = function(data){
                     extend: 'excel',
                     text: 'Exportar',
                     className: 'btn m-btn--pill',
-                    title:'Busqueda_DTEs',
+                    title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
                             page: 'current'
@@ -175,7 +177,7 @@ var cargartablaReportes = function(data){
                     className: 'btn m-btn--pill',
                     orientation:'landscape',
                     pageSize:'LETTER',
-                    title:'Busqueda_DTEs',
+                    title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
                             page: 'current',

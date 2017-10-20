@@ -21,13 +21,15 @@ Route::get('/home', 'HomeController@getIndex')->name('home');
 
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
-Route::post('/detalles', 'ConsultaController@postBuscardetalle')->name('detalles');
+Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
+
+Route::get('/proveedores', 'ProveedorController@getProveedores')->name('proveedores');
+Route::post('/proveedores', 'ProveedorController@postProveedores')->name('proveedores');
+Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->name('detallesProveedor');
 
 Route::get('/clientes', 'ClienteController@getClientes')->name('clientes');
 Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
 
-Route::get('/proveedores', 'ProveedorController@getProveedores')->name('proveedores');
-Route::post('/proveedores', 'ProveedorController@postProveedores')->name('proveedores');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Registro de usuarios

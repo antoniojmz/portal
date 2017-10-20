@@ -26,16 +26,21 @@ class ProveedorController extends Controller
     protected function getProveedores(){
         $data['title'] = 'Consulta de Proveedores';
         $model= new Proveedor();
-        $idCliente = Auth::id();
-        $data['v_proveedores'] = $model->listProveedor($idCliente);
+        $data['v_proveedores'] = $model->listProveedor();
         return View::make('proveedores.proveedores',$data);
     }
 
     protected function postProveedores(Request $request){
-        // $datos = $request->all();
-        // $model= new Cliente();
-        // $result = $model->BuscarUsuario($datos);
-        // return $result;
+        $datos = $request->all();
+        $model= new Proveedor();
+        $result = $model->BuscarProveedor($datos);
+        return $result;
     }
     
+    protected function postBuscardetalleP(Request $request){
+        $datos = $request->all();
+        $model= new Proveedor();
+        $result = $model->BuscarDetalleP($datos['IdProveedor']);
+        return $result;
+    } 
 }
