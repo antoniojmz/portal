@@ -46,9 +46,9 @@ var cargartablaDTE = function(data){
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
                 {"title": "Fecha de emisión","data": "FechaEmision"},
-                {"title": "Rut Proveedor","data": "RutProveedor"},
+                {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "Rut Cliente","data": "RutCliente"},
+                {"title": "RUT Cliente","data": "RutCliente"},
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Total DTE","data": "MontoExentoCLP"},
                 {"title": "Monto total OM","data": "MontoExentoOM"},
@@ -75,7 +75,7 @@ var cargartablaClientes = function(data){
             "columns":[
                 {"title": "IdCliente","data": "IdCliente",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
-                {"title": "Rut Cliente","data": "RutCliente"},
+                {"title": "RUT Cliente","data": "RutCliente"},
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Razon Social","data": "RazonSocial"}
             ],
@@ -112,7 +112,7 @@ var cargartablaUsuarios = function(data){
 var pintarDatos = function(data){
     if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
     if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
-    if(data.RazonSocial!=null){$("#RazonSocial").text(data.RazonSocial);}
+    if(data.RazonSocialProveedor!=null){$("#RazonSocialProveedor").text(data.RazonSocialProveedor);}
     if(data.NombreFantasia!=null){$("#NombreFantasia").text(data.NombreFantasia);}
     if(data.banco!=null){$("#banco").text(data.banco);}
     if(data.cuenta!=null){$("#cuenta").text(data.cuenta);}
@@ -211,10 +211,11 @@ var BotonVolver = function(){
 }
 
 $(document).ready(function(){
+    console.log(d);
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Listado de proveedores");
     cargartablaProveedores(d.v_proveedores);
-    crearcombo('#Selectcampo');
+    crearcombo('#Selectcampo',d.v_busq_proveedor);
     if (d.v_proveedores.length>0){    
         var tableB = $('#tablaProveedores').dataTable();
         $('#tablaProveedores tbody').on('click', 'tr', function (e) {

@@ -12,6 +12,7 @@ use Redirect;
 use SerializesModels;
 use Log;
 use Auth;
+use Session;
 
 // Modelo
 use App\Models\Proveedor;
@@ -25,8 +26,11 @@ class ProveedorController extends Controller
 
     protected function getProveedores(){
         $data['title'] = 'Consulta de Proveedores';
+        $p = Session::get('perfiles');
+        $data['idPerfil']=$p['idPerfil'];
         $model= new Proveedor();
         $data['v_proveedores'] = $model->listProveedor();
+        $data['v_busq_proveedor'] = $model->listBusquedaProveedor();
         return View::make('proveedores.proveedores',$data);
     }
 

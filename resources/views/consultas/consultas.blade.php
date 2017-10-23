@@ -25,24 +25,23 @@
 				</div>
 
 				<div class="col-md-6">
-					{{ Form::label('null', 'Tipo DTE:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-					<select class="comboclear form-control m-select2" name="SelectDTE" id="SelectDTE" style='width:100%;height:35px;'>
-						<option value="">Seleccione...</option>
-						<option value="34">34</option>
-					</select>						
+					<br>
+					{!! Field::select('SelectDTE', null, null,
+					[ 'label' => 'Tipo DTE:', 
+					'style' => 'width:100%;height:35px;',
+					'placeholder' => 'Seleccione...',
+					'class' => 'comboclear form-control m-select2']) !!}					
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-5">
-					{{ Form::label('null', 'Tipo de busqueda:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-					<select class="comboclear form-control m-select2" name="Selectcampo" id="Selectcampo" style='width:100%;height:35px;'>
-						<option value="">Seleccione...</option>
-						<option value="FolioDTE">Folio de referencia</option>
-						<option value="EstadoActualDTE">Estado DTE</option>
-						<option value="NombreCliente">Nombre de cliente</option>
-						<option value="NombreProveedor">Nombre de proveedor</option>
-					</select>						
+					<br>
+					{!! Field::select('Selectcampo', null, null,
+					[ 'label' => 'Tipo de busqueda:', 
+					'style' => 'width:100%;height:35px;',
+					'placeholder' => 'Seleccione...',
+					'class' => 'comboclear form-control m-select2']) !!}					
 				</div>
 
 				<div class="col-md-5">
@@ -114,13 +113,20 @@
 						
 						<!-- tab de cabecera -->
 						<div class="tab-pane active" id="m_builder_page" aria-expanded="true">
+
+							<div class="col-md-12">
+								<center>
+									<span class="spanSubTitulo">Datos DTE</span>
+								</center>
+								<hr>
+							</div>
 							
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Tipo DTE:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="TipoDTE" class="form-control span"></span>
 								</div>
-								<label class="col-lg-2 col-form-label">Folio Dte:</label>
+								<label class="col-lg-2 col-form-label">Folio DTE:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="FolioDTE" class="form-control span"></span>
 								</div>
@@ -137,6 +143,14 @@
 								</div>
 							</div>
 
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos Cliente</span>
+								</center>
+								<hr>
+							</div>
+
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">RUT Cliente:</label>
 								<div class="col-lg-4 col-xl-4">
@@ -146,7 +160,15 @@
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreCliente" class="form-control span"></span>
 								</div>
-							</div>							
+							</div>	
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos Proveedor</span>
+								</center>
+								<hr>
+							</div>						
 						
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
@@ -157,6 +179,14 @@
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreProveedor" class="form-control span"></span>
 								</div>
+							</div>
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Montos</span>
+								</center>
+								<hr>
 							</div>
 
 							<div class="form-group m-form__group row">
@@ -201,7 +231,15 @@
 								<div class="col-lg-4 col-xl-4">
 									<span id="MontoTotalOM" class="form-control span"></span>
 								</div>
-							</div>		
+							</div>	
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Estado Actual DTE</span>
+								</center>
+								<hr>
+							</div>	
 
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Estado Actual DTE:</label>
@@ -281,6 +319,8 @@
 	var rutaD = "{{ URL::route('detallesDTE') }}" 
 	var d = [];
 	d['v_dtes'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
+	d['v_busq_consulta'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_busq_consulta) }}'));
+	d['v_tipo_dte'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_tipo_dte) }}'));
 </script>
 <script src="{{ asset('js/consultas/consultas.js') }}"></script>
 @endsection

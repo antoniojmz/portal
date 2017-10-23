@@ -12,6 +12,7 @@ use Redirect;
 use SerializesModels;
 use Log;
 use Auth;
+use Session;
 
 // Modelo
 use App\Models\Cliente;
@@ -25,17 +26,25 @@ class ClienteController extends Controller
 
     protected function getClientes(){
         $data['title'] = 'Consulta de Clientes';
+        $p = Session::get('perfiles');
+        $data['idPerfil']=$p['idPerfil'];
         $model= new Cliente();
-        $idUser = Auth::id();
-        $data['v_clientes'] = $model->listCliente($idUser);
+        $data['v_clientes'] = $model->listCliente();
+        $data['v_busq_cliente'] = $model->listBusquedaCliente();
         return View::make('clientes.clientes',$data);
     }
 
     protected function postClientes(Request $request){
-        // $datos = $request->all();
-        // $model= new Cliente();
-        // $result = $model->BuscarUsuario($datos);
-        // return $result;
+        $datos = $request->all();
+        $model= new Cliente();
+        $result = $model->BuscarCliente($datos);
+        return $result;
     }
     
+    protected function postBuscardetalleC(Request $request){
+        $datos = $request->all();
+        $model= new Cliente();
+        $result = $model->BuscarDetalleC($datos['IdCliente']);
+        return $result;
+    } 
 }

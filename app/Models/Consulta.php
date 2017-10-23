@@ -48,6 +48,14 @@ class Consulta extends Authenticatable
         return $result;
     }
 
+    public function listBusquedaDte(){
+        return DB::table('v_busq_consulta')->get();
+    }
+    
+    public function listTipoDTE(){
+        return DB::table('v_tipo_dte')->get();
+    }
+
     public function BuscarDtes($d){
         $var = 0;
         $p = Session::get('perfiles');
@@ -95,7 +103,6 @@ class Consulta extends Authenticatable
     }
 
     public function BuscarDetalle($id){
-        log::info($id);
         $result['v_dte_detalles'] = DB::table('v_dte_detalles')->where('IdDTE',$id)->get();
         $result['v_dte_estados'] = DB::table('v_dte_estados')->where('IdDTE',$id)->get();
         $result['v_dte_referencias'] = DB::table('v_dte_referencias')->where('IdDTE',$id)->get();

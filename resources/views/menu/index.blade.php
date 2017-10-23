@@ -9,6 +9,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- CSRF Token -->
     	<meta name="csrf-token" content="{{ csrf_token() }}">
+    	<!--Begin::Web font -->
+		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+		<script language="JavaScript" type="text/javascript">
+			WebFont.load({
+				google: {"families":["Montserrat:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+				active: function() {
+			    	sessionStorage.fonts = true;
+				}
+			});
+    		var v_salir = 0;
+			var salir = "{{ URL::route('logout') }}";
+		</script>
+		<!--end::Web font -->
 		<!-- ////////////////////////////////////////////////////////////////////////////// -->
     	<!-- begin::Base Styles -->
     	<!-- ////////////////////////////////////////////////////////////////////////////// -->
@@ -24,7 +37,6 @@
     	{!! Html::style('plugins/jquery-easyui/themes/icon.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
     	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
-
     	{!! Html::style('plugins/DataTables-1.10.10/extensions/Buttons/css/buttons.dataTables.min.css') !!}
 
     	<style TYPE="text/css">
@@ -44,6 +56,9 @@
         	} 
         	#spanTitulo{
         		font-size: 150%;
+        	}
+        	.spanSubTitulo{
+        		font-size: 120%;
         	}
         	.spanDisable{
         		background-color: #F4F5F8;
@@ -71,6 +86,7 @@
 		{{ HTML::script('plugins/validator/formValidation.min.js') }}
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
 		{{ HTML::script('plugins/validator/es_ES.js') }}
+		{{ HTML::script('plugins/jquery.maskedinput/dist/jquery.maskedinput.min.js') }}
 		{{ HTML::script('plugins/BlockUI/jquery.blockUI.js') }}
 		{{ HTML::script('js/index/index.js') }}
 
@@ -82,23 +98,15 @@
 		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
-
-
-		<!--Begin::Web font -->
-		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-		<script>
-          WebFont.load({
-            google: {"families":["Montserrat:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-		</script>
-		<!--end::Web font -->
 	</head>
 	<!-- end::Head -->
-	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		<!-- begin:: Page -->
+		<form id="formLogout" method="POST" style="display: none;">
+			{{ csrf_field() }}
+		</form>
+
+
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 			<!-- BEGIN: Header -->
 			@include('menu.menu_superior')
@@ -132,19 +140,8 @@
 		</div>
 		<!-- end::Scroll Top -->
 		<!-- begin::Quick Nav -->
-		<ul class="m-nav-sticky" style="margin-top: 30px;">
-			<!--
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Showcase" data-placement="left">
-				<a href="">
-					<i class="la la-eye"></i>
-				</a>
-			</li>
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Pre-sale Chat" data-placement="left">
-				<a href="" >
-					<i class="la la-comments-o"></i>
-				</a>
-			</li>
-			-->
+		<!-- Barra de herramientas pequeña al lado derecho -->
+<!-- 		<ul class="m-nav-sticky" style="margin-top: 30px;">
 			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Purchase" data-placement="left">
 				<a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" target="_blank">
 					<i class="la la-cart-arrow-down"></i>
@@ -160,7 +157,7 @@
 					<i class="la la-life-ring"></i>
 				</a>
 			</li>
-		</ul>
+		</ul> -->
 		<!-- begin::Quick Nav -->
 	</body>
 	<!-- end::Body -->

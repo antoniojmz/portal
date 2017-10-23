@@ -138,9 +138,9 @@ var cargartablaReportes = function(data){
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
                 {"title": "Fecha de emisión","data": "FechaEmision"},
-                {"title": "Rut Proveedor","data": "RutProveedor"},
+                {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "Rut Cliente","data": "RutCliente"},
+                {"title": "RUT Cliente","data": "RutCliente"},
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Total DTE","data": "MontoExentoCLP"},
                 {"title": "Monto total OM","data": "MontoExentoOM"},
@@ -220,13 +220,17 @@ var BotonVolver = function(){
     $(".span").text("Desconocido");
 }
 
+var crearAllcombos = function(d){
+    crearcombo('#Selectcampo',d.v_busq_consulta);
+    crearcombo('#SelectDTE',d.v_tipo_dte);
+}
+
 var cal1 = function (){$("#fecha").click();};
 $(document).ready(function(){
     cargartablaReportes(d.v_dtes)
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Consultas DTE");
-    crearcombo('#Selectcampo');
-    crearcombo('#SelectDTE');
+    crearAllcombos(d)
     $('#fecha').daterangepicker({}, function(start, end, label) {
         $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desde').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));

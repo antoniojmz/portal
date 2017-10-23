@@ -29,7 +29,7 @@ Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->nam
 
 Route::get('/clientes', 'ClienteController@getClientes')->name('clientes');
 Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
-
+Route::post('/detallesCliente', 'ClienteController@postBuscardetalleC')->name('detallesCliente');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Registro de usuarios

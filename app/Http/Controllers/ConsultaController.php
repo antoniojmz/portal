@@ -25,10 +25,12 @@ class ConsultaController extends Controller
     }
 
     protected function getConsultas(){
-       $data['title'] = 'Consultas DTE';
-       $model= new Consulta();
-       $data['v_dtes'] = $model->listDtes();
-       return View::make('consultas.consultas',$data);
+        $data['title'] = 'Consultas DTE';
+        $model= new Consulta();
+        $data['v_dtes'] = $model->listDtes();
+        $data['v_busq_consulta'] = $model->listBusquedaDte();
+        $data['v_tipo_dte'] = $model->listTipoDTE();
+        return View::make('consultas.consultas',$data);
     }
 
     protected function postConsultas(Request $request){

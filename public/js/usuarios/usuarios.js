@@ -148,6 +148,7 @@ var validador = function(){
 };
 
 $(document).ready(function(){
+    $("#usrUserName").mask("99999999-*");
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);
     var tableB = $('#tablaUsuarios').dataTable();

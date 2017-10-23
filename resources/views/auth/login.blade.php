@@ -44,7 +44,7 @@
                             <form class="form-horizontal m-login__form m-form" method="POST" action="">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('usrUserName') ? ' has-error' : '' }} m-form__group">
-                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="Login" value="25834147-3" maxlength="10" autofocus required>
+                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="RUT" maxlength="10" autofocus required>
                                 </div>
 
                                 <div class="form-group{{ $errors->has('usrPassword') ? ' has-error' : '' }} m-form__group">
@@ -134,7 +134,7 @@
                             <form class="form-horizontal m-login__form m-form" method="POST" action="">
                                 {{ csrf_field() }}
                                 <div class="form-group m-form__group">
-                                    <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" value="antojmz@gmail.com" autocomplete="off">
+                                    <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
                                 </div>
                                 <div class="m-login__form-action">
                                     <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">

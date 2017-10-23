@@ -46,13 +46,11 @@ class LoginController extends Controller
      * @return void
      */
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm()
-    {
+    public function showLoginForm(){
         return view('auth.login');
     }
 
@@ -77,8 +75,7 @@ class LoginController extends Controller
             return '{"code":"-2","des_code":"Debe ingresar valores correctos"}';
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request){
         $idUser = Auth::id();
         $model= new User();
         $result = $model->registrarVisita($idUser);

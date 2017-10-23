@@ -5,7 +5,7 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" data-menu-dropdown="true" data-menu-scrollable="true" data-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 			<li class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-				<a  href='/home');" class="m-menu__link ">
+				<a  href='/home' class="m-menu__link ">
 					<span class="m-menu__item-here"></span>
 					<i class="m-menu__link-icon flaticon-dashboard"></i>
 					<span class="m-menu__link-text">
@@ -30,7 +30,7 @@
 					<span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
 						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("clientes") !!}' class="m-menu__link ">
+							<a href='{!! URL::route("clientes") !!}' class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
@@ -113,7 +113,7 @@
 					<span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
 						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link ">
+							<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>

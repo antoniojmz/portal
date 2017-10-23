@@ -15,13 +15,12 @@
 			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 			<div class="row">
 				<div class="col-md-5">
-					{{ Form::label('null', 'Tipo de busqueda:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-					<select class="comboclear form-control m-select2" name="Selectcampo" id="Selectcampo" style='width:100%;height:35px;'>
-						<option value="">Seleccione...</option>
-						<option value="RutProveedor">Rut Proveedor</option>
-						<option value="RazonSocialProveedor">Razón Social Proveedor</option>
-						<option value="NombreFantasia">Nombre Fantasía</option>
-					</select>						
+					<br>
+					{!! Field::select('Selectcampo', null, null,
+					[ 'label' => 'Tipo de busqueda:', 
+					'style' => 'width:100%;height:35px;',
+					'placeholder' => 'Seleccione...',
+					'class' => 'comboclear form-control m-select2']) !!}						
 				</div>
 
 				<div class="col-md-5">
@@ -34,7 +33,8 @@
 	                    'style'         => 'width:100%;height:35px',
 	                    'maxlength'     => '50'])!!}
 				</div>
-
+				 
+				
 				<div class="col-md-2">
 					<button style="float:right;margin: 45px 0px 0px 0px;" name="consultar" id="consultar" class="btn m-btn--pill btn-primary" type="button">
 						<span>
@@ -72,17 +72,19 @@
 							<a class="nav-link m-tabs__link " data-toggle="tab" href="#m_builder_header" role="tab" aria-expanded="false">
 								Listado DTE
 							</a>
-						</li>
-						<li class="nav-item m-tabs__item">
-							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside" role="tab" aria-expanded="false">
-								Listado Clientes
-							</a>
-						</li>
-						<li class="nav-item m-tabs__item">
-							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_right_aside" role="tab" aria-expanded="false">
-								Listado Usuarios
-							</a>
-						</li>
+						</li>						
+						@if ($idPerfil!=2)
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside" role="tab" aria-expanded="false">
+									Listado Clientes
+								</a>
+							</li>
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_right_aside" role="tab" aria-expanded="false">
+									Listado Usuarios
+								</a>
+							</li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -93,13 +95,19 @@
 					<div class="tab-content">
 						<!-- tab de cabecera -->
 						<div class="tab-pane active" id="m_builder_page" aria-expanded="true">
+							<div class="col-md-12">
+								<center>
+									<span class="spanSubTitulo">Datos Proveedor</span>
+								</center>
+								<hr>
+							</div>
 							
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreProveedor" class="form-control span"></span>
 								</div>
-								<label class="col-lg-2 col-form-label">Rut Proveedor:</label>
+								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="RutProveedor" class="form-control span"></span>
 								</div>
@@ -108,12 +116,20 @@
 							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Razon Social:</label>
 								<div class="col-lg-4 col-xl-4">
-									<span id="RazonSocial" class="form-control span"></span>
+									<span id="RazonSocialProveedor" class="form-control span"></span>
 								</div>
 								<label class="col-lg-2 col-form-label">Nombre Fantasia:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreFantasia" class="form-control span"></span>
 								</div>
+							</div>
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos Bancarios</span>
+								</center>
+								<hr>
 							</div>
 
 							<div class="form-group m-form__group row">
@@ -136,6 +152,14 @@
 								<div class="col-lg-4 col-xl-4">
 									<span id="sucursal" class="form-control span"></span>
 								</div>
+							</div>
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos de Contacto</span>
+								</center>
+								<hr>
 							</div>
 
 							<div class="form-group m-form__group row">
@@ -163,32 +187,33 @@
 								<div class="col-md-1"></div>
 							</div>
 						</div>
-
-						<!-- tab de Referencias -->
-						<div class="tab-pane" id="m_builder_left_aside" aria-expanded="false">
-							<div class="row">
-								<div class="col-md-1"></div>
-								<div class="col-md-10">
-									<div class="table-responsive">
-										<table id="tablaClientes" class="display" cellspacing="0" width="100%"></table>
+						@if ($idPerfil!=2)
+							<!-- tab de Referencias -->
+							<div class="tab-pane" id="m_builder_left_aside" aria-expanded="false">
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-10">
+										<div class="table-responsive">
+											<table id="tablaClientes" class="display" cellspacing="0" width="100%"></table>
+										</div>
 									</div>
+									<div class="col-md-1"></div>
 								</div>
-								<div class="col-md-1"></div>
 							</div>
-						</div>
 
-						<!-- tab de Estados -->
-						<div class="tab-pane" id="m_builder_right_aside" aria-expanded="false">
-							<div class="row">
-								<div class="col-md-1"></div>
-								<div class="col-md-10">
-									<div class="table-responsive">
-										<table id="tablaUsuarios" class="display" cellspacing="0" width="100%"></table>
+							<!-- tab de Estados -->
+							<div class="tab-pane" id="m_builder_right_aside" aria-expanded="false">
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-10">
+										<div class="table-responsive">
+											<table id="tablaUsuarios" class="display" cellspacing="0" width="100%"></table>
+										</div>
 									</div>
+									<div class="col-md-1"></div>
 								</div>
-								<div class="col-md-1"></div>
 							</div>
-						</div>
+						@endif
 					</div>
 				</div>
 				<div class="m-portlet__foot m-portlet__foot--fit">
@@ -217,6 +242,7 @@
 	var rutaD = "{{ URL::route('detallesProveedor') }}" 
 	var d = [];
 	d['v_proveedores'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores) }}'));
+	d['v_busq_proveedor'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_busq_proveedor) }}'));
 </script>
 <script src="{{ asset('js/proveedores/proveedores.js') }}"></script>
 @endsection

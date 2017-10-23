@@ -14,6 +14,8 @@
     	<!--begin::Base Scripts -->
 		{{ HTML::script('theme/dist/html/default/assets/vendors/base/vendors.bundle.js') }}
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/base/scripts.bundle.js') }}
+		{{ HTML::script('plugins/jquery.maskedinput/dist/jquery.maskedinput.min.js') }}
+
 		<!--end::Base Scripts -->
 		<!--begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>

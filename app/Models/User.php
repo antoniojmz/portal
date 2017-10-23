@@ -85,7 +85,6 @@ class User extends Authenticatable
     public function regUsuario($datos){
         $datos['idUser']==null ? $idUser=0 : $idUser= $datos['idUser'];
         $pass = substr($datos['usrUserName'], 0,6);
-        log::info("Mi pass de inicio es: ".$pass);
         $usrPassword=bcrypt($pass);
         $pusrPassInit=md5($pass);
         $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['idPerfil'].",".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."')";
@@ -141,8 +140,6 @@ class User extends Authenticatable
             DB::rollback();
             $result=$e;
         }
-        Log::info("Este es el result");
-        Log::info($result);
         return $result;
     }
 
@@ -186,7 +183,6 @@ class User extends Authenticatable
         }
         $pass=$this->generarPassword();
         $Password=bcrypt($pass);
-        Log::info("Mi nuevo password: ".$pass);
         try{
             DB::beginTransaction();
             $result=DB::table('usuarios')

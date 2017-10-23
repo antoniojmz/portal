@@ -104,6 +104,9 @@ var SnippetLogin = function() {
                             required: !0,
                             email: !0
                         }
+                    },
+                    messages:{
+                        'email': "Se requiere este campo."
                     }
                 }), n.valid() && (r.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), n.ajaxSubmit({
                     url: "/admin/recuperar",
@@ -132,4 +135,5 @@ var SnippetLogin = function() {
 }();
 jQuery(document).ready(function() {
     SnippetLogin.init()
+    $("#usrUserName").mask("99999999-*");
 });

@@ -106,7 +106,6 @@ class UsuarioController extends Controller
 
     protected function postEliminarfoto (Request $request){
         $datos = $request->all();
-        Log::info($datos);
         if ($datos['usrUrlimage']<>null){
             $array= explode('/', $datos['usrUrlimage']);
             Storage::disk($array[1])->delete($array[2]);

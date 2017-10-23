@@ -58,22 +58,26 @@ class Proveedor extends Authenticatable
         return $result;
     }
 
-    
+    public function listBusquedaProveedor(){
+        return DB::table('v_busq_proveedor')->get();
+    }
+
     public function BuscarProveedor($d){
         $idUser = Auth::id();
         $var = 0;
         $p = Session::get('perfiles');
-        $sql = "select IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor from v_proveedores_clientes where upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%' group by IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor";
+        $sql = "select IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor from v_proveedores_clientes where upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%' ";
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
-                $sql .= " and idUserCliente=".$idUser;
+                $sql .= "and idUserCliente=".$idUser;
                 break;
             // Perfil Proveedor
             case 3:
-                $sql .= " and idUserProveedor=".$idUser;
+                $sql .= "and idUserProveedor=".$idUser;
                 break;
         }
+        $sql .=" group by IdProveedor, RutProveedor, PersonaContacto, TelefonoContacto, DatosPago, EstadoProveedor";
         return DB::select($sql);
     }
 
