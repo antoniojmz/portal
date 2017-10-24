@@ -52,7 +52,7 @@
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 							<span class="m-menu__link-text">
 								@if (strlen($data['desPerfil'])>1)
-									Perfíl: {{$data['desPerfil']}}
+									{{$data['desPerfil']}}
 								@endif
 							</span>
 						</li>
@@ -60,7 +60,7 @@
 							<span class="m-menu__link-text">
 							@if ($data['idPerfil']!=1)
 								@if (strlen($data['v_detalle'][0]->NombreEmpresa)>1)
-									Empresa: {{$data['v_detalle'][0]->NombreEmpresa}}
+									{{$data['v_detalle'][0]->NombreEmpresa}}
 								@endif
 							@endif
 							</span>

@@ -4,9 +4,9 @@
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
         <div class="mr-auto">
-            <h5 class="m-subheader__title ">
+            <div class="m-subheader__title ">
                 Bienvenido a tu Portal de Proveedores
-            </h5>
+            </div>
         </div>
         <div>
             <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
