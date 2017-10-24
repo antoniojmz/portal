@@ -28,17 +28,17 @@ class Consulta extends Authenticatable
     public function listDtes(){
         $p = Session::get('perfiles');
         switch ($p['idPerfil']) {
-            // Perfil administrador
+            // Perfil ad[ministrador]
             case 1:
                 $result = DB::table('v_dtes')->get();
                 break;
             // Perfil Cliente
             case 2:
-                $result = DB::table('v_dtes')->where('IdCliente',$p['IdCliente'])->get();
+                $result = DB::table('v_dtes')->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
                 break;
             // Perfil Proveedor
             case 3:
-                $result = DB::table('v_dtes')->where('IdProveedor',$p['IdProveedor'])->get();
+                $result = DB::table('v_dtes')->where('IdProveedor',$p['v_detalle'][0]->IdProveedor)->get();
                 break;
             default:
                 log::info("Se requieren permisos");
@@ -90,12 +90,12 @@ class Consulta extends Authenticatable
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
-                $pre4 = " and IdCliente=".$p['IdCliente'];
+                $pre4 = " and IdCliente=".$p['v_detalle'][0]->IdCliente;
                 $sql .= $pre4;
                 break;
             // Perfil Proveedor
             case 3:
-                $pre4 = " and IdProveedor=".$p['IdProveedor'];
+                $pre4 = " and IdProveedor=".$p['v_detalle'][0]->IdProveedor;
                 $sql .= $pre4;
                 break;
         }

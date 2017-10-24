@@ -57,13 +57,17 @@ class User extends Authenticatable
         $result['idPerfil'] = $usuario->idPerfil;
         $result['desPerfil'] = DB::table('v_usuarios')->where('idUser',$usuario->idUser)->value('des_perfil');
         switch ($usuario->idPerfil) {
+            case 1:
+                $result['v_detalle']=DB::table('v_usuarios')
+                ->where('idUser',$usuario->idUser)->get();
+                break;
             case 2:
-                $result['IdCliente']= DB::table('clientes_tienen_usuarios')
-                ->where('idUser',$usuario->idUser)->value('IdCliente');
+                $result['v_detalle']= DB::table('v_clientes_tienen_usuarios')
+                ->where('idUser',$usuario->idUser)->get();
                 break;
             case 3:
-                $result['IdProveedor']= DB::table('proveedores_tienen_usuarios')
-                ->where('idUser',$usuario->idUser)->value('IdProveedor');
+                $result['v_detalle']= DB::table('v_proveedores_tienen_usuarios')
+                ->where('idUser',$usuario->idUser)->get();
                 break;
         }
         Session::put('perfiles', $result);

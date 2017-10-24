@@ -25,20 +25,15 @@
 		<!-- ////////////////////////////////////////////////////////////////////////////// -->
     	<!-- begin::Base Styles -->
     	<!-- ////////////////////////////////////////////////////////////////////////////// -->
-    	<link rel="icon" href="{!! asset('theme/dist/html/demo3media/img/logo/favicon.ico') !!}"/>
     	{!! Html::style('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/demo3/assets/demo/demo3/base/style.bundle.css') !!}
     	<!-- Estilos Plugins -->
     	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
-		<!-- Waitme:: para bloquear los div mientras se ejecuta un ajax -->
-    	{!! Html::style('plugins/waitme/waitMe.min.css') !!}
     	{!! Html::style('plugins/jquery-easyui/themes/gray/easyui.css') !!}
     	{!! Html::style('plugins/jquery-easyui/themes/icon.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
-    	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
-    	{!! Html::style('plugins/DataTables-1.10.10/extensions/Buttons/css/buttons.dataTables.min.css') !!}
-
+    	{!! Html::style('plugins/DataTables-1.10.10/buttons.dataTables.min.css') !!}
     	<style TYPE="text/css">
 	    	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
 	    		margin-top:-1.0rem;
@@ -71,14 +66,17 @@
 		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
 		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
     	<!-- Scritp Plugins -->
-		{{ HTML::script('js/utils/utils.js') }}
+    	<!-- data table -->
 		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.min.js') }}
-		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
-		{{ HTML::script('plugins/eonasdan-bootstrap-datetimepicker/node_modules/moment/moment.min.js') }}
-		{{ HTML::script('plugins/eonasdan-bootstrap-datetimepicker/node_modules/moment/locale/es.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/dataTables.buttons.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/jszip.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/pdfmake.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
+
     	<!-- date-range-picker -->
-		{{ HTML::script('plugins/daterangepicker/moment.min.js') }}
-		{{ HTML::script('plugins/daterangepicker/moment-with-locales.min.js') }}
+		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
 		{{ HTML::script('plugins/daterangepicker/daterangepicker.js') }}
 		{{ HTML::script('plugins/jquery-easyui/jquery.easyui.min.js') }}
 		{{ HTML::script('plugins/jquery-easyui/locale/easyui-lang-es.min.js') }}
@@ -88,16 +86,8 @@
 		{{ HTML::script('plugins/validator/es_ES.js') }}
 		{{ HTML::script('plugins/jquery.maskedinput/dist/jquery.maskedinput.min.js') }}
 		{{ HTML::script('plugins/BlockUI/jquery.blockUI.js') }}
+		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
-
-		{{ HTML::script('plugins/DataTables-1.10.10/extensions/Buttons/js/dataTables.buttons.min.js') }}
-
-		{{ HTML::script('plugins/DataTables-1.10.10/dataTables.buttons.min.js') }}
-		{{ HTML::script('plugins/DataTables-1.10.10/jszip.min.js') }}
-		{{ HTML::script('plugins/DataTables-1.10.10/pdfmake.min.js') }}
-		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
-		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
-		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
 	</head>
 	<!-- end::Head -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">

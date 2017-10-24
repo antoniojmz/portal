@@ -1,1 +1,0 @@
-<?php Page::getGlobalPartialView('snippets/user-profile');?>

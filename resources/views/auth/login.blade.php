@@ -153,6 +153,6 @@
         <!-- end:: Page -->
     </div>
     <!--begin::Page Snippets -->
-    <script type="text/javascript" src="{{ URL::asset('theme/dist/html/default/assets/snippets/pages/user/login.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/login/login.js') }}"></script>
     <!--end::Page Snippets -->
 @endsection
