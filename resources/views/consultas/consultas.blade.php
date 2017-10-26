@@ -133,13 +133,32 @@
 							</div>
 
 							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">Fecha Recepción:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="FechaRecepcion" class="form-control span"></span>
-								</div>
 								<label class="col-lg-2 col-form-label">Fecha Emisión:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="FechaEmision" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Fecha Recepción Cliente:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="FechaRecepcion" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos Proveedor</span>
+								</center>
+								<hr>
+							</div>						
+						
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="RutProveedor" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="NombreProveedor" class="form-control span"></span>
 								</div>
 							</div>
 
@@ -162,24 +181,6 @@
 								</div>
 							</div>	
 
-							<div class="col-md-12">
-								<br>
-								<center>
-									<span class="spanSubTitulo">Datos Proveedor</span>
-								</center>
-								<hr>
-							</div>						
-						
-							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="RutProveedor" class="form-control span"></span>
-								</div>
-								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="NombreProveedor" class="form-control span"></span>
-								</div>
-							</div>
 
 							<div class="col-md-12">
 								<br>
@@ -211,28 +212,6 @@
 								</div>
 							</div>	
 							
-							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">Monto Neto OM:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="MontoNetoOM" class="form-control span"></span>
-								</div>
-								<label class="col-lg-2 col-form-label">Monto Exento OM:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="MontoExentoOM" class="form-control span"></span>
-								</div>
-							</div>
-
-							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">Monto IVA OM:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="MontoIVAOM" class="form-control span"></span>
-								</div>
-								<label class="col-lg-2 col-form-label">Monto Total OM:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="MontoTotalOM" class="form-control span"></span>
-								</div>
-							</div>	
-
 							<div class="col-md-12">
 								<br>
 								<center>

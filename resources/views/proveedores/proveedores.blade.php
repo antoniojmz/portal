@@ -103,24 +103,65 @@
 							</div>
 							
 							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
+								<label class="col-lg-2 col-form-label">ID Proveedor SAP:</label>
 								<div class="col-lg-4 col-xl-4">
-									<span id="NombreProveedor" class="form-control span"></span>
+									<span id="IdProveedorSAP" class="form-control span"></span>
 								</div>
 								<label class="col-lg-2 col-form-label">RUT Proveedor:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="RutProveedor" class="form-control span"></span>
 								</div>
 							</div>
-    
+
 							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Nombre Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="NombreProveedor" class="form-control span"></span>
+								</div>
 								<label class="col-lg-2 col-form-label">Razon Social:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="RazonSocialProveedor" class="form-control span"></span>
 								</div>
+							</div>
+    
+							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Nombre Fantasia:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreFantasia" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Giro:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="Giro" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<br>
+								<center>
+									<span class="spanSubTitulo">Datos de Contacto</span>
+								</center>
+								<hr>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Persona Contacto:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="PersonaContacto" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Teléfono Contacto:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="TelefonoContacto" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Teléfono Proveedor:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="TelefonoProveedor" class="form-control span"></span>
+								</div>
+								<label class="col-lg-2 col-form-label">Correo Electrónico:</label>
+								<div class="col-lg-4 col-xl-4">
+									<span id="CorreoElectronico" class="form-control span"></span>
 								</div>
 							</div>
 
@@ -151,25 +192,6 @@
 								<label class="col-lg-2 col-form-label">Sucursal:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="sucursal" class="form-control span"></span>
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<br>
-								<center>
-									<span class="spanSubTitulo">Datos de Contacto</span>
-								</center>
-								<hr>
-							</div>
-
-							<div class="form-group m-form__group row">
-								<label class="col-lg-2 col-form-label">Persona Contacto:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="PersonaContacto" class="form-control span"></span>
-								</div>
-								<label class="col-lg-2 col-form-label">Teléfono Contacto:</label>
-								<div class="col-lg-4 col-xl-4">
-									<span id="TelefonoContacto" class="form-control span"></span>
 								</div>
 							</div>
 										

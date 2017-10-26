@@ -2,6 +2,25 @@ var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
 var cambiarSalir = function(){
 	v_salir = 1;
 }
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
 $(document).ready(function() {
 	window.onbeforeunload = function (e) {
     	if (v_salir == 0){
@@ -19,21 +38,15 @@ $(document).ready(function() {
     	v_salir = 0;
     }
     $(document).ajaxStart(function (){
-		$.blockUI({ 
-			message:'<h6>Cargando...</h6>',
-			css: { 
-	            border: 'none', 
-	            padding: '15px', 
-	            backgroundColor: '#000', 
-	            '-webkit-border-radius': '10px', 
-	            '-moz-border-radius': '10px', 
-	            opacity: .5, 
-	            color: '#fff' 
-		        } 
-	    }); 
+        mApp.blockPage({
+	        overlayColor: "#000000",
+	        type: "loader",
+	        state: "success",
+	        message: "Please wait..."
+        })
 	});
 	$(document).ajaxStop(function() {
-		setTimeout($.unblockUI, 0); 
+		mApp.unblockPage();	 
 	}); 
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);

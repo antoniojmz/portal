@@ -62,11 +62,11 @@ class User extends Authenticatable
                 ->where('idUser',$usuario->idUser)->get();
                 break;
             case 2:
-                $result['v_detalle']= DB::table('v_clientes_tienen_usuarios')
+                $result['v_detalle']= DB::table('v_clientes')
                 ->where('idUser',$usuario->idUser)->get();
                 break;
             case 3:
-                $result['v_detalle']= DB::table('v_proveedores_tienen_usuarios')
+                $result['v_detalle']= DB::table('v_proveedores')
                 ->where('idUser',$usuario->idUser)->get();
                 break;
         }

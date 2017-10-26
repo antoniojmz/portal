@@ -12,7 +12,7 @@ var ManejoRespuestaC = function(respuesta){
     if (respuesta.code = '200'){
         cargartablaProveedores(respuesta.respuesta);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
 }
 
@@ -23,7 +23,7 @@ var ManejoRespuestaD = function(respuesta){
             cargartablaClientes(respuesta.respuesta.v_clientes_proveedores);
             cargartablaUsuarios(respuesta.respuesta.v_proveedores_usuarios);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");        
     };
 }
 
@@ -110,22 +110,29 @@ var cargartablaUsuarios = function(data){
 }
 
 var pintarDatos = function(data){
-    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
+    console.log(data);
+    if(data.IdProveedorSAP!=null){$("#IdProveedorSAP").text(data.IdProveedorSAP);}
     if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
+    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
     if(data.RazonSocialProveedor!=null){$("#RazonSocialProveedor").text(data.RazonSocialProveedor);}
     if(data.NombreFantasia!=null){$("#NombreFantasia").text(data.NombreFantasia);}
-    if(data.banco!=null){$("#banco").text(data.banco);}
-    if(data.cuenta!=null){$("#cuenta").text(data.cuenta);}
-    if(data.RutTitular!=null){$("#RutTitular").text(data.RutTitular);}
-    if(data.sucursal!=null){$("#sucursal").text(data.sucursal);}
+    if(data.Giro!=null){$("#Giro").text(data.Giro);}
     if(data.PersonaContacto!=null){$("#PersonaContacto").text(data.PersonaContacto);}
     if(data.TelefonoContacto!=null){$("#TelefonoContacto").text(data.TelefonoContacto);}
+    if(data.TelefonoProveedor!=null){$("#TelefonoProveedor").text(data.TelefonoProveedor);}
+    if(data.CorreoElectronico!=null){$("#CorreoElectronico").text(data.CorreoElectronico);}
+    if(data.banco!=null){$("#banco").text(data.banco);}
+    if(data.Cuenta!=null){$("#Cuenta").text(data.Cuenta);}
+    if(data.RutTitular!=null){$("#RutTitular").text(data.RutTitular);}
+    if(data.Sucursal!=null){$("#Sucursal").text(data.Sucursal);}
 }
 
 var cargartablaProveedores = function(data){
     if (limpiar>0){destruirTabla('#tablaProveedores');}
     if (data.length>0){
         $("#tablaProveedores").dataTable({
+            "scrollX": true,
+            "scrollY": '50vh',
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -134,7 +141,11 @@ var cargartablaProveedores = function(data){
             "columns":[
                 {"title": "Id","data": "IdProveedor",visible:0},
                 {"title": "RUT Proveedor","data": "RutProveedor"},
-                {"title": "Persona de Contacto","data": "PersonaContacto"},
+                {"title": "Razon Social","data": "RazonSocialProveedor"},
+                {"title": "Telefono Proveedor","data": "TelefonoProveedor"},
+                {"title": "Correo Electronico","data": "CorreoElectronico"},
+                {"title": "Persona Contacto","data": "PersonaContacto"},
+                {"title": "Nombre Fantasia","data": "NombreFantasia"},
                 {"title": "Teléfono de Contacto","data": "TelefonoContacto"},
                 {"title": "Datos Pago Registrado","data": "DatosPago"},
                 {"title": "Estado","data": "EstadoProveedor"}
@@ -181,14 +192,14 @@ var cargartablaProveedores = function(data){
         limpiar=1;
     }else{
         limpiar=0;
-        mensajesAlerta('Info','No se encontraron resultados', 'info');
+        toastr.warning("No se encontraron resultados", "Info!");
     }
 };
 
 var ProcesarConsulta = function(){
     var Selectcampo = $('#Selectcampo').val();
     if (Selectcampo.length<1){
-        mensajesAlerta('Error','Desde seleccionar un item', 'error');
+        toastr.error("Debe seleccionar al menos un item", "Error!");
         return;
     }
     parametroAjax.ruta=ruta;

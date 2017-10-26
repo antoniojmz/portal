@@ -12,7 +12,7 @@ var ManejoRespuestaC = function(respuesta){
     if (respuesta.code = '200'){
         cargartablaReportes(respuesta.respuesta);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
 }
 
@@ -23,29 +23,31 @@ var ManejoRespuestaD = function(respuesta){
             cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
             cargartablaEstados(respuesta.respuesta.v_dte_estados);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
 }
 
 var pintarDatos = function(data){
+    console.log(data);
     if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
     if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
-    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
     if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
+    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
     if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
     if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
+    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
+    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
     if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
     if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
     if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
     if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
-    if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
-    if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
-    if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
-    if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
+    // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
+    // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
+    // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
+    // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
     if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
     if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
+
 }
 
 var cargartablaDetalles = function(data){
@@ -126,6 +128,7 @@ var cargartablaReportes = function(data){
         $("#tablaReportes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
+            "scrollY": '50vh',
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -134,16 +137,18 @@ var cargartablaReportes = function(data){
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
-                {"title": "Fecha de recepción","data": "FechaRecepcion"},
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
-                {"title": "Fecha de emisión","data": "FechaEmision"},
+                {"title": "Fecha Emisión","data": "FechaEmision"},
+                {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
                 {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
                 {"title": "RUT Cliente","data": "RutCliente"},
                 {"title": "Nombre Cliente","data": "NombreCliente"},
-                {"title": "Monto Total DTE","data": "MontoExentoCLP"},
-                {"title": "Monto total OM","data": "MontoExentoOM"},
+                {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
+                {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
+                {"title": "Monto IVA DTE","data": "MontoIVACLP"},
+                {"title": "Monto Total DTE","data": "MontoTotalCLP"},
                 {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
                 {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
             ],
@@ -189,7 +194,7 @@ var cargartablaReportes = function(data){
         limpiar=1;
     }else{
         limpiar=0;
-        mensajesAlerta('Info','No se encontraron resultados', 'info');
+        toastr.warning("No se encontraron resultados", "Info!");
     }
 };
 
@@ -198,7 +203,7 @@ var ProcesarConsulta = function(){
     var Selectcampo = $('#Selectcampo').val();
     var SelectDTE = $('#SelectDTE').val();
     if (desde.length<1 && Selectcampo.length<1 && SelectDTE.length<1){
-        mensajesAlerta('Error','Desde seleccionar al menos un campo', 'error');
+        toastr.error("Debe seleccionar al menos un item", "Error!");
         return;
     }
     parametroAjax.ruta=ruta;

@@ -30,8 +30,6 @@
     	<!-- Estilos Plugins -->
     	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
-    	{!! Html::style('plugins/jquery-easyui/themes/gray/easyui.css') !!}
-    	{!! Html::style('plugins/jquery-easyui/themes/icon.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
     	{!! Html::style('plugins/DataTables-1.10.10/buttons.dataTables.min.css') !!}
     	<style TYPE="text/css">
@@ -74,18 +72,14 @@
 		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
+		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
 
     	<!-- date-range-picker -->
-		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
 		{{ HTML::script('plugins/daterangepicker/daterangepicker.js') }}
-		{{ HTML::script('plugins/jquery-easyui/jquery.easyui.min.js') }}
-		{{ HTML::script('plugins/jquery-easyui/locale/easyui-lang-es.min.js') }}
 		{{ HTML::script('plugins/validator/valtexto.min.js') }}
 		{{ HTML::script('plugins/validator/formValidation.min.js') }}
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
 		{{ HTML::script('plugins/validator/es_ES.js') }}
-		{{ HTML::script('plugins/jquery.maskedinput/dist/jquery.maskedinput.min.js') }}
-		{{ HTML::script('plugins/BlockUI/jquery.blockUI.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
 	</head>

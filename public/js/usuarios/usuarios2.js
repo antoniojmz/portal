@@ -49,33 +49,120 @@ var ManejoRespuestaProcesar = function(respuesta){
     }
 };
 
-var cargarTablaUsuarios = function(data){
-    $("#tablaUsuarios").dataTable({
-        "columnDefs": [
-        {
-            "targets": [ 1 ],
-            "searchable": false
-        }
-        ],
-        "language": {
-            "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-        },
-        "data": data,
-        "columns":[
-        {"title": "Id","data": "idUser",visible:0},
-        {"title": "Nombres","data": "usrNombreFull"},
-        {"title": "Login","data": "usrUserName"},
-        {"title": "idPerfil","data": "idPerfil",visible:0},
-        {"title": "Perfíl","data": "des_perfil"},
-        {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
-        {"title": "Creado id","data": "auCreadoPor",visible:0},
-        {"title": "Creado por","data": "creador"},
-        {"title": "Teléfono","data": "auModificadoEl",visible:0},
-        {"title": "Modificado id","data": "auModificadoPor",visible:0},
-        {"title": "Modificado por","data": "modificador"},
-        {"title": "Última visita","data": "usrUltimaVisita"}
-        ],
-    });
+var cargarTablaUsuarios = function(d){
+console.log(d);
+$(".m_datatable").mDatatable({
+                data: {
+                    type: "local",
+                    source: d,
+                    pageSize: 10
+                },
+                layout: {
+                    theme: "default",
+                    class: "",
+                    scroll: !1,
+                    height: 450,
+                    footer: !1
+                },
+                sortable: !0,
+                filterable: !1,
+                pagination: !0,
+                columns: [{
+                    field: "idUser",
+                    title: "#",
+                    width: 50,
+                    sortable: !1,
+                    selector: !1,
+                    textAlign: "center"
+                }, {
+                    field: "idUser",
+                    title: "idUser"
+                }, {
+                    field: "usrNombreFull",
+                    title: "usrNombreFull",
+                    responsive: {
+                        visible: "lg"
+                    }
+                }, {
+                    field: "usrUserName",
+                    title: "usrUserName",
+                    width: 100
+                }, {
+                    field: "idPerfil",
+                    title: "idPerfil",
+                    responsive: {
+                        visible: "lg"
+                    }
+                }, {
+                    field: "des_perfil",
+                    title: "des_perfil"
+                }, {
+                    field: "Status",
+                    title: "Status",
+                    template: function(e) {
+                        var a = {
+                            1: {
+                                title: "Pending",
+                                class: "m-badge--brand"
+                            },
+                            2: {
+                                title: "Delivered",
+                                class: " m-badge--metal"
+                            },
+                            3: {
+                                title: "Canceled",
+                                class: " m-badge--primary"
+                            },
+                            4: {
+                                title: "Success",
+                                class: " m-badge--success"
+                            },
+                            5: {
+                                title: "Info",
+                                class: " m-badge--info"
+                            },
+                            6: {
+                                title: "Danger",
+                                class: " m-badge--danger"
+                            },
+                            7: {
+                                title: "Warning",
+                                class: " m-badge--warning"
+                            }
+                        };
+                        return '<span class="m-badge ' + d.des_estado + ' m-badge--wide">' + d.des_estado + "</span>"
+                    }
+                }, {
+                    field: "Type",
+                    title: "Type",
+                    template: function(d) {
+                        var a = {
+                            1: {
+                                title: "Online",
+                                state: "danger"
+                            },
+                            2: {
+                                title: "Retail",
+                                state: "primary"
+                            },
+                            3: {
+                                title: "Direct",
+                                state: "accent"
+                            }
+                        };
+                        return '<span class="m-badge m-badge--' + d.Type + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + d.Type + '">' + d.Type + "</span>"
+                    }
+                }, {
+                    field: "Actions",
+                    width: 110,
+                    title: "Actions",
+                    sortable: !1,
+                    overflow: "visible",
+                    template: function(d) {
+                        return '<div class="dropdown ' + (d.getDatatable().getPageSize() - d.getIndex() <= 4 ? "dropup" : "") + '"><a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown"><i class="la la-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a><a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a><a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a></div></div><a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View "><i class="la la-edit"></i></a>'
+                    }
+                }]
+            })
 };
 
 var crearallcombos = function(data){

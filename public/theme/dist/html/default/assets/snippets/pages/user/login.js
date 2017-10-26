@@ -134,6 +134,9 @@ var SnippetLogin = function() {
     }
 }();
 jQuery(document).ready(function() {
-    SnippetLogin.init()
-    $("#usrUserName").mask("99999999-*");
+    console.log("Hola desde mi login");
+    SnippetLogin.init();
+    $("#usrUserName").inputmask({
+            mask: "99999999-9", placeholder:"Login2"
+    });
 });

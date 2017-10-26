@@ -41,7 +41,17 @@ class UsuarioController extends Controller
         return View::make('usuarios.usuarios',$data);
     }
 
-    protected function postUsuarios(Request $request){
+    protected function getUsuario(){
+        $data['title'] = 'Listado de usuarios';
+        $model= new User();
+        $data['v_usuarios'] = $model->listUsuario();
+        $data['v_perfiles'] = $model->listPerfiles();
+        $data['v_estados'] = $model->listEstados();
+        // return $data;
+        return View::make('usuarios.usuarios2',$data);
+    }
+
+    protected function postUsuario(Request $request){
         $datos = $request->all();
         // Todos los datos del usuario loggeado
         // $user = Auth::user();
@@ -81,7 +91,13 @@ class UsuarioController extends Controller
 
     protected function postCargarfoto (Request $request){
         $idUser=$request->input('idUser');
+        $fotoOld = $request->input('usrUrlimage');
         $archivo = $request->file('foto');
+        if ($fotoOld<>null){
+            log::info("Entre a eliminar mi imagen");
+            $array= explode('/', $fotoOld);
+            Storage::disk($array[1])->delete($array[2]);
+        } 
         $input  = array('foto' => $archivo) ;
         $reglas = array('foto' => 'required|image|mimes:jpeg,jpg,bmp,png,gif|max:5000');
         $validacion = Validator::make($input,  $reglas);
@@ -94,6 +110,7 @@ class UsuarioController extends Controller
             $r1=Storage::disk('imgUsuarios')->put($nuevo_nombre,  \File::get($archivo) );
             $rutadelaimagen="/imgUsuarios/".$nuevo_nombre;
             if ($r1){
+                sleep(5); 
                 $model= new User();
                 $result= $model->actualizarFoto($idUser,$rutadelaimagen);
                 return '{"code":"200","des_code":"'.$rutadelaimagen.'"}';
@@ -101,7 +118,6 @@ class UsuarioController extends Controller
                 return '{"code":"-3","des_code":"Ocurrio un erro al cargar la imagen"}';
             }
         } 
-
     }
 
     protected function postEliminarfoto (Request $request){

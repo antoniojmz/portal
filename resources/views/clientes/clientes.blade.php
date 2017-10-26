@@ -103,6 +103,13 @@
 							</div>
 
 							<div class="form-group m-form__group row">
+								<label class="col-lg-2 col-form-label">Codigo Sociedad SAP:</label>
+								<div class="col-lg-10 col-xl-10">
+									<span id="CodigoSociedadSAP" class="form-control span"></span>
+								</div>
+							</div>
+
+							<div class="form-group m-form__group row">
 								<label class="col-lg-2 col-form-label">Nombre Cliente:</label>
 								<div class="col-lg-4 col-xl-4">
 									<span id="NombreCliente" class="form-control span"></span>

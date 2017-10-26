@@ -12,19 +12,18 @@ var ManejoRespuestaC = function(respuesta){
     if (respuesta.code = '200'){
         cargartablaClientes(respuesta.respuesta);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
 }
 
 var ManejoRespuestaD = function(respuesta){
     if (respuesta.code = '200'){
-            console.log(respuesta.respuesta);
             pintarDatos(respuesta.respuesta.v_cliente[0]);
             cargartablaDTE(respuesta.respuesta.v_dtes);
             cargartablaProveedores(respuesta.respuesta.v_clientes_proveedores);
             cargartablaUsuarios(respuesta.respuesta.v_clientes_usuarios);
     }else{
-        mensajesAlerta('Error','No se ejecuto la consultam contacte al personal informático', 'error');
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");        
     };
 }
 
@@ -111,6 +110,7 @@ var cargartablaUsuarios = function(data){
 }
 
 var pintarDatos = function(data){
+    if(data.CodigoSociedadSAP!=null){$("#CodigoSociedadSAP").text(data.CodigoSociedadSAP);}
     if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
     if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
     if(data.RazonSocial!=null){$("#RazonSocial").text(data.RazonSocial);}
@@ -179,14 +179,14 @@ var cargartablaClientes = function(data){
         limpiar=1;
     }else{
         limpiar=0;
-        mensajesAlerta('Info','No se encontraron resultados', 'info');
+        toastr.warning("No se encontraron resultados", "Info!");
     }
 };
 
 var ProcesarConsulta = function(){
     var Selectcampo = $('#Selectcampo').val();
     if (Selectcampo.length<1){
-        mensajesAlerta('Error','Desde seleccionar un item', 'error');
+        toastr.error("Debe seleccionar al menos un item", "Error!");
         return;
     }
     parametroAjax.ruta=ruta;

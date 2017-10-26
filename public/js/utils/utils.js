@@ -67,7 +67,6 @@ var procesarajax = function(datos){
 
 var procesarajaxfile = function(datos){
     var resp = '';
-    // console.log("Va a ejecutar el ajax");
     $.ajax({
         headers: {'X-CSRF-TOKEN': datos.token},
         url: datos.ruta,

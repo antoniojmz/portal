@@ -8,14 +8,14 @@ var parametroAjax = {
 };
 var ManejoRespuesta = function(respuesta){
     if (respuesta.code=!'200'){
-        mensajesAlerta('Error!','Contacte al personal informático', 'error');
+        toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
         return 0;
     }else{
             if (respuesta.respuesta.code!='200'){
-                mensajesAlerta('Error!',respuesta.respuesta.des_code, 'error');
+                toastr.error(respuesta.respuesta.des_code, "Error!");
                 return 0;
             }else{
-                mensajesAlerta('Procesado!',respuesta.respuesta.des_code, 'info');
+                toastr.success(respuesta.respuesta.des_code, "Procesado.!");
                 Boton_cancelar();
                 return 0;
             }
