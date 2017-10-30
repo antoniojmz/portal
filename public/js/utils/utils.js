@@ -6,8 +6,8 @@ var crearfecha = function(control){
                 // return date.valueOf() < now.valueOf() ? 'disabled' : '';
             },
         }).on('changeDate', function(e){
-    });
-}
+        });
+    }
 //////////////////////////////////////crear select 2 jquery /////////////////////////////////////////////////////
 var crearcombo = function(control, data){
     $(control).select2({
@@ -23,8 +23,8 @@ function filtrar_objeto(my_object, my_criteria){
   return my_object.filter(function(obj) {
     return Object.keys(my_criteria).every(function(c) {
       return obj[c] == my_criteria[c];
-    });
   });
+});
 }
 ///////////////////////////////////////////////////// AJAX //////////////////////////////////////////////////////
 var procesarajax = function(datos){
@@ -59,7 +59,7 @@ var procesarajax = function(datos){
         } else {
             msg = 'Uncaught Error.\n' + jqXHR.responseText;
         }
-         resp = {'code': 'error', 'mensaje': msg, 'detalle':jqXHR};
+        resp = {'code': 'error', 'mensaje': msg, 'detalle':jqXHR};
         // mensajesAlerta('Error',msg, 'error');
     });
     return resp;
@@ -149,7 +149,7 @@ var TablaSeleccionRegitro = function(id_tabla, campo){
         } else {
             TabalRegistroSelected = jQuery.grep(TabalRegistroSelected, function(value) {
               return value != datacampo[campo];
-            });
+          });
         }
         $(this).toggleClass('selected');
     });
@@ -199,7 +199,7 @@ var creartablaMostrarDatos = function(id_tabla,titulos,data){
     $("#" + id_tabla).dataTable({
         "orderCellsTop": true,
         "columnDefs": [
-            { "targets": [1], "defaultContent": '' }
+        { "targets": [1], "defaultContent": '' }
         ],
         responsive: true,
         paging:   false,
@@ -237,11 +237,11 @@ var mensajesAlerta = function (titulo, mensaje, tipo){
 
 var rhtmlspecialchars = function (str) {
     if (typeof(str) == "string") {
-    str = str.replace(/&gt;/ig, ">");
-    str = str.replace(/&lt;/ig, "<");
-    str = str.replace(/&#039;/g, "'");
-    str = str.replace(/&quot;/ig, '"');
-    str = str.replace(/&amp;/ig, '&'); /* must do &amp; last */
+        str = str.replace(/&gt;/ig, ">");
+        str = str.replace(/&lt;/ig, "<");
+        str = str.replace(/&#039;/g, "'");
+        str = str.replace(/&quot;/ig, '"');
+        str = str.replace(/&amp;/ig, '&'); /* must do &amp; last */
     }
     return str;
 }

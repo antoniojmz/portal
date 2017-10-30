@@ -22,15 +22,7 @@
 		<br />
 		<div class="row">
 			<div class="col-md-12 table-responsive">
-
-
-
-				
-
-
-
-				<div class="m_datatable" id="local_data"></div>
-
+				<div class="m_datatable" id="tablaUsuarios"></div>
 			</div>
 		</div>
 	</div>

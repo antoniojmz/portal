@@ -60,17 +60,25 @@ class User extends Authenticatable
             case 1:
                 $result['v_detalle']=DB::table('v_usuarios')
                 ->where('idUser',$usuario->idUser)->get();
+                $widget['graf1']='';
+                $widget['graf2']='';
                 break;
             case 2:
                 $result['v_detalle']= DB::table('v_clientes')
                 ->where('idUser',$usuario->idUser)->get();
+                $widget['graf1']='';
+                $widget['graf2']='';
                 break;
             case 3:
                 $result['v_detalle']= DB::table('v_proveedores')
                 ->where('idUser',$usuario->idUser)->get();
+                $widget['v_widget1']=DB::select("select  count(1) as count, DATE_FORMAT(FechaEmision, '%m') as mes, DATE_FORMAT(FechaEmision, '%Y') as anio from v_dtes where IdProveedor =".$result['v_detalle'][0]->IdProveedor." and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') group by mes, anio, IdProveedor");
+                $widget['v_widget2']=DB::select("select cant,EstadoActualDTE, monto_detalle.IdEstadoDTE,monto_detalle.IdProveedor, MontoTotalDetalle, MontoTotal, ROUND(((MontoTotalDetalle * 100) / MontoTotal)) as porcentaje from (select count(1) as cant,svd.IdEstadoDTE,svd.EstadoActualDTE, SUM(svd.MontoTotalCLP) as MontoTotalDetalle, svd.IdProveedor from v_dtes svd group by svd.IdEstadoDTE,svd.EstadoActualDTE, IdProveedor ) as monto_detalle, (select vd.IdProveedor, SUM(vd.MontoTotalCLP) as MontoTotal from v_dtes vd group by vd.IdProveedor ) as total where monto_detalle.IdProveedor = total.idProveedor and monto_detalle.IdProveedor =".$result['v_detalle'][0]->IdProveedor);
+                $widget['v_widget3']=DB::select("select monto_detalle.TotalDte,SUM(monto_detalle.MontoTotalCLP) as MontoTotal, monto_detalle.anio, monto_detalle.IdEstadoDTE, monto_detalle.EstadoActualDTE, monto_detalle.IdProveedor from (select count(1) as TotalDte,SUM(MontoTotalCLP) as MontoTotalCLP, DATE_FORMAT(FechaEmision, '%Y') as anio, IdEstadoDTE,EstadoActualDTE, IdProveedor from v_dtes group by anio, IdEstadoDTE,EstadoActualDTE, IdProveedor) as monto_detalle where monto_detalle.IdProveedor=".$result['v_detalle'][0]->IdProveedor." group by monto_detalle.TotalDte,monto_detalle.MontoTotalCLP, monto_detalle.anio, monto_detalle.IdEstadoDTE, monto_detalle.EstadoActualDTE, monto_detalle.IdProveedor");
                 break;
         }
         Session::put('perfiles', $result);
+        Session::put('widget', $widget);
     }
 
     public function listUsuario(){

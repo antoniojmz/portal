@@ -1,4 +1,6 @@
-var RegistroUsuario = '';
+var RegistroUsuario =  '';
+var tabla =[];
+var limpiarDte = 0;
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -12,13 +14,13 @@ var ManejoRespuestaProcesarR = function(respuesta){
         var res = respuesta.respuesta;
         switch(res.code) {
             case '200':
-                toastr.success(res.des_code, "Procesado!");
-                break;
+            toastr.success(res.des_code, "Procesado!");
+            break;
             case '500':
-                toastr.error(res.des_code, "Error!");
-                break;
+            toastr.error(res.des_code, "Error!");
+            break;
             default:
-                toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
+            toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
         } 
     }else{
         toastr.error("Contacte al personal informatico", "Error!");
@@ -31,139 +33,163 @@ var ManejoRespuestaProcesar = function(respuesta){
         console.log(res);
         switch(res.code) {
             case '200':
-                toastr.success(res.des_code, "Procesado!");
-                destruirTabla('#tablaUsuarios');
-                cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
-                $(".divForm").toggle();
-                $('#FormUsuario')[0].reset();
-                break;
+            toastr.success(res.des_code, "Procesado!");
+            // $("#tablaUsuarios").empty();
+            // $(tabla).mDatatable().fnClearTable();
+            // $(tabla).mDatatable().fnDraw();
+            tabla.destroy();
+            cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
+            $(".divForm").toggle();
+            $('#FormUsuario')[0].reset();
+            break;
             case '2':
-                toastr.error(res.des_code, "Error!");
-                break;
+            toastr.error(res.des_code, "Error!");
+            break;
             default:
-                toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
-                break;
+            toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
+            break;
         } 
     }else{
         toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
     }
 };
 
-var cargarTablaUsuarios = function(d){
-console.log(d);
-$(".m_datatable").mDatatable({
-                data: {
-                    type: "local",
-                    source: d,
-                    pageSize: 10
+var cargarTablaUsuarios = function(v){
+    tabla = $("#tablaUsuarios").mDatatable({
+        data: {type: "local",source: v,pageSize: 5},
+        layout: {
+            theme: "default",
+            class: "",
+            scroll: !0,
+            height: 450,
+            footer: !1
+        },
+        "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            
+        sortable: !0,
+        filterable: !0,
+        pagination: !0,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    className: 'btn m-btn--pill',
+                    title:'Listado de Proveedores',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
                 },
-                layout: {
-                    theme: "default",
-                    class: "",
-                    scroll: !1,
-                    height: 450,
-                    footer: !1
+                {
+                    extend: 'excel',
+                    text: 'Exportar',
+                    className: 'btn m-btn--pill',
+                    title:'Listado de Proveedores',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
                 },
-                sortable: !0,
-                filterable: !1,
-                pagination: !0,
-                columns: [{
-                    field: "idUser",
-                    title: "#",
-                    width: 50,
-                    sortable: !1,
-                    selector: !1,
-                    textAlign: "center"
-                }, {
-                    field: "idUser",
-                    title: "idUser"
-                }, {
-                    field: "usrNombreFull",
-                    title: "usrNombreFull",
-                    responsive: {
-                        visible: "lg"
+                {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    className: 'btn m-btn--pill',
+                    orientation:'landscape',
+                    pageSize:'LETTER',
+                    title:'Listado de Proveedores',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current',
+                        }
                     }
-                }, {
-                    field: "usrUserName",
-                    title: "usrUserName",
-                    width: 100
-                }, {
-                    field: "idPerfil",
-                    title: "idPerfil",
-                    responsive: {
-                        visible: "lg"
+                }
+            ],
+        columns: [{
+            field: "idUser",
+            title: "idUser",
+            width: 50,
+            sortable: !1,
+            selector: !1,
+            textAlign: "center"
+        }, {
+            field: "idUser",
+            title: "idUser",
+            responsive: {
+                visible: "0"
+            }
+        }, {
+            field: "usrNombreFull",
+            title: "Nombres",
+            responsive: {
+                visible: "lg"
+            }
+        }, {
+            field: "usrUserName",
+            title: "Login",
+            width: 100
+        }, {
+            field: "idPerfil",
+            title: "idPerfil",
+            responsive: {
+                visible: "0"
+            }
+        }, {
+            field: "des_perfil",
+            title: "Perfíl"
+        },{
+            field: "creador",
+            title: "Creador por"
+        },{
+            field: "modificador",
+            title: "Modificado por"
+        },{
+            field: "usrUltimaVisita",
+            title: "Última visita"
+        },{
+            field: "Actions",
+            width: 110,
+            title: "Actions",
+            sortable: !1,
+            overflow: "visible",
+            template: function(v) {
+                return '<a href="#" onclick="pintarDatosActualizar('+JSON.stringify(v).replace(/\"/g,"&quot;")+')\" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Editar"><i class="la la-pencil-square-o"></i></a><a href="#" onclick="reiniciarClave('+JSON.stringify(v).replace(/\"/g,"&quot;")+')\" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Reiniciar Clave"><i class="la la-unlock-alt"></i></a>';
+            }
+        }],
+        translate: {
+            records: {
+                processing: "Cargando...",
+                noRecords: "No se encontrarón archivos"
+            },
+            toolbar: {
+                pagination: {
+                    items: {
+                        default: {
+                            first: "Primero",
+                            prev: "Anterior",
+                            next: "Siguiente",
+                            last: "Último",
+                            more: "Más páginas",
+                            input: "Número de página",
+                            select: "Seleccionar tamaño de página"
+                        },
+                        info: "Viendo {{start}} - {{end}} de {{total}} registros"
                     }
-                }, {
-                    field: "des_perfil",
-                    title: "des_perfil"
-                }, {
-                    field: "Status",
-                    title: "Status",
-                    template: function(e) {
-                        var a = {
-                            1: {
-                                title: "Pending",
-                                class: "m-badge--brand"
-                            },
-                            2: {
-                                title: "Delivered",
-                                class: " m-badge--metal"
-                            },
-                            3: {
-                                title: "Canceled",
-                                class: " m-badge--primary"
-                            },
-                            4: {
-                                title: "Success",
-                                class: " m-badge--success"
-                            },
-                            5: {
-                                title: "Info",
-                                class: " m-badge--info"
-                            },
-                            6: {
-                                title: "Danger",
-                                class: " m-badge--danger"
-                            },
-                            7: {
-                                title: "Warning",
-                                class: " m-badge--warning"
-                            }
-                        };
-                        return '<span class="m-badge ' + d.des_estado + ' m-badge--wide">' + d.des_estado + "</span>"
-                    }
-                }, {
-                    field: "Type",
-                    title: "Type",
-                    template: function(d) {
-                        var a = {
-                            1: {
-                                title: "Online",
-                                state: "danger"
-                            },
-                            2: {
-                                title: "Retail",
-                                state: "primary"
-                            },
-                            3: {
-                                title: "Direct",
-                                state: "accent"
-                            }
-                        };
-                        return '<span class="m-badge m-badge--' + d.Type + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + d.Type + '">' + d.Type + "</span>"
-                    }
-                }, {
-                    field: "Actions",
-                    width: 110,
-                    title: "Actions",
-                    sortable: !1,
-                    overflow: "visible",
-                    template: function(d) {
-                        return '<div class="dropdown ' + (d.getDatatable().getPageSize() - d.getIndex() <= 4 ? "dropup" : "") + '"><a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown"><i class="la la-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a><a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a><a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a></div></div><a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View "><i class="la la-edit"></i></a>'
-                    }
-                }]
-            })
+                }
+            }
+        }
+    })
 };
+
+var editar22 = function(data){
+    console.log("hola");
+    console.log(data);
+}
 
 var crearallcombos = function(data){
     crearcombo('#idPerfil',data.v_perfiles);
@@ -175,6 +201,7 @@ var cargarFormulario= function(){
 }
 
 var pintarDatosActualizar= function(data){
+    cargarFormulario();
     $('#divConsulta').show();
     $("#idUser").val(data.idUser);
     $("#usrUserName").val(data.usrUserName);
@@ -226,9 +253,9 @@ var ProcesarUsuario = function(){
     ManejoRespuestaProcesar(respuesta);
 };
 
-var reiniciarClave = function(){
+var reiniciarClave = function(data){
     parametroAjax.ruta=rutaR;
-    parametroAjax.data = RegistroUsuario;
+    parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarR(respuesta);
 }
@@ -238,41 +265,15 @@ var validador = function(){
 };
 
 $(document).ready(function(){
+    console.log(tabla);
     $("#usrUserName").inputmask({
         mask: "99999999-*", placeholder:"________-_"
     });
-	cargarTablaUsuarios(d.v_usuarios);
+
+    cargarTablaUsuarios(d.v_usuarios);
+    console.log(tabla);
     crearallcombos(d);
-    var tableB = $('#tablaUsuarios').dataTable();
-    $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
-        tableB.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-        RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
-    });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
-     $(function() {
-        $.contextMenu({
-            selector: '#tablaUsuarios',
-            // selector: '.dataTable tbody tr',
-            callback: function(key, options) {
-                switch(key) {
-                    case "1":
-                        cargarFormulario();
-                        pintarDatosActualizar(RegistroUsuario);
-                        break;
-                    case "2":
-                        reiniciarClave();
-                    break;
-                }
-            },
-            items: {
-                "1": {name: "Editar", icon: "edit"},
-                "2": {name: "Reiniciar clave", icon: "quit"},
-            }
-        });
-    });
+
     $(document).on('click','#guardar',validador);
     $(document).on('click','#cancelar',BotonCancelar);
     $(document).on('click','#agregar',BotonAgregar);
