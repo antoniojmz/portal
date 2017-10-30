@@ -1,8 +1,10 @@
 var widget1 = function(v_widget1){
 	var count =[];
+	var mes =[];
 	for (var i = 0; i < v_widget1.length; i++) { 
-		var res = v_widget1[i].mes
-		count[res-1]= v_widget1[i].count;
+		var res = v_widget1[i].IdMesGrupo
+		// mes[res] = v_widget1[i].NombreMesGrupo
+		count[res-1]= v_widget1[i].NroDTEGrupo;
 	}
 	var e = {
 		labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
@@ -70,53 +72,58 @@ var widget2 = function(v_widget2){
 	var result =[];
 	for (var i = 0; i < d.v_widget2.length; i++) { 
 		var res = d.v_widget2[i]
-	    object['value']=d.v_widget2[i].porcentaje;
+	    object['value']=d.v_widget2[i].Porcentaje;
 	    object['className']="custom";
 	    switch(d.v_widget2[i].IdEstadoDTE){
 	    	case "1":
 		    	object['meta']={color: mUtil.getColor("brand")};
 		    	$("#div1").show();
-		    	$("#span1").text(res.porcentaje+" % Emitida por el Proveedor");
+		    	$("#span1").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "2":
 		    	object['meta']={color:mUtil.getColor("success")};
 		    	$("#div2").show();
-		    	$("#span2").text(res.porcentaje+" % Recepcionada Cliente");
+		    	$("#span2").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "3":
-		    	object['meta']={color: mUtil.getColor("warning")};
+		    	object['meta']={color:"#FA58F4"};
 		    	$("#div3").show();
-		    	$("#span3").text(res.porcentaje+" % Aceptada Cliente");
+		    	$("#span3").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "4":
-		    	object['meta']={color: mUtil.getColor("info")};
+		    	object['meta']={color: "#F515C7"};
 		    	$("#div4").show();
-		    	$("#span4").text(res.porcentaje+" % Contabilizada Cliente");
+		    	$("#span4").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "5":
 		    	object['meta']={color: mUtil.getColor("danger")};
 		    	$("#div5").show();
-		    	$("#span5").text(res.porcentaje+" % Pendiente de Pago");
+		    	$("#span5").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "6":
-		    	object['meta']={color:"#FA58F4"};
+		    	object['meta']={color: mUtil.getColor("warning")};
 		    	$("#div6").show();
-		    	$("#span6").text(res.porcentaje+" % Confirmada para Pago");
+		    	$("#span6").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "7":
 		    	object['meta']={color:"#66FEF1"};
 		    	$("#div7").show();
-		    	$("#span7").text(res.porcentaje+" % Pago Realizado");
+		    	$("#span7").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    	case "8":
 		    	object['meta']={color:"#2DF130"};
 		    	$("#div8").show();
-		    	$("#span8").text(res.porcentaje+" % Descripon faltante");
+		    	$("#span8").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;                        
+	    	case "9":
+		    	object['meta']={color: mUtil.getColor("info")};
+		    	$("#div9").show();
+		    	$("#span9").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+	    	break;
 	    	case "99":
 		    	object['meta']={color: "#F514C7"};
 		    	$("#div99").show();
-		    	$("#span99").text(res.porcentaje+" % Sin información");
+		    	$("#span99").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 	    	break;
 	    }
 	    var res= JSON.stringify(object);
@@ -160,9 +167,43 @@ var widget2 = function(v_widget2){
 	}
 }
 
+var widget3 = function(v_widget2){
+	var total=0;
+	for (var i = 0; i < v_widget2.length; i++) {
+		total += v_widget2[i].MontoTotal;
+	}
+	$("#spanMontoTotal").text("$ "+number_format(total, '0'))
+	for (var i = 0; i < v_widget2.length; i++) {
+		switch(d.v_widget2[i].IdEstadoDTE){
+	    	case "1":
+	    		$("#spanMonto1").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+	    		$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+	    		$("#spanDes1").text(v_widget2[i].EstadoActualDTE);
+	    	break;
+	    	case "2":
+	    		$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+	    		$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+	    		$("#spanDes2").text(v_widget2[i].EstadoActualDTE);
+	    	break;
+	    	case "6":
+	    		$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+	    		$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+	    		$("#spanDes3").text(v_widget2[i].EstadoActualDTE);
+	    	break;                       
+	    	case "9":
+	    		$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+	    		$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+	    		$("#spanDes4").text(v_widget2[i].EstadoActualDTE);
+	    	break;
+	    }
+	}
+}
+
+
+
 $(document).ready(function(){
 	$(".m-widget14__legend").hide();
 	widget1(d.v_widget1);
 	widget2(d.v_widget2);
-	console.log(d.v_widget3);
+	widget3(d.v_widget2);
 });

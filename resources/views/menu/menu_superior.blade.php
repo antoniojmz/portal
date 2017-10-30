@@ -41,28 +41,31 @@
 								@php
 									$data = Session::get('perfiles');
 								@endphp
-								@if (strlen($data['v_detalle'][0]->usrNombreFull)>1)
-									<span>
-										<img width="14" height="14" alt="avatar" src="{{ asset('img/conectado.png') }}"/>
-									</span>
-									 {{$data['v_detalle'][0]->usrNombreFull}}
-								@endif
+								@if (isset($data))
+									@if (strlen($data['v_detalle'][0]->usrNombreFull)>1)
+										<span>
+											<img width="14" height="14" alt="avatar" src="{{ asset('img/conectado.png') }}"/>
+										</span>
+										 {{$data['v_detalle'][0]->usrNombreFull}}
+									@endif
 							</span>
 						</li>
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 							<span class="m-menu__link-text">
-								@if (strlen($data['desPerfil'])>1)
-									{{$data['desPerfil']}}
-								@endif
+									@if (strlen($data['desPerfil'])>1)
+										{{$data['desPerfil']}}
+									@endif
 							</span>
 						</li>
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 							<span class="m-menu__link-text">
-							@if ($data['idPerfil']!=1)
-								@if (strlen($data['v_detalle'][0]->NombreEmpresa)>1)
-									{{$data['v_detalle'][0]->NombreEmpresa}}
+								@if ($data['idPerfil']!=1)
+									@if (strlen($data['v_detalle'][0]->NombreEmpresa)>1)
+										{{$data['v_detalle'][0]->NombreEmpresa}}
+									@endif
 								@endif
 							@endif
+
 							</span>
 						</li>
 

@@ -80,6 +80,7 @@
 		{{ HTML::script('plugins/validator/formValidation.min.js') }}
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
 		{{ HTML::script('plugins/validator/es_ES.js') }}
+		{{ HTML::script('plugins/Jquery-Price-Format/jquery.priceformat.min.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
 	</head>

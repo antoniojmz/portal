@@ -21,19 +21,23 @@ toastr.options = {
   "hideMethod": "fadeOut"
 };
 
+var Salir = function(){
+	var parametroAjax = {
+	    'token': $('input[name=_token]').val(),
+	    'tipo': 'POST',
+	    'data': {},
+	    'ruta': '',
+	    'async': false
+	};
+	parametroAjax.ruta=salir;
+	parametroAjax.data = $("#formLogout").serialize();
+	procesarajax(parametroAjax);
+}
+
 $(document).ready(function() {
 	window.onbeforeunload = function (e) {
     	if (v_salir == 0){
-			var parametroAjax = {
-			    'token': $('input[name=_token]').val(),
-			    'tipo': 'POST',
-			    'data': {},
-			    'ruta': '',
-			    'async': false
-			};
-			parametroAjax.ruta=salir;
-			parametroAjax.data = $("#formLogout").serialize();
-			procesarajax(parametroAjax);
+    		Salir();
         }
     	v_salir = 0;
     }

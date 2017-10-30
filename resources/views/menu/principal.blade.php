@@ -1279,11 +1279,12 @@
                                         <span id="span2" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div3" style="display:none;" class="m-widget14__legend">
+                                        <span style="background-color:#FA58F4;" class="m-widget14__legend-bullet"></span>
                                         <span class="m-widget14__legend-bullet m--bg-warning"></span>
                                         <span id="span3" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div4" style="display:none;" class="m-widget14__legend">
-                                        <span class="m-widget14__legend-bullet m--bg-info"></span>
+                                        <span style="background-color:#F515C7;" class="m-widget14__legend-bullet"></span>
                                         <span id="span4" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div5" style="display:none;" class="m-widget14__legend">
@@ -1291,7 +1292,7 @@
                                         <span id="span5" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div6" style="display:none;" class="m-widget14__legend">
-                                        <span style="background-color:#FA58F4;" class="m-widget14__legend-bullet"></span>
+                                        <span class="m-widget14__legend-bullet m--bg-warning"></span>
                                         <span id="span6" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div7" style="display:none;" class="m-widget14__legend">
@@ -1301,6 +1302,10 @@
                                     <div id="div8" style="display:none;" class="m-widget14__legend">
                                         <span style="background-color:#2DF130;" class="m-widget14__legend-bullet"></span>
                                         <span id="span8" class="m-widget14__legend-text"></span>
+                                    </div>
+                                    <div id="div9" style="display:none;" class="m-widget14__legend">
+                                        <span class="m-widget14__legend-bullet m--bg-info"></span>
+                                        <span id="span9" class="m-widget14__legend-text"></span>
                                     </div>
                                     <div id="div99" style="display:none;" class="m-widget14__legend">
                                         <span style="background-color:#F514C7;" class="m-widget14__legend-bullet"></span>
@@ -1323,9 +1328,9 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                Product Sales
+                                Facturación Total
                                 <span class="m-portlet__head-desc">
-                                    Total Sales By Products
+                                    Total de Facturas Recibidas
                                 </span>
                             </h3>
                         </div>
@@ -1334,7 +1339,7 @@
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                                    Filter
+                                    Filtrar por
                                 </a>
                                 <div class="m-dropdown__wrapper">
                                     <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
@@ -1346,7 +1351,15 @@
                                                         <a href="" class="m-nav__link">
                                                             <i class="m-nav__link-icon flaticon-share"></i>
                                                             <span class="m-nav__link-text">
-                                                                Activity
+                                                                Este Año
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon flaticon-share"></i>
+                                                            <span class="m-nav__link-text">
+                                                                Este Mes
                                                             </span>
                                                         </a>
                                                     </li>
@@ -1354,23 +1367,23 @@
                                                         <a href="" class="m-nav__link">
                                                             <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                             <span class="m-nav__link-text">
-                                                                Messages
+                                                                Últumos 3 meses
                                                             </span>
                                                         </a>
                                                     </li>
                                                     <li class="m-nav__item">
                                                         <a href="" class="m-nav__link">
-                                                            <i class="m-nav__link-icon flaticon-info"></i>
+                                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                             <span class="m-nav__link-text">
-                                                                FAQ
+                                                                Últumos 6 meses
                                                             </span>
                                                         </a>
                                                     </li>
                                                     <li class="m-nav__item">
                                                         <a href="" class="m-nav__link">
-                                                            <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                             <span class="m-nav__link-text">
-                                                                Support
+                                                                Últumos 12 meses
                                                             </span>
                                                         </a>
                                                     </li>
@@ -1385,62 +1398,46 @@
                 </div>
                 <div class="m-portlet__body">
                     <div class="m-widget25">
-                        <span class="m-widget25__price m--font-brand">
-                            $237,650
-                        </span>
+                        <span id="spanMontoTotal" class="m-widget25__price m--font-brand">
+                            
+                        </span><br>
                         <span class="m-widget25__desc">
-                            Total Revenue This Month
+                            Total Facturado este año
                         </span>
                         <div class="m-widget25--progress">
                             <div class="m-widget25__progress">
-                                <span class="m-widget25__progress-number">
-                                    63%
-                                </span>
+                                <span id="spanMonto1" class="m-widget25__progress-number"></span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-success" role="progressbar" style="width: 63%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progress1" class="progress-bar m--bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <span class="m-widget25__progress-sub">
-                                    Sales Growth
-                                </span>
+                                <span id="spanDes1" class="m-widget25__progress-sub"></span>
                             </div>
                             <div class="m-widget25__progress">
-                                <span class="m-widget25__progress-number">
-                                    39%
-                                </span>
+                                <span id="spanMonto2" class="m-widget25__progress-number"></span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-accent" role="progressbar" style="width: 39%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progress2" class="progress-bar m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <span class="m-widget25__progress-sub">
-                                    Product Growth
-                                </span>
+                                <span id="spanDes2" class="m-widget25__progress-sub"></span>
                             </div>
                         </div>
                         <div class="m-widget25--progress">
                             <div class="m-widget25__progress" >
-                                <span class="m-widget25__progress-number">
-                                    54%
-                                </span>
+                                <span id="spanMonto3" class="m-widget25__progress-number"></span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-danger" role="progressbar" style="width: 54%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progress3" class="progress-bar m--bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <span class="m-widget25__progress-sub">
-                                    Community Growth
-                                </span>
+                                <span id="spanDes3" class="m-widget25__progress-sub"></span>
                             </div>
                             <div class="m-widget25__progress" >
-                                <span class="m-widget25__progress-number">
-                                    54%
-                                </span>
+                                <span id="spanMonto4" class="m-widget25__progress-number"></span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-warning" role="progressbar" style="width: 54%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progress4" class="progress-bar m--bg-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <span class="m-widget25__progress-sub">
-                                    Community Growth
-                                </span>
+                                <span id="spanDes4" class="m-widget25__progress-sub"></span>
                             </div>
                         </div>
                     </div>
@@ -1594,15 +1591,16 @@
     </div>
     @break
     @default
-    {{"Perfíl no encontrado"}}
+        {{"Perfíl no encontrado"}}
+        <script Language="Javascript">
+            Salir();
+        </script>
     @endswitch
 </div>
 <script Language="Javascript">
     var d = [];
     d['v_widget1'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget1"]) }}'));
     d['v_widget2'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget2"]) }}'));
-    d['v_widget3'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget3"]) }}'));
 </script>
 <script src="{{ asset('js/menu/principal.js') }}"></script>
-
 @endsection
