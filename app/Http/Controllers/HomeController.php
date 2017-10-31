@@ -28,7 +28,9 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getIndex()
-    {
-        return view('menu.principal');
+    {   
+        $usuario = Auth::user();
+        $data['idPerfil'] = $usuario->idPerfil;
+        return view('menu.principal', $data);
     }
 }

@@ -110,7 +110,6 @@ var cargartablaUsuarios = function(data){
 }
 
 var pintarDatos = function(data){
-    console.log(data);
     if(data.IdProveedorSAP!=null){$("#IdProveedorSAP").text(data.IdProveedorSAP);}
     if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
     if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
@@ -222,7 +221,6 @@ var BotonVolver = function(){
 }
 
 $(document).ready(function(){
-    console.log(d);
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Listado de proveedores");
     cargartablaProveedores(d.v_proveedores);

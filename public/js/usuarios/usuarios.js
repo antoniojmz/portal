@@ -28,7 +28,6 @@ var ManejoRespuestaProcesarR = function(respuesta){
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_usuario);
-        console.log(res);
         switch(res.code) {
             case '200':
                 toastr.success(res.des_code, "Procesado!");

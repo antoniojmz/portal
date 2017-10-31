@@ -32,9 +32,13 @@ var Salir = function(){
 	parametroAjax.ruta=salir;
 	parametroAjax.data = $("#formLogout").serialize();
 	procesarajax(parametroAjax);
+	window.location.href = "/";
 }
 
 $(document).ready(function() {
+	setTimeout(function(){
+  		Salir();
+	}, 600000);
 	window.onbeforeunload = function (e) {
     	if (v_salir == 0){
     		Salir();

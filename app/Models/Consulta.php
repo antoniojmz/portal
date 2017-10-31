@@ -24,7 +24,7 @@ class Consulta extends Authenticatable
      * The attributes that are mass assignable.
      * @var array
      */
-
+    // Carga inicial de dte y buqueda en pantalla de consultas
     public function listDtes(){
         $p = Session::get('perfiles');
         switch ($p['idPerfil']) {
@@ -47,6 +47,16 @@ class Consulta extends Authenticatable
         }
         return $result;
     }
+
+    // Busqueda segun los graficos
+    public function BusDtesGraf($IdDTE){
+        $p = Session::get('perfiles');
+        if($p['idPerfil']==3){
+            $sql= "select * from v_dtes where IdDTE in (".$IdDTE.") and IdProveedor=".$p['v_detalle'][0]->IdProveedor;
+            return DB::select($sql);
+        }  
+    }
+
 
     public function listBusquedaDte(){
         return DB::table('v_busq_consulta')->get();
