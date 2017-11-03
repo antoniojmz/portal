@@ -245,7 +245,7 @@
 						        <center>
 							        <button name="volver" id="volver" class="btn m-btn--pill btn-outline-primary" type="button">
 										<span>
-											<i class="la la-arrow-circle-left"></i>
+											<i class="la la-arrow-left"></i>
 											<span>Volver</span>
 										</span>
 							        </button>

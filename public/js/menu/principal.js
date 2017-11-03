@@ -1,10 +1,264 @@
+var limpiar=limpiarEstados=limpiarDetalles=limpiarReferencias=printCounter=ajax=0;
+var RegistroDTEEstadisticos ='';
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
-    'tipo': 'GET',
+    'tipo': 'POST',
     'data': {},
     'ruta': '',
     'async': false
 };
+
+/////////////////////////////////////////
+// Mostrar los dte de las estadisticas //
+/////////////////////////////////////////
+var cambiarTabla = function (){
+    $("#divBienvenida").show();
+	$(".divTablaFacP").toggle();
+} 
+
+var ManejoRespuestaE = function(respuesta){
+	if(respuesta.code==200){
+		var res = JSON.parse(respuesta.respuesta.v_info);
+		switch(res.code) {
+            case "204":
+                cargartablaReportesEstadisticos(respuesta.respuesta.v_dtes);
+                break;
+            default:
+                toastr.error(res.des_code, "Error!");
+            break;
+        } 
+    }else{
+        toastr.error("Contacte al personal informatico", "Error!");
+    }
+}
+
+var ManejoRespuestaD = function(respuesta){
+    if (respuesta.code = '200'){
+    		$("#divFormTabla").hide();
+    		$("#divFormTab").show();
+            pintarDatos(RegistroDTEEstadisticos);
+            // cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
+            // cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
+            cargartablaEstados(respuesta.respuesta.v_dte_estados);
+    }else{
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+    };
+}
+
+var cargartablaReportesEstadisticosAjax = function(data){
+	parametroAjax.ruta=ruta;
+    parametroAjax.data = {"IdDTE": data}
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaE(respuesta);
+}
+
+var pintarDatos = function(data){
+    if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
+    if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
+    if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
+    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
+    if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
+    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
+    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
+    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
+    if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
+    if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
+    if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
+    if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
+    // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
+    // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
+    // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
+    // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
+    if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
+    if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
+}
+
+var cargartablaDetalles = function(data){
+    if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
+    if (data.length>0){
+        $("#tablaDetalles").dataTable({
+            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'bSort': false,
+            "language": {
+                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "Código Producto","data": "CodigoProducto"},
+                {"title": "Nombre Producto","data": "NombreProducto"},
+                {"title": "Valor Unitario","data": "ValorUnitario"},
+                {"title": "Cantidad","data": "Cantidad"},
+                {"title": "Total Linea","data": "TotalLinea"}
+            ],
+        });
+        limpiarDetalles=1;
+    }else{
+        limpiarDetalles=0;
+    }
+}
+
+var cargartablaReferencias = function(data){
+    if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
+    if (data.length>0){
+        $("#tablaReferencias").dataTable({
+            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'bSort': false,
+            "language": {
+                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdReferencia","data": "IdReferencia",visible:0},
+                {"title": "Tipo de Referencia","data": "TipoReferencia"},
+                {"title": "Folio de Referencia","data": "FolioReferencia"},
+                {"title": "Fecha de Referencia","data": "FechaReferencia"}
+            ],
+        });
+        limpiarReferencias=1;
+    }else{
+        limpiarReferencias=0;
+    }
+}
+
+var cargartablaEstados = function(data){
+    if (limpiarEstados>0){destruirTabla('#tablaEstados');}
+    if (data.length>0){
+        $("#tablaEstados").dataTable({
+            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'bSort': false,
+            "language": {
+                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
+                {"title": "Fecha de Estado","data": "FechaEstado"},
+                {"title": "Comentario de Estado","data": "ComentarioEstado"}
+            ],
+        });
+        limpiarEstados=1;
+    }else{
+        limpiarEstados=0;
+    }
+}
+
+var cargartablaReportesEstadisticos = function(data){
+    if (limpiar>0){destruirTabla('#tablaReportesEstadisticos');}
+    if (data.length>0){
+    	$("#divBienvenida").hide();
+		$(".divTablaFacP").toggle();
+        $("#tablaReportesEstadisticos").dataTable({
+            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "scrollX": true,
+            "scrollY": '50vh',
+            "language": {
+                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdProveedor","data": "IdProveedor",visible:0},
+                {"title": "IdCliente","data": "IdCliente",visible:0},
+                {"title": "Tipo DTE","data": "TipoDTE"},
+                {"title": "Folio DTE","data": "FolioDTE"},
+                {"title": "Fecha Emisión","data": "FechaEmision"},
+                {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
+                {"title": "RUT Proveedor","data": "RutProveedor"},
+                {"title": "Nombre Proveedor","data": "NombreProveedor"},
+                {"title": "RUT Cliente","data": "RutCliente"},
+                {"title": "Nombre Cliente","data": "NombreCliente"},
+                {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
+                {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
+                {"title": "Monto IVA DTE","data": "MontoIVACLP"},
+                {"title": "Monto Total DTE","data": "MontoTotalCLP"},
+                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
+                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    className: 'btn m-btn--pill',
+                    title:'Listado DTEs',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                },
+                {
+                    extend: 'excel',
+                    text: 'Exportar',
+                    className: 'btn m-btn--pill',
+                    title:'Listado DTEs',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    className: 'btn m-btn--pill',
+                    orientation:'landscape',
+                    pageSize:'LETTER',
+                    title:'Listado DTEs',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current',
+                        }
+                    }
+                }
+            ]
+        });
+        limpiar=1;
+        seleccionartablaReportesEstadisticos();
+    }else{
+        limpiar=0;
+        toastr.warning("No se encontraron resultados", "Info!");
+    }
+};
+
+var seleccionartablaReportesEstadisticos=function(){
+    var tableB = $('#tablaReportesEstadisticos').dataTable();
+    limpiar=1;
+    $('#tablaReportesEstadisticos tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    $('#tablaReportesEstadisticos tbody').on('dblclick', 'tr', function () {
+        RegistroDTEEstadisticos = TablaTraerCampo('tablaReportesEstadisticos',this);
+        cargarFormularioVisualizacion(RegistroDTEEstadisticos);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });	
+};
+var cargarFormularioVisualizacion = function(data){
+    if(ajax==0){
+	    ajax=1
+	    parametroAjax.ruta=rutaD;
+	    parametroAjax.data = {"IdDTE":data.IdDTE};
+	    respuesta=procesarajax(parametroAjax);
+	    ManejoRespuestaD(respuesta);
+    }
+};
+
+var BotonVolver = function(){
+    // $(".divForm").toggle();
+    $("#divFormTabla").show();
+    $("#divFormTab").hide();
+    ajax=0;
+};
+
+//////////////////////////////////////////
+/////// widget de Perfil Proveedor ///////
+//////////////////////////////////////////
 var widget1 = function(v_widget1){
 	var count =[];
 	var mes =[];
@@ -180,25 +434,25 @@ var widget3 = function(v_widget2){
 			case "1":
 				$("#spanMonto1").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 				$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href1").attr("href","/consultas?IdDTE="+v_widget2[i].id_dtes+"");
+				$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
 				$("#spanDes1").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 			break;
 			case "2":
 				$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 				$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href2").attr("href","/consultas?IdDTE="+v_widget2[i].id_dtes+"");
+				$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
 				$("#spanDes2").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 			break;
 			case "6":
 				$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 				$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href3").attr("href","/consultas?IdDTE="+v_widget2[i].id_dtes+"");
+				$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
 				$("#spanDes3").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 			break;                       
 			case "9":
 				$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 				$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href4").attr("href","/consultas?IdDTE="+v_widget2[i].id_dtes+"");
+				$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
 				$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 			break;
 		}
@@ -256,4 +510,6 @@ var cargarPanel = function(idPerfil){
 
 $(document).ready(function(){
 	cargarPanel(d.idPerfil);
+    $(document).on('click','.LinkFacP',cambiarTabla);
+    $(document).on('click','#volverTabProv',BotonVolver);
 });

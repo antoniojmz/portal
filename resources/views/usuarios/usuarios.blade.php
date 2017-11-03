@@ -174,6 +174,7 @@
 <script Language="Javascript">
 	var ruta = "{{ URL::route('usuarios') }}"
 	var rutaR = "{{ URL::route('reiniciar') }}"
+	var rutaA = "{{ URL::route('activar') }}"
 	var d = [];
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
 	d['v_perfiles'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_perfiles) }}'));

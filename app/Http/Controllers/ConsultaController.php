@@ -26,16 +26,15 @@ class ConsultaController extends Controller
 
     protected function getConsultas(Request $request){
         $datos = $request->all();
-        log::info($datos);
         $data['title'] = 'Consultas DTE';
         $model= new Consulta();
         $data['v_busq_consulta'] = $model->listBusquedaDte();
         $data['v_tipo_dte'] = $model->listTipoDTE();
-        if(isset($datos['IdDTE'])){
-            $data['v_dtes'] = $model->BusDtesGraf($datos['IdDTE']);
-        }else{
+        // if(isset($datos['IdDTE'])){
+            // $data['v_dtes'] = $model->BusDtesGraf($datos['IdDTE']);
+        // }else{
             $data['v_dtes'] = $model->listDtes();
-        }
+        // }
         return View::make('consultas.consultas',$data);
     }
 

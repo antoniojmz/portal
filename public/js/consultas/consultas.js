@@ -28,7 +28,6 @@ var ManejoRespuestaD = function(respuesta){
 }
 
 var pintarDatos = function(data){
-    console.log(data);
     if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
     if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
     if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}

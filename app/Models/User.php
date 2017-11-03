@@ -43,13 +43,24 @@ class User extends Authenticatable
 
     public function verificarUsuario($data){
         $user = DB::table('v_usuarios')->where('usrUserName',$data['usrUserName'])->get();
-        $result=0;
-        if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
-            $result=$user[0]->idUser;
-            // Guardar todo el menu del usuario en Session
-            // Session::put('key', array(1,2,3,4,5));
-        }
-        return $result;
+        if (strlen($user)>3){
+            if ($user[0]->usrEstado>0){
+                if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
+                    $result=$user[0]->idUser;
+                        (isset($data['remember'])) ? $bool="true" : $bool="false";  
+                        Auth::loginUsingId($result,$bool);
+                        if (Auth::check()){
+                            $roll = $this->buscarRoll();
+                            return '{"code":"200","des_code":"home"}';
+                        }else
+                            return '{"code":"-2","des_code":"Ocurrio un error al iniciar la session"}';
+                }
+                return '{"code":"-2","des_code":"Usuario o contraseña incorrectos"}';
+            }else{
+                return '{"code":"-2","des_code":"Usuario Inactivo"}';
+            }
+        }else    
+            return '{"code":"-2","des_code":"Usuario no registrado"}';
     }
 
     public function buscarRoll(){
@@ -116,6 +127,15 @@ class User extends Authenticatable
     public function registrarVisita($idUser){
         $now = new DateTime();
         DB::table('usuarios')->where('idUser', $idUser)->update(['usrUltimaVisita' => $now]);
+    }
+    
+    
+    public function activarUsuario($datos){
+        if ($datos['usrEstado']>0){
+            return DB::table('usuarios')->where('idUser', $datos['idUser'])->update(['usrEstado' => 0]);
+        }else{
+            return DB::table('usuarios')->where('idUser', $datos['idUser'])->update(['usrEstado' => 1]);
+        }
     }
 
     public function cambiarClave($data){

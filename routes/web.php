@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@getIndex')->name('home');
+Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
@@ -50,5 +51,7 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Recuperar y reiniciar contraseña
 	Route::post('/recuperar', 'RecuperarController@postRecuperar')->name('recuperar');
 	Route::post('/reiniciar', 'UsuarioController@postReiniciar')->name('reiniciar');
+	// Activar o Desactivar usuario
+	Route::post('/activar', 'UsuarioController@postUsuarioactivo')->name('activar');
 
 });

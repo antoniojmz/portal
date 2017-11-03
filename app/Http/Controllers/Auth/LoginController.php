@@ -61,16 +61,7 @@ class LoginController extends Controller
         if ($data['usrUserName'] && $data['usrPassword']){
             $model= new User();
             $result = $model->verificarUsuario($data);
-            if ($result>0){
-                (isset($data['remember'])) ? $bool="true" : $bool="false";  
-                Auth::loginUsingId($result,$bool);
-                $roll = $model->buscarRoll();
-                if (Auth::check())
-                    return '{"code":"200","des_code":"home"}';
-                else
-                    return '{"code":"-2","des_code":"Ocurrio un error al iniciar la session"}';
-            }else
-                return '{"code":"-2","des_code":"Usuario o contraseña incorrectos"}';
+            return $result;  
         }else
             return '{"code":"-2","des_code":"Debe ingresar valores correctos"}';
     }

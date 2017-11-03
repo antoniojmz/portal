@@ -7,6 +7,22 @@ var parametroAjax = {
     'async': false
 };
 
+var ManejoRespuestaProcesarI = function(respuesta){
+    if(respuesta.code==200){
+        if(respuesta.respuesta.activar>0){
+            if(respuesta.respuesta.v_usuarios.length>1){
+                toastr.success('Proceso con exito.', "Procesado!");
+                destruirTabla('#tablaUsuarios');
+                cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
+            }
+        }else{
+            toastr.warning("Debe seleccionar un registro", "Info!");
+        }
+    }else{
+        toastr.error("Contacte al personal informatico", "Error!");
+    }
+}
+
 var ManejoRespuestaProcesarR = function(respuesta){
     if(respuesta.code==200){
         var res = respuesta.respuesta;
@@ -49,12 +65,24 @@ var ManejoRespuestaProcesar = function(respuesta){
 };
 
 var cargarTablaUsuarios = function(data){
-    $("#tablaUsuarios").dataTable({
+    $("#tablaUsuarios").dataTable({ 
+        "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+        "scrollX": true,
+        "scrollY": '45vh',
+        "scrollCollapse": false,
         "columnDefs": [
         {
             "targets": [ 1 ],
             "searchable": false
-        }
+        },
+        {"sWidth": "15%", "aTargets": [1]},
+        {"sWidth": "11%", "aTargets": [2]},
+        {"sWidth": "10%", "aTargets": [4]},
+        {"sWidth": "15%", "aTargets": [5]},
+        {"sWidth": "15%", "aTargets": [7]},
+        {"sWidth": "15%", "aTargets": [10]},
+        {"sWidth": "8%", "aTargets": [11]},
+        {"sWidth": "15%", "aTargets": [12]},
         ],
         "language": {
             "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -72,6 +100,7 @@ var cargarTablaUsuarios = function(data){
         {"title": "Teléfono","data": "auModificadoEl",visible:0},
         {"title": "Modificado id","data": "auModificadoPor",visible:0},
         {"title": "Modificado por","data": "modificador"},
+        {"title": "Estado","data": "des_estado"},
         {"title": "Última visita","data": "usrUltimaVisita"}
         ],
     });
@@ -149,6 +178,13 @@ var validador = function(){
  $('#FormUsuario').formValidation('validate');
 };
 
+var cambiarEstatusUsuario = function(data){
+    parametroAjax.ruta=rutaA;
+    parametroAjax.data = data;
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaProcesarI(respuesta);
+}
+
 $(document).ready(function(){
     $("#usrUserName").inputmask({
         mask: "99999999-*", placeholder:"________-_"
@@ -177,11 +213,15 @@ $(document).ready(function(){
                     case "2":
                         reiniciarClave();
                     break;
+                    case "3":
+                        cambiarEstatusUsuario(RegistroUsuario);
+                    break;
                 }
             },
             items: {
                 "1": {name: "Editar", icon: "edit"},
-                "2": {name: "Reiniciar clave", icon: "quit"},
+                "2": {name: "Reiniciar clave", icon: "edit"},
+                "3": {name: "Activar / Desactivar", icon: "quit"}
             }
         });
     });

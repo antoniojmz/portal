@@ -139,4 +139,11 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    protected function postUsuarioactivo (Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result['activar'] = $model->activarUsuario($datos);
+        $result['v_usuarios'] = $model->listUsuario();
+        return $result;
+    }
 }

@@ -69,7 +69,6 @@ class Consulta extends Authenticatable
     public function BuscarDtes($d){
         $var = 0;
         $p = Session::get('perfiles');
-
         $sql = "select * from v_dtes where ";
         if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
             $desde = $this->formatearFecha($d['f_desde']);
