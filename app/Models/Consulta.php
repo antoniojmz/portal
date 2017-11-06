@@ -123,4 +123,32 @@ class Consulta extends Authenticatable
         $fecha = $formato[2]."-".$formato[1]."-".$formato[0];
         return $fecha;
     }
+
+    public function filtrarFecha($caso){
+        $p = Session::get('perfiles');
+        switch ($caso) {
+            case 13:
+                $result['v_info'] = '{"code":"204", "des_code":"No content."}';  
+                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor." and YEAR(FechaEmision) = YEAR(NOW()) and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                $sql2="select group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.idProveedor = ".$p['v_detalle'][0]->IdProveedor." and YEAR(FechaEmision) = YEAR(NOW())) * 100) AS Porcentaje FROM v_dtes where idProveedor =".$p['v_detalle'][0]->IdProveedor." and YEAR(FechaEmision) = YEAR(NOW()) GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
+                $sql4="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where YEAR(FechaEstado) = YEAR(NOW()) ORDER BY FechaEstado DESC) t1 where IdProveedor=".$p['v_detalle'][0]->IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
+                $result['v_widget1']=DB::select($sql1);
+                $result['v_widget2']=DB::select($sql2);
+                $result['v_widget4']=DB::select($sql4);
+            break;
+            case 1: case 3: case 6: case 12:
+                $result['v_info'] = '{"code":"204", "des_code":"No content."}';
+                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$p['v_detalle'][0]->IdProveedor." and FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                $sql2="select group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.idProveedor = ".$p['v_detalle'][0]->IdProveedor." and FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW()) * 100) AS Porcentaje FROM v_dtes where idProveedor =".$p['v_detalle'][0]->IdProveedor." and FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW()GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
+                $sql4="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where FechaEstado BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() ORDER BY FechaEstado DESC) t1 where IdProveedor=".$p['v_detalle'][0]->IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
+                $result['v_widget1']=DB::select($sql1);
+                $result['v_widget2']=DB::select($sql2);
+                $result['v_widget4']=DB::select($sql4); 
+            break;
+            default:
+                $result['v_info']='{"code":"-2", "des_code":"Se esperaban resultados"}'; 
+            break;
+        }           
+        return $result;
+    }
 }

@@ -9,15 +9,66 @@
             </div>
         </div>
         <div>
-            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                <span class="m-subheader__daterange-label">
-                    <span class="m-subheader__daterange-title"></span>
-                    <span class="m-subheader__daterange-date m--font-brand"></span>
-                </span>
-                <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                    <i class="la la-angle-down"></i>
-                </a>
-            </span>
+            <div class="m-portlet__head-tools">
+                <ul class="m-portlet__nav">
+                    <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                        <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                            Filtrar por
+                        </a>
+                        <div class="m-dropdown__wrapper">
+                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                            <div class="m-dropdown__inner">
+                                <div class="m-dropdown__body">
+                                    <div class="m-dropdown__content">
+                                        <ul class="m-nav">
+                                            <li class="m-nav__item">
+                                                <a href="javascript:void(0);" id="FiltroAnio" class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-share"></i>
+                                                    <span class="m-nav__link-text">
+                                                        Este Año
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="m-nav__item">
+                                                <a href="javascript:void(0);" id="FiltroMes" class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-share"></i>
+                                                    <span class="m-nav__link-text">
+                                                        Este Mes
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="m-nav__item">
+                                                <a href="javascript:void(0);" id="FiltroTryMes" class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                    <span class="m-nav__link-text">
+                                                        Últumos 3 meses
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="m-nav__item">
+                                                <a href="javascript:void(0);" id="FiltroSixMes" class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                    <span class="m-nav__link-text">
+                                                        Últumos 6 meses
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="m-nav__item">
+                                                <a href="javascript:void(0);" id="FiltrotweMes" class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                    <span class="m-nav__link-text">
+                                                        Últumos 12 meses
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -50,9 +101,7 @@
                                     Facturas emitidas al cliente los últimos 12 meses.
                                 </span>
                             </div>
-                            <div class="m-widget14__chart" style="height:120px;">
-                                <canvas  id="facturacion_por_mes"></canvas>
-                            </div>
+                            <div id="divFacturacion_por_mes" class="m-widget14__chart" style="height:120px;"></div>
                         </div>
                         <!--end:: Widgets/Daily Sales-->
                     </div>
@@ -71,7 +120,7 @@
                                 <div class="col">
                                     <div id="facturacion_por_estado" class="m-widget14__chart" style="height: 160px;">
                                         <div class="m-widget14__stat">
-                                            %
+                                            <span id="spanPorcentaje"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +136,6 @@
                                         </div>
                                         <div id="div3" style="display:none;" class="m-widget14__legend">
                                             <span style="background-color:#FA58F4;" class="m-widget14__legend-bullet"></span>
-                                            <span class="m-widget14__legend-bullet m--bg-warning"></span>
                                             <span id="span3" class="m-widget14__legend-text"></span>
                                         </div>
                                         <div id="div4" style="display:none;" class="m-widget14__legend">
@@ -141,66 +189,6 @@
                                     </span>
                                 </h3>
                             </div>
-                        </div>
-                        <div class="m-portlet__head-tools">
-                            <ul class="m-portlet__nav">
-                                <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                                    <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                                        Filtrar por
-                                    </a>
-                                    <div class="m-dropdown__wrapper">
-                                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
-                                        <div class="m-dropdown__inner">
-                                            <div class="m-dropdown__body">
-                                                <div class="m-dropdown__content">
-                                                    <ul class="m-nav">
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-share"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Este Año
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-share"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Este Mes
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Últumos 3 meses
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Últumos 6 meses
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Últumos 12 meses
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                     <div class="m-portlet__body">
@@ -265,63 +253,9 @@
                                 </h3>
                             </div>
                         </div>
-                        <div class="m-portlet__head-tools">
-                            <ul class="m-portlet__nav">
-                                <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover">
-                                    <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                                        Today
-                                    </a>
-                                    <div class="m-dropdown__wrapper">
-                                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                                        <div class="m-dropdown__inner">
-                                            <div class="m-dropdown__body">
-                                                <div class="m-dropdown__content">
-                                                    <ul class="m-nav">
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-share"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Activity
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Messages
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-info"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    FAQ
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                                <span class="m-nav__link-text">
-                                                                    Support
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="m-portlet__body">
-                        <div id="DivCambioEstados" class="m-widget4 m-widget4--chart-bottom" style="min-height: 350px">
-                            
-                        </div>
+                        <div id="DivCambioEstados" class="m-widget4 m-widget4--chart-bottom" style="min-height: 350px"></div>
                     </div>
                 </div>
             </div>
@@ -580,6 +514,8 @@
 <script Language="Javascript">
     var ruta = "{{ URL::route('facturacion') }}"
     var rutaD = "{{ URL::route('detallesDTE') }}"
+    var rutaF = "{{ URL::route('filtrarwidget') }}"
+
     var d = [];
     d['idPerfil'] = JSON.parse(rhtmlspecialchars('{{ json_encode($data["idPerfil"]) }}'));
     d['v_widget1'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget1"]) }}'));

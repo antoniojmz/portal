@@ -51,4 +51,10 @@ class HomeController extends Controller
         return $result;
     }
     
+    public function postFiltrarwidget(Request $request){
+        $datos = $request->all();
+        $model= new Consulta();
+        $result = $model->filtrarFecha($datos['caso']);
+        return $result;
+    }
 }

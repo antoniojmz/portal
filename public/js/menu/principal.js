@@ -37,9 +37,26 @@ var ManejoRespuestaD = function(respuesta){
     		$("#divFormTabla").hide();
     		$("#divFormTab").show();
             pintarDatos(RegistroDTEEstadisticos);
-            // cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
-            // cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
+            cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
+            cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
             cargartablaEstados(respuesta.respuesta.v_dte_estados);
+    }else{
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+    };
+}
+
+var ManejoRespuestaF = function(respuesta){
+	ajax=0;
+    if (respuesta.code = '200'){
+    	var res = JSON.parse(respuesta.respuesta.v_info);
+    	if (res.code = '204'){
+			widget1(respuesta.respuesta.v_widget1);
+			widget2(respuesta.respuesta.v_widget2);
+			widget3(respuesta.respuesta.v_widget2);
+			widget4(respuesta.respuesta.v_widget4);
+    	}else{
+        	toastr.error(res.des_code, "Error!");	
+    	}
     }else{
         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
@@ -249,6 +266,16 @@ var cargarFormularioVisualizacion = function(data){
     }
 };
 
+var FiltrarwidgetsProveedor = function(caso){
+    if(ajax==0){
+	    ajax=1
+	    parametroAjax.ruta=rutaF;
+	    parametroAjax.data = {"caso":caso};
+	    respuesta=procesarajax(parametroAjax);
+	    ManejoRespuestaF(respuesta);
+    }
+};
+
 var BotonVolver = function(){
     // $(".divForm").toggle();
     $("#divFormTabla").show();
@@ -260,12 +287,17 @@ var BotonVolver = function(){
 /////// widget de Perfil Proveedor ///////
 //////////////////////////////////////////
 var widget1 = function(v_widget1){
+	$("#divFacturacion_por_mes").empty();
+	$("#divFacturacion_por_mes").append("<canvas  id='facturacion_por_mes'></canvas>");
 	var count =[];
 	var mes =[];
-	for (var i = 0; i < v_widget1.length; i++) { 
-		var res = v_widget1[i].IdMesGrupo
-		// mes[res] = v_widget1[i].NombreMesGrupo
-		count[res-1]= v_widget1[i].NroDTEGrupo;
+	if (v_widget1.length>0){
+		for (var i = 0; i < v_widget1.length; i++) { 
+			var res = v_widget1[i].IdMesGrupo
+			count[res-1]= v_widget1[i].NroDTEGrupo;
+		}
+	}else{
+		count = [0,0,0,0,0,0,0,0,0,0,0,0]
 	}
 	var e = {
 		labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
@@ -331,65 +363,72 @@ var widget1 = function(v_widget1){
 var widget2 = function(v_widget2){
 	var object ={};
 	var result =[];
-	for (var i = 0; i < v_widget2.length; i++) { 
-		var res = v_widget2[i]
-		object['value']=v_widget2[i].Porcentaje;
-		object['className']="custom";
-		switch(v_widget2[i].IdEstadoDTE){
-			case "1":
-				object['meta']={color: mUtil.getColor("brand")};
-				$("#div1").show();
-				$("#span1").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "2":
-				object['meta']={color:mUtil.getColor("success")};
-				$("#div2").show();
-				$("#span2").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "3":
-				object['meta']={color:"#FA58F4"};
-				$("#div3").show();
-				$("#span3").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "4":
-				object['meta']={color: "#F515C7"};
-				$("#div4").show();
-				$("#span4").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "5":
-				object['meta']={color: mUtil.getColor("danger")};
-				$("#div5").show();
-				$("#span5").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "6":
-				object['meta']={color: mUtil.getColor("warning")};
-				$("#div6").show();
-				$("#span6").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "7":
-				object['meta']={color:"#66FEF1"};
-				$("#div7").show();
-				$("#span7").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "8":
-				object['meta']={color:"#2DF130"};
-				$("#div8").show();
-				$("#span8").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;                        
-			case "9":
-				object['meta']={color: mUtil.getColor("info")};
-				$("#div9").show();
-				$("#span9").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
-			case "99":
-				object['meta']={color: "#F514C7"};
-				$("#div99").show();
-				$("#span99").text(res.Porcentaje+" % "+res.EstadoActualDTE);
-			break;
+	$(".m-widget14__legend").hide();
+	$(".m-widget14__legend-text").text("");
+	$("#spanPorcentaje").text("");
+	$("#spanPorcentaje").text("0%");
+	if (v_widget2.length>0){
+		$("#spanPorcentaje").text("%");
+		for (var i = 0; i < v_widget2.length; i++) { 
+			var res = v_widget2[i]
+			object['value']=v_widget2[i].Porcentaje;
+			object['className']="custom";
+			switch(v_widget2[i].IdEstadoDTE){
+				case "1":
+					object['meta']={color: mUtil.getColor("brand")};
+					$("#div1").show();
+					$("#span1").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "2":
+					object['meta']={color:mUtil.getColor("success")};
+					$("#div2").show();
+					$("#span2").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "3":
+					object['meta']={color:"#FA58F4"};
+					$("#div3").show();
+					$("#span3").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "4":
+					object['meta']={color: "#F515C7"};
+					$("#div4").show();
+					$("#span4").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "5":
+					object['meta']={color: mUtil.getColor("danger")};
+					$("#div5").show();
+					$("#span5").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "6":
+					object['meta']={color: mUtil.getColor("warning")};
+					$("#div6").show();
+					$("#span6").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "7":
+					object['meta']={color:"#66FEF1"};
+					$("#div7").show();
+					$("#span7").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "8":
+					object['meta']={color:"#2DF130"};
+					$("#div8").show();
+					$("#span8").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;                        
+				case "9":
+					object['meta']={color: mUtil.getColor("info")};
+					$("#div9").show();
+					$("#span9").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+				case "99":
+					object['meta']={color: "#F514C7"};
+					$("#div99").show();
+					$("#span99").text(res.Porcentaje+" % "+res.EstadoActualDTE);
+				break;
+			}
+			var res= JSON.stringify(object);
+			res = JSON.parse(res);
+			result[i]=res;    
 		}
-		var res= JSON.stringify(object);
-		res = JSON.parse(res);
-		result[i]=res;    
 	}
 	0 != $("#facturacion_por_estado").length && new Chartist.Pie("#facturacion_por_estado", {
 		series: result,
@@ -424,42 +463,56 @@ var widget2 = function(v_widget2){
 }
 
 var widget3 = function(v_widget2){
-	var total=0;
-	for (var i = 0; i < v_widget2.length; i++) {
-		total += v_widget2[i].MontoTotal;
-	}
-	$("#spanMontoTotal").text("$ "+number_format(total, '0'))
-	for (var i = 0; i < v_widget2.length; i++) {
-		switch(v_widget2[i].IdEstadoDTE){
-			case "1":
-				$("#spanMonto1").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
-				$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
-				$("#spanDes1").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-			break;
-			case "2":
-				$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
-				$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
-				$("#spanDes2").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-			break;
-			case "6":
-				$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
-				$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
-				$("#spanDes3").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-			break;                       
-			case "9":
-				$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
-				$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-				$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
-				$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-			break;
+	$("#spanMontoTotal").text("$ 0");
+	$(".m-widget25__progress-number").text("$ 0");
+	$(".progress-bar").attr("style","width:0%;");
+	$("#spanDes1").text("0 DTE Emitido por el Proveedor");
+	$("#spanDes2").text("0 DTE Recepcionado por el Cliente");
+	$("#spanDes3").text("0 DTE Contabilizado por el Cliente");
+	$("#spanDes4").text("0 DTE Programado para Pago");
+	$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax();");
+	$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax();");
+	$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax();");
+	$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax();");
+	if (v_widget2.length>0){
+		var total=0;
+		for (var i = 0; i < v_widget2.length; i++) {
+			total += v_widget2[i].MontoTotal;
+		}
+		$("#spanMontoTotal").text("$ "+number_format(total, '0'))
+		for (var i = 0; i < v_widget2.length; i++) {
+			switch(v_widget2[i].IdEstadoDTE){
+				case "1":
+					$("#spanMonto1").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+					$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+					$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#spanDes1").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+				break;
+				case "2":
+					$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+					$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+					$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#spanDes2").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+				break;
+				case "6":
+					$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+					$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+					$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#spanDes3").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+				break;                       
+				case "9":
+					$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+					$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+					$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+				break;
+			}
 		}
 	}
 }
 
 var widget4 = function(v_widget4){
+	$("#DivCambioEstados").empty();
 	for (var i = 0; i < v_widget4.length; i++) {
 		switch(v_widget4[i].IdEstadoDTE){
 			case 1:
@@ -512,4 +565,19 @@ $(document).ready(function(){
 	cargarPanel(d.idPerfil);
     $(document).on('click','.LinkFacP',cambiarTabla);
     $(document).on('click','#volverTabProv',BotonVolver);
+	$("#FiltroAnio").click(function(){
+		FiltrarwidgetsProveedor(13);
+	});
+	$("#FiltroMes").click(function(){
+		FiltrarwidgetsProveedor(1);
+	});
+	$("#FiltroTryMes").click(function(){
+		FiltrarwidgetsProveedor(3);
+	});
+	$("#FiltroSixMes").click(function(){
+		FiltrarwidgetsProveedor(6);
+	});
+	$("#FiltrotweMes").click(function(){
+		FiltrarwidgetsProveedor(12);
+	});
 });
