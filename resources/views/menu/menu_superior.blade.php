@@ -413,7 +413,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="{{ route('perfil') }}" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-profile-1"></i>
+															<i class="m-nav__link-icon flaticon-profile"></i>
 															<span class="m-nav__link-title">
 																<span class="m-nav__link-wrap">
 																	<span class="m-nav__link-text">
@@ -428,14 +428,21 @@
 															</span>
 														</a>
 													</li>
-													<li class="m-nav__item">
-														<a href="profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-share"></i>
-															<span class="m-nav__link-text">
-																Activity
-															</span>
-														</a>
-													</li>
+													@php
+														$nroPerfiles = Session::get('nroPerfiles');
+													@endphp
+													@if (isset($nroPerfiles))
+														@if ($nroPerfiles>1)
+															<li class="m-nav__item">
+																<a href="{{ route('accesos') }}" class="m-nav__link">
+																	<i class="m-nav__link-icon flaticon-infinity"></i>
+																	<span class="m-nav__link-text">
+																		Cambio de acceso
+																	</span>
+																</a>
+															</li>
+														@endif
+													@endif
 													<li class="m-nav__item">
 														<a href="profile.html" class="m-nav__link">
 															<i class="m-nav__link-icon flaticon-chat-1"></i>

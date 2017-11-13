@@ -1,4 +1,6 @@
-var RegistroUsuario = '';
+var RegistroUsuario = RegistroPerfiles = '';
+var limpiarPerfiles=0;
+
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -6,6 +8,23 @@ var parametroAjax = {
     'ruta': '',
     'async': false
 };
+
+var parametroAjaxGet = {
+    'token': $('input[name=_token]').val(),
+    'tipo': 'GET',
+    'data': {},
+    'ruta': '',
+    'async': false
+};
+
+
+var ManejoRespuestaProcesarP = function(respuesta){
+    if(respuesta.code==200){
+        cargarTablaPerfiles(respuesta.respuesta.v_perfiles);
+    }else{
+        toastr.error("Contacte al personal informatico", "Error!");
+    }
+}
 
 var ManejoRespuestaProcesarI = function(respuesta){
     if(respuesta.code==200){
@@ -52,8 +71,29 @@ var ManejoRespuestaProcesar = function(respuesta){
                 $(".divForm").toggle();
                 $('#FormUsuario')[0].reset();
                 break;
-            case '2':
-                toastr.error(res.des_code, "Error!");
+            case '-2':
+                toastr.warning(res.des_code, "Error!");
+                break;
+            default:
+                toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
+                break;
+        } 
+    }else{
+        toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
+    }
+};
+
+var ManejoRespuestaProcesarPerfil = function(respuesta){
+    if(respuesta.code==200){
+        var res = JSON.parse(respuesta.respuesta.f_registro_perfil);
+        switch(res.code) {
+            case '200':
+                toastr.success(res.des_code, "Procesado!");
+                $(".comboclear").val('').trigger("change");  
+                cargarTablaPerfiles(respuesta.respuesta.v_perfiles);
+                break;
+            case '-2':
+                toastr.warning(res.des_code, "Error!");
                 break;
             default:
                 toastr.error("Comuniquese con el personal de sopore técnico", "Error!");
@@ -75,14 +115,12 @@ var cargarTablaUsuarios = function(data){
             "targets": [ 1 ],
             "searchable": false
         },
-        {"sWidth": "15%", "aTargets": [1]},
-        {"sWidth": "11%", "aTargets": [2]},
-        {"sWidth": "10%", "aTargets": [4]},
-        {"sWidth": "15%", "aTargets": [5]},
-        {"sWidth": "15%", "aTargets": [7]},
+        {"sWidth": "20%", "aTargets": [1]},
+        {"sWidth": "15%", "aTargets": [2]},
+        {"sWidth": "20%", "aTargets": [5]},
+        {"sWidth": "20%", "aTargets": [8]},
+        {"sWidth": "10%", "aTargets": [9]},
         {"sWidth": "15%", "aTargets": [10]},
-        {"sWidth": "8%", "aTargets": [11]},
-        {"sWidth": "15%", "aTargets": [12]},
         ],
         "language": {
             "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -92,8 +130,6 @@ var cargarTablaUsuarios = function(data){
         {"title": "Id","data": "idUser",visible:0},
         {"title": "Nombres","data": "usrNombreFull"},
         {"title": "Login","data": "usrUserName"},
-        {"title": "idPerfil","data": "idPerfil",visible:0},
-        {"title": "Perfíl","data": "des_perfil"},
         {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
         {"title": "Creado id","data": "auCreadoPor",visible:0},
         {"title": "Creado por","data": "creador"},
@@ -106,6 +142,72 @@ var cargarTablaUsuarios = function(data){
     });
 };
 
+var cargarTablaPerfiles = function(data){
+    if(limpiarPerfiles==1){destruirTabla('#tablaPerfiles');}
+    if (data.length>0){
+        $("#spanAlert").text("");
+       $("#divTablaPerfiles").show();
+       $("#tablaPerfiles").dataTable({ 
+            "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "scrollCollapse": false,
+            "paging": false,
+            "searching": false,
+            // "info": false,
+            "language": {
+                "info": "Seleccione un perfíl con doble click..."
+            },
+            "columnDefs": [
+            {
+                "targets": [ 1 ],
+                "searchable": false
+            }],
+            "data": data,
+            "columns":[
+            {"title": "Id","data": "IdUser",visible:0},
+            {"title": "Nombres","data": "usrNombreFull"},
+            {"title": "Login","data": "usrUserName"},
+            {"title": "idPerfil","data": "idPerfil",visible:0},
+            {"title": "Perfíl","data": "des_perfil"},
+            {"title": "Estado","data": "estado_perfil"},
+            ],
+        });
+        seleccionarTablaPerfiles();
+        limpiarPerfiles=1;
+    }else{
+        limpiarPerfiles=0;
+        $("#spanAlert").text("Este usuario no tiene periles asociados");
+       $("#divTablaPerfiles").hide();  
+    }   
+};
+
+var seleccionarTablaPerfiles = function(data){
+    var tableC = $('#tablaPerfiles').dataTable();
+    $('#tablaPerfiles tbody').on('click', 'tr', function (e) {
+        tableC.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        RegistroPerfiles = TablaTraerCampo('tablaPerfiles',this);
+    });
+    tableC.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+     $(function() {
+        $.contextMenu({
+            selector: '#tablaPerfiles',
+            // selector: '.dataTable tbody tr',
+            callback: function(key, options) {
+                switch(key) {
+                    case "1":
+                        cambiarEstatusPerfil(RegistroPerfiles);
+                        // cambiarEstatusUsuario(RegistroUsuario);
+                    break;
+                }
+            },
+            items: {
+                "1": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
+            }
+        });
+    });
+};     
 var crearallcombos = function(data){
     crearcombo('#idPerfil',data.v_perfiles);
     crearcombo('#usrEstado',data.v_estados);
@@ -115,13 +217,35 @@ var cargarFormulario= function(){
     $(".divForm").toggle();
 }
 
+var volverPerfiles = function(){
+    $(".divPerfiles").toggle();
+    $("#spanAlert").text("");
+    $("#divTablaPerfiles").hide();
+    $(".comboclear").val('').trigger("change");  
+    $("#idUser2").val("")
+}
+
+var administrarPerfiles= function(data){
+    $("#idUser2").val(data.idUser)
+    buscarPerfiles(data);
+    $(".divPerfiles").toggle();
+}
+
 var pintarDatosActualizar= function(data){
+    $("#perfiles").text("N/A o Inactivo")
     $('#divConsulta').show();
+    $('#divSpanPerfiles').show();
     $("#idUser").val(data.idUser);
     $("#usrUserName").val(data.usrUserName);
     $("#usrEmail").val(data.usrEmail);
     $("#usrNombreFull").val(data.usrNombreFull);
-    $("#idPerfil").val(data.idPerfil).trigger("change");
+    if(data.des_Perfil!=null){
+        var res = data.des_Perfil.split(",");
+        var des='';
+        res.length>1 ? des="Perfiles" : des="Perfil"
+        $("#labelPerfil").text(des);
+        $("#perfiles").text(res);
+    }
     $("#usrEstado").val(data.usrEstado).trigger("change");
     if(data.usrUltimaVisita!=null){$("#usrUltimaVisita").text(data.usrUltimaVisita);}
     if(data.auCreadoEl!=null){$("#auCreadoEl").text(data.auCreadoEl);}
@@ -135,8 +259,8 @@ var BotonCancelar = function(){
     $('#divConsulta').hide();
     $('#FormUsuario')[0].reset();
     $("#idUser").val("");
+    $('#divSpanPerfiles').hide();
     mostrarDesconocidos();
-    $(".comboclear").val('').trigger("change");
 }
 
 var mostrarDesconocidos = function(){
@@ -156,15 +280,33 @@ var BotonAgregar = function(){
     $('#FormUsuario')[0].reset();
 }
 
+var BotonAgregarPerfil = function(){
+    var data = {
+        'idPerfil': $('#idPerfil').val(),
+        'idUser': $('#idUser2').val(),
+    };
+    parametroAjax.ruta = rutaP;
+    parametroAjax.data = data;
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaProcesarPerfil(respuesta);
+}
+
+
 var ProcesarUsuario = function(){
     var camposNuevo = {
-        'idPerfil': $('#idPerfil').val(),
         'usrEstado': $('#usrEstado').val()
     }
     parametroAjax.ruta=ruta;
     parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesar(respuesta);
+};
+
+var buscarPerfiles = function(data){
+    parametroAjaxGet.ruta=rutaP;
+    parametroAjaxGet.data = data;
+    respuesta=procesarajax(parametroAjaxGet);
+    ManejoRespuestaProcesarP(respuesta);
 };
 
 var reiniciarClave = function(){
@@ -175,7 +317,11 @@ var reiniciarClave = function(){
 }
 
 var validador = function(){
- $('#FormUsuario').formValidation('validate');
+    $('#FormUsuario').formValidation('validate');
+};
+
+var validadorPerfil = function(){
+    $('#FormPerfil').formValidation('validate');
 };
 
 var cambiarEstatusUsuario = function(data){
@@ -184,6 +330,13 @@ var cambiarEstatusUsuario = function(data){
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarI(respuesta);
 }
+var cambiarEstatusPerfil = function(data){
+    parametroAjax.ruta=rutaAP;
+    parametroAjax.data = data;
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaProcesarP(respuesta);
+}
+
 
 $(document).ready(function(){
     $("#usrUserName").inputmask({
@@ -191,6 +344,7 @@ $(document).ready(function(){
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);
+
     var tableB = $('#tablaUsuarios').dataTable();
     $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
         tableB.$('tr.selected').removeClass('selected');
@@ -216,19 +370,25 @@ $(document).ready(function(){
                     case "3":
                         cambiarEstatusUsuario(RegistroUsuario);
                     break;
+                    case "4":
+                        administrarPerfiles(RegistroUsuario);
+                    break;
+
                 }
             },
             items: {
-                "1": {name: "Editar", icon: "edit"},
-                "2": {name: "Reiniciar clave", icon: "edit"},
-                "3": {name: "Activar / Desactivar", icon: "quit"}
+                "1": {name: "Editar", icon: "fa-pencil-square-o"},
+                "2": {name: "Reiniciar clave", icon: "fa-refresh "},
+                "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
+                "4": {name: "Administrar perfiles", icon: "fa-cubes"}
             }
         });
-    });
+    });    
     $(document).on('click','#guardar',validador);
     $(document).on('click','#cancelar',BotonCancelar);
     $(document).on('click','#agregar',BotonAgregar);
-
+    $(document).on('click','#agregarP',validadorPerfil);
+    $(document).on('click','#volverPerfiles',volverPerfiles);
     $('#FormUsuario').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
@@ -259,14 +419,6 @@ $(document).ready(function(){
                     }
                 }
             },
-            'idPerfil': {
-                verbose: false,
-                validators: {
-                    notEmpty: {
-                        message: 'El campo es requerido.'
-                    },
-                }
-            },
             'usrEstado': {
                 verbose: false,
                 validators: {
@@ -279,6 +431,28 @@ $(document).ready(function(){
     })
     .on('success.form.fv', function(e){
         ProcesarUsuario();
+    })
+    .on('status.field.fv', function(e, data){
+        data.element.parents('.form-group').removeClass('has-success');
+    });
+
+    
+    $('#FormPerfil').formValidation({
+        excluded:[':disabled'],
+        // message: 'El módulo le falta un campo para ser completado',
+        fields: {
+            'idPerfil': {
+                verbose: false,
+                validators: {
+                    notEmpty: {
+                        message: 'El campo es requerido.'
+                    },
+                }
+            },
+        }
+    })
+    .on('success.form.fv', function(e){
+        BotonAgregarPerfil();
     })
     .on('status.field.fv', function(e, data){
         data.element.parents('.form-group').removeClass('has-success');

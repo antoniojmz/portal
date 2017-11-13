@@ -96,47 +96,55 @@
 					</ul>
 				</div>
 			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-				<a  href="#" class="m-menu__link m-menu__toggle">
-					<span class="m-menu__item-here"></span>
-					<i class="m-menu__link-icon flaticon-cogwheel-1"></i>
-					<span class="m-menu__link-title">
-						<span class="m-menu__link-wrap">
-							<span class="m-menu__link-text">
-								Administración
+			@php
+				$data = Session::get('perfiles');
+			print_r($data['idPerfil']);
+			@endphp
+			@if (isset($data))
+				@if ($data['idPerfil']==1)
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<span class="m-menu__item-here"></span>
+							<i class="m-menu__link-icon flaticon-cogwheel-1"></i>
+							<span class="m-menu__link-title">
+								<span class="m-menu__link-wrap">
+									<span class="m-menu__link-text">
+										Administración
+									</span>
+								</span>
 							</span>
-						</span>
-					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
-				</a>
-				<div class="m-menu__submenu">
-					<span class="m-menu__arrow"></span>
-					<ul class="m-menu__subnav">
-						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-									<span></span>
-								</i>
-								<span class="m-menu__link-text">
-									Listado de usuarios
-								</span>
-							</a>
-						</li>
-						
-<!-- 						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("usuarios2") !!}' class="m-menu__link">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-									<span></span>
-								</i>
-								<span class="m-menu__link-text">
-									prueba data tabla
-								</span>
-							</a>
-						</li> -->
-						
-					</ul>
-				</div>
-			</li>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+						<div class="m-menu__submenu">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">
+								<li class="m-menu__item " aria-haspopup="true" >
+									<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
+										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+											<span></span>
+										</i>
+										<span class="m-menu__link-text">
+											Listado de usuarios
+										</span>
+									</a>
+								</li>
+								
+		<!-- 						<li class="m-menu__item " aria-haspopup="true" >
+									<a  href='{!! URL::route("usuarios2") !!}' class="m-menu__link">
+										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+											<span></span>
+										</i>
+										<span class="m-menu__link-text">
+											prueba data tabla
+										</span>
+									</a>
+								</li> -->
+								
+							</ul>
+						</div>
+					</li>
+				@endif
+			@endif
 		</ul>
 	</div>
 </div>

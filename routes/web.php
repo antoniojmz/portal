@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -18,6 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@getIndex')->name('home');
+
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
 
@@ -35,10 +37,16 @@ Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
 Route::post('/detallesCliente', 'ClienteController@postBuscardetalleC')->name('detallesCliente');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
+	//accesos (Seleccionar acceso para ingresar a la aplicacion)
+	Route::get('/accesos', 'UsuarioController@getAccesos')->name('accesos');
+	Route::post('/accesos', 'UsuarioController@postAccesos')->name('accesos');
+	//Mostrar Perfiles de los usuarios (Activar / Desactivar)
+	Route::get('/perfiles', 'UsuarioController@getPerfiles')->name('perfiles');
+	Route::post('/perfiles', 'UsuarioController@postPerfiles')->name('perfiles');
 	// Registro de usuarios
 	Route::get('/usuarios', 'UsuarioController@getUsuarios')->name('usuarios');
 	Route::post('/usuarios', 'UsuarioController@postUsuarios')->name('usuarios');
-	
+
 	Route::get('/usuarios2', 'UsuarioController@getUsuario')->name('usuarios2');
 	Route::post('/usuarios2', 'UsuarioController@postUsuario')->name('usuarios2');
 	// Cambio de contraseña por el mismo usuario
@@ -55,5 +63,7 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	Route::post('/reiniciar', 'UsuarioController@postReiniciar')->name('reiniciar');
 	// Activar o Desactivar usuario
 	Route::post('/activar', 'UsuarioController@postUsuarioactivo')->name('activar');
+	// Activar o Desactivar Perfil de usuario
+	Route::post('/activarP', 'UsuarioController@postPerfilactivo')->name('activarP');
 
 });

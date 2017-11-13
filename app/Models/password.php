@@ -21,7 +21,7 @@ use App\Models\User;
 class Password extends Authenticatable{
 
     public function recuperarPassword($datos){
-    	$model= new User();
+        $model= new User();
         $result = $model->cambiarPassword($datos);
         return $result; 
     }

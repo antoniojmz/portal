@@ -541,14 +541,16 @@ var widget4 = function(v_widget4){
 }
 
 var cargarPanel = function(idPerfil){
-	switch(idPerfil){
+    var res = parseInt(idPerfil);
+    switch(res){
 		case 1:
 			console.log("Soy administrador");
 		break;
 		case 2:
-			console.log("Soy cliente");
-		break;                      
-		case 3:
+            console.log("Soy cliente");
+        break;                      
+        case 3:
+			console.log("Soy proveedor");
 			$(".m-widget14__legend").hide();
 			widget1(d.v_widget1);
 			widget2(d.v_widget2);
@@ -556,7 +558,7 @@ var cargarPanel = function(idPerfil){
 			widget4(d.v_widget4);
 		break;
 		default:
-			console.log("No tengo perfil definido, debe cerrar session");
+			console.log("No tengo perfil definido");
 		break;
 	}
 }

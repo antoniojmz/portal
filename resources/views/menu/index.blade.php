@@ -28,6 +28,9 @@
     	{!! Html::style('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/demo3/assets/demo/demo3/base/style.bundle.css') !!}
     	<!-- Estilos Plugins -->
+    	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.css') !!}
+    	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
+    	
     	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}

@@ -31,27 +31,44 @@ class UsuarioController extends Controller
         $this->middleware('auth');
     }
 
+    // Pantalla para seleccionar un perfil despues de iniciar sesion
+    protected function getAccesos(){
+        $data['title'] = 'Elige acceso';
+        $model= new User();
+        $data['v_accesos'] = $model->perfilesDisponibles();
+        return View::make('accesos.accesos',$data);
+    }
+
+    // Cargar el perfil escogido
+    protected function postAccesos(Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result = $model->mostrarPanel($datos['idPerfil'],$datos['des_perfil']);
+        return $result;
+    }
+
+    //Pantalla de registro de usuario
     protected function getUsuarios(){
         $data['title'] = 'Listado de usuarios';
         $model= new User();
         $data['v_usuarios'] = $model->listUsuario();
         $data['v_perfiles'] = $model->listPerfiles();
         $data['v_estados'] = $model->listEstados();
-        // return $data;
         return View::make('usuarios.usuarios',$data);
     }
 
-    protected function getUsuario(){
-        $data['title'] = 'Listado de usuarios';
-        $model= new User();
-        $data['v_usuarios'] = $model->listUsuario();
-        $data['v_perfiles'] = $model->listPerfiles();
-        $data['v_estados'] = $model->listEstados();
-        // return $data;
-        return View::make('usuarios.usuarios2',$data);
-    }
+    // pantalla de prueba para la datatable de metronic
+    // protected function getUsuario(){
+    //     $data['title'] = 'Listado de usuarios';
+    //     $model= new User();
+    //     $data['v_usuarios'] = $model->listUsuario();
+    //     $data['v_perfiles'] = $model->listPerfiles();
+    //     $data['v_estados'] = $model->listEstados();
+    //     return View::make('usuarios.usuarios2',$data);
+    // }
 
-    protected function postUsuario(Request $request){
+    // Registrar un nuevo usuario o actualizar datos (Administrador)
+    protected function postUsuarios(Request $request){
         $datos = $request->all();
         // Todos los datos del usuario loggeado
         // $user = Auth::user();
@@ -62,12 +79,14 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    // Pantalla de cambio de contraseña por el usario
     protected function getPassword (){
         $data['title'] = 'Cambio de password';
         $idUser = Auth::id();
         return View::make('auth.passwords.cambioPassword',$data);
     }
 
+    // Cambiar la contraseña por el usuario actual
     protected function postPassword (Request $request){
         $datos = $request->all();
         $datos['idUser'] = Auth::id();
@@ -76,12 +95,14 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    // Pantalla de actualozacion de datos por el mismo usuario
     protected function getPerfil (){
         $data['title'] = 'Mi Perfíl';
         $data['v_datos'] = Auth::user();
         return View::make('perfiles.perfiles',$data);
     }
 
+    // Actualizacion de datos por el usuario actual
     protected function postPerfil (Request $request){
         $datos = $request->all();
         $model= new User();
@@ -89,12 +110,28 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    // Cargar los perfiles de un usuario. (Administracion)
+    protected function getPerfiles(Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result['v_perfiles'] = $model->listPerfilesAdministrador($datos['idUser']);
+        return $result;
+    }
+
+    // Asignar un nuevo perfil a un usuario
+    protected function postPerfiles (Request $request){
+        $datos = $request->all();
+        $model = new User();
+        $result = $model->regPerfil($datos);
+        return $result;
+    }
+
+    // Rgistrar y actualizar foto de perfil
     protected function postCargarfoto (Request $request){
         $idUser=$request->input('idUser');
         $fotoOld = $request->input('usrUrlimage');
         $archivo = $request->file('foto');
         if ($fotoOld<>null){
-            log::info("Entre a eliminar mi imagen");
             $array= explode('/', $fotoOld);
             Storage::disk($array[1])->delete($array[2]);
         } 
@@ -120,6 +157,7 @@ class UsuarioController extends Controller
         } 
     }
 
+    // Eliminar foto de perfil
     protected function postEliminarfoto (Request $request){
         $datos = $request->all();
         if ($datos['usrUrlimage']<>null){
@@ -131,6 +169,7 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    // Reiniciar contraseña de uusarios (Administrador)
     protected function postReiniciar (Request $request){
         $datos = $request->all();
         $datos['email']=$datos['usrEmail'];
@@ -139,11 +178,21 @@ class UsuarioController extends Controller
         return $result;
     }
 
+    // Activar o Desactivar usuarios
     protected function postUsuarioactivo (Request $request){
         $datos = $request->all();
         $model= new User();
         $result['activar'] = $model->activarUsuario($datos);
         $result['v_usuarios'] = $model->listUsuario();
+        return $result;
+    }
+
+    // Activar o Desactivar perfiles
+    protected function postPerfilactivo (Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result['activar'] = $model->activarPerfil($datos);
+        $result['v_perfiles'] = $model->listPerfilesAdministrador($datos['IdUser']);
         return $result;
     }
 }
