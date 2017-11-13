@@ -177,6 +177,7 @@ class User extends Authenticatable
         $sql="select f_registro_perfil(".$datos['idUser'].",".$datos['idPerfil'].",".$idAdmin.")";
         $execute=DB::select($sql);
         $result['v_perfiles'] = $this->listPerfilesAdministrador($datos['idUser']);
+        // $result['v_usuarios']=$this->listUsuario();
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_perfil']=$value;
         }

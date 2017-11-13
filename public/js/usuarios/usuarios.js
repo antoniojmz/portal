@@ -1,5 +1,5 @@
 var RegistroUsuario = RegistroPerfiles = '';
-var limpiarPerfiles=0;
+var manejoRefresh=limpiarPerfiles=limpiarUsuarios=0;
 
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
@@ -17,7 +17,7 @@ var parametroAjaxGet = {
     'async': false
 };
 
-
+// Manejo Activar Desactivar perfil
 var ManejoRespuestaProcesarP = function(respuesta){
     if(respuesta.code==200){
         cargarTablaPerfiles(respuesta.respuesta.v_perfiles);
@@ -26,6 +26,7 @@ var ManejoRespuestaProcesarP = function(respuesta){
     }
 }
 
+// Manejo Activar / Desactivar usuarios
 var ManejoRespuestaProcesarI = function(respuesta){
     if(respuesta.code==200){
         if(respuesta.respuesta.activar>0){
@@ -42,6 +43,7 @@ var ManejoRespuestaProcesarI = function(respuesta){
     }
 }
 
+// Manejo Reinicio de contraseña
 var ManejoRespuestaProcesarR = function(respuesta){
     if(respuesta.code==200){
         var res = respuesta.respuesta;
@@ -60,13 +62,13 @@ var ManejoRespuestaProcesarR = function(respuesta){
     }
 }
 
+// Manejo Registro o actualizacion de usuario
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_usuario);
         switch(res.code) {
             case '200':
                 toastr.success(res.des_code, "Procesado!");
-                destruirTabla('#tablaUsuarios');
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
                 $(".divForm").toggle();
                 $('#FormUsuario')[0].reset();
@@ -83,6 +85,7 @@ var ManejoRespuestaProcesar = function(respuesta){
     }
 };
 
+// Manejo agregar perfil
 var ManejoRespuestaProcesarPerfil = function(respuesta){
     if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_perfil);
@@ -91,6 +94,7 @@ var ManejoRespuestaProcesarPerfil = function(respuesta){
                 toastr.success(res.des_code, "Procesado!");
                 $(".comboclear").val('').trigger("change");  
                 cargarTablaPerfiles(respuesta.respuesta.v_perfiles);
+                manejoRefresh=1;
                 break;
             case '-2':
                 toastr.warning(res.des_code, "Error!");
@@ -105,42 +109,91 @@ var ManejoRespuestaProcesarPerfil = function(respuesta){
 };
 
 var cargarTablaUsuarios = function(data){
-    $("#tablaUsuarios").dataTable({ 
-        "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-        "scrollX": true,
-        "scrollY": '45vh',
-        "scrollCollapse": false,
-        "columnDefs": [
-        {
-            "targets": [ 1 ],
-            "searchable": false
-        },
-        {"sWidth": "20%", "aTargets": [1]},
-        {"sWidth": "15%", "aTargets": [2]},
-        {"sWidth": "20%", "aTargets": [5]},
-        {"sWidth": "20%", "aTargets": [8]},
-        {"sWidth": "10%", "aTargets": [9]},
-        {"sWidth": "15%", "aTargets": [10]},
-        ],
-        "language": {
-            "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-        },
-        "data": data,
-        "columns":[
-        {"title": "Id","data": "idUser",visible:0},
-        {"title": "Nombres","data": "usrNombreFull"},
-        {"title": "Login","data": "usrUserName"},
-        {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
-        {"title": "Creado id","data": "auCreadoPor",visible:0},
-        {"title": "Creado por","data": "creador"},
-        {"title": "Teléfono","data": "auModificadoEl",visible:0},
-        {"title": "Modificado id","data": "auModificadoPor",visible:0},
-        {"title": "Modificado por","data": "modificador"},
-        {"title": "Estado","data": "des_estado"},
-        {"title": "Última visita","data": "usrUltimaVisita"}
-        ],
-    });
+    if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');$('#tablaUsuarios thead').empty();}
+    if (data.length>0){  
+        $("#tablaUsuarios").dataTable({ 
+            "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": false,
+            "columnDefs": [
+            {
+                "targets": [ 1 ],
+                "searchable": false
+            },
+            {"sWidth": "20%", "aTargets": [1]},
+            {"sWidth": "15%", "aTargets": [2]},
+            {"sWidth": "20%", "aTargets": [5]},
+            {"sWidth": "20%", "aTargets": [8]},
+            {"sWidth": "10%", "aTargets": [9]},
+            {"sWidth": "15%", "aTargets": [10]},
+            ],
+            "language": {
+                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+            {"title": "Id","data": "idUser",visible:0},
+            {"title": "Nombres","data": "usrNombreFull"},
+            {"title": "Login","data": "usrUserName"},
+            {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
+            {"title": "Creado id","data": "auCreadoPor",visible:0},
+            {"title": "Creado por","data": "creador"},
+            {"title": "Teléfono","data": "auModificadoEl",visible:0},
+            {"title": "Modificado id","data": "auModificadoPor",visible:0},
+            {"title": "Modificado por","data": "modificador"},
+            {"title": "Estado","data": "des_estado"},
+            {"title": "Última visita","data": "usrUltimaVisita"}
+            ],
+        });
+        seleccionarTablaUsuarios();
+        limpiarUsuarios=1;
+    }else{
+        limpiarUsuarios=0;
+    }
 };
+
+var seleccionarTablaUsuarios = function(data){
+    var tableB = $('#tablaUsuarios').dataTable();
+    $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+    $(function(){
+        $.contextMenu({
+            selector: '#tablaUsuarios',
+            // selector: '.dataTable tbody tr',
+            callback: function(key, options) {
+                switch(key) {
+                    case "1":
+                        cargarFormulario();
+                        pintarDatosActualizar(RegistroUsuario);
+                        break;
+                    case "2":
+                        reiniciarClave();
+                    break;
+                    case "3":
+                        cambiarEstatusUsuario(RegistroUsuario);
+                    break;
+                    case "4":
+                        administrarPerfiles(RegistroUsuario);
+                    break;
+
+                }
+            },
+            items: {
+                "1": {name: "Editar", icon: "fa-pencil-square-o"},
+                "2": {name: "Reiniciar clave", icon: "fa-refresh "},
+                "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
+                "4": {name: "Administrar perfiles", icon: "fa-cubes"}
+            }
+        });
+    });
+}
 
 var cargarTablaPerfiles = function(data){
     if(limpiarPerfiles==1){destruirTabla('#tablaPerfiles');}
@@ -218,14 +271,20 @@ var cargarFormulario= function(){
 }
 
 var volverPerfiles = function(){
-    $(".divPerfiles").toggle();
-    $("#spanAlert").text("");
-    $("#divTablaPerfiles").hide();
-    $(".comboclear").val('').trigger("change");  
-    $("#idUser2").val("")
+    if (manejoRefresh==1){
+        cambiarSalir();
+        location.reload();
+    }else{
+        $(".divPerfiles").toggle();
+        $("#spanAlert").text("");
+        $("#divTablaPerfiles").hide();
+        $(".comboclear").val('').trigger("change");  
+        $("#idUser2").val("")
+    }
 }
 
 var administrarPerfiles= function(data){
+    manejoRefresh=0;
     $("#idUser2").val(data.idUser)
     buscarPerfiles(data);
     $(".divPerfiles").toggle();
@@ -331,6 +390,7 @@ var cambiarEstatusUsuario = function(data){
     ManejoRespuestaProcesarI(respuesta);
 }
 var cambiarEstatusPerfil = function(data){
+    manejoRefresh=1;
     parametroAjax.ruta=rutaAP;
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
@@ -343,47 +403,7 @@ $(document).ready(function(){
         mask: "99999999-*", placeholder:"________-_"
     });
 	cargarTablaUsuarios(d.v_usuarios);
-    crearallcombos(d);
-
-    var tableB = $('#tablaUsuarios').dataTable();
-    $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
-        tableB.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-        RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
-    });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
-     $(function() {
-        $.contextMenu({
-            selector: '#tablaUsuarios',
-            // selector: '.dataTable tbody tr',
-            callback: function(key, options) {
-                switch(key) {
-                    case "1":
-                        cargarFormulario();
-                        pintarDatosActualizar(RegistroUsuario);
-                        break;
-                    case "2":
-                        reiniciarClave();
-                    break;
-                    case "3":
-                        cambiarEstatusUsuario(RegistroUsuario);
-                    break;
-                    case "4":
-                        administrarPerfiles(RegistroUsuario);
-                    break;
-
-                }
-            },
-            items: {
-                "1": {name: "Editar", icon: "fa-pencil-square-o"},
-                "2": {name: "Reiniciar clave", icon: "fa-refresh "},
-                "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
-                "4": {name: "Administrar perfiles", icon: "fa-cubes"}
-            }
-        });
-    });    
+    crearallcombos(d);    
     $(document).on('click','#guardar',validador);
     $(document).on('click','#cancelar',BotonCancelar);
     $(document).on('click','#agregar',BotonAgregar);
