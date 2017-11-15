@@ -367,7 +367,7 @@ class User extends Authenticatable
             // //     }
             // // });
             // if (!Mail::failures()) {
-            //     return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
+            return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
             // }else{
             //     return '{"code":"500","des_code":"Ocurrio un error mientras se enviaba el correo"}';
             // }
