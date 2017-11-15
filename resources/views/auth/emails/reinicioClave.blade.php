@@ -25,9 +25,9 @@
 	   </style>
 	</head> 
 	<body class="body">
-		<div class="titulo" ><center><h3>Recuperación de contraseña</h3></center></div>
+		<div class="titulo" ><center><h3>{{ $titulo }}</h3></center></div>
 		<hr>
-		<div class=".div_contenido"><?= $contenido; ?></div>
+		<div class=".div_contenido">{{ $contenido }}</div>
 		<div class=".div_contenido"> 
 			Gracias por elegir nuestro portal.
 		</div>

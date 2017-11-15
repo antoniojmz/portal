@@ -112,7 +112,7 @@ var SnippetLogin = function() {
                     url: "/admin/recuperar",
                     success: function(a, l, s, o) {
                         setTimeout(function() {
-                            var response = JSON.parse(s.responseText);
+                            var response = JSON.parse(rhtmlspecialchars(s.responseText).split("\n").join(""));
                             if(response.code==200){
                                 r.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), n.clearForm(), n.validate().resetForm(), t();
                                 var a = e.find(".m-login__signin form");

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\QueryException;
 use App\Exceptions\Handler;
+use Illuminate\Mail\Mailable;
 
 use DB;
 use Crypt;
@@ -17,6 +18,8 @@ use Storage;
 use Exception;
 use Auth;
 
+// Modelo
+use App\Models\Correo;
 
 class User extends Authenticatable
 {
@@ -228,7 +231,11 @@ class User extends Authenticatable
              DB::commit();
         }catch (Exception $e) {
             DB::rollback();
-            $result=$e;
+            $result=0;
+            log::info("##########################################################################");
+            log::info("Ocurrio un error con el usuario: ".$data['usrNombreFull'].", Email: ".$data['usrEmail']." al tratar de actualizar sus datos");
+            log::info("Error: ".$e->getMessage());
+            log::info("##########################################################################");
         }
         return $result;
     }
@@ -241,10 +248,13 @@ class User extends Authenticatable
                 ->where('idUser', $idUser)
                 ->update(['usrUrlimage' => $rutadelaimagen ]);
             DB::commit();
-        } catch (Throwable $t) {
+        } catch (Exception $e) {
             DB::rollback();
-            throw $t;
-            $result= $t;
+            $result=0;
+            log::info("##########################################################################");
+            log::info("Ocurrio un error al tratar de actualizar la imagen de perfil del usuario: ".$idUser);
+            log::info("Error: ".$e->getMessage());
+            log::info("##########################################################################");
         }
         return $result;   
     }
@@ -258,10 +268,14 @@ class User extends Authenticatable
                 ->update(['usrUrlimage' => null ]);
             DB::commit();
             $res='{"code":"204","des_code":"No content"}';
-        } catch (Throwable $t) {
+        } catch (Exception $e) {
             DB::rollback();
-            throw $t;
-            $res='{"code":"500","des_code":"'.$t.'"}';
+            $result=$e->getMessage();
+            log::info("##########################################################################");
+            log::info("Ocurrio un error al tratar de eliminar la imagen de perfil del usuario: ".$datos['idUser']);
+            log::info("Error: ".$e->getMessage());
+            log::info("##########################################################################");
+            $res='{"code":"500","des_code":""Ocurrio un error al tratar de eliminar la imagen de perfil"}';
         }
         return $res;
     }
@@ -282,7 +296,12 @@ class User extends Authenticatable
                             $return='{"code":"200","des_code":"La contraseña se cambio exitosamente"}';
                     }catch (Exception $e) {
                         DB::rollback();
-                        return $e->getMessage();
+                        $result=$e->getMessage();
+                        log::info("######################################################################");
+                        log::info("Ocurrio un error al tratar de cambiar el password: ".$data['idUser']);
+                        log::info("Error: ".$e->getMessage());
+                        log::info("######################################################################");
+                        return '{"code":"-1","des_code":"Ocurrio un error al tratar de cambiar el password"}';
                     }
                 }else{
                     $return='{"code":"-1","des_code":"Las contraseñas no coinciden"}';
@@ -309,9 +328,13 @@ class User extends Authenticatable
                 ->where('usrEmail', $datos['email'])
                 ->update(['usrPassword' => $Password ]);
             DB::commit();
-        } catch (Throwable $t) {
+        }catch (Exception $e) {
             DB::rollback();
-            throw $t;
+            $result=$e->getMessage();
+            log::info("######################################################################");
+            log::info("Ocurrio un error al tratar de recuperar el password del usuario : ".$datos['email']);
+            log::info("Error: ".$e->getMessage());
+            log::info("######################################################################");
             return '{"code":"500","des_code":"Ocurrio un error al intentar recuperar el password"}';
         }
         $usrNombreFull = DB::table('v_usuarios')
@@ -332,18 +355,36 @@ class User extends Authenticatable
         $destinatario=$email;
         $asunto="Recuperación de password";
         $contenido="Estima@ ".$usrNombreFull.". Esta notificación es para informarle que se ha solicitado una recuperación de contraseña por su usuario. Su nueva clave es :<b> ".$pass."</b> <p>Si usted no reconoce esta solicitud contacte al administrador del sistema.</p>";
-        $data = array('contenido' => $contenido);
-        Mail::send('auth.emails.reinicioClave', $data, function ($message) use ($asunto,$destinatario,$containfile,$pathToFile){
-            $message->from('moraanto2017@gmail.com', 'Portal de Proveedores');
-            $message->to($destinatario)->subject($asunto);
-            if($containfile){
-             $message->attach($pathToFile);
-            }
-        });
-        if (!Mail::failures()) {
-            return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
-        }else{
-            return '{"code":"500","des_code":"Ocurrio un error mientras se enviaba el correo"}';
+        $data = array(
+            'contenido' => $contenido,
+            'titulo' => 'Recuperación de contraseña',
+            );
+        try {
+            $result= Mail::to($destinatario)->send(new Correo($data));
+            Log::info("El resultado de result: ".$result);
+
+            // Mail::send('auth.emails.reinicioClave', $data, function ($message) use ($asunto,$destinatario,$containfile,$pathToFile){
+            //     $message->from('moraanto2017@gmail.com', 'Portal de Proveedores');
+            //     $message->to($destinatario)->subject($asunto);
+            //     if($containfile){
+            // //      $message->attach($pathToFile);
+            // //     }
+            // // });
+            // if (!Mail::failures()) {
+            //     return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
+            // }else{
+            //     return '{"code":"500","des_code":"Ocurrio un error mientras se enviaba el correo"}';
+            // }
+        } catch (Exception $e) {
+            log::info($e);
+
+            // log::info("##########################################################################");
+            // log::info("Ocurrio un error al enviar el correo electronico para: ".$destinatario);
+            // log::info("Asunto: ".$asunto);
+            // log::info("Contenido: ".$contenido);
+            // log::info("Error: ".$e->getMessage());
+            // log::info("##########################################################################");
+            return '{"code":"500","des_code":"Ocurrio un error al enviar el email de recuperación"}';
         }
     }
 }

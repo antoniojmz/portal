@@ -340,10 +340,7 @@ var BotonAgregar = function(){
 }
 
 var BotonAgregarPerfil = function(){
-    var data = {
-        'idPerfil': $('#idPerfil').val(),
-        'idUser': $('#idUser2').val(),
-    };
+    var data = {'idPerfil': $('#idPerfil').val(),'idUser': $('#idUser2').val()};
     parametroAjax.ruta = rutaP;
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
@@ -352,9 +349,7 @@ var BotonAgregarPerfil = function(){
 
 
 var ProcesarUsuario = function(){
-    var camposNuevo = {
-        'usrEstado': $('#usrEstado').val()
-    }
+    var camposNuevo = {'usrEstado': $('#usrEstado').val()}
     parametroAjax.ruta=ruta;
     parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
     respuesta=procesarajax(parametroAjax);
@@ -389,6 +384,7 @@ var cambiarEstatusUsuario = function(data){
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarI(respuesta);
 }
+
 var cambiarEstatusPerfil = function(data){
     manejoRefresh=1;
     parametroAjax.ruta=rutaAP;
