@@ -29,10 +29,10 @@
 		<hr>
 		<div class=".div_contenido">
 			<br>
-				Estima@ {{ $usrNombreFull }}. Esta notificación es para informarle que se ha solicitado una recuperación de contraseña por su usuario. Su nueva clave es : <b>{{ $pass }}</b>
+				Estima@ {{ $usrNombreFull }}. Esta notificación es para informarle que ha sido solicitada una recuperación de contraseña para su usuario. Su nueva clave es: <b>{{ $pass }}</b>
 			<br>
 			<br>
-				Si usted no reconoce esta solicitud contacte al administrador del sistema.
+				Si usted desconoce esta solicitud contacte al administrador del sistema.
 			<br><br>
 		</div>
 		<div class=".div_contenido"> 
