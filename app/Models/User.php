@@ -376,7 +376,6 @@ class User extends Authenticatable
             // }
         } catch (Exception $e) {
             log::info($e);
-
             // log::info("##########################################################################");
             // log::info("Ocurrio un error al enviar el correo electronico para: ".$destinatario);
             // log::info("Asunto: ".$asunto);
