@@ -35,7 +35,8 @@ class Correo extends Mailable
      */
     public function build()
     {
-        return $this->view('auth.emails.reinicioClave')
+        return $this->subject($this->data['asunto'])
+            ->view('auth.emails.reinicioClave')
             ->with([
                 'titulo' => $this->data['titulo'],
                 'contenido' => $this->data['contenido'],

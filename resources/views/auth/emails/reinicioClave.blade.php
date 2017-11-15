@@ -29,7 +29,9 @@
 		<hr>
 		<div class=".div_contenido">{{ $contenido }}</div>
 		<div class=".div_contenido"> 
-			Gracias por elegir nuestro portal.
+			<b>
+				Gracias <br> por elegir <br>nuestro portal.
+			</b>
 		</div>
 	</body>
 </html>

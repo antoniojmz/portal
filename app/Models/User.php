@@ -350,19 +350,15 @@ class User extends Authenticatable
 
     // Enviar password por email
     public function enviarEmail($email,$usrNombreFull,$pass){
-        $pathToFile="";
-        $containfile=false; 
-        $destinatario=$email;
-        $asunto="Recuperación de password";
         $contenido="Estima@ ".$usrNombreFull.". Esta notificación es para informarle que se ha solicitado una recuperación de contraseña por su usuario. Su nueva clave es :<b> ".$pass."</b> <p>Si usted no reconoce esta solicitud contacte al administrador del sistema.</p>";
         $data = array(
             'contenido' => $contenido,
             'titulo' => 'Recuperación de contraseña',
+            'asunto' => 'Recuperación de contraseña',
             );
         try {
-            $result= Mail::to($destinatario)->send(new Correo($data));
-            Log::info("El resultado de result: ".$result);
-
+            $result= Mail::to($email)->send(new Correo($data));
+            // Log::info("El resultado de result: ".$result);
             // Mail::send('auth.emails.reinicioClave', $data, function ($message) use ($asunto,$destinatario,$containfile,$pathToFile){
             //     $message->from('moraanto2017@gmail.com', 'Portal de Proveedores');
             //     $message->to($destinatario)->subject($asunto);
