@@ -352,12 +352,15 @@ class User extends Authenticatable
     public function enviarEmail($email,$usrNombreFull,$pass){
         $contenido="Estima@ ".$usrNombreFull.". Esta notificación es para informarle que se ha solicitado una recuperación de contraseña por su usuario. Su nueva clave es :<b> ".$pass."</b> <p>Si usted no reconoce esta solicitud contacte al administrador del sistema.</p>";
         $data = array(
-            'contenido' => $contenido,
-            'titulo' => 'Recuperación de contraseña',
-            'asunto' => 'Recuperación de contraseña',
+            'header' => 'Recuperación de contraseña',
+            'footer' => 'Gracias por elegir nuestro portal.',
+            'subject' => 'Recuperación de contraseña',
+            'usrNombreFull' => $usrNombreFull,
+            'pass' => $pass,
             );
         try {
             $result= Mail::to($email)->send(new Correo($data));
+            return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
             // Log::info("El resultado de result: ".$result);
             // Mail::send('auth.emails.reinicioClave', $data, function ($message) use ($asunto,$destinatario,$containfile,$pathToFile){
             //     $message->from('moraanto2017@gmail.com', 'Portal de Proveedores');
@@ -367,7 +370,7 @@ class User extends Authenticatable
             // //     }
             // // });
             // if (!Mail::failures()) {
-            return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
+                // return '{"code":"200","des_code":"Su nueva contraseña ha sido enviada via email"}';
             // }else{
             //     return '{"code":"500","des_code":"Ocurrio un error mientras se enviaba el correo"}';
             // }

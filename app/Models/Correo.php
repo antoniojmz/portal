@@ -35,11 +35,13 @@ class Correo extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->data['asunto'])
+        return $this->subject($this->data['subject'])
             ->view('auth.emails.reinicioClave')
             ->with([
-                'titulo' => $this->data['titulo'],
-                'contenido' => $this->data['contenido'],
+                'header' => $this->data['header'],
+                'footer' => $this->data['footer'],
+                'usrNombreFull' => $this->data['usrNombreFull'],
+                'pass' => $this->data['pass'],
             ]);
     }
 }

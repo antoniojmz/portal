@@ -25,12 +25,17 @@
 	   </style>
 	</head> 
 	<body class="body">
-		<div class="titulo" ><center><h3>{{ $titulo }}</h3></center></div>
+		<div class="titulo" ><center><h3>{{ $header }}</h3></center></div>
 		<hr>
-		<div class=".div_contenido">{{ $contenido }}</div>
+		<div class=".div_contenido">
+			Estima@ {{ $usrNombreFull }}. Esta notificación es para informarle que se ha solicitado una recuperación de contraseña por su usuario. Su nueva clave es : <b>{{ $pass }}</b>
+			<p>
+				Si usted no reconoce esta solicitud contacte al administrador del sistema.
+			</p>
+		</div>
 		<div class=".div_contenido"> 
 			<b>
-				Gracias <br> por elegir <br>nuestro portal.
+				{{ $footer }}
 			</b>
 		</div>
 	</body>
