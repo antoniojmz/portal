@@ -30,9 +30,9 @@ var ManejoRespuestaProcesarP = function(respuesta){
 var ManejoRespuestaProcesarI = function(respuesta){
     if(respuesta.code==200){
         if(respuesta.respuesta.activar>0){
-            if(respuesta.respuesta.v_usuarios.length>1){
+            if(respuesta.respuesta.v_usuarios.length>0){
                 toastr.success('Proceso con exito.', "Procesado!");
-                destruirTabla('#tablaUsuarios');
+                // destruirTabla('#tablaUsuarios');
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
             }
         }else{
@@ -163,36 +163,66 @@ var seleccionarTablaUsuarios = function(data){
     tableB.on('dblclick', 'tr', function () {
         $('#close').trigger('click');
     });
-    $(function(){
-        $.contextMenu({
-            selector: '#tablaUsuarios',
-            // selector: '.dataTable tbody tr',
-            callback: function(key, options) {
-                switch(key) {
-                    case "1":
-                        cargarFormulario();
-                        pintarDatosActualizar(RegistroUsuario);
+    if (d.v_perfil.perfil==1){
+        $(function(){
+            $.contextMenu({
+                selector: '#tablaUsuarios',
+                // selector: '.dataTable tbody tr',
+                callback: function(key, options) {
+                    switch(key) {
+                        case "1":
+                            cargarFormulario();
+                            pintarDatosActualizar(RegistroUsuario);
+                            break;
+                        case "2":
+                            reiniciarClave();
                         break;
-                    case "2":
-                        reiniciarClave();
-                    break;
-                    case "3":
-                        cambiarEstatusUsuario(RegistroUsuario);
-                    break;
-                    case "4":
-                        administrarPerfiles(RegistroUsuario);
-                    break;
+                        case "3":
+                            cambiarEstatusUsuario(RegistroUsuario);
+                        break;
+                        case "4":
+                            administrarPerfiles(RegistroUsuario);
+                        break;
 
+                    }
+                },
+                items: {
+                    "1": {name: "Editar", icon: "fa-pencil-square-o"},
+                    "2": {name: "Reiniciar clave", icon: "fa-refresh"},
+                    "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
+                    "4": {name: "Administrar perfiles", icon: "fa-cubes"}
                 }
-            },
-            items: {
-                "1": {name: "Editar", icon: "fa-pencil-square-o"},
-                "2": {name: "Reiniciar clave", icon: "fa-refresh "},
-                "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
-                "4": {name: "Administrar perfiles", icon: "fa-cubes"}
-            }
+            });
         });
-    });
+    }
+    if (d.v_perfil.perfil==2){
+        console.log("es cliente");
+        $(function(){
+            $.contextMenu({
+                selector: '#tablaUsuarios',
+                // selector: '.dataTable tbody tr',
+                callback: function(key, options) {
+                    switch(key) {
+                        case "1":
+                            cargarFormulario();
+                            pintarDatosActualizar(RegistroUsuario);
+                            break;
+                        case "2":
+                            reiniciarClave();
+                        break;
+                        case "3":
+                            cambiarEstatusUsuario(RegistroUsuario);
+                        break;
+                    }
+                },
+                items: {
+                    "1": {name: "Editar", icon: "fa-pencil-square-o"},
+                    "2": {name: "Reiniciar clave", icon: "fa-refresh"},
+                    "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"}
+                }
+            });
+        });
+    }
 }
 
 var cargarTablaPerfiles = function(data){
@@ -334,6 +364,7 @@ var BotonAgregar = function(){
     cargarFormulario();
     mostrarDesconocidos();
     $("#divConsulta").hide();
+    $("#divSpanPerfiles").hide();
     $("#idUser").val("");
     $(".comboclear").val('').trigger("change");
     $('#FormUsuario')[0].reset();

@@ -46,9 +46,9 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Registro de usuarios
 	Route::get('/usuarios', 'UsuarioController@getUsuarios')->name('usuarios');
 	Route::post('/usuarios', 'UsuarioController@postUsuarios')->name('usuarios');
-
-	Route::get('/usuarios2', 'UsuarioController@getUsuario')->name('usuarios2');
-	Route::post('/usuarios2', 'UsuarioController@postUsuario')->name('usuarios2');
+	// Registro de usuarios por el cliente
+	Route::get('/usuario', 'UsuarioController@getUsuario')->name('usuario');
+	Route::post('/usuario', 'UsuarioController@postUsuario')->name('usuario');
 	// Cambio de contraseña por el mismo usuario
 	Route::get('/password', 'UsuarioController@getPassword')->name('password');
 	Route::post('/password', 'UsuarioController@postPassword')->name('password');

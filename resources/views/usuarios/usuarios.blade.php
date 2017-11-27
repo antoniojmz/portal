@@ -231,6 +231,7 @@
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
 	d['v_perfiles'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_perfiles) }}'));
 	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));
+	d['v_perfil'] = JSON.parse(rhtmlspecialchars('{{ $v_perfil }}'));
 </script>
 <script src="{{ asset('js/usuarios/usuarios.js') }}"></script>
 @endsection

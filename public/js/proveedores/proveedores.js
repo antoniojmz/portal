@@ -188,12 +188,28 @@ var cargartablaProveedores = function(data){
                 }
             ]
         });
+        SeleccionarTablaProveedores();
         limpiar=1;
     }else{
         limpiar=0;
         toastr.warning("No se encontraron resultados", "Info!");
     }
 };
+
+var SeleccionarTablaProveedores = function(){
+    var tableB = $('#tablaProveedores').dataTable();
+    $('#tablaProveedores tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    $('#tablaProveedores tbody').on('dblclick', 'tr', function () {
+        RegistroProveedor = TablaTraerCampo('tablaProveedores',this);
+        cargarFormularioVisualizacion(RegistroProveedor);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+}
 
 var ProcesarConsulta = function(){
     var Selectcampo = $('#Selectcampo').val();
@@ -225,20 +241,6 @@ $(document).ready(function(){
     $("#spanTitulo").text("Listado de proveedores");
     cargartablaProveedores(d.v_proveedores);
     crearcombo('#Selectcampo',d.v_busq_proveedor);
-    if (d.v_proveedores.length>0){    
-        var tableB = $('#tablaProveedores').dataTable();
-        $('#tablaProveedores tbody').on('click', 'tr', function (e) {
-            tableB.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-        $('#tablaProveedores tbody').on('dblclick', 'tr', function () {
-            RegistroProveedor = TablaTraerCampo('tablaProveedores',this);
-            cargarFormularioVisualizacion(RegistroProveedor);
-        });
-        tableB.on('dblclick', 'tr', function () {
-            $('#close').trigger('click');
-        });
-    }
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#volver',BotonVolver);
 });

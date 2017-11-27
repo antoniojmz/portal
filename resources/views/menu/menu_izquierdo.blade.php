@@ -101,7 +101,7 @@
 			print_r($data['idPerfil']);
 			@endphp
 			@if (isset($data))
-				@if ($data['idPerfil']==1)
+				@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 						<a  href="#" class="m-menu__link m-menu__toggle">
 							<span class="m-menu__item-here"></span>
@@ -128,18 +128,6 @@
 										</span>
 									</a>
 								</li>
-								
-		<!-- 						<li class="m-menu__item " aria-haspopup="true" >
-									<a  href='{!! URL::route("usuarios2") !!}' class="m-menu__link">
-										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-											<span></span>
-										</i>
-										<span class="m-menu__link-text">
-											prueba data tabla
-										</span>
-									</a>
-								</li> -->
-								
 							</ul>
 						</div>
 					</li>

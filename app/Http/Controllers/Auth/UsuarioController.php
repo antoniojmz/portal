@@ -49,23 +49,16 @@ class UsuarioController extends Controller
 
     //Pantalla de registro de usuario
     protected function getUsuarios(){
-        $data['title'] = 'Listado de usuarios';
+        $p = Session::get('perfiles');
         $model= new User();
         $data['v_usuarios'] = $model->listUsuario();
         $data['v_perfiles'] = $model->listPerfiles();
         $data['v_estados'] = $model->listEstados();
+        $result["perfil"] = $p["idPerfil"];
+        $data['v_perfil']=json_encode($result);
+        log::info($data['v_perfil']);
         return View::make('usuarios.usuarios',$data);
     }
-
-    // pantalla de prueba para la datatable de metronic
-    // protected function getUsuario(){
-    //     $data['title'] = 'Listado de usuarios';
-    //     $model= new User();
-    //     $data['v_usuarios'] = $model->listUsuario();
-    //     $data['v_perfiles'] = $model->listPerfiles();
-    //     $data['v_estados'] = $model->listEstados();
-    //     return View::make('usuarios.usuarios2',$data);
-    // }
 
     // Registrar un nuevo usuario o actualizar datos (Administrador)
     protected function postUsuarios(Request $request){

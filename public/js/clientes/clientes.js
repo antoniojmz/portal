@@ -176,12 +176,28 @@ var cargartablaClientes = function(data){
                 }
             ]
         });
+        SeleccionarTablaClientes();
         limpiar=1;
     }else{
         limpiar=0;
         toastr.warning("No se encontraron resultados", "Info!");
     }
 };
+
+var SeleccionarTablaClientes = function(){
+    var tableB = $('#tablaClientes').dataTable();
+    $('#tablaClientes tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    $('#tablaClientes tbody').on('dblclick', 'tr', function () {
+        RegistroClientes = TablaTraerCampo('tablaClientes',this);
+        cargarFormularioVisualizacion(RegistroClientes);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+}
 
 var ProcesarConsulta = function(){
     var Selectcampo = $('#Selectcampo').val();
@@ -213,20 +229,6 @@ $(document).ready(function(){
     $("#spanTitulo").text("Listado de Clientes");
     cargartablaClientes(d.v_clientes);
     crearcombo('#Selectcampo',d.v_busq_cliente);
-    if (d.v_clientes.length>0){    
-        var tableB = $('#tablaClientes').dataTable();
-        $('#tablaClientes tbody').on('click', 'tr', function (e) {
-            tableB.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-        $('#tablaClientes tbody').on('dblclick', 'tr', function () {
-            RegistroClientes = TablaTraerCampo('tablaClientes',this);
-            cargarFormularioVisualizacion(RegistroClientes);
-        });
-        tableB.on('dblclick', 'tr', function () {
-            $('#close').trigger('click');
-        });
-    }
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#volver',BotonVolver);
 });
