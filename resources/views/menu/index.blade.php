@@ -66,6 +66,7 @@
 		{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }}
 		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
 		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
+		{{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
     	<!-- Scritp Plugins -->
     	<!-- data table -->
 		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.min.js') }}
@@ -86,6 +87,7 @@
 		{{ HTML::script('plugins/Jquery-Price-Format/jquery.priceformat.min.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
+
 	</head>
 	<!-- end::Head -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
