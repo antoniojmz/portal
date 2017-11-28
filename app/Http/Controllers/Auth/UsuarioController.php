@@ -56,7 +56,6 @@ class UsuarioController extends Controller
         $data['v_estados'] = $model->listEstados();
         $result["perfil"] = $p["idPerfil"];
         $data['v_perfil']=json_encode($result);
-        log::info($data['v_perfil']);
         return View::make('usuarios.usuarios',$data);
     }
 

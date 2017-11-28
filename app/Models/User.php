@@ -130,9 +130,8 @@ class User extends Authenticatable
                 $result = DB::table('v_usuarios')->get();
                 break;
             case 2:
-                $result = [];
                 $result = DB::table('v_clientes_tienen_usuarios')
-                ->where('IdCliente',3)->get();
+                ->where('IdCliente',$p['idClienteUsuario'])->get();
                 break;
         }
         return $result;
@@ -182,63 +181,10 @@ class User extends Authenticatable
         $pass = substr($datos['usrUserName'], 0,6);
         $usrPassword=bcrypt($pass);
         $pusrPassInit=md5($pass);
-        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."')";
+        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."',".$p['idClienteUsuario'].")";
         $execute=DB::select($sql);
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_usuario']=$value;
-        }
-        $resultado = str_replace("'", "",$result['f_registro_usuario']);
-        $resultado = str_replace('"', "",$resultado);
-        $resultado = str_replace('{', "",$resultado);
-        $resultado = str_replace('}', "",$resultado);
-        $resultado = str_replace(':', ",",$resultado);
-        $resultado = explode(",", $resultado);
-
-        if ($resultado[1]==200){
-            $idUsuario = $resultado[5];
-            $count = DB::select("select count(1) as count from clientes_tienen_usuarios where IdCliente=".$p['idClienteUsuario']." and idUser=".$idUsuario);
-            if ($count[0]->count<1){
-                $values=array(
-                    'IdCliente'=>$p['idClienteUsuario'],
-                    'idUser'=>$idUsuario,
-                    'EstadoUsuario'=>1,
-                    'auFechaCreacion'=>date("Y-m-d H:i:s"),
-                    'auUsuarioCreacion'=>$idAdmin);
-                try{
-                    DB::beginTransaction();
-                    $insert=DB::table('clientes_tienen_usuarios')
-                        ->insert($values);
-                    DB::commit();
-                }catch (Exception $e){
-                    DB::rollback();
-                    log::info("##########################################################################");
-                    log::info("Ocurrio un error al asignar un usuario a un cliente, idUser:".$idUsuario.", idcliente: ".$p['idClienteUsuario']." al tratar de asignar un cliente al usuario");
-                    log::info("Error: ".$e->getMessage());
-                    log::info("##########################################################################");
-                }
-            }
-
-            $count2 = DB::select("select count(1) as count from usuarios_perfiles where idUser=".$idUsuario." and idPerfil=2");
-            if ($count2[0]->count<1){
-                $values=array(
-                    'idUser'=>$idUsuario,
-                    'idPerfil'=>2,
-                    'activoPerfil'=>1,
-                    'auFechaCreacion'=>date("Y-m-d H:i:s"),
-                    'auUsuarioCreacion'=>$idAdmin);
-                try{
-                    DB::beginTransaction();
-                    $insert2=DB::table('usuarios_perfiles')
-                        ->insert($values);
-                    DB::commit();
-                }catch (Exception $e){
-                    DB::rollback();
-                    log::info("##########################################################################");
-                    log::info("Ocurrio un error al asignar un perfil al idUser:".$idUsuario.", idcliente: ".$p['idClienteUsuario']." al tratar de asignar un perfil de acceso");
-                    log::info("Error: ".$e->getMessage());
-                    log::info("##########################################################################");
-                }
-            }
         }
         $result['v_usuarios'] = $this->listUsuario($p['idPerfil']);
         return $result;

@@ -1,3 +1,6 @@
+@php
+	$data = Session::get('perfiles');
+@endphp
 <button class="m-aside-left-close m-aside-left-close--skin-dark" id="m_aside_left_close_btn">
 	<i class="la la-close"></i>
 </button>
@@ -58,6 +61,18 @@
 				<div class="m-menu__submenu">
 					<span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
+						@if ($data['idPerfil']==2)
+						<li class="m-menu__item " aria-haspopup="true" >
+							<a  href='{!! URL::route("Reg_proveedores") !!}' class="m-menu__link ">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Registro de proveedores
+								</span>
+							</a>
+						</li>
+						@endif
 						<li class="m-menu__item " aria-haspopup="true" >
 							<a  href='{!! URL::route("proveedores") !!}' class="m-menu__link ">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -96,10 +111,6 @@
 					</ul>
 				</div>
 			</li>
-			@php
-				$data = Session::get('perfiles');
-			print_r($data['idPerfil']);
-			@endphp
 			@if (isset($data))
 				@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
@@ -128,6 +139,18 @@
 										</span>
 									</a>
 								</li>
+								@if ($data['idPerfil']==1 || $data['idPerfil']==2)
+								<li class="m-menu__item " aria-haspopup="true" >
+									<a  href='{!! URL::route("noticias") !!}' class="m-menu__link">
+										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+											<span></span>
+										</i>
+										<span class="m-menu__link-text">
+											Listado de publicaciones
+										</span>
+									</a>
+								</li>
+								@endif
 							</ul>
 						</div>
 					</li>

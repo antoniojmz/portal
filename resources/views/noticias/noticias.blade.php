@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<br>
-					<center><span id="spanTitulo">Usuarios registrados</span></center>
+					<center><span id="spanTitulo">Noticias registradas</span></center>
 					<hr>
 				</div>
 			</div>		
@@ -223,16 +223,6 @@
 	<br>
 </div>
 <script Language="Javascript">
-	var ruta = "{{ URL::route('usuarios') }}"
-	var rutaR = "{{ URL::route('reiniciar') }}"
-	var rutaA = "{{ URL::route('activar') }}"
-	var rutaP = "{{ URL::route('perfiles') }}"
-	var rutaAP = "{{ URL::route('activarP') }}"
-	var d = [];
-	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
-	d['v_perfiles'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_perfiles) }}'));
-	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));
-	d['v_perfil'] = JSON.parse(rhtmlspecialchars('{{ $v_perfil }}'));
 </script>
-<script src="{{ asset('js/usuarios/usuarios.js') }}"></script>
+<script src="{{ asset('js/noticias/noticias.js') }}"></script>
 @endsection

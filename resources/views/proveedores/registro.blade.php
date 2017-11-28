@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<br>
-					<center><span id="spanTitulo">Usuarios registrados</span></center>
+					<center><span id="spanTitulo">Proveedores registrados</span></center>
 					<hr>
 				</div>
 			</div>		
@@ -46,18 +46,16 @@
 						<span id="spanAlert" class="spanSubTitulo"></span>
 					</center>
 					<br>
-
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-7">
-							<form id="FormPerfil" method="POST">
-								<input type="hidden" id="idUser2">
-								<select class="comboclear" id="idPerfil" name="idPerfil" style="width:100%;">
+							<form id="FormEmpresa" method="POST">
+								<select class="comboclear" id="idProveedor" name="idProveedor" style="width:100%;">
 									<option value="">Seleccione..</option>
 								</select>
 							</form>
 						</div>
-						
+						<br>
 						<div class="col-md-3">
 							<button name="agregarP" id="agregarP" class="btn m-btn--pill btn-primary" type="button">
 								<span>
@@ -68,11 +66,8 @@
 						</div>
 						<div class="col-md-1"></div>
 					</div>
-
-
-	
 					<div class="table-responsive" id="divTablaPerfiles" style="display:none;">
-						<table id="tablaPerfiles" class="display m-portlet__body" cellspacing="0" width="100%">	</table>
+						<table id="tablaEmpresas" class="display m-portlet__body" cellspacing="0" width="100%">	</table>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
@@ -91,7 +86,6 @@
 		{!! Form::hidden('idUser', '', [
 		'id'            => 'idUser',
 		'class'         => 'form-control'])!!}
-		<input type="hidden" name="idProveedor" id="idProveedor" value="0">
 		<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -223,16 +217,15 @@
 	<br>
 </div>
 <script Language="Javascript">
-	var ruta = "{{ URL::route('usuarios') }}"
+	var ruta = "{{ URL::route('Reg_proveedores') }}"
 	var rutaR = "{{ URL::route('reiniciar') }}"
-	var rutaA = "{{ URL::route('activar') }}"
-	var rutaP = "{{ URL::route('perfiles') }}"
-	var rutaAP = "{{ URL::route('activarP') }}"
+	var rutaA = "{{ URL::route('activarPro') }}"
+	var rutaP = "{{ URL::route('empresas') }}"
 	var d = [];
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
-	d['v_perfiles'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_perfiles) }}'));
 	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));
+	d['v_proveedores_combos'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores_combos) }}'));
 	d['v_perfil'] = JSON.parse(rhtmlspecialchars('{{ $v_perfil }}'));
 </script>
-<script src="{{ asset('js/usuarios/usuarios.js') }}"></script>
+<script src="{{ asset('js/proveedores/registro.js') }}"></script>
 @endsection

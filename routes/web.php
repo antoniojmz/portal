@@ -28,13 +28,26 @@ Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
 
+Route::get('/Reg_proveedores', 'ProveedorController@getRegProveedores')->name('Reg_proveedores');
+Route::post('/Reg_proveedores', 'ProveedorController@postRegProveedores')->name('Reg_proveedores');
+
+// Activar o Desactivar usuario
+Route::post('/activarPro', 'ProveedorController@postProveedoractivo')->name('activarPro');
+
 Route::get('/proveedores', 'ProveedorController@getProveedores')->name('proveedores');
 Route::post('/proveedores', 'ProveedorController@postProveedores')->name('proveedores');
 Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->name('detallesProveedor');
 
+//Mostrar Perfiles de los usuarios (Activar / Desactivar)
+Route::get('/empresas', 'ProveedorController@getEmpresas')->name('empresas');
+Route::post('/empresas', 'ProveedorController@postEmpresas')->name('empresas');
+
 Route::get('/clientes', 'ClienteController@getClientes')->name('clientes');
 Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
 Route::post('/detallesCliente', 'ClienteController@postBuscardetalleC')->name('detallesCliente');
+
+Route::get('/noticias', 'NoticiasController@getNoticias')->name('noticias');
+Route::post('/noticias', 'NoticiasController@postNoticias')->name('noticias');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	//accesos (Seleccionar acceso para ingresar a la aplicacion)
@@ -46,9 +59,6 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	// Registro de usuarios
 	Route::get('/usuarios', 'UsuarioController@getUsuarios')->name('usuarios');
 	Route::post('/usuarios', 'UsuarioController@postUsuarios')->name('usuarios');
-	// Registro de usuarios por el cliente
-	Route::get('/usuario', 'UsuarioController@getUsuario')->name('usuario');
-	Route::post('/usuario', 'UsuarioController@postUsuario')->name('usuario');
 	// Cambio de contraseña por el mismo usuario
 	Route::get('/password', 'UsuarioController@getPassword')->name('password');
 	Route::post('/password', 'UsuarioController@postPassword')->name('password');
