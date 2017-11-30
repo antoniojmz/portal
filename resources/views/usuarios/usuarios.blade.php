@@ -1,7 +1,7 @@
 @extends('menu.index')
 @section('content')
 <div class="container col-md-10" style="background-color: white;">
-	<div id="divTabla" class="col-md-12 divForm">
+	<div class="col-md-12 divForm">
 		<div class="divPerfiles">
 			<div class="row">
 				<div class="col-md-12">
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="divForm" style="display:none;" class="col-md-12 divForm">
+	<div style="display:none;" class="col-md-12 divForm">
 		<div class="row">
 			<div class="col-md-12">
 				<br>

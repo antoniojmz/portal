@@ -141,7 +141,7 @@
 								</li>
 								@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 								<li class="m-menu__item " aria-haspopup="true" >
-									<a  href='{!! URL::route("noticias") !!}' class="m-menu__link">
+									<a  href='{!! URL::route("publicaciones") !!}' class="m-menu__link">
 										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 											<span></span>
 										</i>

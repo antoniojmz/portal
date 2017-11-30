@@ -97,7 +97,7 @@ class Proveedor extends Authenticatable
     public function listRegProveedor(){
         $p = Session::get('perfiles');
         return DB::table('v_clientes_tienen_proveedores')
-                ->where('IdCliente',$p['idClienteUsuario'])->get();
+                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
     }
 
     public function listRegEstados(){
@@ -105,12 +105,13 @@ class Proveedor extends Authenticatable
     }
 
     public function listRegProveedorCombo(){
-        return DB::table('v_proveedores_combo')->get();
+        $p = Session::get('perfiles');
+        return DB::table('v_proveedores_combo')
+            ->where('Idcliente',$p['v_detalle'][0]->IdCliente)->get();
     }
 
     public function listEmpresasProveedor($datos){
         $p = Session::get('perfiles');
-        log::info($datos);
         return DB::table('v_clientes_tienen_proveedores')
             ->where('IdCliente',$p['idClienteUsuario'])
             ->where('IdProveedor',$datos['IdProveedor'])->get();
@@ -119,7 +120,7 @@ class Proveedor extends Authenticatable
     public function regEmpresa($datos){
         $p = Session::get('perfiles');
         $idAdmin = Auth::id();
-        $sql="select f_registro_empresa(".$p['idClienteUsuario'].",".$datos['idProveedor'].",".$idAdmin.")";
+        $sql="select f_registro_empresa(".$p['v_detalle'][0]->IdCliente.",".$datos['idProveedor'].",".$idAdmin.")";
         log::info($datos);
         log::info($sql);
         

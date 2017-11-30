@@ -46,8 +46,10 @@ Route::get('/clientes', 'ClienteController@getClientes')->name('clientes');
 Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
 Route::post('/detallesCliente', 'ClienteController@postBuscardetalleC')->name('detallesCliente');
 
-Route::get('/noticias', 'NoticiasController@getNoticias')->name('noticias');
-Route::post('/noticias', 'NoticiasController@postNoticias')->name('noticias');
+Route::get('/publicaciones', 'PublicacionesController@getPublicaciones')->name('publicaciones');
+Route::post('/publicaciones', 'PublicacionesController@postPublicaciones')->name('publicaciones');
+// Activar o Desactivar publicacion
+Route::post('/activarPu', 'PublicacionesController@postPublicacionactivo')->name('activarPu');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	//accesos (Seleccionar acceso para ingresar a la aplicacion)

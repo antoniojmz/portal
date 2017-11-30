@@ -80,6 +80,7 @@
 
     	<!-- date-range-picker -->
 		{{ HTML::script('plugins/daterangepicker/daterangepicker.js') }}
+		{{ HTML::script('plugins/datepicker/bootstrap-datepicker.es.js') }}
 		{{ HTML::script('plugins/validator/valtexto.min.js') }}
 		{{ HTML::script('plugins/validator/formValidation.min.js') }}
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
