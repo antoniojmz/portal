@@ -169,7 +169,7 @@ return [
          */
 
         /*
-         * Application Service Providers...
+         * Application Service Providers... 
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,

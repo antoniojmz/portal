@@ -83,14 +83,61 @@ class Proveedor extends Authenticatable
     }
 
     public function BuscarDetalleP($id){
-    	$result['v_proveedor'] = DB::table('v_proveedores_clientes')
+        $result['v_proveedor'] = DB::table('v_proveedores_clientes')
                 ->where('IdProveedor',$id)
                 ->limit(1)
                 ->get();
         $result['v_dtes'] = DB::table('v_dtes')->where('IdProveedor',$id)->get();
         $result['v_clientes_proveedores'] = DB::table('v_clientes_tienen_proveedores')->where('IdProveedor',$id)->get();
         $result['v_proveedores_usuarios'] = DB::table('v_proveedores_tienen_usuarios')->where('IdProveedor',$id)->get();
-        return $result;	
+        return $result; 
     }
+
+    // Registro de proveedores por parte del cliente
+    public function listRegProveedor(){
+        $p = Session::get('perfiles');
+        return DB::table('v_clientes_tienen_proveedores')
+                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
+    }
+
+    public function listRegEstados(){
+        return DB::table('v_estados')->get();
+    }
+
+    public function listRegProveedorCombo(){
+        $p = Session::get('perfiles');
+        return DB::table('v_proveedores_combo')
+            ->where('Idcliente',$p['v_detalle'][0]->IdCliente)->get();
+    }
+
+    public function listEmpresasProveedor($datos){
+        $p = Session::get('perfiles');
+        return DB::table('v_clientes_tienen_proveedores')
+            ->where('IdCliente',$p['idClienteUsuario'])
+            ->where('IdProveedor',$datos['IdProveedor'])->get();
+    }
+
+    public function regEmpresa($datos){
+        $p = Session::get('perfiles');
+        $idAdmin = Auth::id();
+        $sql="select f_registro_empresa(".$p['v_detalle'][0]->IdCliente.",".$datos['idProveedor'].",".$idAdmin.")";
+        log::info($datos);
+        log::info($sql);
+        
+        // $execute=DB::select($sql);
+        // $result['v_perfiles'] = $this->listPerfilesAdministrador($datos['idUser']);
+        // // $result['v_usuarios']=$this->listUsuario();
+        // foreach ($execute[0] as $key => $value) {
+        //     $result['f_registro_perfil']=$value;
+        // }
+        // return $result;
+    }
+
+
+    
+
+
+
+
 
 }

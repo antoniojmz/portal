@@ -94,6 +94,7 @@ class User extends Authenticatable
                 $widget['v_widget1']='';
                 $widget['v_widget2']='';
                 $widget['v_widget4']='';
+                $result['idClienteUsuario'] = 0;
                 break;
             case 2:
                 $result['v_detalle']= DB::table('v_clientes')
@@ -101,6 +102,8 @@ class User extends Authenticatable
                 $widget['v_widget1']='';
                 $widget['v_widget2']='';
                 $widget['v_widget4']='';
+                $idCliente=DB::select("select IdCliente from v_clientes_tienen_usuarios where idUser=".$usuario->idUser);
+                $result['idClienteUsuario']=$idCliente[0]->IdCliente;
                 break;
             case 3:
                 $result['v_detalle']= DB::table('v_proveedores')
@@ -120,7 +123,17 @@ class User extends Authenticatable
 
     // Listar usuarios registrados
     public function listUsuario(){
-        $result = DB::table('v_usuarios')->get();
+        $p = Session::get('perfiles');
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 1:
+                $result = DB::table('v_usuarios')->get();
+                break;
+            case 2:
+                $result = DB::table('v_clientes_tienen_usuarios')
+                ->where('IdCliente',$p['idClienteUsuario'])->get();
+                break;
+        }
         return $result;
     }
 
@@ -132,6 +145,11 @@ class User extends Authenticatable
     // Cargar combo de perfiles de usuario
     public function listPerfiles(){
         return DB::table('v_perfiles')->get();
+    }
+
+    // Cargar combo de estados de usuario (Activi / Inactivo)
+    public function listEstados(){
+        return DB::table('v_estados')->get();
     }
 
     // Listar los perfiles activos para que el usuario acceso despues de iniciar session
@@ -154,23 +172,21 @@ class User extends Authenticatable
         return $result;            
     }
 
-    // Cargar combo de estados de usuario (Activi / Inactivo)
-    public function listEstados(){
-        return DB::table('v_estados')->get();
-    }
 
     // registrar un nuevo usuario en la aplicacion
     public function regUsuario($datos){
+        $p = Session::get('perfiles');
+        $idAdmin = Auth::id();
         $datos['idUser']==null ? $idUser=0 : $idUser= $datos['idUser'];
         $pass = substr($datos['usrUserName'], 0,6);
         $usrPassword=bcrypt($pass);
         $pusrPassInit=md5($pass);
-        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."')";
+        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."',".$p['idClienteUsuario'].")";
         $execute=DB::select($sql);
-        $result['v_usuarios']=$this->listUsuario();
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_usuario']=$value;
         }
+        $result['v_usuarios'] = $this->listUsuario($p['idPerfil']);
         return $result;
     }
 
@@ -376,12 +392,12 @@ class User extends Authenticatable
             // }
         } catch (Exception $e) {
             log::info($e);
-            // log::info("##########################################################################");
-            // log::info("Ocurrio un error al enviar el correo electronico para: ".$destinatario);
-            // log::info("Asunto: ".$asunto);
-            // log::info("Contenido: ".$contenido);
-            // log::info("Error: ".$e->getMessage());
-            // log::info("##########################################################################");
+            log::info("##########################################################################");
+            log::info("Ocurrio un error al enviar el correo electronico para: ".$destinatario);
+            log::info("Asunto: ".$asunto);
+            log::info("Contenido: ".$contenido);
+            log::info("Error: ".$e->getMessage());
+            log::info("##########################################################################");
             return '{"code":"500","des_code":"Ocurrio un error al enviar el email de recuperación"}';
         }
     }

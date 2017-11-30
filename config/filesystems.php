@@ -67,6 +67,12 @@ return [
                 'driver' => 'local',
                 'root'   => storage_path('../public/imgUsuarios'),
         ],
+
+        'imgNoticias' => [
+                'driver' => 'local',
+                'root'   => storage_path('../public/imgNoticias'),
+        ],
+        
     ],
 
 ];

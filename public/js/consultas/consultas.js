@@ -190,12 +190,28 @@ var cargartablaReportes = function(data){
                 }
             ]
         });
+        SeleccionarTablaReportes();
         limpiar=1;
     }else{
         limpiar=0;
         toastr.warning("No se encontraron resultados", "Info!");
     }
 };
+
+var SeleccionarTablaReportes = function(){
+    var tableB = $('#tablaReportes').dataTable();
+    $('#tablaReportes tbody').on('click', 'tr', function (e) {
+        tableB.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    $('#tablaReportes tbody').on('dblclick', 'tr', function () {
+        RegistroDTE = TablaTraerCampo('tablaReportes',this);
+        cargarFormularioVisualizacion(RegistroDTE);
+    });
+    tableB.on('dblclick', 'tr', function () {
+        $('#close').trigger('click');
+    });
+}
 
 var ProcesarConsulta = function(){
     var desde = $('#f_desde').val();
@@ -240,22 +256,6 @@ $(document).ready(function(){
         $('#f_desde').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hasta').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
-
-    if (d.v_dtes.length>0){    
-        var tableB = $('#tablaReportes').dataTable();
-        $('#tablaReportes tbody').on('click', 'tr', function (e) {
-            tableB.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-        $('#tablaReportes tbody').on('dblclick', 'tr', function () {
-            RegistroDTE = TablaTraerCampo('tablaReportes',this);
-            cargarFormularioVisualizacion(RegistroDTE);
-        });
-        tableB.on('dblclick', 'tr', function () {
-            $('#close').trigger('click');
-        });
-    }
-
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#btnCal',cal1);
     $(document).on('click','#volver',BotonVolver);

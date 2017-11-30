@@ -83,7 +83,7 @@
             <div class="col-md-5">
                 <div>
                     <center>
-                        <a href="javascript:;">
+                        <a href="#">
                             @if ($avatar = 'default.png') @endif
                             <input type="hidden" id="usrUrlimage" name="usrUrlimage">
                             <div>

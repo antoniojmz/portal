@@ -240,6 +240,7 @@ var AjustarTabla = function(tabla){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var mes_combo = [{ id: 1, text: 'Enero' }, { id: 2, text: 'Febrero' }, { id: 3, text: 'Marzo' }, { id: 4, text: 'Abril' }, { id: 5, text: 'Mayo' }, { id: 6, text: 'Junio' }, { id: 7, text: 'Julio' }, { id: 8, text: 'Agosto' }, { id: 9, text: 'Septiembre' }, { id: 10, text: 'Octubre' }, { id: 11, text: 'Noviembre' }, { id: 12, text: 'Diciembre' } ];
+var orden_combo = [{ id: 1, text: '1' }, { id: 2, text: '2' }, { id: 3, text: '3' }, { id: 4, text: '4' }, { id: 5, text: '5' }, { id: 6, text: '6' }, { id: 7, text: '7' }, { id: 8, text: '8' }, { id: 9, text: '9' }, { id: 10, text: '10' }, { id: 11, text: '11' }, { id: 12, text: '12' } ];
 var mensajesAlerta = function (titulo, mensaje, tipo){
     $.messager.show({
         title: titulo,

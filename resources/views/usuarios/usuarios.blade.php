@@ -1,7 +1,7 @@
 @extends('menu.index')
 @section('content')
 <div class="container col-md-10" style="background-color: white;">
-	<div id="divTabla" class="col-md-12 divForm">
+	<div class="col-md-12 divForm">
 		<div class="divPerfiles">
 			<div class="row">
 				<div class="col-md-12">
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="divForm" style="display:none;" class="col-md-12 divForm">
+	<div style="display:none;" class="col-md-12 divForm">
 		<div class="row">
 			<div class="col-md-12">
 				<br>
@@ -91,6 +91,7 @@
 		{!! Form::hidden('idUser', '', [
 		'id'            => 'idUser',
 		'class'         => 'form-control'])!!}
+		<input type="hidden" name="idProveedor" id="idProveedor" value="0">
 		<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -231,6 +232,7 @@
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
 	d['v_perfiles'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_perfiles) }}'));
 	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));
+	d['v_perfil'] = JSON.parse(rhtmlspecialchars('{{ $v_perfil }}'));
 </script>
 <script src="{{ asset('js/usuarios/usuarios.js') }}"></script>
 @endsection
