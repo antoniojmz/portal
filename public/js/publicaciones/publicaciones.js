@@ -53,7 +53,6 @@ var ManejoRespuestaProcesarA = function(respuesta){
 }
 
 var cargarTablaPublicaciones = function(data){
-    console.log(data);
     if(limpiarPublicaciones==1){destruirTabla('#tablaPublicaciones');$('#tablaPublicaciones thead').empty();}
     if (data.length>0){
         $("#spanNoReg").text("");
@@ -287,7 +286,6 @@ var cal2 = function (){
 };
 
 $(document).ready(function(){
-    console.log(d);
     crearallcombos(d);    
     cargarTablaPublicaciones(d.v_publicaciones);
 	cargarCalendarios();

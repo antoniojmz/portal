@@ -27,7 +27,6 @@ class Publicacion extends Authenticatable
     public function listPublicaciones(){
         $idUser = Auth::id();
         $p = Session::get('perfiles');
-        log::info("llegue al modelo");
         return DB::table('v_publicaciones')
                 ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
                 ->get();

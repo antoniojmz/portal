@@ -35,7 +35,6 @@ class PublicacionesController extends Controller
         $data['v_proveedores'] = $model->listRegProveedorCombo();
         $model= new Publicacion();
         $data['v_publicaciones'] = $model->listPublicaciones();
-        log::info($data['v_publicaciones']);
         return View::make('publicaciones.publicaciones',$data);
     }
 

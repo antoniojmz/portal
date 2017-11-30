@@ -206,7 +206,6 @@
 	var d = [];
 	d['v_proveedores'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores) }}'));
 	d['v_publicaciones'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_publicaciones) }}'));
-	console.log(d);
 </script>
 <script src="{{ asset('js/publicaciones/publicaciones.js') }}"></script>
 @endsection
