@@ -23,10 +23,11 @@ Route::get('/home', 'HomeController@getIndex')->name('home');
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
 
-
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
+
+Route::get('/oc', 'OrdencController@getOrdenCompra')->name('oc');
 
 Route::get('/Reg_proveedores', 'ProveedorController@getRegProveedores')->name('Reg_proveedores');
 Route::post('/Reg_proveedores', 'ProveedorController@postRegProveedores')->name('Reg_proveedores');

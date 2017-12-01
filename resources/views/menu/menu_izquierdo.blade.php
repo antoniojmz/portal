@@ -1,6 +1,7 @@
 @php
 	$data = Session::get('perfiles');
 @endphp
+@if (isset($data))
 <button class="m-aside-left-close m-aside-left-close--skin-dark" id="m_aside_left_close_btn">
 	<i class="la la-close"></i>
 </button>
@@ -86,6 +87,7 @@
 					</ul>
 				</div>
 			</li>
+			@if ($data['idPerfil']==2 || $data['idPerfil']==3)
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
@@ -111,51 +113,76 @@
 					</ul>
 				</div>
 			</li>
-			@if (isset($data))
-				@if ($data['idPerfil']==1 || $data['idPerfil']==2)
-					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-						<a  href="#" class="m-menu__link m-menu__toggle">
-							<span class="m-menu__item-here"></span>
-							<i class="m-menu__link-icon flaticon-cogwheel-1"></i>
-							<span class="m-menu__link-title">
-								<span class="m-menu__link-wrap">
-									<span class="m-menu__link-text">
-										Administración
-									</span>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a  href="#" class="m-menu__link m-menu__toggle">
+					<span class="m-menu__item-here"></span>
+					<i class="m-menu__link-icon flaticon-search"></i>
+					<span class="m-menu__link-text">
+						OC
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item" aria-haspopup="true" >
+							<a  href='{!! URL::route("oc") !!}' class="m-menu__link ">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Consultar OC
 								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			@endif
+			@if ($data['idPerfil']==1 || $data['idPerfil']==2)
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a  href="#" class="m-menu__link m-menu__toggle">
+					<span class="m-menu__item-here"></span>
+					<i class="m-menu__link-icon flaticon-cogwheel-1"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								Administración
 							</span>
-							<i class="m-menu__ver-arrow la la-angle-right"></i>
-						</a>
-						<div class="m-menu__submenu">
-							<span class="m-menu__arrow"></span>
-							<ul class="m-menu__subnav">
-								<li class="m-menu__item " aria-haspopup="true" >
-									<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
-										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-											<span></span>
-										</i>
-										<span class="m-menu__link-text">
-											Listado de usuarios
-										</span>
-									</a>
-								</li>
-								@if ($data['idPerfil']==1 || $data['idPerfil']==2)
-								<li class="m-menu__item " aria-haspopup="true" >
-									<a  href='{!! URL::route("publicaciones") !!}' class="m-menu__link">
-										<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-											<span></span>
-										</i>
-										<span class="m-menu__link-text">
-											Listado de publicaciones
-										</span>
-									</a>
-								</li>
-								@endif
-							</ul>
-						</div>
-					</li>
-				@endif
+						</span>
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item " aria-haspopup="true" >
+							<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Listado de usuarios
+								</span>
+							</a>
+						</li>
+						@if ($data['idPerfil']==2)
+						<li class="m-menu__item " aria-haspopup="true" >
+							<a  href='{!! URL::route("publicaciones") !!}' class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Listado de publicaciones
+								</span>
+							</a>
+						</li>
+						@endif
+					</ul>
+				</div>
+			</li>
 			@endif
 		</ul>
 	</div>
 </div>
+@endif

@@ -15,6 +15,7 @@ use Auth;
 use Session;
 
 // Modelo
+use App\Models\Publicacion;
 use App\Models\Proveedor;
 use App\Models\User;
 
@@ -61,6 +62,25 @@ class ProveedorController extends Controller
         return View::make('proveedores.registro',$data);
     }
 
+    protected function postRegProveedores(Request $request){
+        $datos = $request->all();
+        $datos['caso']=3;
+        $model= new User();
+        $result = $model->regUsuario($datos);
+        $model= new Publicacion();
+        $var = $model->extractCodeJoson($result['f_registro_usuario']);
+        $result['v_asignacion'] = '{"code":"204"}';
+        if ($var[1]==200){
+            $model= new Proveedor();
+            $empresa = $model->regUsuarioProveedor($var[5],$datos);
+            if ($empresa==0){
+                $result['v_asignacion'] = '{"code":"-2", "des_code": "Ocurrio un error en la asignación del proveedor con el cliente"}';
+            }
+        }
+        $result['v_usuarios'] = $model->listRegProveedor();
+        return $result;
+    }
+    
     // Activar o Desactivar Proveedores
     protected function postProveedoractivo (Request $request){
         $datos = $request->all();

@@ -61,13 +61,16 @@ class UsuarioController extends Controller
 
     // Registrar un nuevo usuario o actualizar datos (Administrador)
     protected function postUsuarios(Request $request){
+        $p = Session::get('perfiles');
         $datos = $request->all();
         // Todos los datos del usuario loggeado
         // $user = Auth::user();
         // El id del usuario logeado
-        $datos['idLoggeo'] = Auth::id();
+        // $datos['idLoggeo'] = Auth::id();
         $model= new User();
-        $result = $model->regUsuario($datos);
+        $result['f_registro'] = $model->regUsuario($datos);
+        $result['v_usuarios'] = $model->listUsuario($p['idPerfil']);
+
         return $result;
     }
 

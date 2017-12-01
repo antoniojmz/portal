@@ -25,7 +25,6 @@ class Proveedor extends Authenticatable
     public function listProveedor(){
         $idUser = Auth::id();
         $p = Session::get('perfiles');
-
         switch ($p['idPerfil']) {
             // Perfil administrador
             case 1:
@@ -97,7 +96,10 @@ class Proveedor extends Authenticatable
     public function listRegProveedor(){
         $p = Session::get('perfiles');
         return DB::table('v_clientes_tienen_proveedores')
-                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
+                ->select('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
+                ->groupBy('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                ->get();
     }
 
     public function listRegEstados(){
@@ -113,8 +115,40 @@ class Proveedor extends Authenticatable
     public function listEmpresasProveedor($datos){
         $p = Session::get('perfiles');
         return DB::table('v_clientes_tienen_proveedores')
-            ->where('IdCliente',$p['idClienteUsuario'])
-            ->where('IdProveedor',$datos['IdProveedor'])->get();
+            ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
+            ->where('idUser',$datos['idUser'])->get();
+    }
+
+
+    public function regUsuarioProveedor($idUser,$datos){
+        $idAdmin = Auth::id();
+        $p = Session::get('perfiles');
+        try{
+            $count = DB::select("select count(1) as count from clientes_tienen_proveedores where IdCliente=".$p['v_detalle'][0]->IdCliente." and IdProveedor = ".$datos['idEmpresa']); 
+
+            $values=array('IdProveedor'=>$datos['idEmpresa'],'idUser'=>$idUser,'auUsuarioCreacion'=>$idAdmin);
+            $insert = DB::table('proveedores_tienen_usuarios')
+                ->insert($values);
+            
+            if ($count[0]->count<1){
+                $values2=array(
+                    'Idcliente'=>$p['v_detalle'][0]->IdCliente,
+                    'IdProveedor'=>$datos['idEmpresa'],
+                    'auUsuarioCreacion'=>$idAdmin
+                );
+                $insert2 = DB::table('clientes_tienen_proveedores')
+                    ->insert($values2);
+            }
+            $result = 1;
+        } catch (Exception $e) {
+            DB::rollback();
+            $result=0;
+            log::info("##########################################################################");
+            log::info("Ocurrio un error al tratar de asignar un usuario a un proveedor : ".$idUser);
+            log::info("Error: ".$e->getMessage());
+            log::info("##########################################################################");
+        }
+        return $result;   
     }
 
     public function regEmpresa($datos){
@@ -123,6 +157,7 @@ class Proveedor extends Authenticatable
         $sql="select f_registro_empresa(".$p['v_detalle'][0]->IdCliente.",".$datos['idProveedor'].",".$idAdmin.")";
         log::info($datos);
         log::info($sql);
+
         
         // $execute=DB::select($sql);
         // $result['v_perfiles'] = $this->listPerfilesAdministrador($datos['idUser']);

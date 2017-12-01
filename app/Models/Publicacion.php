@@ -97,4 +97,13 @@ class Publicacion extends Authenticatable
         }
         return $result;   
     }
+
+    public function extractCodeJoson($string){
+        $var = $string; 
+        $var = str_replace('"','',$var); 
+        $var = str_replace('{','',$var); 
+        $var = str_replace('}','',$var); 
+        $var = str_replace(':',',',$var);
+        return explode(",",$var); 
+    }
 }

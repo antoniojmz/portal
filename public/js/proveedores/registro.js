@@ -66,8 +66,12 @@ var ManejoRespuestaProcesarR = function(respuesta){
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_usuario);
+        var res2 = JSON.parse(respuesta.respuesta.v_asignacion);
         switch(res.code) {
             case '200':
+                if (res2.code=="-2"){
+                    toastr.warning(res2.des_code, "Error!");
+                }
                 toastr.success(res.des_code, "Procesado!");
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
                 $(".divForm").toggle();
@@ -261,6 +265,7 @@ var seleccionarTablaEmpresas = function(data){
 };     
 var crearallcombos = function(data){
     crearcombo('#idProveedor',data.v_proveedores_combos);
+    crearcombo('#idEmpresa',data.v_proveedores_combos);
     crearcombo('#usrEstado',data.v_estados);
 }
 
@@ -289,6 +294,7 @@ var administrarEmpresas= function(data){
 }
 
 var pintarDatosActualizar= function(data){
+    $("#divEmpresa").hide();
     $("#perfiles").text("N/A o Inactivo")
     $('#divConsulta').show();
     $('#divSpanPerfiles').show();
@@ -312,6 +318,7 @@ var pintarDatosActualizar= function(data){
 }
 
 var BotonCancelar = function(){
+    $("#divEmpresa").hide();
     $(".divForm").toggle();    
     $('#divConsulta').hide();
     $('#FormUsuario')[0].reset();
@@ -331,6 +338,7 @@ var mostrarDesconocidos = function(){
 var BotonAgregar = function(){
     cargarFormulario();
     mostrarDesconocidos();
+    $("#divEmpresa").show();
     $("#divConsulta").hide();
     $("#divSpanPerfiles").hide();
     $("#idUser").val("");
@@ -348,7 +356,7 @@ var BotonAgregarEmpresa = function(){
 
 
 var ProcesarUsuario = function(){
-    var camposNuevo = {'usrEstado': $('#usrEstado').val()}
+    var camposNuevo = {'usrEstado': $('#usrEstado').val(),'idEmpresa': $('#idEmpresa').val()}
     parametroAjax.ruta=ruta;
     parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
     respuesta=procesarajax(parametroAjax);

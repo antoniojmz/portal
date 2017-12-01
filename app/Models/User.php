@@ -176,17 +176,20 @@ class User extends Authenticatable
     // registrar un nuevo usuario en la aplicacion
     public function regUsuario($datos){
         $p = Session::get('perfiles');
+        if (!isset($datos['caso'])){
+            if ($p['idPerfil']==1){$datos['caso']=1;}
+            if ($p['idPerfil']==2){$datos['caso']=2;}
+        }
         $idAdmin = Auth::id();
         $datos['idUser']==null ? $idUser=0 : $idUser= $datos['idUser'];
         $pass = substr($datos['usrUserName'], 0,6);
         $usrPassword=bcrypt($pass);
         $pusrPassInit=md5($pass);
-        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$datos['idLoggeo'].",'".$datos['_token']."','".$datos['usrEmail']."',".$p['idClienteUsuario'].")";
+        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$idAdmin.",'".$datos['_token']."','".$datos['usrEmail']."',".$p['idClienteUsuario'].",".$datos['caso'].")";
         $execute=DB::select($sql);
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_usuario']=$value;
         }
-        $result['v_usuarios'] = $this->listUsuario($p['idPerfil']);
         return $result;
     }
 

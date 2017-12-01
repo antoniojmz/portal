@@ -128,14 +128,19 @@
 			</div>
 			<div class="col-md-4"></div>
 		</div>
+		<div id="divEmpresa" style="display:none;">
 		<br>
-		<div class="row" id="divSpanPerfiles" style="display:none;">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
-				<label class="label" id="labelPerfil" for="perfiles"><b>Perfiles:</b></label>
-				<span id="perfiles" class="form-control"></span>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					{!! Field::select('idEmpresa', null, null,
+					[ 'label' => 'Empresa', 
+					'style' => 'width:100%;height:35px;',
+					'placeholder' => 'Seleccione...',
+					'class' => 'form-control comboclear']) !!}
+				</div>
+				<div class="col-md-4"></div>
 			</div>
-			<div class="col-md-4"></div>
 		</div>
 		<br>
 		<div class="row">

@@ -43,7 +43,7 @@ class PublicacionesController extends Controller
         $datos = $request->all();
         $model= new Publicacion();
         $result = $model->regPublicacion($datos);
-        $var = $this->extractCodeJoson($result['f_registro_publicacion']);
+        $var = $model->extractCodeJoson($result['f_registro_publicacion']);
         if ($var[1]==200){
             $idNoticia=$var[5];
             $fotoOld = $request->input('urlImage');
@@ -88,14 +88,5 @@ class PublicacionesController extends Controller
         $result['activar'] = $model->activarPublicacion($datos);
         $result['v_publicaciones'] = $model->listPublicaciones();
         return $result;
-    }
-
-    protected function extractCodeJoson($string){
-        $var = $string; 
-        $var = str_replace('"','',$var); 
-        $var = str_replace('{','',$var); 
-        $var = str_replace('}','',$var); 
-        $var = str_replace(':',',',$var);
-        return explode(",",$var); 
     }
 }

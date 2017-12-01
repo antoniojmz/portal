@@ -65,7 +65,7 @@ var ManejoRespuestaProcesarR = function(respuesta){
 // Manejo Registro o actualizacion de usuario
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
-        var res = JSON.parse(respuesta.respuesta.f_registro_usuario);
+        var res = JSON.parse(respuesta.respuesta.f_registro.f_registro_usuario);
         switch(res.code) {
             case '200':
                 toastr.success(res.des_code, "Procesado!");

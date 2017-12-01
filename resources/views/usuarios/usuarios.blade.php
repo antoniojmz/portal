@@ -134,8 +134,8 @@
 			</div>
 			<div class="col-md-4"></div>
 		</div>
-		<br>
 		<div class="row" id="divSpanPerfiles" style="display:none;">
+		<br>
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
 				<label class="label" id="labelPerfil" for="perfiles"><b>Perfiles:</b></label>
@@ -156,6 +156,7 @@
 			<div class="col-md-4"></div>
 		</div>
 		<div id="divConsulta" style="display:none;">
+			<br>
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
