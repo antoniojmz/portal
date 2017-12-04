@@ -251,7 +251,7 @@ var cal1 = function (){$("#fecha").click();};
 $(document).ready(function(){
     cargartablaReportes(d.v_ocs)
     $(".span").text("Desconocido");
-    $("#spanTitulo").text("Consultas DTE");
+    $("#spanTitulo").text("Consultas OC");
     crearAllcombos(d)
     $('#fecha').daterangepicker({}, function(start, end, label) {
         $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
