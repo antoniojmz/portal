@@ -38,12 +38,12 @@ class OrdencController extends Controller
         return View::make('ordenc.ordenc',$data);
     }
 
-    // protected function postConsultas(Request $request){
-    //     $datos = $request->all();
-    //     $model= new Orden();
-    //     $result = $model->BuscarDtes($datos);
-    //     return $result;
-    // }
+    protected function postOrdenCompra(Request $request){
+        $datos = $request->all();
+        $model= new Ordenc();
+        $result = $model->BuscarDtes($datos);
+        return $result;
+    }
     
     // protected function postBuscardetalle(Request $request){
     //     $datos = $request->all();

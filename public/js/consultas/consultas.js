@@ -174,7 +174,7 @@ var cargartablaReportes = function(data){
                     "data": "PdfDTE",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
-                            data = '<a target="_blank" class="m-menu__link" href="' + data + '">' + data + '</a>';
+                            data = '<center><a target="_blank" class="m-menu__link" href="' + data + '"><i class="fa fa-file-code-o" aria-hidden="true"></i></a></center>';
                         }
                         return data;
                     }
@@ -184,7 +184,7 @@ var cargartablaReportes = function(data){
                     "data": "XmlDTE",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
-                            data = '<a target="_blank" class="m-menu__link" href="' + data + '">' + data + '</a>';
+                            data = '<center><a target="_blank" class="m-menu__link" href="' + data + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></center>';
                         }
                         return data;
                     }
@@ -194,7 +194,7 @@ var cargartablaReportes = function(data){
                     "data": "FechaEstadoActualDTE",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
-                            data = '<a id="LinkTrazas" class="m-menu__link" href="#">Ver Traza</a>';
+                            data = '<center><a id="LinkTrazas" class="m-menu__link" href="#"><i class="fa fa-history" aria-hidden="true"></i></a></center>';
                         }
                         return data;
                     }
@@ -308,6 +308,7 @@ var BotonVolver = function(){
 var crearAllcombos = function(d){
     var acuse = [{"id":"1","text":"Recibido"},{"id":"2","text":"Por recibir"}];
     var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"2","text":"Contabilizado por el cliente"},{"id":"2","text":"Programado para pago"}];
+    console.log(d.v_busq_consulta);
     crearcombo('#Selectcampo',d.v_busq_consulta);
     crearcombo('#SelectDTE',d.v_tipo_dte);
     crearcombo('#selectAcuse',acuse);

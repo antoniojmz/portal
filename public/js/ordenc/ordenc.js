@@ -133,23 +133,24 @@ var cargartablaReportes = function(data){
             },
             "data": data,
             "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdOC","data": "IdOC",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
-                {"title": "Tipo DTE","data": "TipoDTE",visible:0},
-                {"title": "Folio DTE","data": "FolioDTE",visible:0},
+                // {"title": "Tipo DTE","data": "TipoDTE",visible:0},
+                {"title": "Folio DTE","data": "FolioOC",visible:0},
                 {"title": "Fecha Emisión","data": "FechaEmision"},
                 {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
-                {"title": "RUT Proveedor","data": "RutProveedor"},
-                {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "RUT Cliente","data": "RutCliente"},
-                {"title": "Nombre Cliente","data": "NombreCliente"},
+                {"title": "RUT Proveedor","data": "RUTEmisor"},
+                // {"title": "Nombre Proveedor","data": "NombreProveedor"},
+                {"title": "RUT Cliente","data": "RUTReceptor"},
+                // {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
-                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
+                {"title": "Estado OC","data": "EstadoOC"},
+                {"title": "Documento Contable","data": "DocumentoContable"},
+                {"title": "Entrada de mercaderia","data": "EntradaMercaderia"}
             ],
             dom: 'Bfrtip',
             buttons: [
@@ -190,7 +191,7 @@ var cargartablaReportes = function(data){
                 }
             ]
         });
-        SeleccionarTablaReportes();
+        // SeleccionarTablaReportes();
         limpiar=1;
     }else{
         limpiar=0;
@@ -241,13 +242,14 @@ var BotonVolver = function(){
 }
 
 var crearAllcombos = function(d){
-    crearcombo('#Selectcampo',d.v_busq_consulta);
+    var busqueda= [{"id":"RUTEmisor","text":"RUT Emisor"},{"id":"RUTReceptor","text":"RUT Receptor"},{"id":"EstadoOC","text":"EstadoOC"}]
+    crearcombo('#Selectcampo',busqueda);
     crearcombo('#SelectDTE',d.v_tipo_dte);
 }
 
 var cal1 = function (){$("#fecha").click();};
 $(document).ready(function(){
-    cargartablaReportes(d.v_dtes)
+    cargartablaReportes(d.v_ocs)
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Consultas DTE");
     crearAllcombos(d)

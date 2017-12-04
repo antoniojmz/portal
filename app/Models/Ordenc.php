@@ -30,15 +30,15 @@ class Ordenc extends Authenticatable
         switch ($p['idPerfil']) {
             // Perfil ad[ministrador]
             case 1:
-                $result = DB::table('v_dtes')->get();
+                $result = DB::table('ocs')->get();
                 break;
             // Perfil Cliente
             case 2:
-                $result = DB::table('v_dtes')->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
+                $result = DB::table('ocs')->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
                 break;
             // Perfil Proveedor
             case 3:
-                $result = DB::table('v_dtes')->where('IdProveedor',$p['v_detalle'][0]->IdProveedor)->get();
+                $result = DB::table('ocs')->where('IdProveedor',$p['v_detalle'][0]->IdProveedor)->get();
                 break;
             default:
                 log::info("Se requieren permisos");
@@ -69,7 +69,7 @@ class Ordenc extends Authenticatable
     public function BuscarDtes($d){
         $var = 0;
         $p = Session::get('perfiles');
-        $sql = "select * from v_dtes where ";
+        $sql = "select * from ocs where ";
         if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
             $desde = $this->formatearFecha($d['f_desde']);
             $hasta = $this->formatearFecha($d['f_hasta']);
@@ -88,14 +88,14 @@ class Ordenc extends Authenticatable
             $sql .= $pre2; 
         }
 
-        if ($d['SelectDTE'] <>null){
-            $pre3="";
-            if ($var >0){
-                $pre3 = "and "; 
-            }         
-            $pre3 .= "TipoDTE=".$d['SelectDTE'];
-            $sql .= $pre3; 
-        }
+        // if ($d['SelectDTE'] <>null){
+        //     $pre3="";
+        //     if ($var >0){
+        //         $pre3 = "and "; 
+        //     }         
+        //     $pre3 .= "TipoDTE=".$d['SelectDTE'];
+        //     $sql .= $pre3; 
+        // }
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
@@ -108,6 +108,7 @@ class Ordenc extends Authenticatable
                 $sql .= $pre4;
                 break;
         }
+        log::info($sql);
         return DB::select($sql);
     }
 

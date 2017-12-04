@@ -290,12 +290,13 @@
 	</div>
 </div>
 <script Language="Javascript">
-	var ruta = "{{ URL::route('consultas') }}" 
+	var ruta = "{{ URL::route('oc') }}" 
 	var rutaD = "{{ URL::route('detallesDTE') }}" 
 	var d = [];
-	d['v_dtes'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
+	d['v_ocs'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
 	d['v_busq_consulta'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_busq_consulta) }}'));
 	d['v_tipo_dte'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_tipo_dte) }}'));
+	console.log(d);
 </script>
 <script src="{{ asset('js/ordenc/ordenc.js') }}"></script>
 @endsection

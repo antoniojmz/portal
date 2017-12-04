@@ -29,6 +29,7 @@ Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detal
 Route::post('/trazaDTE', 'ConsultaController@postBuscartraza')->name('trazaDTE');
 
 Route::get('/oc', 'OrdencController@getOrdenCompra')->name('oc');
+Route::post('/oc', 'OrdencController@postOrdenCompra')->name('oc');
 
 Route::get('/Reg_proveedores', 'ProveedorController@getRegProveedores')->name('Reg_proveedores');
 Route::post('/Reg_proveedores', 'ProveedorController@postRegProveedores')->name('Reg_proveedores');
