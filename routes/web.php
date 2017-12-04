@@ -26,6 +26,7 @@ Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrar
 Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
+Route::post('/trazaDTE', 'ConsultaController@postBuscartraza')->name('trazaDTE');
 
 Route::get('/oc', 'OrdencController@getOrdenCompra')->name('oc');
 

@@ -126,6 +126,7 @@ class Proveedor extends Authenticatable
         try{
             $count = DB::select("select count(1) as count from clientes_tienen_proveedores where IdCliente=".$p['v_detalle'][0]->IdCliente." and IdProveedor = ".$datos['idEmpresa']); 
 
+            //Aqui hay un bug
             $values=array('IdProveedor'=>$datos['idEmpresa'],'idUser'=>$idUser,'auUsuarioCreacion'=>$idAdmin);
             $insert = DB::table('proveedores_tienen_usuarios')
                 ->insert($values);

@@ -9,7 +9,7 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" data-menu-dropdown="true" data-menu-scrollable="true" data-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 			<li class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-				<a  href='/home' class="m-menu__link ">
+				<a  href='/home' class="m-menu__link">
 					<span class="m-menu__item-here"></span>
 					<i class="m-menu__link-icon flaticon-dashboard"></i>
 					<span class="m-menu__link-text">

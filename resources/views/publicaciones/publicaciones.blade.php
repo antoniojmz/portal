@@ -1,7 +1,7 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10">
-	<div class="divForm m-portlet">
+<div class="container col-md-10 m-portlet">
+	<div class="divForm">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
 				<center><span id="spanTitulo">Listado de publicaciones </span></center>

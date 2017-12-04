@@ -1,6 +1,6 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10" style="background-color: white;">
+<div class="container col-md-10 m-portlet">
 	<div class="divForm">
 		<div class="row">
 			<div class="col-md-12">
@@ -30,7 +30,6 @@
 						<label>Tipo de busqueda:</label>
 					</div>
 					<select name="Selectcampo" id="Selectcampo" style="width:100%;height:35px;">
-						<option value="">Folio de referencia</option>
 						<option value="">Estado DTE</option>
 						<option value="">RUT de cliente</option>
 						<option value="">Nombre de cliente</option>
@@ -75,7 +74,7 @@
 		</div>
 	</div>
 	<div class="divForm" style="display:none;">
-		<div class="m-portlet m-portlet--tabs">
+		<div class="m-portlet--tabs">
 			<div class="m-portlet__head">
 				<div class="m-portlet__head-tools">
 					<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">

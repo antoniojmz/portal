@@ -1,5 +1,5 @@
-var limpiar=limpiarEstados=limpiarDetalles=limpiarReferencias=printCounter=0;
-var RegistroDTE = '';
+var limpiar=limpiarEstados=limpiarDetalles=limpiarTrazas=limpiarReferencias=printCounter=ajax=0;
+var RegistroDTE = RegistroDTE2='';
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -22,6 +22,14 @@ var ManejoRespuestaD = function(respuesta){
             cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
             cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
             cargartablaEstados(respuesta.respuesta.v_dte_estados);
+    }else{
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+    };
+}
+
+var ManejoRespuestaT = function(respuesta){
+    if (respuesta.code = '200'){
+        cargartablaTrazas(respuesta.respuesta.v_dte_estados);
     }else{
         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
@@ -121,6 +129,31 @@ var cargartablaEstados = function(data){
     }
 }
 
+
+
+var cargartablaTrazas = function(data){
+    if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
+    if (data.length>0){
+        $("#tablaTrazas").dataTable({
+            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'bSort': false,
+            "language": {
+                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+            },
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
+                {"title": "Fecha de Estado","data": "FechaEstado"},
+                {"title": "Comentario de Estado","data": "ComentarioEstado"}
+            ],
+        });
+        limpiarTrazas=1;
+    }else{
+        limpiarTrazas=0;
+    }
+}
+
 var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
     if (data.length>0){
@@ -136,6 +169,36 @@ var cargartablaReportes = function(data){
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
+                {
+                    "title": "PDF", 
+                    "data": "PdfDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = '<a target="_blank" class="m-menu__link" href="' + data + '">' + data + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "XML", 
+                    "data": "XmlDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = '<a target="_blank" class="m-menu__link" href="' + data + '">' + data + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Traza", 
+                    "data": "FechaEstadoActualDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = '<a id="LinkTrazas" class="m-menu__link" href="#">Ver Traza</a>';
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
                 {"title": "Fecha Emisión","data": "FechaEmision"},
@@ -148,8 +211,8 @@ var cargartablaReportes = function(data){
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
-                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
+                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"},
+                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"}
             ],
             dom: 'Bfrtip',
             buttons: [
@@ -208,8 +271,10 @@ var SeleccionarTablaReportes = function(){
         RegistroDTE = TablaTraerCampo('tablaReportes',this);
         cargarFormularioVisualizacion(RegistroDTE);
     });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
+
+    var table = $('#tablaReportes').DataTable();
+    $('#tablaReportes tbody').on('click', 'tr', function () {
+        RegistroDTE2 = table.row(this).data();
     });
 }
 
@@ -241,11 +306,29 @@ var BotonVolver = function(){
 }
 
 var crearAllcombos = function(d){
+    var acuse = [{"id":"1","text":"Recibido"},{"id":"2","text":"Por recibir"}];
+    var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"2","text":"Contabilizado por el cliente"},{"id":"2","text":"Programado para pago"}];
     crearcombo('#Selectcampo',d.v_busq_consulta);
     crearcombo('#SelectDTE',d.v_tipo_dte);
+    crearcombo('#selectAcuse',acuse);
+    crearcombo('#selectEstado',estado);
+    
+
+}
+
+var CargarTrazas = function(){
+    parametroAjax.ruta=rutaT;
+    parametroAjax.data = RegistroDTE2;
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaT(respuesta);
+    $('#ModalTrazas').modal("show");
 }
 
 var cal1 = function (){$("#fecha").click();};
+var cal2 = function (){$("#fechaA").click();};
+var cal3 = function (){$("#fechaO").click();};
+var cal4 = function (){$("#fechaP").click();};
+var cal5 = function (){$("#fechaV").click();};
 $(document).ready(function(){
     cargartablaReportes(d.v_dtes)
     $(".span").text("Desconocido");
@@ -256,7 +339,32 @@ $(document).ready(function(){
         $('#f_desde').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hasta').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
+    $('#fechaA').daterangepicker({}, function(start, end, label) {
+        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_desdeA').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_hastaA').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+    });
+    $('#fechaO').daterangepicker({}, function(start, end, label) {
+        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_desdeO').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_hastaO').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+    });
+    $('#fechaP').daterangepicker({}, function(start, end, label) {
+        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_desdeP').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_hastaP').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+    });
+    $('#fechaV').daterangepicker({}, function(start, end, label) {
+        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_desdeV').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_hastaV').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+    });
     $(document).on('click','#consultar',ProcesarConsulta);
-    $(document).on('click','#btnCal',cal1);
     $(document).on('click','#volver',BotonVolver);
+    $(document).on('click','#LinkTrazas',CargarTrazas);
+    $(document).on('click','#btnCal1',cal1);
+    $(document).on('click','#btnCal2',cal2);
+    $(document).on('click','#btnCal3',cal3);
+    $(document).on('click','#btnCal4',cal4);
+    $(document).on('click','#btnCal5',cal5);
 });

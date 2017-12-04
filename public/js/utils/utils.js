@@ -128,7 +128,6 @@ var destruirTabla = function(tabla){
         $(tabla).dataTable().fnClearTable();
         $(tabla).dataTable().fnDraw();
         $(tabla).dataTable().fnDestroy();
-
         $(tabla).empty();
         // $(tabla).dataTable().fnClearTable();
     }

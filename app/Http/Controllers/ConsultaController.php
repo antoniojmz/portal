@@ -51,4 +51,11 @@ class ConsultaController extends Controller
         $result = $model->BuscarDetalle($datos['IdDTE']);
         return $result;
     }
+
+    protected function postBuscartraza(Request $request){
+        $datos = $request->all();
+        $model= new Consulta();
+        $result = $model->BuscarTraza($datos['IdDTE']);
+        return $result;
+    }    
 }

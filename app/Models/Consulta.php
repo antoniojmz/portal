@@ -117,6 +117,12 @@ class Consulta extends Authenticatable
         $result['v_dte_referencias'] = DB::table('v_dte_referencias')->where('IdDTE',$id)->get();
         return $result;
     }
+
+    public function BuscarTraza($id){
+        $result['v_dte_estados'] = DB::table('v_dte_estados')->where('IdDTE',$id)->get();
+        return $result;
+    }
+
     
     public function formatearFecha($d){
         $formato = explode("-", $d);
