@@ -42,10 +42,28 @@ var cargartablaDTE = function(data){
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
-                {"title": "Fecha de recepción","data": "FechaRecepcion"},
+                {
+                    "title": "Fecha de recepción", 
+                    "data": "FechaRecepcion",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
-                {"title": "Fecha de emisión","data": "FechaEmision"},
+                {
+                    "title": "Fecha de emisión", 
+                    "data": "FechaEmision",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
                 {"title": "RUT Cliente","data": "RutCliente"},
@@ -53,7 +71,16 @@ var cargartablaDTE = function(data){
                 {"title": "Monto Total DTE","data": "MontoExentoCLP"},
                 {"title": "Monto total OM","data": "MontoExentoOM"},
                 {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
-                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
+                {
+                    "title": "Fecha de Estado Actual", 
+                    "data": "FechaEstadoActualDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                }
             ],
         });
         limpiarDte=1;

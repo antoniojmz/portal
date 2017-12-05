@@ -81,10 +81,46 @@ var cargarTablaPublicaciones = function(data){
             "columns":[
             {"title": "Id","data": "idNoticia",visible:0},
             {"title": "Titulo","data": "titulo"},
-            {"title": "Fecha inicio","data": "fechaInicio"},
-            {"title": "Fecha fin","data": "fechaFin"},
+            {
+                "title": "Fecha Inicio", 
+                "data": "fechaInicio",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD',true).format("DD-MM-YYYY");
+                        if (data=='Invalid date'){
+                            data = "";
+                        }
+                    }
+                    return data;
+                }
+            },
+            {
+                "title": "Fecha Fin", 
+                "data": "fechaFin",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD',true).format("DD-MM-YYYY");
+                        if (data=='Invalid date'){
+                            data = "";
+                        }
+                    }
+                    return data;
+                }
+            },
             {"title": "Creado por","data": "usrNombreFull"},
-            {"title": "Fecha creacion","data": "auFechaCreacion"},
+            {
+                "title": "Fecha creación", 
+                "data": "auFechaCreacion",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        if (data=='Invalid date'){
+                            data = "";
+                        }
+                    }
+                    return data;
+                }
+            },
             {"title": "Estado","data": "desEstado"},
             {"title": "principal","data": "idPrincipal",visible:0},
             {"title": "Estado","data": "idEstado",visible:0},

@@ -97,7 +97,16 @@ var cargartablaReferencias = function(data){
                 {"title": "IdReferencia","data": "IdReferencia",visible:0},
                 {"title": "Tipo de Referencia","data": "TipoReferencia"},
                 {"title": "Folio de Referencia","data": "FolioReferencia"},
-                {"title": "Fecha de Referencia","data": "FechaReferencia"}
+                {
+                    "title": "Fecha de Referencia", 
+                    "data": "FechaReferencia",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
             ],
         });
         limpiarReferencias=1;
@@ -119,7 +128,16 @@ var cargartablaEstados = function(data){
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {"title": "Fecha de Estado","data": "FechaEstado"},
+                {
+                    "title": "Fecha de Estado", 
+                    "data": "FechaEstado",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Comentario de Estado","data": "ComentarioEstado"}
             ],
         });
@@ -144,7 +162,16 @@ var cargartablaTrazas = function(data){
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {"title": "Fecha de Estado","data": "FechaEstado"},
+                {
+                    "title": "Fecha de Estado", 
+                    "data": "FechaEstado",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Comentario de Estado","data": "ComentarioEstado"}
             ],
         });
@@ -201,8 +228,26 @@ var cargartablaReportes = function(data){
                 },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
-                {"title": "Fecha Emisión","data": "FechaEmision"},
-                {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
+                {
+                    "title": "Fecha Emisión", 
+                    "data": "FechaEmision",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Recepción Cliente", 
+                    "data": "FechaRecepcion",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
                 {"title": "RUT Cliente","data": "RutCliente"},
@@ -211,7 +256,16 @@ var cargartablaReportes = function(data){
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"},
+                {
+                    "title": "Fecha de Estado Actual", 
+                    "data": "FechaEstadoActualDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Estado Actual de Pago","data": "EstadoActualDTE"}
             ],
             dom: 'Bfrtip',
@@ -308,7 +362,6 @@ var BotonVolver = function(){
 var crearAllcombos = function(d){
     var acuse = [{"id":"1","text":"Recibido"},{"id":"2","text":"Por recibir"}];
     var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"2","text":"Contabilizado por el cliente"},{"id":"2","text":"Programado para pago"}];
-    console.log(d.v_busq_consulta);
     crearcombo('#Selectcampo',d.v_busq_consulta);
     crearcombo('#SelectDTE',d.v_tipo_dte);
     crearcombo('#selectAcuse',acuse);
@@ -323,6 +376,10 @@ var CargarTrazas = function(){
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaT(respuesta);
     $('#ModalTrazas').modal("show");
+}
+
+var toggleFiltros = function(){
+    $("#divForm").slideToggle("fast");
 }
 
 var cal1 = function (){$("#fecha").click();};
@@ -363,6 +420,7 @@ $(document).ready(function(){
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#volver',BotonVolver);
     $(document).on('click','#LinkTrazas',CargarTrazas);
+    $(document).on('click','#ahrefFiltros',toggleFiltros);
     $(document).on('click','#btnCal1',cal1);
     $(document).on('click','#btnCal2',cal2);
     $(document).on('click','#btnCal3',cal3);
