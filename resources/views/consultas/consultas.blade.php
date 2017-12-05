@@ -9,209 +9,189 @@
 				<hr>
 			</div>
 		</div>
+		<center>
+			<h6>
+				<span>
+					<a id="ahrefFiltros" href="#">
+						Filtros de busqueda
+					</a>
+				</span>
+			</h6>
+		</center>
 		<div id="divForm" class="col-md-12 divForm">
 			{!! Form::open(['id'=>'FormConsultas',
 			'autocomplete' => 'off']) !!}
 			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
-
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="m-portlet--tabs">
-			<div class="m-portlet__head">
-				<div class="m-portlet__head-tools">
-					<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-						<li class="nav-item m-tabs__item">
-							<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_page" role="tab" aria-expanded="true">
-								Busqueda por Fechas
-							</a>
-						</li>
-						<li class="nav-item m-tabs__item">
-							<a class="nav-link m-tabs__link " data-toggle="tab" href="#m_builder_header" role="tab" aria-expanded="false">
-								Busqueda por Estados
-							</a>
-						</li>
-						<li class="nav-item m-tabs__item">
-							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside" role="tab" aria-expanded="false">
-								Busqueda por Datos DTE
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!--begin::Form-->
-
-			<form class="m-form m-form--label-align-right m-form--fit">
-				<div class="m-portlet__body">
-					<div class="tab-content">
-						<!-- tab de busqueda por fechas -->
-						<div class="tab-pane active" id="m_builder_page" aria-expanded="true">
-							<div class="form-group m-form__group row">
-								<div class="col-md-6">
-									{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha Emisión:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									<div class="input-group col-md-12">
-										<span class="fecharango366 form-control date spanFecha" id="fecha" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-										<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal1" type="button"></span>
-										<input type="hidden" name="f_desde" id="f_desde" class="form-control">
-										<input type="hidden" name="f_hasta" id="f_hasta" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Autorización de SII:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									<div class="input-group col-md-12">
-										<span class="fecharango366 form-control date spanFecha" id="fechaA" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-										<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal2" type="button"></span>
-										<input type="hidden" name="f_desdeA" id="f_desdeA" class="form-control">
-										<input type="hidden" name="f_hastaA" id="f_hastaA" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="form-group m-form__group row">
-								<div class="col-md-6">
-									{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Orden de Compra:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									<div class="input-group col-md-12">
-										<span class="fecharango366 form-control date spanFecha" id="fechaO" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-										<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal3" type="button"></span>
-										<input type="hidden" name="f_desdeO" id="f_desdeO" class="form-control">
-										<input type="hidden" name="f_hastaO" id="f_hastaO" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Pago:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									<div class="input-group col-md-12">
-										<span class="fecharango366 form-control date spanFecha" id="fechaP" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-										<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal4" type="button"></span>
-										<input type="hidden" name="f_desdeP" id="f_desdeP" class="form-control">
-										<input type="hidden" name="f_hastaP" id="f_hastaP" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="form-group m-form__group row">
-								<div class="col-md-12">
-									{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Vencimiento:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									<div class="input-group col-md-12">
-										<span class="fecharango366 form-control date spanFecha" id="fechaV" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-										<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal5" type="button"></span>
-										<input type="hidden" name="f_desdeV" id="f_desdeV" class="form-control">
-										<input type="hidden" name="f_hastaV" id="f_hastaV" class="form-control">
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- tab de busqueda por Estados DTE -->
-						<div class="tab-pane" id="m_builder_header" aria-expanded="false">
-							<div class="form-group m-form__group row">
-								<div class="col-md-6">
-									<label for="">Tipo de Acuse</label>
-									<select name="selectAcuse" id="selectAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
-										<option value="">Seleccione..</option>
-									</select>	
-								</div>
-								<div class="col-md-6">
-									<label for="">Estado de Pago</label>
-										<select name="selectEstado" id="selectEstado" style="width:100%;height:35px;" class="comboclear form-control m-select2">
-											<option value="">Seleccione..</option>
-											<option value="">1</option>
-											<option value="">2</option>
-											<option value="">3</option>
-									</select>	
-								</div>
-							</div>
-							<br>
-							<div class="form-group m-form__group row">
-								<div class="col-md-6">
-
-									<label class="m-checkbox m-checkbox--state-primary">
-										<input type="checkbox" name="" id="">
-										Existencia solo en SII
-										<span></span>
-									</label>
-									
-
-								</div>
-								<div class="col-md-6">
-									<label class="m-checkbox m-checkbox--state-primary">
-										<input type="checkbox" name="" id="">
-										Existencia SII y Paperless
-										<span></span>
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<!-- tab de busqueda por datos del DTE -->
-						<div class="tab-pane" id="m_builder_left_aside" aria-expanded="false">
-							
-							<div class="form-group m-form__group row">
-								<div class="col-md-6">
-									{!! Field::select('SelectDTE', null, null,
-									['label' => 'Tipo DTE:', 
-									'style' => 'width:100%;height:35px;',
-									'placeholder' => 'Seleccione...',
-									'class' => 'comboclear form-control m-select2']) !!}	
-								</div>
-								<div class="col-md-6">
-									{!! Field::select('Selectcampo', null, null,
-									['label' => 'Tipo de busqueda:', 
-									'style' => 'width:100%;height:35px;',
-									'placeholder' => 'Seleccione...',
-									'class' => 'comboclear form-control m-select2']) !!}
-								</div>
-							</div>
-
-							<div class="form-group m-form__group row">
-								<div class="col-md-12">
-									{{ Form::label('null', 'Descripción:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-								    {!! Form::text('descripcion', '', [
-				                    'id'            => 'descripcion',
-				                    'class'         => 'form-control input',
-				                    'placeholder'   => '',
-				                    'style'         => 'width:100%;height:35px',
-				                    'maxlength'     => '50'])!!}								
-								</div>
-							</div>
-						</div>
-
+			<div class="m-portlet--tabs">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-tools">
+						<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_page2" role="tab" aria-expanded="true">
+									Busqueda por Fechas
+								</a>
+							</li>
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link " data-toggle="tab" href="#m_builder_header2" role="tab" aria-expanded="false">
+									Busqueda por Estados
+								</a>
+							</li>
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside2" role="tab" aria-expanded="false">
+									Busqueda por Datos DTE
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
-			</form>
-			<!--end::Form-->
-			<div class="row">
-				<div class="col-md-12">
-					<button style="float:right;margin: 45px 0px 0px 0px;" name="consultar" id="consultar" class="btn m-btn--pill btn-primary" type="button">
-						<span>
-							<i class="la la-search"></i>
-							<span>Consultar</span>
-						</span>
-			        </button>
+				<!--begin::Form-->
+				<form class="m-form m-form--label-align-right m-form--fit">
+					<div class="m-portlet__body">
+						<div class="tab-content">
+							<!-- tab de busqueda por fechas -->
+							<div class="tab-pane active" id="m_builder_page2" aria-expanded="true">
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha Emisión:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango366 form-control date spanFecha" id="fecha" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal1" type="button"></span>
+											<input type="hidden" name="f_desde" id="f_desde" class="form-control">
+											<input type="hidden" name="f_hasta" id="f_hasta" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Autorización de SII:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango366 form-control date spanFecha" id="fechaA" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal2" type="button"></span>
+											<input type="hidden" name="f_desdeA" id="f_desdeA" class="form-control">
+											<input type="hidden" name="f_hastaA" id="f_hastaA" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Orden de Compra:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango366 form-control date spanFecha" id="fechaO" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal3" type="button"></span>
+											<input type="hidden" name="f_desdeO" id="f_desdeO" class="form-control">
+											<input type="hidden" name="f_hastaO" id="f_hastaO" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Pago:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango366 form-control date spanFecha" id="fechaP" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal4" type="button"></span>
+											<input type="hidden" name="f_desdeP" id="f_desdeP" class="form-control">
+											<input type="hidden" name="f_hastaP" id="f_hastaP" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<div class="col-md-12">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Vencimiento:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango366 form-control date spanFecha" id="fechaV" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal5" type="button"></span>
+											<input type="hidden" name="f_desdeV" id="f_desdeV" class="form-control">
+											<input type="hidden" name="f_hastaV" id="f_hastaV" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- tab de busqueda por Estados DTE -->
+							<div class="tab-pane" id="m_builder_header2" aria-expanded="false">
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										<label for="">Tipo de Acuse</label>
+										<select name="selectAcuse" id="selectAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
+											<option value="">Seleccione..</option>
+										</select>	
+									</div>
+									<div class="col-md-6">
+										<label for="">Estado de Pago</label>
+											<select name="selectEstado" id="selectEstado" style="width:100%;height:35px;" class="comboclear form-control m-select2">
+												<option value="">Seleccione..</option>
+												<option value="">1</option>
+												<option value="">2</option>
+												<option value="">3</option>
+										</select>	
+									</div>
+								</div>
+								<br>
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+
+										<label class="m-checkbox m-checkbox--state-primary">
+											<input type="checkbox" name="" id="">
+											Existencia solo en SII
+											<span></span>
+										</label>
+										
+
+									</div>
+									<div class="col-md-6">
+										<label class="m-checkbox m-checkbox--state-primary">
+											<input type="checkbox" name="" id="">
+											Existencia SII y Paperless
+											<span></span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<!-- tab de busqueda por datos del DTE -->
+							<div class="tab-pane" id="m_builder_left_aside2" aria-expanded="false">
+								
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{!! Field::select('SelectDTE', null, null,
+										['label' => 'Tipo DTE:', 
+										'style' => 'width:100%;height:35px;',
+										'placeholder' => 'Seleccione...',
+										'class' => 'comboclear form-control m-select2']) !!}	
+									</div>
+									<div class="col-md-6">
+										{!! Field::select('Selectcampo', null, null,
+										['label' => 'Tipo de busqueda:', 
+										'style' => 'width:100%;height:35px;',
+										'placeholder' => 'Seleccione...',
+										'class' => 'comboclear form-control m-select2']) !!}
+									</div>
+								</div>
+
+								<div class="form-group m-form__group row">
+									<div class="col-md-12">
+										{{ Form::label('null', 'Descripción:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('descripcion', '', [
+					                    'id'            => 'descripcion',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}								
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</form>
+				<!--end::Form-->
+				<div class="row">
+					<div class="col-md-12">
+						<button style="float:right;margin: 45px 0px 0px 0px;" name="consultar" id="consultar" class="btn m-btn--pill btn-primary" type="button">
+							<span>
+								<i class="la la-search"></i>
+								<span>Consultar</span>
+							</span>
+				        </button>
+					</div>
 				</div>
 			</div>
-		</div>
-
-
-
-
 			{!! Form::close() !!}
 		</div>
 		<div id="divTabla">

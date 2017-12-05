@@ -16,110 +16,110 @@ var ManejoRespuestaC = function(respuesta){
     };
 }
 
-var ManejoRespuestaD = function(respuesta){
-    if (respuesta.code = '200'){
-            pintarDatos(RegistroDTE);
-            cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
-            cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
-            cargartablaEstados(respuesta.respuesta.v_dte_estados);
-    }else{
-        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
-    };
-}
+// var ManejoRespuestaD = function(respuesta){
+//     if (respuesta.code = '200'){
+//             pintarDatos(RegistroDTE);
+//             cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
+//             cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
+//             cargartablaEstados(respuesta.respuesta.v_dte_estados);
+//     }else{
+//         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+//     };
+// }
 
-var pintarDatos = function(data){
-    if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
-    if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
-    if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
-    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
-    if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
-    if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
-    if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
-    if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
-    if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
-    // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
-    // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
-    // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
-    // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
-    if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
-    if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
+// var pintarDatos = function(data){
+//     if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
+//     if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
+//     if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
+//     if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
+//     if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
+//     if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
+//     if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
+//     if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
+//     if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
+//     if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
+//     if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
+//     if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
+//     // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
+//     // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
+//     // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
+//     // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
+//     if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
+//     if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
 
-}
+// }
 
-var cargartablaDetalles = function(data){
-    if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
-    if (data.length>0){
-        $("#tablaDetalles").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "Código Producto","data": "CodigoProducto"},
-                {"title": "Nombre Producto","data": "NombreProducto"},
-                {"title": "Valor Unitario","data": "ValorUnitario"},
-                {"title": "Cantidad","data": "Cantidad"},
-                {"title": "Total Linea","data": "TotalLinea"}
-            ],
-        });
-        limpiarDetalles=1;
-    }else{
-        limpiarDetalles=0;
-    }
-}
+// var cargartablaDetalles = function(data){
+//     if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
+//     if (data.length>0){
+//         $("#tablaDetalles").dataTable({
+//             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+//             'bSort': false,
+//             "language": {
+//                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+//             },
+//             "data": data,
+//             "columns":[
+//                 {"title": "IdDTE","data": "IdDTE",visible:0},
+//                 {"title": "Código Producto","data": "CodigoProducto"},
+//                 {"title": "Nombre Producto","data": "NombreProducto"},
+//                 {"title": "Valor Unitario","data": "ValorUnitario"},
+//                 {"title": "Cantidad","data": "Cantidad"},
+//                 {"title": "Total Linea","data": "TotalLinea"}
+//             ],
+//         });
+//         limpiarDetalles=1;
+//     }else{
+//         limpiarDetalles=0;
+//     }
+// }
 
-var cargartablaReferencias = function(data){
-    if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
-    if (data.length>0){
-        $("#tablaReferencias").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdReferencia","data": "IdReferencia",visible:0},
-                {"title": "Tipo de Referencia","data": "TipoReferencia"},
-                {"title": "Folio de Referencia","data": "FolioReferencia"},
-                {"title": "Fecha de Referencia","data": "FechaReferencia"}
-            ],
-        });
-        limpiarReferencias=1;
-    }else{
-        limpiarReferencias=0;
-    }
-}
+// var cargartablaReferencias = function(data){
+//     if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
+//     if (data.length>0){
+//         $("#tablaReferencias").dataTable({
+//             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+//             'bSort': false,
+//             "language": {
+//                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+//             },
+//             "data": data,
+//             "columns":[
+//                 {"title": "IdDTE","data": "IdDTE",visible:0},
+//                 {"title": "IdReferencia","data": "IdReferencia",visible:0},
+//                 {"title": "Tipo de Referencia","data": "TipoReferencia"},
+//                 {"title": "Folio de Referencia","data": "FolioReferencia"},
+//                 {"title": "Fecha de Referencia","data": "FechaReferencia"}
+//             ],
+//         });
+//         limpiarReferencias=1;
+//     }else{
+//         limpiarReferencias=0;
+//     }
+// }
 
-var cargartablaEstados = function(data){
-    if (limpiarEstados>0){destruirTabla('#tablaEstados');}
-    if (data.length>0){
-        $("#tablaEstados").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {"title": "Fecha de Estado","data": "FechaEstado"},
-                {"title": "Comentario de Estado","data": "ComentarioEstado"}
-            ],
-        });
-        limpiarEstados=1;
-    }else{
-        limpiarEstados=0;
-    }
-}
+// var cargartablaEstados = function(data){
+//     if (limpiarEstados>0){destruirTabla('#tablaEstados');}
+//     if (data.length>0){
+//         $("#tablaEstados").dataTable({
+//             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+//             'bSort': false,
+//             "language": {
+//                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
+//             },
+//             "data": data,
+//             "columns":[
+//                 {"title": "IdDTE","data": "IdDTE",visible:0},
+//                 {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
+//                 {"title": "Fecha de Estado","data": "FechaEstado"},
+//                 {"title": "Comentario de Estado","data": "ComentarioEstado"}
+//             ],
+//         });
+//         limpiarEstados=1;
+//     }else{
+//         limpiarEstados=0;
+//     }
+// }
 
 var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
@@ -136,14 +136,29 @@ var cargartablaReportes = function(data){
                 {"title": "IdOC","data": "IdOC",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
-                // {"title": "Tipo DTE","data": "TipoDTE",visible:0},
                 {"title": "Folio DTE","data": "FolioOC",visible:0},
-                {"title": "Fecha Emisión","data": "FechaEmision"},
-                {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
+                {
+                    "title": "Fecha Emisión", 
+                    "data": "FechaEmision",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Recepción Cliente", 
+                    "data": "FechaRecepcion",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "RUT Proveedor","data": "RUTEmisor"},
-                // {"title": "Nombre Proveedor","data": "NombreProveedor"},
                 {"title": "RUT Cliente","data": "RUTReceptor"},
-                // {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
@@ -228,18 +243,18 @@ var ProcesarConsulta = function(){
     ManejoRespuestaC(respuesta);
 };
 
-var cargarFormularioVisualizacion = function(data){
-    $(".divForm").toggle();
-    parametroAjax.ruta=rutaD;
-    parametroAjax.data = {"IdDTE":data.IdDTE};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaD(respuesta);
-};
+// var cargarFormularioVisualizacion = function(data){
+//     $(".divForm").toggle();
+//     parametroAjax.ruta=rutaD;
+//     parametroAjax.data = {"IdDTE":data.IdDTE};
+//     respuesta=procesarajax(parametroAjax);
+//     ManejoRespuestaD(respuesta);
+// };
 
-var BotonVolver = function(){
-    $(".divForm").toggle();
-    $(".span").text("Desconocido");
-}
+// var BotonVolver = function(){
+//     $(".divForm").toggle();
+//     $(".span").text("Desconocido");
+// }
 
 var crearAllcombos = function(d){
     var busqueda= [{"id":"RUTEmisor","text":"RUT Emisor"},{"id":"RUTReceptor","text":"RUT Receptor"},{"id":"EstadoOC","text":"EstadoOC"}]
@@ -260,5 +275,5 @@ $(document).ready(function(){
     });
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#btnCal',cal1);
-    $(document).on('click','#volver',BotonVolver);
+    // $(document).on('click','#volver',BotonVolver);
 });
