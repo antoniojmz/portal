@@ -198,22 +198,21 @@ var pintarDatosActualizar= function(data){
 
 
 var validarFecha = function(){
-	var fecha_i=$("#fechaInicio").val();
-	if (fecha_i.length < 1){
-		$("#spanFechaI").show();
-		return;
-	}else{
-		$("#spanFechaI").hide();
-	}	
+    var fecha_i=$("#fechaInicio").val();
+	var fecha_f=$("#fechaFin").val();
+	if (fecha_i.length < 1){$("#spanFechaI").show();return false;}else{$("#spanFechaI").hide();}   
+    if (fecha_f.length < 1){$("#spanFechaF").show();return false;}else{$("#spanFechaF").hide();}
+    return true;        
 }
 
 var validarDetalle = function(){
 	var detalle = $("#divDetalle").summernote("code"); 
 	if (detalle.length < 12){
 		$("#spanDetalleE").show();
-		return;		
-	}else{
-		$("#spanDetalleE").hide();
+        return false;       
+    }else{
+        $("#spanDetalleE").hide();
+		return true;		
 	}
 }
 
@@ -225,37 +224,41 @@ var cambiarEstatusPublicacion = function(data){
 }
 
 var ProcesarPublicacion = function (){
-    var fecha_i=$("#fechaInicio").val();
-    var fecha_f=$("#fechaFin").val();
-    var f = new Date();
-    var now = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear();
-    var fecha_now= moment(now,"DD-MM-YYYY").format("YYYY-MM-DD");
-    var fecha_ini= moment(fecha_i,"DD-MM-YYYY").format("YYYY-MM-DD");
-    if(fecha_ini < fecha_now){
-        toastr.warning("La Fecha de Publicación no puede ser menor a la fecha actual.", "Aviso!");
-        return;
-    }
-    if (fecha_f.length>3){
-        var fecha_fin= moment(fecha_f,"DD-MM-YYYY").format("YYYY-MM-DD");
-        if(fecha_fin  < fecha_ini){
-            toastr.warning("La Fecha Fin de la Publicación no puede ser menor a la fecha de Inicio.", "Aviso!");
+    var fechas = validarFecha();
+    if (fechas!=false){
+        var fecha_i=$("#fechaInicio").val();
+        var fecha_f=$("#fechaFin").val();
+        var f = new Date();
+        var now = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear();
+        var fecha_now= moment(now,"DD-MM-YYYY").format("YYYY-MM-DD");
+        var fecha_ini= moment(fecha_i,"DD-MM-YYYY").format("YYYY-MM-DD");
+        if(fecha_ini < fecha_now){
+            toastr.warning("La Fecha Inicio de Publicación no puede ser menor a la fecha actual.", "Aviso!");
             return;
         }
+        if (fecha_f.length>3){
+            var fecha_fin= moment(fecha_f,"DD-MM-YYYY").format("YYYY-MM-DD");
+            if(fecha_fin  < fecha_ini){
+                toastr.warning("La Fecha Fin de la Publicación no puede ser menor a la fecha de Inicio.", "Aviso!");
+                return;
+            }
+        }
+        var Validetalle = validarDetalle();
+        if (Validetalle!=false){
+            var detalle = $("#divDetalle").summernote("code"); 
+            var idProveedor = $("#idProveedor").val()
+        	var proveedores = idProveedor.toString();
+            parametroAjax.ruta=ruta;
+        	var form = $('#Formpublicaciones').get(0);
+            var formData = new FormData(form);
+            formData.append("detalle", detalle);
+            formData.append("proveedores", proveedores);
+            parametroAjax.ruta=ruta;
+            parametroAjax.data=formData;
+            respuesta=procesarajaxfile(parametroAjax);
+            ManejoRespuestaProcesar(respuesta);
+        }
     }
-    var detalle = $("#divDetalle").summernote("code"); 
-	if (detalle.length < 12){$("#spanDetalleE").show();return;}
-	if (fecha_i.length < 1){$("#spanFechaI").show();return;}
-    var idProveedor = $("#idProveedor").val()
-	var proveedores = idProveedor.toString();
-    parametroAjax.ruta=ruta;
-	var form = $('#Formpublicaciones').get(0);
-    var formData = new FormData(form);
-    formData.append("detalle", detalle);
-    formData.append("proveedores", proveedores);
-    parametroAjax.ruta=ruta;
-    parametroAjax.data=formData;
-    respuesta=procesarajaxfile(parametroAjax);
-    ManejoRespuestaProcesar(respuesta);
 }
 
 var cargarForm = function(){
@@ -270,6 +273,7 @@ var cargarForm = function(){
 var volverForm = function(){
 	$(".divForm").toggle();
     $("#divImagen").hide();
+    $("#urlImage").val("");
     $('#imgPublicacion').attr('src','img/default-img.png')+ '?' + Math.random();    
 	$('#Formpublicaciones')[0].reset();	
     $(".comboclear").val('').trigger("change");
@@ -321,9 +325,25 @@ var cal2 = function (){
   $("#fechaFin").focus();
 };
 
+var buscarPublicaciones = function(){
+    $.ajax({
+        url:rutaL,
+        headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+        async: false,
+        dataType: 'JSON',
+        data: {} ,
+    })
+    .done(function(response) {
+        cargarTablaPublicaciones(response.v_publicaciones);
+    })
+    .fail(function (jqXHR, exception) {
+        toastr.error("Ocurrio un error mientras se intentaba recuperar sus publicaciones, Contacte al personal informatico", "Error!");
+    });
+}
+
 $(document).ready(function(){
+    buscarPublicaciones();
     crearallcombos(d);    
-    cargarTablaPublicaciones(d.v_publicaciones);
 	cargarCalendarios();
 	$('#divDetalle').summernote({
 		height: 200
@@ -344,7 +364,8 @@ $(document).ready(function(){
     $(document).on('click','#ahrefDetalle',toggleDetalle);
     $(document).on('click','#btn-fechaInicio',cal1);
 	$(document).on('click','#btn-fechaFin',cal2);
-	$(document).on('change','#fechaInicio',validarFecha);
+    $(document).on('change','#fechaInicio',validarFecha);
+	$(document).on('change','#fechaFin',validarFecha);
     $('#divDetalle').on('summernote.keyup', function(we, e) {
         validarDetalle();            
     });
@@ -353,7 +374,7 @@ $(document).ready(function(){
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
         fields: {
-            'idProveedor': {
+            'idProveedor[]': {
                 verbose: false,
                 validators: {
                     notEmpty: {

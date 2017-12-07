@@ -515,12 +515,11 @@
     var ruta = "{{ URL::route('facturacion') }}"
     var rutaD = "{{ URL::route('detallesDTE') }}"
     var rutaF = "{{ URL::route('filtrarwidget') }}"
-
     var d = [];
     d['idPerfil'] = JSON.parse(rhtmlspecialchars('{{ json_encode($data["idPerfil"]) }}'));
     d['v_widget1'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget1"]) }}'));
     d['v_widget2'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget2"]) }}'));
     d['v_widget4'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget4"]) }}'));
 </script>
-<script src="{{ asset('js/menu/principal.js') }}"></script>
+<script src="{{ asset('js/menu/dasboard.js') }}"></script>
 @endsection

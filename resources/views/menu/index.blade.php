@@ -2,6 +2,12 @@
 <html lang="{{ app()->getLocale() }}" >
 	<!-- begin::Head -->
 	<head>
+	    @php
+			header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+			header('Cache-Control: no-store, no-cache, must-revalidate');
+			header('Cache-Control: post-check=0, pre-check=0', FALSE);
+			header('Pragma: no-cache');
+	    @endphp	
 		<meta charset="utf-8" />
 		<title>{{ config('app.name', 'Laravel') }}</title>
 		<meta name="description" content="Latest updates and statistic charts">
@@ -35,6 +41,7 @@
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
     	{!! Html::style('plugins/DataTables-1.10.10/buttons.dataTables.min.css') !!}
+    	{!! Html::style('') !!}
     	<style TYPE="text/css">
 	    	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
 	    		margin-top:-1.0rem;
@@ -86,6 +93,7 @@
 		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
 		{{ HTML::script('plugins/validator/es_ES.js') }}
 		{{ HTML::script('plugins/Jquery-Price-Format/jquery.priceformat.min.js') }}
+		{{ HTML::script('plugins/Jquery.expander/jquery.expander.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
 

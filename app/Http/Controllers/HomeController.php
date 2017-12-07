@@ -9,7 +9,7 @@ use Log;
 use Auth;
 
 // Modelo
-use App\Models\Consulta;
+use App\Models\Home;
 
 class HomeController extends Controller
 {
@@ -31,11 +31,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getIndex()
+    
+    public function getHome()
     {   
         $usuario = Auth::user();
         $data['idPerfil'] = $usuario->idPerfil;
-        return view('menu.principal', $data);
+        $model= new Home();
+        $data['v_publicaciones'] = $model->listPublicacionesHome();
+        return view('menu.home', $data);
+    }
+
+    public function getDashboard()
+    {   
+        $usuario = Auth::user();
+        $data['idPerfil'] = $usuario->idPerfil;
+        return view('menu.dasboard', $data);
     }
 
     public function postFacturacion(Request $request){

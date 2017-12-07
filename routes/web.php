@@ -1,4 +1,3 @@
-
 <?php
 
 /*
@@ -18,7 +17,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@getIndex')->name('home');
+Route::get('/home', 'HomeController@getHome')->name('home');
+Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
@@ -50,6 +50,7 @@ Route::post('/clientes', 'ClienteController@postClientes')->name('clientes');
 Route::post('/detallesCliente', 'ClienteController@postBuscardetalleC')->name('detallesCliente');
 
 Route::get('/publicaciones', 'PublicacionesController@getPublicaciones')->name('publicaciones');
+Route::get('/listpublicaciones', 'PublicacionesController@getListpublicaciones')->name('listpublicaciones');
 Route::post('/publicaciones', 'PublicacionesController@postPublicaciones')->name('publicaciones');
 // Activar o Desactivar publicacion
 Route::post('/activarPu', 'PublicacionesController@postPublicacionactivo')->name('activarPu');

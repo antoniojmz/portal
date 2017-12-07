@@ -79,6 +79,7 @@
 										<i class="la la-calendar-check-o"></i>
 									</span>
 	                            </div>
+	                            <span id="spanFechaF" style="display:none;color:#FF0000;font-size:9px;"><b>El campo es requerido.</b></span>
 							</div>
 							<div class="col-lg-4">
 								<label class="">
@@ -202,10 +203,10 @@
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('publicaciones') }}"
+	var rutaL = "{{ URL::route('listpublicaciones') }}"
 	var rutaA = "{{ URL::route('activarPu') }}"
 	var d = [];
 	d['v_proveedores'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores) }}'));
-	d['v_publicaciones'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_publicaciones) }}'));
 </script>
 <script src="{{ asset('js/publicaciones/publicaciones.js') }}"></script>
 @endsection

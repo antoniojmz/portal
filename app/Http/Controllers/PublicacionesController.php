@@ -33,9 +33,13 @@ class PublicacionesController extends Controller
     protected function getPublicaciones(){
         $model= new Proveedor();
         $data['v_proveedores'] = $model->listRegProveedorCombo();
+        return View::make('publicaciones.publicaciones',$data);
+    }
+
+    protected function getListpublicaciones(){
         $model= new Publicacion();
         $data['v_publicaciones'] = $model->listPublicaciones();
-        return View::make('publicaciones.publicaciones',$data);
+        return $data;
     }
 
     protected function postPublicaciones(Request $request){
