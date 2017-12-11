@@ -19,9 +19,9 @@
 			</h6>
 		</center>
 		<div id="divForm" class="col-md-12 divForm">
+			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 			{!! Form::open(['id'=>'FormConsultas',
 			'autocomplete' => 'off']) !!}
-			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 			<div class="m-portlet--tabs">
 				<div class="m-portlet__head">
 					<div class="m-portlet__head-tools">
@@ -54,48 +54,57 @@
 									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha Emisión:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 										<div class="input-group col-md-12">
-											<span class="fecharango366 form-control date spanFecha" id="fecha" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal1" type="button"></span>
+											<span class="fecharango1 form-control date spanFecha" id="fecha" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango1" id="btnCal1" type="button"></span>
 											<input type="hidden" name="f_desde" id="f_desde" class="form-control">
 											<input type="hidden" name="f_hasta" id="f_hasta" class="form-control">
 										</div>
 									</div>
 									<div class="col-md-6">
+										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha Recepción:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+										<div class="input-group col-md-12">
+											<span class="fecharango6 form-control date spanFecha" id="fechaR" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango6" id="btnCal6" type="button"></span>
+											<input type="hidden" name="f_desdeR" id="f_desdeR" class="form-control">
+											<input type="hidden" name="f_hastaR" id="f_hastaR" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Autorización de SII:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 										<div class="input-group col-md-12">
-											<span class="fecharango366 form-control date spanFecha" id="fechaA" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal2" type="button"></span>
+											<span class="fecharango2 form-control date spanFecha" id="fechaA" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango2" id="btnCal2" type="button"></span>
 											<input type="hidden" name="f_desdeA" id="f_desdeA" class="form-control">
 											<input type="hidden" name="f_hastaA" id="f_hastaA" class="form-control">
 										</div>
 									</div>
-								</div>
-								<div class="form-group m-form__group row">
 									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Orden de Compra:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 										<div class="input-group col-md-12">
-											<span class="fecharango366 form-control date spanFecha" id="fechaO" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal3" type="button"></span>
+											<span class="fecharango3 form-control date spanFecha" id="fechaO" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango3" id="btnCal3" type="button"></span>
 											<input type="hidden" name="f_desdeO" id="f_desdeO" class="form-control">
 											<input type="hidden" name="f_hastaO" id="f_hastaO" class="form-control">
 										</div>
 									</div>
+								</div>
+								<div class="form-group m-form__group row">
 									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Pago:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 										<div class="input-group col-md-12">
-											<span class="fecharango366 form-control date spanFecha" id="fechaP" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal4" type="button"></span>
+											<span class="fecharango4 form-control date spanFecha" id="fechaP" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango4" id="btnCal4" type="button"></span>
 											<input type="hidden" name="f_desdeP" id="f_desdeP" class="form-control">
 											<input type="hidden" name="f_hastaP" id="f_hastaP" class="form-control">
 										</div>
 									</div>
-								</div>
-								<div class="form-group m-form__group row">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Vencimiento:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
 										<div class="input-group col-md-12">
-											<span class="fecharango366 form-control date spanFecha" id="fechaV" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
-											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango366" id="btnCal5" type="button"></span>
+											<span class="fecharango5 form-control date spanFecha" id="fechaV" style="z-index:0;height:35px;color:#808080;">&nbsp;Seleccione rango de fecha...</span>
+											<span class="input-group-addon btn btn-primary flaticon-event-calendar-symbol fecharango5" id="btnCal5" type="button"></span>
 											<input type="hidden" name="f_desdeV" id="f_desdeV" class="form-control">
 											<input type="hidden" name="f_hastaV" id="f_hastaV" class="form-control">
 										</div>
@@ -108,7 +117,7 @@
 								<div class="form-group m-form__group row">
 									<div class="col-md-6">
 										<label for="">Tipo de Acuse</label>
-										<select name="selectAcuse" id="selectAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
+										<select name="TipoAcuse" id="TipoAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
 											<option value="">Seleccione..</option>
 										</select>	
 									</div>
@@ -125,22 +134,19 @@
 								<br>
 								<div class="form-group m-form__group row">
 									<div class="col-md-6">
-
-										<label class="m-checkbox m-checkbox--state-primary">
-											<input type="checkbox" name="" id="">
-											Existencia solo en SII
-											<span></span>
+										<label class="m-radio m-radio--state-primary">
+										<input type="radio" id="existencia" name="existencia" value="1"> Existencia solo en SII
+										<span></span>
 										</label>
-										
-
 									</div>
 									<div class="col-md-6">
-										<label class="m-checkbox m-checkbox--state-primary">
-											<input type="checkbox" name="" id="">
-											Existencia SII y Paperless
-											<span></span>
+										<label class="m-radio m-radio--state-primary">
+										<input type="radio" id="existencia" name="existencia" value="2"> Existencia SII y Paperless
+										<span></span>
 										</label>
 									</div>
+								</div>
+								<div class="m-form__group form-group row">
 								</div>
 							</div>
 
@@ -149,6 +155,7 @@
 								
 								<div class="form-group m-form__group row">
 									<div class="col-md-6">
+										<br>
 										{!! Field::select('SelectDTE', null, null,
 										['label' => 'Tipo DTE:', 
 										'style' => 'width:100%;height:35px;',
@@ -156,19 +163,51 @@
 										'class' => 'comboclear form-control m-select2']) !!}	
 									</div>
 									<div class="col-md-6">
-										{!! Field::select('Selectcampo', null, null,
-										['label' => 'Tipo de busqueda:', 
-										'style' => 'width:100%;height:35px;',
-										'placeholder' => 'Seleccione...',
-										'class' => 'comboclear form-control m-select2']) !!}
+										{{ Form::label('null', 'Folio referencia:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('FolioDTE', '', [
+					                    'id'            => 'FolioDTE',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}	
 									</div>
 								</div>
 
 								<div class="form-group m-form__group row">
-									<div class="col-md-12">
-										{{ Form::label('null', 'Descripción:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('descripcion', '', [
-					                    'id'            => 'descripcion',
+									<div class="col-md-6">
+										{{ Form::label('null', 'RUT Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('RutCliente', '', [
+					                    'id'            => 'RutCliente',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', 'Nombre Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('NombreCliente', '', [
+					                    'id'            => 'NombreCliente',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}	
+									</div>
+								</div>
+
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{{ Form::label('null', 'RUT Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('RutProveedor', '', [
+					                    'id'            => 'RutProveedor',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', 'Nombre Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('NombreProveedor', '', [
+					                    'id'            => 'NombreProveedor',
 					                    'class'         => 'form-control input',
 					                    'placeholder'   => '',
 					                    'style'         => 'width:100%;height:35px',
@@ -176,7 +215,6 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</form>
@@ -269,7 +307,6 @@
 									<span id="FechaRecepcion" class="form-control span"></span>
 								</div>
 							</div>
-
 							<div class="col-md-12">
 								<br>
 								<center>

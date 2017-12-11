@@ -10,7 +10,13 @@ var parametroAjax = {
 
 var ManejoRespuestaC = function(respuesta){
     if (respuesta.code = '200'){
-        cargartablaReportes(respuesta.respuesta);
+        var res = JSON.parse(respuesta.respuesta.status);
+            if (res.code=="-1"){
+                toastr.warning(res.des_code, "Aviso!");
+            }
+            if (res.code=="204"){
+                cargartablaReportes(respuesta.respuesta.data);
+            }
     }else{
         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
@@ -257,6 +263,49 @@ var cargartablaReportes = function(data){
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
                 {
+                    "title": "Fecha Autorizacion SII", 
+                    "data": "FechaAutorizacionSII",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha OC", 
+                    "data": "FechaOC",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Pago", 
+                    "data": "FechaPago",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Vencimiento", 
+                    "data": "FechaVencimiento",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {"title": "Tipo Acuse","data": "DesTipoAcuse"},
+                {"title": "Existencia SII","data": "DesExistenciaSII"},
+                {"title": "Existencia Paperles","data": "DesExistenciaPaperles"},
+                {
                     "title": "Fecha de Estado Actual", 
                     "data": "FechaEstadoActualDTE",
                     "render": function(data, type, row, meta){
@@ -333,13 +382,6 @@ var SeleccionarTablaReportes = function(){
 }
 
 var ProcesarConsulta = function(){
-    var desde = $('#f_desde').val();
-    var Selectcampo = $('#Selectcampo').val();
-    var SelectDTE = $('#SelectDTE').val();
-    if (desde.length<1 && Selectcampo.length<1 && SelectDTE.length<1){
-        toastr.error("Debe seleccionar al menos un item", "Error!");
-        return;
-    }
     parametroAjax.ruta=ruta;
     parametroAjax.data = $("#FormConsultas").serialize();
     respuesta=procesarajax(parametroAjax);
@@ -364,10 +406,8 @@ var crearAllcombos = function(d){
     var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"2","text":"Contabilizado por el cliente"},{"id":"2","text":"Programado para pago"}];
     crearcombo('#Selectcampo',d.v_busq_consulta);
     crearcombo('#SelectDTE',d.v_tipo_dte);
-    crearcombo('#selectAcuse',acuse);
+    crearcombo('#TipoAcuse',acuse);
     crearcombo('#selectEstado',estado);
-    
-
 }
 
 var CargarTrazas = function(){
@@ -387,6 +427,7 @@ var cal2 = function (){$("#fechaA").click();};
 var cal3 = function (){$("#fechaO").click();};
 var cal4 = function (){$("#fechaP").click();};
 var cal5 = function (){$("#fechaV").click();};
+var cal6 = function (){$("#fechaR").click();};
 $(document).ready(function(){
     cargartablaReportes(d.v_dtes)
     $(".span").text("Desconocido");
@@ -398,24 +439,29 @@ $(document).ready(function(){
         $('#f_hasta').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
     $('#fechaA').daterangepicker({}, function(start, end, label) {
-        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#fechaA').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desdeA').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hastaA').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
     $('#fechaO').daterangepicker({}, function(start, end, label) {
-        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#fechaO').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desdeO').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hastaO').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
     $('#fechaP').daterangepicker({}, function(start, end, label) {
-        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#fechaP').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desdeP').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hastaP').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
     $('#fechaV').daterangepicker({}, function(start, end, label) {
-        $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#fechaV').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desdeV').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_hastaV').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+    });
+    $('#fechaR').daterangepicker({}, function(start, end, label) {
+        $('#fechaR').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_desdeR').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
+        $('#f_hastaR').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
     $(document).on('click','#consultar',ProcesarConsulta);
     $(document).on('click','#volver',BotonVolver);
@@ -426,4 +472,5 @@ $(document).ready(function(){
     $(document).on('click','#btnCal3',cal3);
     $(document).on('click','#btnCal4',cal4);
     $(document).on('click','#btnCal5',cal5);
+    $(document).on('click','#btnCal6',cal6);
 });
