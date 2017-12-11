@@ -117,7 +117,7 @@
 								<div class="form-group m-form__group row">
 									<div class="col-md-6">
 										<label for="">Tipo de Acuse</label>
-										<select name="selectAcuse" id="selectAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
+										<select name="TipoAcuse" id="TipoAcuse" style="width:100%;height:35px;" class="comboclear form-control m-select2">
 											<option value="">Seleccione..</option>
 										</select>	
 									</div>

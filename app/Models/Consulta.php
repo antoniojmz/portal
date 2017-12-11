@@ -67,7 +67,7 @@ class Consulta extends Authenticatable
     }
 
     public function BuscarDtes($d){
-        log::info($d);
+        $caso = 0;
         $p = Session::get('perfiles');
         $sql = "Select * from v_dtes where ";
         switch ($p['idPerfil']){
@@ -83,6 +83,7 @@ class Consulta extends Authenticatable
         foreach ($d as $key => $value) {
             if ($key<>'_token'){
                 if ($value <>null){
+                    $caso += 1;
                     switch ($key) {
                         case 'f_desde':
                             $f_desde = $this->formatearFecha($value);
@@ -133,7 +134,15 @@ class Consulta extends Authenticatable
                             $sql .= " and CAST(FechaVencimiento AS DATE) <= '".$f_hasta."' ";
                         break;
                         case 'existencia':
-                            $sql .= " and upper(".$key.") like '%".$value."%'";
+                            if ($value==1){
+                                $sql .= " and ExistenciaSII=1 ";
+                            }
+                            if ($value==2){
+                                $sql .= " and ExistenciaSII=1 and ExistenciaPaperles=1 ";
+                            }
+                        break;
+                        case 'TipoAcuse':
+                                $sql .= " and TipoAcuse=".$value."";
                         break;
                         default:
                             $sql .= " and upper(".$key.") like '%".$value."%'";
@@ -142,50 +151,13 @@ class Consulta extends Authenticatable
                 }  
             }   
         }
-
-        log::info($sql);
-
-        // $var = 0;
-        // $sql = "select * from v_dtes where ";
-        // if ($d['f_desde'] <>null && $d['f_hasta'] <>null){
-        //     $desde = $this->formatearFecha($d['f_desde']);
-        //     $hasta = $this->formatearFecha($d['f_hasta']);
-        //     $pre1= "CAST(FechaEmision AS DATE) >= '".$desde."' and CAST(FechaEmision AS DATE) <= '".$hasta."' ";
-        //     $sql .= $pre1;
-        //     $var = 1;
-        // }
-
-        // if ($d['Selectcampo'] <>null){  
-        //     $pre2="";
-        //     if ($var >0){
-        //         $pre2 = "and "; 
-        //     }
-        //     $var = 1;      
-        //     $pre2 .= "upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%'";
-        //     $sql .= $pre2; 
-        // }
-
-        // if ($d['SelectDTE'] <>null){
-        //     $pre3="";
-        //     if ($var >0){
-        //         $pre3 = "and "; 
-        //     }         
-        //     $pre3 .= "TipoDTE=".$d['SelectDTE'];
-        //     $sql .= $pre3; 
-        // }
-        // switch ($p['idPerfil']){
-        //     // Perfil Cliente
-        //     case 2:
-        //         $pre4 = " and IdCliente=".$p['v_detalle'][0]->IdCliente;
-        //         $sql .= $pre4;
-        //         break;
-        //     // Perfil Proveedor
-        //     case 3:
-        //         $pre4 = " and IdProveedor=".$p['v_detalle'][0]->IdProveedor;
-        //         $sql .= $pre4;
-        //         break;
-        // }
-        return DB::select($sql);
+        if ($caso==0){
+            $result['status']='{"code":"-1","des_code":"Debe seleccionar al menos un item."}';
+            return $result;
+        }
+        $result['status']='{"code":"204","des_code":"No cotent"}';
+        $result['data']= DB::select($sql);
+        return $result;
     }
 
     public function BuscarDetalle($id){
