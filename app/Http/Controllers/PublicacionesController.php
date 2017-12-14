@@ -51,12 +51,12 @@ class PublicacionesController extends Controller
         if ($var[1]==200){
             $idNoticia=$var[5];
             $fotoOld = $request->input('urlImage');
-            if ($fotoOld<>null){
-                $array= explode('/', $fotoOld);
-                Storage::disk($array[1])->delete($array[2]);
-            } 
             $input  = array('foto' => $archivo) ;
             if (isset($archivo)){
+                if ($fotoOld<>null){
+                    $array= explode('/', $fotoOld);
+                    Storage::disk($array[1])->delete($array[2]);
+                } 
                 $reglas = array('foto' => 'required|image|mimes:jpeg,jpg,bmp,png,gif|max:10000');
                 $validacion = Validator::make($input,  $reglas);
                 if ($validacion->fails()){

@@ -92,14 +92,24 @@ class Proveedor extends Authenticatable
         return $result; 
     }
 
-    // Registro de proveedores por parte del cliente
+    // Registro de proveedores por parte del clientes y proveedores
     public function listRegProveedor(){
         $p = Session::get('perfiles');
-        return DB::table('v_clientes_tienen_proveedores')
-                ->select('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
-                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
-                ->groupBy('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
-                ->get();
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 2:
+                return DB::table('v_clientes_tienen_proveedores')
+                        ->select('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                        ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
+                        ->groupBy('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                        ->get();
+            break;
+            case 3:
+                return DB::table('v_proveedores_tienen_usuarios')
+                    ->where('IdProveedor',$p['v_detalle'][0]->IdProveedor)->get();
+            break;
+        }
+
     }
 
     public function listRegEstados(){
@@ -108,72 +118,97 @@ class Proveedor extends Authenticatable
 
     public function listRegProveedorCombo(){
         $p = Session::get('perfiles');
-        return DB::table('v_proveedores_combo')
-            ->where('Idcliente',$p['v_detalle'][0]->IdCliente)->get();
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 2:
+                return DB::table('v_proveedores_combo')
+                    ->select('id','text')
+                    ->where('Idcliente',$p['v_detalle'][0]->IdCliente)
+                    ->groupBy('id','text')    
+                    ->get();
+                break;
+            case 3:
+                $idUser = Auth::id();
+                // return DB::table('v_proveedores_combo')
+                return DB::table('v_proveedores_tienen_usuarios')
+                    ->select('IdProveedor as id','NombreProveedor as text')
+                    ->where('idUser',$idUser)
+                    ->groupBy('IdProveedor','NombreProveedor')    
+                    ->get();
+                break;
+        }
     }
 
     public function listEmpresasProveedor($datos){
         $p = Session::get('perfiles');
-        return DB::table('v_clientes_tienen_proveedores')
-            ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
-            ->where('idUser',$datos['idUser'])->get();
-    }
-
-
-    public function regUsuarioProveedor($idUser,$datos){
-        $idAdmin = Auth::id();
-        $p = Session::get('perfiles');
-        try{
-            $count = DB::select("select count(1) as count from clientes_tienen_proveedores where IdCliente=".$p['v_detalle'][0]->IdCliente." and IdProveedor = ".$datos['idEmpresa']); 
-
-            //Aqui hay un bug
-            $values=array('IdProveedor'=>$datos['idEmpresa'],'idUser'=>$idUser,'auUsuarioCreacion'=>$idAdmin);
-            $insert = DB::table('proveedores_tienen_usuarios')
-                ->insert($values);
-            
-            if ($count[0]->count<1){
-                $values2=array(
-                    'Idcliente'=>$p['v_detalle'][0]->IdCliente,
-                    'IdProveedor'=>$datos['idEmpresa'],
-                    'auUsuarioCreacion'=>$idAdmin
-                );
-                $insert2 = DB::table('clientes_tienen_proveedores')
-                    ->insert($values2);
-            }
-            $result = 1;
-        } catch (Exception $e) {
-            DB::rollback();
-            $result=0;
-            log::info("##########################################################################");
-            log::info("Ocurrio un error al tratar de asignar un usuario a un proveedor : ".$idUser);
-            log::info("Error: ".$e->getMessage());
-            log::info("##########################################################################");
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 2:
+                return DB::table('v_clientes_tienen_proveedores')
+                    ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
+                    ->where('idUser',$datos['idUser'])->get();
+                break;
+            case 3:
+                return DB::table('v_proveedores_tienen_usuarios')
+                    ->where('idUser',$datos['idUser'])->get();
+                break;
         }
-        return $result;   
     }
 
     public function regEmpresa($datos){
         $p = Session::get('perfiles');
         $idAdmin = Auth::id();
-        $sql="select f_registro_empresa(".$p['v_detalle'][0]->IdCliente.",".$datos['idProveedor'].",".$idAdmin.")";
-        log::info($datos);
-        log::info($sql);
-
-        
-        // $execute=DB::select($sql);
-        // $result['v_perfiles'] = $this->listPerfilesAdministrador($datos['idUser']);
-        // // $result['v_usuarios']=$this->listUsuario();
-        // foreach ($execute[0] as $key => $value) {
-        //     $result['f_registro_perfil']=$value;
-        // }
-        // return $result;
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 2:
+                $idClienteProveedor=$p['v_detalle'][0]->IdCliente;
+                $caso= 3;
+            break;
+            case 3:
+                $idClienteProveedor=$p['v_detalle'][0]->IdProveedor;
+                $caso= 4;
+            break;
+        }
+        $sql="select f_registro_empresa(".$datos['idUser'].",".$idClienteProveedor.",".$datos['idProveedor'].",".$idAdmin.",".$caso.")";
+        // log::info($datos);
+        // log::info($sql);
+        $execute=DB::select($sql);
+        $result['v_empresas'] = $this->listEmpresasProveedor($datos);
+        foreach ($execute[0] as $key => $value) {
+            $result['f_registro_empresa']=$value;
+        }
+        return $result;
     }
 
+    // Activar / Desactivar Empresas en usuario proveedor
+    public function activarEmpresa($datos){
+        $idAdmin = Auth::id();
+        $p = Session::get('perfiles');
+        $idperfil = $p['idPerfil'];
+        switch ($idperfil) {
+            case 2:
+                if ($datos['EstadoProveedor']>0){
+                    $values=array('EstadoProveedor'=>0,'auFechaModificacion'=>date("Y-m-d H:i:s"),'auUsuarioModificacion'=>$idAdmin);
+                }else{
+                    $values=array('EstadoProveedor'=>1,'auFechaModificacion'=>date("Y-m-d H:i:s"),'auUsuarioModificacion'=>$idAdmin);
+                }
+                return DB::table('clientes_tienen_proveedores')
+                    ->where('IdProveedor',$datos['IdProveedor'])
+                    ->where('IdCliente', $p['v_detalle'][0]->IdCliente)
+                    ->update($values);
+                break;
+            case 3:
+                if ($datos['EstadoUsuario']>0){
+                    $values=array('EstadoUsuario'=>0,'auFechaModificacion'=>date("Y-m-d H:i:s"),'auUsuarioModificacion'=>$idAdmin);
+                }else{
+                    $values=array('EstadoUsuario'=>1,'auFechaModificacion'=>date("Y-m-d H:i:s"),'auUsuarioModificacion'=>$idAdmin);
+                }
+                return DB::table('proveedores_tienen_usuarios')
+                    ->where('IdProveedor',$datos['IdProveedor'])
+                    ->where('idUser', $datos['idUser'])
+                    ->update($values);
+            break;
+        }
 
-    
-
-
-
-
-
+    }
 }

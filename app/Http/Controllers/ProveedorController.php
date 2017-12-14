@@ -64,19 +64,15 @@ class ProveedorController extends Controller
 
     protected function postRegProveedores(Request $request){
         $datos = $request->all();
-        $datos['caso']=3;
+        $p = Session::get('perfiles');
+        // caso Cliente registra Usuario proveedor
+        if ($p['idPerfil']==2){$datos['caso']=3;}
+        // caso Proveedor registra Usuario proveedor
+        if ($p['idPerfil']==3){$datos['caso']=4;}
+        if ($datos['idEmpresa']==null){$datos['idEmpresa'] = 0;}
         $model= new User();
         $result = $model->regUsuario($datos);
-        $model= new Publicacion();
-        $var = $model->extractCodeJoson($result['f_registro_usuario']);
-        $result['v_asignacion'] = '{"code":"204"}';
-        if ($var[1]==200){
-            $model= new Proveedor();
-            $empresa = $model->regUsuarioProveedor($var[5],$datos);
-            if ($empresa==0){
-                $result['v_asignacion'] = '{"code":"-2", "des_code": "Ocurrio un error en la asignación del proveedor con el cliente"}';
-            }
-        }
+        $model= new Proveedor();
         $result['v_usuarios'] = $model->listRegProveedor();
         return $result;
     }
@@ -103,6 +99,14 @@ class ProveedorController extends Controller
         $datos = $request->all();
         $model = new Proveedor();
         $result = $model->regEmpresa($datos);
+        return $result;
+    }
+
+    protected function postEmpresactiva(Request $request){
+        $datos = $request->all();
+        $model= new Proveedor();
+        $result['activar'] = $model->activarEmpresa($datos);
+        $result['v_empresas'] = $model->listEmpresasProveedor($datos);
         return $result;
     }
 

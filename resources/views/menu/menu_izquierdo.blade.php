@@ -9,46 +9,33 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" data-menu-dropdown="true" data-menu-scrollable="true" data-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-				<a  href="#" class="m-menu__link m-menu__toggle">
+				<a  href='{!! URL::route("home") !!}' class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
-					<i class="m-menu__link-icon flaticon-dashboard"></i>
+					<i class="m-menu__link-icon flaticon-dashboard "></i>
 					<span class="m-menu__link-title">
 						<span class="m-menu__link-wrap">
 							<span class="m-menu__link-text">
-								Inicio
+								Home
 							</span>
 						</span>
 					</span>
 					<i class="m-menu__ver-arrow la la-angle-right"></i>
 				</a>
-				<div class="m-menu__submenu">
-					<span class="m-menu__arrow"></span>
-					<ul class="m-menu__subnav">
-						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("home") !!}' class="m-menu__link">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-									<span></span>
-								</i>
-								<span class="m-menu__link-text">
-									Home
-								</span>
-							</a>
-						</li>
-						<li class="m-menu__item " aria-haspopup="true" >
-							<a  href='{!! URL::route("dashboard") !!}' class="m-menu__link">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-									<span></span>
-								</i>
-								<span class="m-menu__link-text">
-									Dashboard
-								</span>
-							</a>
-						</li>
-					</ul>
-				</div>
 			</li>
-			
-
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a  href='{!! URL::route("dashboard") !!}' class="m-menu__link m-menu__toggle">
+					<span class="m-menu__item-here"></span>
+					<i class="m-menu__link-icon flaticon-pie-chart"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								Panel de Control
+							</span>
+						</span>
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+			</li>
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
@@ -78,6 +65,7 @@
 					</ul>
 				</div>
 			</li>
+			@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
@@ -119,6 +107,7 @@
 					</ul>
 				</div>
 			</li>
+			@endif
 			@if ($data['idPerfil']==2 || $data['idPerfil']==3)
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
@@ -171,7 +160,6 @@
 				</div>
 			</li>
 			@endif
-			@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
@@ -188,6 +176,7 @@
 				<div class="m-menu__submenu">
 					<span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
+						@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 						<li class="m-menu__item " aria-haspopup="true" >
 							<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -198,6 +187,7 @@
 								</span>
 							</a>
 						</li>
+						@endif
 						@if ($data['idPerfil']==2)
 						<li class="m-menu__item " aria-haspopup="true" >
 							<a  href='{!! URL::route("publicaciones") !!}' class="m-menu__link">
@@ -210,10 +200,21 @@
 							</a>
 						</li>
 						@endif
+						@if ($data['idPerfil']==3)
+						<li class="m-menu__item " aria-haspopup="true" >
+							<a  href='{!! URL::route("Reg_proveedores") !!}' class="m-menu__link ">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Registro de proveedores
+								</span>
+							</a>
+						</li>
+						@endif
 					</ul>
 				</div>
 			</li>
-			@endif
 		</ul>
 	</div>
 </div>

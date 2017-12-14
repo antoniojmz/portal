@@ -114,6 +114,7 @@ class User extends Authenticatable
                 $widget['v_widget1']=DB::select($sql1);
                 $widget['v_widget2']=DB::select($sql2);
                 $widget['v_widget4']=DB::select("select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados order by FechaEstado DESC) t1 where IdProveedor=".$result['v_detalle'][0]->IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50");
+                $result['idClienteUsuario'] = 0;
                 break;
         }
         Session::put('perfiles', $result);
@@ -131,7 +132,11 @@ class User extends Authenticatable
                 break;
             case 2:
                 $result = DB::table('v_clientes_tienen_usuarios')
-                ->where('IdCliente',$p['idClienteUsuario'])->get();
+                ->where('IdCliente',$p['v_detalle'][0]->IdCliente)->get();
+                break;
+            case 3:
+                $result = DB::table('v_proveedores_tienen_usuarios')
+                ->where('IdProveedor',$p['v_detalle'][0]->IdProveedor)->get();
                 break;
         }
         return $result;
@@ -175,17 +180,14 @@ class User extends Authenticatable
 
     // registrar un nuevo usuario en la aplicacion
     public function regUsuario($datos){
+        // log::info($datos);
         $p = Session::get('perfiles');
-        if (!isset($datos['caso'])){
-            if ($p['idPerfil']==1){$datos['caso']=1;}
-            if ($p['idPerfil']==2){$datos['caso']=2;}
-        }
         $idAdmin = Auth::id();
         $datos['idUser']==null ? $idUser=0 : $idUser= $datos['idUser'];
         $pass = substr($datos['usrUserName'], 0,6);
         $usrPassword=bcrypt($pass);
-        $pusrPassInit=md5($pass);
-        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$idAdmin.",'".$datos['_token']."','".$datos['usrEmail']."',".$p['idClienteUsuario'].",".$datos['caso'].")";
+        $pusrPassInit=md5($pass);  
+        $sql="select f_registro_usuario(".$idUser.",'".$datos['usrUserName']."','".$usrPassword."','".$datos['usrNombreFull']."','".$pusrPassInit."',".$datos['usrEstado'].",".$idAdmin.",'".$datos['_token']."','".$datos['usrEmail']."',".$datos['idEmpresa'].",".$p['idClienteUsuario'].",".$datos['caso'].")";
         $execute=DB::select($sql);
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_usuario']=$value;

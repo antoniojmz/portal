@@ -195,7 +195,7 @@ var seleccionarTablaUsuarios = function(data){
             });
         });
     }
-    if (d.v_perfil.perfil==2){
+    if (d.v_perfil.perfil==2 || d.v_perfil.perfil==3){
         console.log("es cliente");
         $(function(){
             $.contextMenu({

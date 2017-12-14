@@ -27,18 +27,18 @@
 					<div class="m-portlet__head-tools">
 						<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
 							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_page2" role="tab" aria-expanded="true">
+								<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_left_aside2" role="tab" aria-expanded="false">
+									Busqueda por Datos DTE
+								</a>
+							</li>
+							<li class="nav-item m-tabs__item">
+								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_page2" role="tab" aria-expanded="true">
 									Busqueda por Fechas
 								</a>
 							</li>
 							<li class="nav-item m-tabs__item">
 								<a class="nav-link m-tabs__link " data-toggle="tab" href="#m_builder_header2" role="tab" aria-expanded="false">
 									Busqueda por Estados
-								</a>
-							</li>
-							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside2" role="tab" aria-expanded="false">
-									Busqueda por Datos DTE
 								</a>
 							</li>
 						</ul>
@@ -48,8 +48,70 @@
 				<form class="m-form m-form--label-align-right m-form--fit">
 					<div class="m-portlet__body">
 						<div class="tab-content">
+							<!-- tab de busqueda por datos del DTE -->
+							<div class="tab-pane active" id="m_builder_left_aside2" aria-expanded="false">
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										<br>
+										{!! Field::select('SelectDTE', null, null,
+										['label' => 'Tipo DTE:', 
+										'style' => 'width:100%;height:35px;',
+										'placeholder' => 'Seleccione...',
+										'class' => 'comboclear form-control m-select2']) !!}	
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', 'Folio referencia:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('FolioDTE', '', [
+					                    'id'            => 'FolioDTE',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}	
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{{ Form::label('null', 'RUT Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('RutCliente', '', [
+					                    'id'            => 'RutCliente',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', 'Nombre Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('NombreCliente', '', [
+					                    'id'            => 'NombreCliente',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}	
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<div class="col-md-6">
+										{{ Form::label('null', 'RUT Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('RutProveedor', '', [
+					                    'id'            => 'RutProveedor',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}
+									</div>
+									<div class="col-md-6">
+										{{ Form::label('null', 'Nombre Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
+									    {!! Form::text('NombreProveedor', '', [
+					                    'id'            => 'NombreProveedor',
+					                    'class'         => 'form-control input',
+					                    'placeholder'   => '',
+					                    'style'         => 'width:100%;height:35px',
+					                    'maxlength'     => '50'])!!}								
+									</div>
+								</div>
+							</div>
 							<!-- tab de busqueda por fechas -->
-							<div class="tab-pane active" id="m_builder_page2" aria-expanded="true">
+							<div class="tab-pane" id="m_builder_page2" aria-expanded="true">
 								<div class="form-group m-form__group row">
 									<div class="col-md-6">
 										{{ Form::label('null', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha Emisión:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
@@ -111,7 +173,6 @@
 									</div>
 								</div>
 							</div>
-
 							<!-- tab de busqueda por Estados DTE -->
 							<div class="tab-pane" id="m_builder_header2" aria-expanded="false">
 								<div class="form-group m-form__group row">
@@ -150,71 +211,7 @@
 								</div>
 							</div>
 
-							<!-- tab de busqueda por datos del DTE -->
-							<div class="tab-pane" id="m_builder_left_aside2" aria-expanded="false">
-								
-								<div class="form-group m-form__group row">
-									<div class="col-md-6">
-										<br>
-										{!! Field::select('SelectDTE', null, null,
-										['label' => 'Tipo DTE:', 
-										'style' => 'width:100%;height:35px;',
-										'placeholder' => 'Seleccione...',
-										'class' => 'comboclear form-control m-select2']) !!}	
-									</div>
-									<div class="col-md-6">
-										{{ Form::label('null', 'Folio referencia:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('FolioDTE', '', [
-					                    'id'            => 'FolioDTE',
-					                    'class'         => 'form-control input',
-					                    'placeholder'   => '',
-					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}	
-									</div>
-								</div>
 
-								<div class="form-group m-form__group row">
-									<div class="col-md-6">
-										{{ Form::label('null', 'RUT Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('RutCliente', '', [
-					                    'id'            => 'RutCliente',
-					                    'class'         => 'form-control input',
-					                    'placeholder'   => '',
-					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}
-									</div>
-									<div class="col-md-6">
-										{{ Form::label('null', 'Nombre Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('NombreCliente', '', [
-					                    'id'            => 'NombreCliente',
-					                    'class'         => 'form-control input',
-					                    'placeholder'   => '',
-					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}	
-									</div>
-								</div>
-
-								<div class="form-group m-form__group row">
-									<div class="col-md-6">
-										{{ Form::label('null', 'RUT Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('RutProveedor', '', [
-					                    'id'            => 'RutProveedor',
-					                    'class'         => 'form-control input',
-					                    'placeholder'   => '',
-					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}
-									</div>
-									<div class="col-md-6">
-										{{ Form::label('null', 'Nombre Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
-									    {!! Form::text('NombreProveedor', '', [
-					                    'id'            => 'NombreProveedor',
-					                    'class'         => 'form-control input',
-					                    'placeholder'   => '',
-					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}								
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</form>
@@ -265,7 +262,7 @@
 						</li>
 						<li class="nav-item m-tabs__item">
 							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_right_aside" role="tab" aria-expanded="false">
-								Estados de pago
+								Traza DTE
 							</a>
 						</li>
 					</ul>
@@ -464,7 +461,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Estados de Pago</h4>
+        <h4 class="modal-title">Traza DTE</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">

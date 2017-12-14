@@ -10,6 +10,7 @@ use Auth;
 
 // Modelo
 use App\Models\Home;
+use App\Models\Consulta;
 
 class HomeController extends Controller
 {
@@ -60,7 +61,21 @@ class HomeController extends Controller
         }
         return $result;
     }
+
     
+    public function postNoticia(Request $request){
+        $datos = $request->all();
+        $model= new Home();
+        if(isset($datos['IdNoticia'])){ 
+            $result['v_publicaciones'] = $model->BusNoticia($datos['IdNoticia']);
+            $result['v_info'] = '{"code":"204", "des_code":"No content."}';  
+        }else{
+            $result['v_info'] = '{"code":"-2", "des_code":"Se esperaban parametros de entrada."}';  
+            $result['v_publicaciones'] = '';  
+        }
+        return $result;
+    }
+
     public function postFiltrarwidget(Request $request){
         $datos = $request->all();
         $model= new Consulta();

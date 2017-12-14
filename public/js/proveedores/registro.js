@@ -66,12 +66,8 @@ var ManejoRespuestaProcesarR = function(respuesta){
 var ManejoRespuestaProcesar = function(respuesta){
     if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_usuario);
-        var res2 = JSON.parse(respuesta.respuesta.v_asignacion);
         switch(res.code) {
             case '200':
-                if (res2.code=="-2"){
-                    toastr.warning(res2.des_code, "Error!");
-                }
                 toastr.success(res.des_code, "Procesado!");
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
                 $(".divForm").toggle();
@@ -92,12 +88,14 @@ var ManejoRespuestaProcesar = function(respuesta){
 // Manejo agregar perfil
 var ManejoRespuestaProcesarPerfil = function(respuesta){
     if(respuesta.code==200){
-        var res = JSON.parse(respuesta.respuesta.f_registro_perfil);
+        console.log(respuesta);
+        console.log(respuesta.respuesta);
+        var res = JSON.parse(respuesta.respuesta.f_registro_empresa);
         switch(res.code) {
             case '200':
                 toastr.success(res.des_code, "Procesado!");
                 $(".comboclear").val('').trigger("change");  
-                cargarTablaEmpresas(respuesta.respuesta.v_perfiles);
+                cargarTablaEmpresas(respuesta.respuesta.v_empresas);
                 manejoRefresh=1;
                 break;
             case '-2':
@@ -167,7 +165,7 @@ var seleccionarTablaUsuarios = function(data){
     tableB.on('dblclick', 'tr', function () {
         $('#close').trigger('click');
     });
-    if (d.v_perfil.perfil==2){
+    if (d.v_perfil.perfil==2 || d.v_perfil.perfil==3){
         $(function(){
             $.contextMenu({
                 selector: '#tablaUsuarios',
@@ -202,6 +200,7 @@ var seleccionarTablaUsuarios = function(data){
 }
 
 var cargarTablaEmpresas = function(data){
+    console.log("entre a cargar mi tabla");
     if(limpiarPerfiles==1){destruirTabla('#tablaEmpresas');}
     if (data.length>0){
         $("#spanAlert").text("");
@@ -288,6 +287,7 @@ var volverPerfiles = function(){
 
 var administrarEmpresas= function(data){
     manejoRefresh=0;
+    $("#idUser2").val(data.idUser);
     $("#idProveedor").val(data.IdProveedor)
     buscarEmpresas(data);
     $(".divPerfiles").toggle();
@@ -309,6 +309,7 @@ var pintarDatosActualizar= function(data){
         $("#labelPerfil").text(des);
         $("#perfiles").text(res);
     }
+
     $("#usrEstado").val(data.usrEstado).trigger("change");
     if(data.usrUltimaVisita!=null){$("#usrUltimaVisita").text(data.usrUltimaVisita);}
     if(data.auCreadoEl!=null){$("#auCreadoEl").text(data.auCreadoEl);}
@@ -347,7 +348,7 @@ var BotonAgregar = function(){
 }
 
 var BotonAgregarEmpresa = function(){
-    var data = {'idProveedor': $('#idProveedor').val()};
+    var data = {'idProveedor': $('#idProveedor').val(), 'idUser': $('#idUser2').val()};
     parametroAjax.ruta = rutaP;
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
@@ -393,6 +394,7 @@ var cambiarEstatusUsuario = function(data){
 }
 
 var cambiarEstatusPerfil = function(data){
+    console.log("llegue a la funcion de cambiar estatus");
     manejoRefresh=1;
     parametroAjax.ruta=rutaAP;
     parametroAjax.data = data;

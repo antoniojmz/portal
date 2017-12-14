@@ -46,17 +46,18 @@
 						<span id="spanAlert" class="spanSubTitulo"></span>
 					</center>
 					<br>
+					<form id="FormEmpresa" method="POST">
+					<input type="hidden" id="idUser2" name="idUser2">
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-7">
-							<form id="FormEmpresa" method="POST">
-								<select class="comboclear" id="idProveedor" name="idProveedor" style="width:100%;">
-									<option value="">Seleccione..</option>
-								</select>
-							</form>
+							{!! Field::select('idProveedor', null, null,
+							[ 'label' => 'Empresa', 
+							'style' => 'width:100%;height:35px;',
+							'class' => 'form-control comboclear']) !!}
 						</div>
-						<br>
 						<div class="col-md-3">
+							<br>
 							<button name="agregarP" id="agregarP" class="btn m-btn--pill btn-primary" type="button">
 								<span>
 									<i class="la la-plus"></i>
@@ -66,6 +67,7 @@
 						</div>
 						<div class="col-md-1"></div>
 					</div>
+					</form>
 					<div class="table-responsive" id="divTablaPerfiles" style="display:none;">
 						<table id="tablaEmpresas" class="display m-portlet__body" cellspacing="0" width="100%">	</table>
 					</div>
@@ -226,6 +228,7 @@
 	var rutaR = "{{ URL::route('reiniciar') }}"
 	var rutaA = "{{ URL::route('activarPro') }}"
 	var rutaP = "{{ URL::route('empresas') }}"
+	var rutaAP = "{{ URL::route('activarE') }}"
 	var d = [];
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
 	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));

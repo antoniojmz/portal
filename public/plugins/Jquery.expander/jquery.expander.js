@@ -365,8 +365,10 @@
     }
 
     function buildMoreLabel(o) {
-      var ret = '<span class="' + o.moreClass + '">' + o.expandPrefix;
-      ret += '<a href="#" class="' + o.moreLinkClass + '">' + o.expandText + '</a></span>';
+      // var ret = '<span class="' + o.moreClass + '">' + o.expandPrefix;
+      // ret += '<a href="#" class="' + o.moreLinkClass + '">' + o.expandText + '</a></span>';
+      var ret = '';
+      // ret += '<a href="#" class="' + o.moreLinkClass + '">' + o.expandText + '</a></span>';
       return ret;
     }
 

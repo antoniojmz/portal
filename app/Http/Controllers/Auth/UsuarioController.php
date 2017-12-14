@@ -23,6 +23,7 @@ use DB;
 
 // Modelo
 use App\Models\User;
+// use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -63,14 +64,19 @@ class UsuarioController extends Controller
     protected function postUsuarios(Request $request){
         $p = Session::get('perfiles');
         $datos = $request->all();
+        $datos['idEmpresa']=0; 
+        log::info($datos);
+        // caso Administrador registra Usuario
+        if ($p['idPerfil']==1){$datos['caso']=1;}
+        // caso Cliente registra Usuario cliente
+        if ($p['idPerfil']==2){$datos['caso']=2;}
         // Todos los datos del usuario loggeado
         // $user = Auth::user();
         // El id del usuario logeado
         // $datos['idLoggeo'] = Auth::id();
         $model= new User();
         $result['f_registro'] = $model->regUsuario($datos);
-        $result['v_usuarios'] = $model->listUsuario($p['idPerfil']);
-
+        $result['v_usuarios'] = $model->listUsuario();
         return $result;
     }
 

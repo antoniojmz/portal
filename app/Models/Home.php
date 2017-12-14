@@ -59,6 +59,15 @@ class Home extends Authenticatable
         return $result;
     }
 
+    // Busqueda segun los graficos
+    public function BusNoticia($IdNoticia){
+        $p = Session::get('perfiles');
+        if($p['idPerfil']==3){
+            $sql= "select * from v_publicaciones where idEstado=1 and idNoticia=".$IdNoticia;
+            return DB::select($sql);
+        }  
+    }
+
 }    
 
 

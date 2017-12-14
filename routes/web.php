@@ -19,6 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@getHome')->name('home');
 Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
+Route::post('/ver_noticia', 'HomeController@postNoticia')->name('ver_noticia');
 
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
@@ -40,6 +41,8 @@ Route::post('/activarPro', 'ProveedorController@postProveedoractivo')->name('act
 Route::get('/proveedores', 'ProveedorController@getProveedores')->name('proveedores');
 Route::post('/proveedores', 'ProveedorController@postProveedores')->name('proveedores');
 Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->name('detallesProveedor');
+Route::post('/activarE', 'ProveedorController@postEmpresactiva')->name('activarE');
+
 
 //Mostrar Perfiles de los usuarios (Activar / Desactivar)
 Route::get('/empresas', 'ProveedorController@getEmpresas')->name('empresas');
