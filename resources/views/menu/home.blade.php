@@ -209,19 +209,19 @@
 			} ?>
 			<div class="row" style="display:flex;justify-content:center;">
 		    	<div class="pagination-sm" style="padding:10px;margin:10px;">
-				    <ul class="pagination">
-						<li id="liNavPrincipio" class="livPag"><a id="hrefPrincipio">&laquo;</a></li>
+				    <ul class="pagination nav nav-tabs m-tabs m-tabs-line m-tabs-line--left m-tabs-line--primary">
+						<li id="liNavPrincipio" class="livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link" id="hrefPrincipio">&nbsp;&nbsp;&laquo;&nbsp;&nbsp;</a></li>
 					  	@foreach ($paginas as $key => $value)
 						    @if ($cActiva==0)
 								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="active livPag"><a id="href{{$value}}" href="#">{{$value}} </a></li>
+						    	<li id="liNav{{$value}}" class="active livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link hrefactive active" id="href{{$value}}" href="#">&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;</a></li>
 						    @else
 								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="livPag"><a id="href{{$value}}" href="#">{{$value}} </a></li>
+						    	<li id="liNav{{$value}}" class="livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link hrefactive" id="href{{$value}}" href="#">&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;</a></li>
 						    @endif
 							@php $cActiva=1; @endphp	
 					  	@endforeach	
-						<li id="liNavFinal" class="livPag"><a id="hrefFinal" href="#">&raquo;</a></li>
+						<li id="liNavFinal nav-item m-tabs__item" class="livPag"><a class="nav-link m-tabs__link" id="hrefFinal" href="#">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;</a></li>
 				  	</ul>
 		    	</div>
 			</div>

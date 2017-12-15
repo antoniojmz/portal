@@ -1,6 +1,6 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10" style="background-color: white;">
+<div class="container col-md-10 m-portlet">
     <div id="divForm" class="col-md-12 form-control divForm">
         <div class="row">
             <div class="col-md-12">

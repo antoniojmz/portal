@@ -60,8 +60,8 @@ var paginacion = function (data,total){
 	$.each(data, function(index,value) {
 		$("#href"+value).click(function(){
 			Principio();		
-			$(".livPag").removeClass("active");
-			$("#liNav"+value).addClass("active");
+			$(".hrefactive").removeClass("active");
+			$("#href"+value).addClass("active");
 			$(".divNoticias").hide();
 			$("#divNoticias"+value).show();
 			$("#divPrincipal").hide();
@@ -69,16 +69,16 @@ var paginacion = function (data,total){
 	});
 	$("#hrefPrincipio").click(function(){
 		Principio();		
-		$(".livPag").removeClass("active");
-		$("#liNav1").addClass("active");
+		$(".hrefactive").removeClass("active");
+		$("#href1").addClass("active");
 		$(".divNoticias").hide();
 		$("#divNoticias1").show();
 		$("#divPrincipal").show();
 	});
 	$("#hrefFinal").click(function(){
 		Principio();		
-		$(".livPag").removeClass("active");
-		$("#liNav"+total).addClass("active");
+		$(".hrefactive").removeClass("active");
+		$("#href"+total).addClass("active");
 		$(".divNoticias").hide();
 		$("#divNoticias"+total).show();
 		$("#divPrincipal").hide();
