@@ -98,6 +98,7 @@
 							    		<?php echo $value->detalle;?>
 							    	</span>
 						    	</div>
+						    	<div class="col-md-12">
 			    				<div class="m-portlet m-portlet--mobile col-md-12">
 									<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
@@ -136,6 +137,7 @@
 											</div>
 										</div>
 									</div>
+								</div>
 								</div>
 						    </form>
 						@endforeach	
