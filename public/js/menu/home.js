@@ -56,27 +56,66 @@ var volverNoticias = function(data){
 	$('#imageNoticia').attr('src','img/default-img.png')+ '?' + Math.random();
 }
 
-$(document).ready(function(){
-    $(document).on('click','#volverHome',volverNoticias);
-    $( ".idForm" ).click(function() {
-    	cargarNoticias(this.value);
+var paginacion = function (data,total){
+	$.each(data, function(index,value) {
+		$("#href"+value).click(function(){
+			Principio();		
+			$(".livPag").removeClass("active");
+			$("#liNav"+value).addClass("active");
+			$(".divNoticias").hide();
+			$("#divNoticias"+value).show();
+			$("#divPrincipal").hide();
+		});
 	});
+	$("#hrefPrincipio").click(function(){
+		Principio();		
+		$(".livPag").removeClass("active");
+		$("#liNav1").addClass("active");
+		$(".divNoticias").hide();
+		$("#divNoticias1").show();
+		$("#divPrincipal").show();
+	});
+	$("#hrefFinal").click(function(){
+		Principio();		
+		$(".livPag").removeClass("active");
+		$("#liNav"+total).addClass("active");
+		$(".divNoticias").hide();
+		$("#divNoticias"+total).show();
+		$("#divPrincipal").hide();
+	});
+}
+
+var Principio = function (){
+	$('html,body').animate({
+		scrollTop: $("#divSeparacion").offset().top
+	});
+	$("#href1").click(function(){
+		$("#divPrincipal").show();
+	});
+}
+
+$(document).ready(function(){
 	switch(d['v_perfil']) {
-    case "1":
-        console.log("Soy administrador home");
-        break;
-    case "2":
-        console.log("Soy cliente home");
-        break;
-    case "3":
-        console.log("Soy prveedor home");
+	case "1":
+	    // console.log("Soy administrador home");
+	break;
+	case "2":
+	    // console.log("Soy cliente home");
+	break;
+	case "3":
+	    // console.log("Soy prveedor home");
+		Principio();
+	    $(document).on('click','#volverHome',volverNoticias);
+	    $( ".idForm" ).click(function() {
+	    	cargarNoticias(this.value);
+		});
 		if (d['v_nombres'].length > 2){
 			var res = d['v_nombres'].replace("[", "");
 			res = res.replace("]", "");
 			res = res.split(",");
 			$.each(res, function( key, value ) {
 			  	$('div#'+value).expander({
-			    	slicePoint: 1000,
+			    	slicePoint: 500,
 			    	widow: 2,
 			    	expandSpeed: 0
 					// expandText: '<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom">Leer mas...</button><br />',
@@ -84,6 +123,12 @@ $(document).ready(function(){
 			  	});
 			});
 		}
-        break;
-	}	
+		if (d['v_nombresHref'].length > 2){
+			var res = d['v_nombresHref'].replace("[", "");
+			res = res.replace("]", "");
+			res = res.split(",");
+			paginacion(res,d.v_total);
+		}
+	break;
+	}
 });

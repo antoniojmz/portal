@@ -1,6 +1,6 @@
 @extends('menu.index')
 @section('content')
-@php $nombres = array();$nombresDiv = array();$nombresHref = array(); $nombresLiNav= array(); $total =1; @endphp
+@php $nombres = array() @endphp
 <div class="container col-md-12">
 	<!-- <div class="m-subheader">
 	    <div class="d-flex align-items-center">
@@ -30,8 +30,7 @@
 	    @break
 	    @case(3)
 	    	@php 
-	    		$count=0; $paginas=[]; $cActiva=0;
-				array_push($nombresDiv,"divNoticias1");
+	    		$dato=0;
 	    	@endphp
 			<div class="m-content FormNoticias" style="display:none;">
                 <div class="row">
@@ -80,11 +79,9 @@
                 </div>
 			</div>
 			<div class="m-content FormNoticias">
-			@if (isset($v_publicaciones))
-        		@if (count($v_publicaciones['principal']) > 0)
-        			<div class="row" id="divPrincipal">
-						@foreach ($v_publicaciones['principal'] as $key => $value)
-							@php array_push($nombres, $value->idNoticia); @endphp
+	    		@foreach ($v_publicaciones as $key => $value)
+				    @if($key==0 && $dato < 1)
+				    	@php array_push($nombres, $value->idNoticia); @endphp
 						    <form id="Form<?php echo $value->idNoticia;?>">
 						    	<div style="display:none;">
 							    	<input type="hidden" id="idNoticiaForm<?php echo $value->idNoticia;?>" value="<?php echo $value->idNoticia;?>">
@@ -129,24 +126,20 @@
 														</div>
 														<div id="<?php echo $value->idNoticia;?>" class="m-widget5__stats1">
 																<?php echo $value->detalle;?>
+															<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom idForm" value="<?php echo $value->idNoticia;?>">Leer mas</button>
 														</div>
-														<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom idForm" value="<?php echo $value->idNoticia;?>">Leer mas</button>
-													</div>
+													</div>		
 												</div>		
 											</div>
 										</div>
 									</div>
 								</div>
-						    </form>
-						@endforeach	
-					</div>
-					<p></p>					
-        			<div id="divNoticias<?php echo $total; ?>" class="row divNoticias">
-				@endif
-        		@if (count($v_publicaciones['noticias']) > 0)
-					@foreach ($v_publicaciones['noticias'] as $key => $value)
-						@php array_push($nombres, $value->idNoticia); @endphp
-						<div class="col-xl-4">
+						    </form>	
+						<div class="row">
+		    			@php $dato=1; @endphp
+				    @else
+							<div class="col-xl-4">
+				    		@php array_push($nombres, $value->idNoticia); @endphp	
 						    <form id="Form<?php echo $value->idNoticia;?>">
 								<div style="display:none;">
 							    	<input type="hidden" id="idNoticiaForm<?php echo $value->idNoticia;?>" value="<?php echo $value->idNoticia;?>">
@@ -189,42 +182,11 @@
 										</div>
 									</div>
 								</div>
-						    </form>
-						</div>
-						@php $count+=1; @endphp	
-						@if(fmod($count,3) == 0)
-							@php $total+=1;	
-							array_push($nombresDiv,"divNoticias".$total); @endphp
+						    </form>	
 							</div>
-							<p></p>
-							<div id="divNoticias<?php echo $total; ?>" class="row divNoticias" style="display:none;">
-						@endif
-					@endforeach	
-					</div>
-				@endif
-			@endif
-			<?php 
-			for ($i=1; $i <= $total; $i++) {
-				$paginas[$i-1] = $i; 
-			} ?>
-			<div class="row" style="display:flex;justify-content:center;">
-		    	<div class="pagination-sm" style="padding:10px;margin:10px;">
-				    <ul class="pagination">
-						<li id="liNavPrincipio" class="livPag"><a id="hrefPrincipio">&laquo;</a></li>
-					  	@foreach ($paginas as $key => $value)
-						    @if ($cActiva==0)
-								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="active livPag"><a id="href{{$value}}" href="#">{{$value}} </a></li>
-						    @else
-								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="livPag"><a id="href{{$value}}" href="#">{{$value}} </a></li>
-						    @endif
-							@php $cActiva=1; @endphp	
-					  	@endforeach	
-						<li id="liNavFinal" class="livPag"><a id="hrefFinal" href="#">&raquo;</a></li>
-				  	</ul>
-		    	</div>
-			</div>
+				    @endif
+				@endforeach
+						</div>
 			</div>
 	    @break
 	    @default
@@ -238,11 +200,8 @@
 	var ruta = "{{ URL::route('ver_noticia') }}"
 	var d = [];
 	d['v_nombres'] = rhtmlspecialchars('{{ json_encode($nombres) }}');
-	d['v_nombresDiv'] = rhtmlspecialchars('{{ json_encode($nombresDiv) }}');
-	d['v_nombresHref'] = rhtmlspecialchars('{{ json_encode($nombresHref) }}');
-	d['v_nombresLiNav'] = rhtmlspecialchars('{{ json_encode($nombresLiNav) }}');
-	d['v_total'] = rhtmlspecialchars('{{ json_encode($total) }}');
 	d['v_perfil'] = rhtmlspecialchars('{{ $data['idPerfil'] }}');
+	console.log(d);
 </script>
 <script src="{{ asset('js/menu/home.js') }}"></script>
 @endsection

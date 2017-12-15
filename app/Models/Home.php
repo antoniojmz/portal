@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\QueryException;
 use App\Exceptions\Handler;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use DB;
 use Log;
@@ -49,10 +52,25 @@ class Home extends Authenticatable
                     }
                     $v++;
                 }
-                $result=$var;
+                $var;
+                $nombres=[];
+                $principal=[];
+                $noticias=[];
+                $dato=0;
+                $w = 0;
+                foreach ($var as $key => $value) {
+                    if($key==0 && $dato < 1){
+                        $principal[$key]=$value;
+                    }else{
+                        $noticias[$w]=$value;
+                    }
+                    $dato=1;
+                    $w++;
+                }
+                $result['principal']=$principal; 
+                $result['noticias']=$noticias; 
                 break; 
             default: 
-                log::info("Se requieren permisos");
                 $result = "Se requieren permisos";
             break;
         }
@@ -67,30 +85,4 @@ class Home extends Authenticatable
             return DB::select($sql);
         }  
     }
-
-}    
-
-
-
-
-
-
-
-
-
-
-
-                    
-                //             log::info("entro");
-                //             log::info($arr[$j]);
-                //         if ($arr[$j]==1){
-                //         } 
-                //     $arr = explode(",", $result[$i]->idProveedor);
-                //     $v++;
-                //     for ($j=0; $j < count($arr); $j++) {
-                //     }
-                // $result = "Se requieren permisos";
-                // $result = '';
- 
-               
-           
+}

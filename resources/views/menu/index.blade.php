@@ -31,12 +31,13 @@
 		<!-- ////////////////////////////////////////////////////////////////////////////// -->
     	<!-- begin::Base Styles -->
     	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+    	{!! Html::style('plugins/Bootstrap-3.3.7/css/bootstrap.min.css') !!}
     	{!! Html::style('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/demo3/assets/demo/demo3/base/style.bundle.css') !!}
     	<!-- Estilos Plugins -->
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.css') !!}
     	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
-    	
+    	<!-- datatables -->
     	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
     	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
     	{!! Html::style('plugins/validator/formValidation.min.css') !!}
@@ -75,7 +76,7 @@
 		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
     	<!-- Scritp Plugins -->
-    	<!-- data table -->
+    	<!-- datatables -->
 		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.min.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/dataTables.buttons.min.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/jszip.min.js') }}
@@ -84,7 +85,6 @@
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.min.js') }}
 		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
 		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
-
     	<!-- date-range-picker -->
 		{{ HTML::script('plugins/daterangepicker/daterangepicker.js') }}
 		{{ HTML::script('plugins/datepicker/bootstrap-datepicker.es.js') }}
@@ -104,9 +104,7 @@
 		<form id="formLogout" method="POST" style="display: none;">
 			{{ csrf_field() }}
 		</form>
-
-
-		<div class="m-grid m-grid--hor m-grid--root m-page">
+		<div id="divSeparacion" class="m-grid m-grid--hor m-grid--root m-page">
 			<!-- BEGIN: Header -->
 			@include('menu.menu_superior')
 			<!-- begin::Body -->
@@ -118,7 +116,6 @@
 				</div>
 			</div>
 			<!-- end:: Body -->
-
 			<!-- begin::Footer -->
 			@include('menu.menu_footer')
 			<!-- end::Footer -->
