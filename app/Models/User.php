@@ -49,30 +49,36 @@ class User extends Authenticatable
         $user = DB::table('v_usuarios')->where('usrUserName',$data['usrUserName'])->get();
         if (strlen($user)>3){
             if ($user[0]->usrEstado>0){
-                if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
-                        $result=$user[0]->idUser;
-                        (isset($data['remember'])) ? $bool="true" : $bool="false";  
-                        Auth::loginUsingId($result,$bool);
-                        if (Auth::check()){
-                                $usuario = Auth::user();
-                                $perfiles = DB::table('v_perfiles_usuarios')
-                                ->where('idUser',$usuario->idUser)
-                                ->where('activoPerfil',1)->get();
-                                $nroPerfiles = count($perfiles);
-                                Session::put('nroPerfiles', $nroPerfiles);
-                                if ($nroPerfiles>1) {
-                                    return '{"code":"200","des_code":"admin/accesos"}';
-                                } elseif ($nroPerfiles>0 && $nroPerfiles<2) {
-                                    $response = $this->mostrarPanel($perfiles[0]->idPerfil,$perfiles[0]->des_perfil);
-                                    return $response;
-                                } elseif ($nroPerfiles==0) {
-                                    Auth::logout();
-                                    return '{"code":"-2","des_code":"Perfil inactivo"}';
-                                }
-                        }else
-                            return '{"code":"-2","des_code":"Ocurrio un error al iniciar la session"}';
+                if ($user[0]->EstadoBloqueo>0){
+                    if(isset($user[0]->usrPassword) && Hash::check($data['usrPassword'],$user[0]->usrPassword)){
+                            $result=$user[0]->idUser;
+                            (isset($data['remember'])) ? $bool="true" : $bool="false";  
+                            Auth::loginUsingId($result,$bool);
+                            if (Auth::check()){
+                                    $r=$this->resetIntentosFallidos($user[0]->idUser);
+                                    $usuario = Auth::user();
+                                    $perfiles = DB::table('v_perfiles_usuarios')
+                                    ->where('idUser',$usuario->idUser)
+                                    ->where('activoPerfil',1)->get();
+                                    $nroPerfiles = count($perfiles);
+                                    Session::put('nroPerfiles', $nroPerfiles);
+                                    if ($nroPerfiles>1) {
+                                        return '{"code":"200","des_code":"admin/accesos"}';
+                                    } elseif ($nroPerfiles>0 && $nroPerfiles<2) {
+                                        $response = $this->mostrarPanel($perfiles[0]->idPerfil,$perfiles[0]->des_perfil);
+                                        return $response;
+                                    } elseif ($nroPerfiles==0) {
+                                        Auth::logout();
+                                        return '{"code":"-2","des_code":"Perfil inactivo"}';
+                                    }
+                            }else
+                                return '{"code":"-2","des_code":"Ocurrio un error al iniciar la session"}';
+                    }
+                    $this->sumarIntentosFallidos($user[0]->idUser);
+                    return '{"code":"-2","des_code":"Usuario o contraseña incorrectos, recuerde que despues de 3 intentos fallídos se bloqueará su cuenta"}';
+                }else{
+                    return '{"code":"-2","des_code":"Ud. excedió el número de intentos permitidos, Contacte al administrador del sistema"}'; 
                 }
-                return '{"code":"-2","des_code":"Usuario o contraseña incorrectos"}';
             }else{
                 return '{"code":"-2","des_code":"Usuario Inactivo"}';
             }
@@ -214,6 +220,30 @@ class User extends Authenticatable
         DB::table('usuarios')->where('idUser', $idUser)->update(['usrUltimaVisita' => $now]);
     }
     
+    // Sumar numeros de intentos fallidos de inicio de sesion
+    public function sumarIntentosFallidos($idUser){
+        if(isset($idUser)){
+            $count = DB::table('usuarios_bloqueos')->where('idUser',$idUser)->get();
+            $intentos = $count[0]->Intentos + 1;
+            DB::table('usuarios_bloqueos')->where('idUser', $idUser)->update(['Intentos' => $intentos]);
+            if ($intentos>2){
+                DB::table('usuarios_bloqueos')->where('idUser', $idUser)->update(['EstadoBloqueo' => 0]);
+            }
+        }
+    }
+
+    // Restaurar numeros de intentos fallidos de inicio de sesion
+    public function resetIntentosFallidos($idUser){
+        if(isset($idUser)){
+            $values=array('Intentos'=>0,'EstadoBloqueo'=>1);
+            $result=DB::table('usuarios_bloqueos')
+                ->where('idUser', $idUser)
+                ->update($values);
+            return '{"code":"200","des_code":"Usuario Desbloqueado con exito"}';
+        }
+    }
+    
+
     // Activar / Desactivar Usuario
     public function activarUsuario($datos){
         $idAdmin = Auth::id();

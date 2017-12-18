@@ -17,6 +17,21 @@ var parametroAjaxGet = {
     'async': false
 };
 
+// Manejo Desbloquear cuenta de usuario
+var ManejoRespuestaDesbloquearcuenta = function(respuesta){
+    if(respuesta.code==200){
+        var res = JSON.parse(respuesta.respuesta.v_desbloqueo);
+        if(res.code==200){
+            toastr.success('Cuenta desbloqueada con exito.', "Procesado!");
+            cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
+        }else{
+            toastr.warning("Ocurrio un error al tratar de desbloquear la cuenta.", "Info!");
+        }
+    }else{
+        toastr.error("Contacte al personal informatico", "Error!");
+    }
+}
+
 // Manejo Activar Desactivar perfil
 var ManejoRespuestaProcesarP = function(respuesta){
     if(respuesta.code==200){
@@ -32,7 +47,6 @@ var ManejoRespuestaProcesarI = function(respuesta){
         if(respuesta.respuesta.activar>0){
             if(respuesta.respuesta.v_usuarios.length>0){
                 toastr.success('Proceso con exito.', "Procesado!");
-                // destruirTabla('#tablaUsuarios');
                 cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
             }
         }else{
@@ -143,7 +157,8 @@ var cargarTablaUsuarios = function(data){
             {"title": "Modificado id","data": "auModificadoPor",visible:0},
             {"title": "Modificado por","data": "modificador"},
             {"title": "Estado","data": "des_estado"},
-            {"title": "Última visita","data": "usrUltimaVisita"}
+            {"title": "Última visita","data": "usrUltimaVisita"},
+            {"title": "Estatus Bloqueo","data": "DescripcionBloqueo"}
             ],
         });
         seleccionarTablaUsuarios();
@@ -183,20 +198,22 @@ var seleccionarTablaUsuarios = function(data){
                         case "4":
                             administrarPerfiles(RegistroUsuario);
                         break;
-
+                        case "5":
+                            desbloquearCuenta(RegistroUsuario);
+                        break;
                     }
                 },
                 items: {
                     "1": {name: "Editar", icon: "fa-pencil-square-o"},
                     "2": {name: "Reiniciar clave", icon: "fa-refresh"},
                     "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
-                    "4": {name: "Administrar perfiles", icon: "fa-cubes"}
+                    "4": {name: "Administrar perfiles", icon: "fa-cubes"},
+                    "5": {name: "Desbloquear cuenta", icon: "fa-user"}
                 }
             });
         });
     }
-    if (d.v_perfil.perfil==2 || d.v_perfil.perfil==3){
-        console.log("es cliente");
+    if (d.v_perfil.perfil==2){
         $(function(){
             $.contextMenu({
                 selector: '#tablaUsuarios',
@@ -213,12 +230,17 @@ var seleccionarTablaUsuarios = function(data){
                         case "3":
                             cambiarEstatusUsuario(RegistroUsuario);
                         break;
+                        case "4":
+                            desbloquearCuenta(RegistroUsuario);
+                        break;
                     }
                 },
                 items: {
                     "1": {name: "Editar", icon: "fa-pencil-square-o"},
                     "2": {name: "Reiniciar clave", icon: "fa-refresh"},
-                    "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"}
+                    "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
+                    "4": {name: "Desbloquear cuenta", icon: "fa-user"}
+
                 }
             });
         });
@@ -415,6 +437,19 @@ var cambiarEstatusUsuario = function(data){
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarI(respuesta);
 }
+
+var desbloquearCuenta = function(data){
+    if(data.EstadoBloqueo==1){
+        toastr.warning("Esta cuenta de usuario no se encuentra bloqueada", "Aviso!");
+        return 0;
+    }else{
+        parametroAjax.ruta=rutaDC;
+        parametroAjax.data = data;
+        respuesta=procesarajax(parametroAjax);
+        ManejoRespuestaDesbloquearcuenta(respuesta);
+    }
+}
+
 
 var cambiarEstatusPerfil = function(data){
     manejoRefresh=1;

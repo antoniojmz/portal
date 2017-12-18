@@ -17,6 +17,21 @@ var parametroAjaxGet = {
     'async': false
 };
 
+// Manejo Desbloquear cuenta de usuario
+var ManejoRespuestaDesbloquearcuenta = function(respuesta){
+    if(respuesta.code==200){
+        var res = JSON.parse(respuesta.respuesta.v_desbloqueo);
+        if(res.code==200){
+            toastr.success('Cuenta desbloqueada con exito.', "Procesado!");
+            cargarTablaUsuarios(respuesta.respuesta.v_usuarios);
+        }else{
+            toastr.warning("Ocurrio un error al tratar de desbloquear la cuenta.", "Info!");
+        }
+    }else{
+        toastr.error("Contacte al personal informatico", "Error!");
+    }
+}
+
 // Manejo Activar Desactivar perfil
 var ManejoRespuestaProcesarP = function(respuesta){
     if(respuesta.code==200){
@@ -88,8 +103,6 @@ var ManejoRespuestaProcesar = function(respuesta){
 // Manejo agregar perfil
 var ManejoRespuestaProcesarPerfil = function(respuesta){
     if(respuesta.code==200){
-        console.log(respuesta);
-        console.log(respuesta.respuesta);
         var res = JSON.parse(respuesta.respuesta.f_registro_empresa);
         switch(res.code) {
             case '200':
@@ -145,7 +158,8 @@ var cargarTablaUsuarios = function(data){
             {"title": "Modificado id","data": "auModificadoPor",visible:0},
             {"title": "Modificado por","data": "modificador"},
             {"title": "Estado","data": "des_estado"},
-            {"title": "Última visita","data": "usrUltimaVisita"}
+            {"title": "Última visita","data": "usrUltimaVisita"},
+            {"title": "Estatus Bloqueo","data": "DescripcionBloqueo"}   
             ],
         });
         seleccionarTablaUsuarios();
@@ -185,6 +199,9 @@ var seleccionarTablaUsuarios = function(data){
                         case "4":
                             administrarEmpresas(RegistroUsuario);
                         break;
+                        case "5":
+                            desbloquearCuenta(RegistroUsuario);
+                        break;
 
                     }
                 },
@@ -192,7 +209,8 @@ var seleccionarTablaUsuarios = function(data){
                     "1": {name: "Editar", icon: "fa-pencil-square-o"},
                     "2": {name: "Reiniciar clave", icon: "fa-refresh"},
                     "3": {name: "Activar / Desactivar", icon: "fa-toggle-on"},
-                    "4": {name: "Administrar empresas", icon: "fa-cubes"}
+                    "4": {name: "Administrar empresas", icon: "fa-cubes"},
+                    "5": {name: "Desbloquear cuenta", icon: "fa-user"}
                 }
             });
         });
@@ -200,7 +218,6 @@ var seleccionarTablaUsuarios = function(data){
 }
 
 var cargarTablaEmpresas = function(data){
-    console.log("entre a cargar mi tabla");
     if(limpiarPerfiles==1){destruirTabla('#tablaEmpresas');}
     if (data.length>0){
         $("#spanAlert").text("");
@@ -291,6 +308,18 @@ var administrarEmpresas= function(data){
     $("#idProveedor").val(data.IdProveedor)
     buscarEmpresas(data);
     $(".divPerfiles").toggle();
+}
+
+var desbloquearCuenta = function(data){
+    if(data.EstadoBloqueo==1){
+        toastr.warning("Esta cuenta de usuario no se encuentra bloqueada", "Aviso!");
+        return 0;
+    }else{
+        parametroAjax.ruta=rutaDC;
+        parametroAjax.data = data;
+        respuesta=procesarajax(parametroAjax);
+        ManejoRespuestaDesbloquearcuenta(respuesta);
+    }
 }
 
 var pintarDatosActualizar= function(data){
@@ -394,7 +423,6 @@ var cambiarEstatusUsuario = function(data){
 }
 
 var cambiarEstatusPerfil = function(data){
-    console.log("llegue a la funcion de cambiar estatus");
     manejoRefresh=1;
     parametroAjax.ruta=rutaAP;
     parametroAjax.data = data;

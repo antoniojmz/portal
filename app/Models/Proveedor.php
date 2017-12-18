@@ -99,9 +99,9 @@ class Proveedor extends Authenticatable
         switch ($idperfil) {
             case 2:
                 return DB::table('v_clientes_tienen_proveedores')
-                        ->select('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                        ->select('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor','EstadoBloqueo','DescripcionBloqueo')
                         ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
-                        ->groupBy('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor')
+                        ->groupBy('idUser','usrUserName','usrNombreFull','usrEmail','usrEstado','des_estado','usrUltimaVisita','creador','modificador','idPerfil','des_Perfil','auCreadoEl','auCreadoPor','auModificadoEl','auModificadoPor','EstadoBloqueo','DescripcionBloqueo')
                         ->get();
             break;
             case 3:

@@ -42,6 +42,7 @@ Route::get('/proveedores', 'ProveedorController@getProveedores')->name('proveedo
 Route::post('/proveedores', 'ProveedorController@postProveedores')->name('proveedores');
 Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->name('detallesProveedor');
 Route::post('/activarE', 'ProveedorController@postEmpresactiva')->name('activarE');
+Route::post('/desbloquearCP', 'ProveedorController@postDesbloquearcuentaproveedor')->name('desbloquearCP');
 
 
 //Mostrar Perfiles de los usuarios (Activar / Desactivar)
@@ -84,5 +85,6 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	Route::post('/activar', 'UsuarioController@postUsuarioactivo')->name('activar');
 	// Activar o Desactivar Perfil de usuario
 	Route::post('/activarP', 'UsuarioController@postPerfilactivo')->name('activarP');
-
+	// Desbloquear cuenta de usuario por maximo de intentos fallídos
+	Route::post('/desbloquearC', 'UsuarioController@postDesbloquearcuenta')->name('desbloquearC');
 });

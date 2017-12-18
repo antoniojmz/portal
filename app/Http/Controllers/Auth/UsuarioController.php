@@ -196,4 +196,15 @@ class UsuarioController extends Controller
         $result['v_perfiles'] = $model->listPerfilesAdministrador($datos['IdUser']);
         return $result;
     }
+
+    // Desbloquear cuenta de usuario por maximo de intentos fallídos
+    protected function postDesbloquearcuenta (Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result['v_desbloqueo'] = $model->resetIntentosFallidos($datos['idUser']);
+        $result['v_usuarios'] = $model->listUsuario();
+
+        return $result;
+    }
+    
 }

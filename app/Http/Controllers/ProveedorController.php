@@ -110,4 +110,15 @@ class ProveedorController extends Controller
         return $result;
     }
 
+    
+    // Desbloquear las cuentas usuarios provedores despues de 3 intentos fallidos
+    protected function postDesbloquearcuentaproveedor (Request $request){
+        $datos = $request->all();
+        $model= new User();
+        $result['v_desbloqueo'] = $model->resetIntentosFallidos($datos['idUser']);
+        $model= new Proveedor();
+        $result['v_usuarios'] = $model->listRegProveedor();
+        return $result;
+    }
+
 }

@@ -229,6 +229,7 @@
 	var rutaA = "{{ URL::route('activarPro') }}"
 	var rutaP = "{{ URL::route('empresas') }}"
 	var rutaAP = "{{ URL::route('activarE') }}"
+	var rutaDC = "{{ URL::route('desbloquearCP') }}"
 	var d = [];
 	d['v_usuarios'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_usuarios) }}'));
 	d['v_estados'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_estados) }}'));
