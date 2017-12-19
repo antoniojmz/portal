@@ -73,11 +73,11 @@ class Consulta extends Authenticatable
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
-                $sql .= " IdCliente=".$p['v_detalle'][0]->IdCliente;
+                $sql .= "IdCliente=".$p['v_detalle'][0]->IdCliente;
                 break;
             // Perfil Proveedor
             case 3:
-                $sql .= " IdProveedor=".$p['v_detalle'][0]->IdProveedor;
+                $sql .= "IdProveedor=".$p['v_detalle'][0]->IdProveedor;
                 break;
         }
         foreach ($d as $key => $value) {
@@ -95,7 +95,7 @@ class Consulta extends Authenticatable
                         break;
                         case 'f_desdeR':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= "and CAST(FechaRecepcion AS DATE) >= '".$f_desde."'";
+                            $sql .= " and CAST(FechaRecepcion AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaR':
                             $f_hasta = $this->formatearFecha($value);
@@ -103,7 +103,7 @@ class Consulta extends Authenticatable
                         break;                        
                         case 'f_desdeA':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= "and CAST(FechaAutorizacionSII AS DATE) >= '".$f_desde."'";
+                            $sql .= " and CAST(FechaAutorizacionSII AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaA':
                             $f_hasta = $this->formatearFecha($value);
@@ -111,7 +111,7 @@ class Consulta extends Authenticatable
                         break;
                         case 'f_desdeO':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= "and CAST(FechaOC AS DATE) >= '".$f_desde."'";
+                            $sql .= " and CAST(FechaOC AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaO':
                             $f_hasta = $this->formatearFecha($value);
@@ -119,7 +119,7 @@ class Consulta extends Authenticatable
                         break;
                         case 'f_desdeP':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= "and CAST(FechaPago AS DATE) >= '".$f_desde."'";
+                            $sql .= " and CAST(FechaPago AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaP':
                             $f_hasta = $this->formatearFecha($value);
@@ -127,7 +127,7 @@ class Consulta extends Authenticatable
                         break;
                         case 'f_desdeV':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= "and CAST(FechaVencimiento AS DATE) >= '".$f_desde."'";
+                            $sql .= " and CAST(FechaVencimiento AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaV':
                             $f_hasta = $this->formatearFecha($value);
@@ -143,6 +143,12 @@ class Consulta extends Authenticatable
                         break;
                         case 'TipoAcuse':
                                 $sql .= " and TipoAcuse=".$value."";
+                        break;
+                        case 'SelectDTE':
+                                $sql .= " and TipoDTE=".$value."";
+                        break;
+                        case 'selectEstado':
+                                $sql .= " and IdEstadoDTE=".$value."";
                         break;
                         default:
                             $sql .= " and upper(".$key.") like '%".$value."%'";
