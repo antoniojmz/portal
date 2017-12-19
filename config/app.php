@@ -177,14 +177,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
-         * Laravel collective
-        */
+        //Laravel collective
         Collective\Html\HtmlServiceProvider::class,
-        /*
-         * Extension de laravel collective styde html
-        */
+        //Extension de laravel collective styde html
         Styde\Html\HtmlServiceProvider::class,
+        // Recaptcha de Google
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
     ],
 
     /*
@@ -233,13 +231,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        /*
-         * Laravel collective
-        */
+        //Laravel collective
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        // Recaptcha de Google
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
     ],
-
 ];
 
 

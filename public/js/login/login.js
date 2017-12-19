@@ -18,9 +18,11 @@ var SnippetLogin = function() {
                 e.preventDefault(), r()
             }), $("#m_login_forget_password_cancel").click(function(e) {
                 e.preventDefault(), t()
-            }), $("#m_login_signup").click(function(e) {
-                e.preventDefault(), a()
-            }), $("#m_login_signup_cancel").click(function(e) {
+            }), 
+            // $("#m_login_signup").click(function(e) {
+            //     e.preventDefault(), a()
+            // }), 
+            $("#m_login_signup_cancel").click(function(e) {
                 e.preventDefault(), t()
             })
         },
@@ -28,19 +30,23 @@ var SnippetLogin = function() {
             $("#m_login_signin_submit").click(function(e) {
                 e.preventDefault();
                 var a = $(this),
-                    t = $(this).closest("form");
-                t.validate({
+                    t = $("#FormLogin");
+                t.validate({ 
                     rules: {
                         'usrUserName': {
                             required: !0
                         },
                         'usrPassword': {
                             required: !0
+                        },
+                        'g-recaptcha-response': {
+                            required: !0
                         }
                     },
                     messages:{
                         'usrUserName': "Se requiere este campo.",
-                        'usrPassword': "Se requiere este campo."
+                        'usrPassword': "Se requiere este campo.",
+                        'g-recaptcha-response': "Se requiere este campo."
                     }
                 }), t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({
                     url: "/login",
@@ -52,61 +58,86 @@ var SnippetLogin = function() {
                             }else{
                                 a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
                             }
+                            grecaptcha.reset(widgetId1);
+                            grecaptcha.reset(widgetId2);
                         }, 2e3)
                     }
                 }))
             })
         },
-        s = function() {
-            $("#m_login_signup_submit").click(function(a) {
-                a.preventDefault();
-                var r = $(this),
-                    n = $(this).closest("form");
-                n.validate({
-                    rules: {
-                        fullname: {
-                            required: !0
-                        },
-                        email: {
-                            required: !0,
-                            email: !0
-                        },
-                        password: {
-                            required: !0
-                        },
-                        rpassword: {
-                            required: !0
-                        },
-                        agree: {
-                            required: !0
-                        }
-                    }
-                }), n.valid() && (r.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), n.ajaxSubmit({
-                    url: "",
-                    success: function(a, l, s, o) {
-                        setTimeout(function() {
-                            r.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), n.clearForm(), n.validate().resetForm(), t();
-                            var a = e.find(".m-login__signin form");
-                            a.clearForm(), a.validate().resetForm(), i(a, "success", "Thank you. To complete your registration please check your email.")
-                        }, 2e3)
-                    }
-                }))
-            })
-        },
+
+        // s = function() {
+        //     $("#m_login_signup_submit").click(function(a) {
+        //         a.preventDefault();
+        //         var r = $(this),
+        //             n = $(this).closest("form");
+        //         n.validate({
+        //             rules: {
+        //                 'fullname': {
+        //                     required: !0
+        //                 },
+        //                 'email': {
+        //                     required: !0,
+        //                     email: !0
+        //                 },
+        //                 'password': {
+        //                     required: !0
+        //                 },
+        //                 'rpassword': {
+        //                     required: !0
+        //                 },
+        //                 'agree': {
+        //                     required: !0
+        //                 },                     
+        //                 'g-recaptcha-response-2': {
+        //                     required: !0
+        //                 }
+        //             },
+        //             messages:{
+        //                 'fullname': "Se requiere este campo.",
+        //                 'email': {
+        //                     required: "Se requiere este campo.",
+        //                     email: "Ingrese una dirección de correo válida."
+        //                 },
+        //                 'password': "Se requiere este campo.",
+        //                 'rpassword': "Se requiere este campo.",
+        //                 'agree': "Se requiere este campo.",
+        //                 'g-recaptcha-response-2': "Se requiere este campo."
+                        
+        //             }
+        //         }), n.valid() && (r.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), n.ajaxSubmit({
+        //             url: "",
+        //             success: function(a, l, s, o) {
+        //                 setTimeout(function() {
+        //                     r.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), n.clearForm(), n.validate().resetForm(), t();
+        //                     var a = e.find(".m-login__signin form");
+        //                     a.clearForm(), a.validate().resetForm(), i(a, "success", "Thank you. To complete your registration please check your email.")
+        //                 }, 2e3)
+        //             }
+        //         }))
+        //     })
+        // },
         o = function() {
             $("#m_login_forget_password_submit").click(function(a) {
                 a.preventDefault();
                 var r = $(this),
-                    n = $(this).closest("form");
-                n.validate({
+                    n = $("#FormRecuperacion");
+                n.validate({ 
                     rules: {
                         'email': {
                             required: !0,
                             email: !0
+                        },
+                        'g-recaptcha-response':{
+                            required: !0,
                         }
                     },
                     messages:{
-                        'email': "Se requiere este campo."
+                        'email': {
+                            required: "Se requiere este campo.",
+                            email: "Ingrese una dirección de correo válida."
+                        },
+                        'g-recaptcha-response': "Se requiere este campo."
                     }
                 }), n.valid() && (r.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), n.ajaxSubmit({
                     url: "/admin/recuperar",
@@ -122,6 +153,8 @@ var SnippetLogin = function() {
                                 var a = e.find(".m-login__signin form");
                                 a.clearForm(), a.validate().resetForm(), i(a, "danger", response.des_code)
                             }
+                            grecaptcha.reset(widgetId1);
+                            grecaptcha.reset(widgetId2);
                         }, 2e3)
                     }
                 }))
@@ -129,7 +162,7 @@ var SnippetLogin = function() {
         };
     return {
         init: function() {
-            n(), l(), s(), o()
+            n(), l(), /* s(),*/ o()
         }
     }
 }();

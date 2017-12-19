@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-	<!-- begin::Head -->
+<html lang="es">
 	<head>
 		@php
 			header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
@@ -17,27 +16,39 @@
     	{!! Html::style('theme/dist/html/default/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/default/assets/demo/default/base/style.bundle.css') !!}
     	<link rel="icon" href="{!! asset('theme/dist/html/default/assets/demo/default/media/img/logo/favicon.ico') !!}"/>
-    	<!--begin::Base Scripts -->
+    	<style TYPE="text/css">
+    		#g-recaptcha-response-error{
+        		color:#F4516C;
+        		font-size:13px;
+        	}
+    	</style>
 		{{ HTML::script('theme/dist/html/default/assets/vendors/base/vendors.bundle.js') }}
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/base/scripts.bundle.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
-		<!--end::Base Scripts -->
-		<!--begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
-          WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
+			var widgetId1;
+			var widgetId2;
+			var onloadCallback = function() {
+				widgetId1 = grecaptcha.render('pp-grecaptcha', {
+					'sitekey' : '6LfSgz0UAAAAAGogr0cFDeQlK9J-TLP2KPiF0oUt',
+					'theme' : 'light'
+				});
+				widgetId2 = grecaptcha.render('pp-grecaptcha-1', {
+					'sitekey' : '6LfSgz0UAAAAAGogr0cFDeQlK9J-TLP2KPiF0oUt',
+					'theme' : 'light'
+				});	
+			};
+			WebFont.load({
+				google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+				active: function() {
+					sessionStorage.fonts = true;
+				}
+			});
 		</script>
-		<!--end::Web font -->
 	</head>
-	<!-- end::Head -->
-	<!-- end::Body -->
 	<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		@yield('content')
-		<!-- end::Body -->
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	</body>
 </html>
