@@ -1,6 +1,18 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10 m-portlet">
+<style type="text/css" media="screen">
+	table{
+		font-size:11px;
+	}
+	table thead th{
+		font-size:11px;
+		text-align : center;
+	}
+	table tbody tr td{
+		text-align : justify;
+	}
+</style>
+<div class="container col-md-12 m-portlet">
 	<div class="divForm">
 		<div class="row">
 			<div class="col-md-12">
@@ -234,7 +246,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						<table id="tablaReportes" class="display" cellspacing="0" width="100%"></table>
+						 table-striped table-hover
+						<table id="tablaReportes" class="display table table-bordered" cellspacing="0"></table>
 					</div>
 				</div>
 			</div>

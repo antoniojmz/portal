@@ -68,7 +68,7 @@ class PublicacionesController extends Controller
                     $r1=Storage::disk('imgNoticias')->put($nuevo_nombre,  \File::get($archivo) );
                     $rutadelaimagen="/imgNoticias/".$nuevo_nombre;
                     if ($r1){
-                        // sleep(5); 
+                        sleep(5); 
                         $result2 = $model->actualizarFotoPublicacion($idNoticia,$rutadelaimagen);
                         $result['urlImage']='{"code":"200","des_code":"'.$rutadelaimagen.'"}';
                     }else{

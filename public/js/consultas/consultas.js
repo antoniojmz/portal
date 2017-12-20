@@ -193,7 +193,7 @@ var cargartablaReportes = function(data){
         $("#tablaReportes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
-            "scrollY": '50vh',
+            // "scrollY": '50vh',
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -203,35 +203,37 @@ var cargartablaReportes = function(data){
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
                 {
-                    "title": "PDF", 
-                    "data": "PdfDTE",
+                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
+                    // "data": "PdfDTE",
+                    "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
+                    "orderable":false,
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
-                            data = '<center><a target="_blank" class="m-menu__link" href="' + data + '"><i class="fa fa-file-code-o" aria-hidden="true"></i></a></center>';
+                            data = '<center><a target="_blank" class="m-menu__link" data-toggle="tooltip" title="XML" href="' + data.XmlDTE + '"><i class="fa fa-file-code-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a target="_blank" class="m-menu__link" data-toggle="tooltip" title="PDF" href="' + data.PdfDTE + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a id="LinkTrazas" class="m-menu__link" data-toggle="tooltip" title="Traza DTE" href="#"><i class="fa fa-history" aria-hidden="true"></i></a></center>';
                         }
                         return data;
                     }
                 },
-                {
-                    "title": "XML", 
-                    "data": "XmlDTE",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = '<center><a target="_blank" class="m-menu__link" href="' + data + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></center>';
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Traza", 
-                    "data": "FechaEstadoActualDTE",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = '<center><a id="LinkTrazas" class="m-menu__link" href="#"><i class="fa fa-history" aria-hidden="true"></i></a></center>';
-                        }
-                        return data;
-                    }
-                },
+                // {
+                //     "title": "XML", 
+                //     "data": "XmlDTE",
+                //     "render": function(data, type, row, meta){
+                //         if(type === 'display'){
+                //             data = '<center></center>';
+                //         }
+                //         return data;
+                //     }
+                // },
+                // {
+                //     "title": "Traza", 
+                //     "data": "FechaEstadoActualDTE",
+                //     "render": function(data, type, row, meta){
+                //         if(type === 'display'){
+                //             data = '<center></center>';
+                //         }
+                //         return data;
+                //     }
+                // },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
                 {
@@ -245,7 +247,7 @@ var cargartablaReportes = function(data){
                     }
                 },
                 {
-                    "title": "Fecha Recepción Cliente", 
+                    "title": "Fecha Recepción", 
                     "data": "FechaRecepcion",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){

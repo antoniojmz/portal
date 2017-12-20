@@ -98,31 +98,38 @@
 							    		<?php echo $value->detalle;?>
 							    	</span>
 						    	</div>
-						    	<div class="col-md-12">
-			    				<div class="m-portlet m-portlet--mobile col-md-12">
+						    	<!-- <div class="col-md-12"> -->
+			    				<div class="row">
+			    				<div class="col-md-12">
+			    				<div class="col-md-12">
+			    				<div class="col-md-12" style="background-color: white;width: 100%;">
+			    						
 									<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
+												<br>
 												<h3 class="m-portlet__head-text">
 													{{$value->titulo}}
 												</h3>
+												<hr>
 											</div>
 										</div>
 									</div>
-									<div class="tab-content">
-										<div class="tab-pane active" id="m_widget5_tab1_content" aria-expanded="true">
+									<div class="">
+										<div id="m_widget5_tab1_content" aria-expanded="true">
 											<div class="m-widget5">
 												<div class="row">
-													<div class="col-md-6">
-														<div class="m-widget5__content">
+												<!-- <div class="col-xl-12"> -->
+													<div class="col-xl-6" style="margin: 0;padding: 0;">
+														<!-- <div class="m-widget5__content"> -->
 															@php  
 																$avatarUser = $value->urlImage;
 																(strlen($avatarUser) > 10) ? $avatar=$avatarUser : $avatar="img/default-img.png";
 															@endphp
 															<img src="{{ asset($avatar) }}" alt="">
-														</div>
+														<!-- </div> -->
 													</div>
-													<div class="col-md-6">
+													<div class="col-xl-6">
 														<div class="m-widget5__content">
 															<h4 class="m-widget5__title">
 																{{$value->descripcion}}
@@ -133,12 +140,16 @@
 														</div>
 														<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom idForm" value="<?php echo $value->idNoticia;?>">Leer mas</button>
 													</div>
+												<!-- </div> -->
 												</div>		
 											</div>
 										</div>
 									</div>
+			    				</div>
+			    				</div>
+			    				</div>
 								</div>
-								</div>
+								<!-- </div> -->
 						    </form>
 						@endforeach	
 					</div>
