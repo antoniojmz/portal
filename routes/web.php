@@ -44,7 +44,6 @@ Route::post('/detallesProveedor', 'ProveedorController@postBuscardetalleP')->nam
 Route::post('/activarE', 'ProveedorController@postEmpresactiva')->name('activarE');
 Route::post('/desbloquearCP', 'ProveedorController@postDesbloquearcuentaproveedor')->name('desbloquearCP');
 
-
 //Mostrar Perfiles de los usuarios (Activar / Desactivar)
 Route::get('/empresas', 'ProveedorController@getEmpresas')->name('empresas');
 Route::post('/empresas', 'ProveedorController@postEmpresas')->name('empresas');
@@ -58,6 +57,14 @@ Route::get('/listpublicaciones', 'PublicacionesController@getListpublicaciones')
 Route::post('/publicaciones', 'PublicacionesController@postPublicaciones')->name('publicaciones');
 // Activar o Desactivar publicacion
 Route::post('/activarPu', 'PublicacionesController@postPublicacionactivo')->name('activarPu');
+
+// Chat en vivo para proveedores
+Route::get('/chat', 'ChatController@getChat')->name('chat');
+Route::post('/chat', 'ChatController@postChat')->name('chat');
+Route::get('/chatC', 'ChatController@getChatcliente')->name('chatC');
+//Buzon de mensajes (Clientes)
+Route::get('/buzon', 'ChatController@getBuzon')->name('buzon');
+Route::post('/buzon', 'ChatController@postBuzon')->name('buzon');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	//accesos (Seleccionar acceso para ingresar a la aplicacion)

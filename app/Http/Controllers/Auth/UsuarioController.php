@@ -136,7 +136,7 @@ class UsuarioController extends Controller
             $array= explode('/', $fotoOld);
             Storage::disk($array[1])->delete($array[2]);
         } 
-        $input  = array('foto' => $archivo) ;
+        $input  = array('foto' => $archivo);
         $reglas = array('foto' => 'required|image|mimes:jpeg,jpg,bmp,png,gif|max:5000');
         $validacion = Validator::make($input,  $reglas);
         if ($validacion->fails()){

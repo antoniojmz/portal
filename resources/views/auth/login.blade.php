@@ -71,7 +71,7 @@
                                 <div class="row m-login__form-sub">
                                     <div class="col-md-12 col-lg-12 col-sm-12">
                                         <center>
-                                            <div id="pp-grecaptcha"></div>
+                                            <!-- <div id="pp-grecaptcha"></div> -->
                                         </center>
                                     </div>
                                 </div>

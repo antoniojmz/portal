@@ -52,7 +52,7 @@
 						<div class="col-md-7">
 							<form id="FormPerfil" method="POST">
 								<input type="hidden" id="idUser2">
-								<select class="comboclear" id="idPerfil" name="idPerfil" style="width:100%;">
+								<select class="comboclear form-control m-select2" id="idPerfil" name="idPerfil" style="width:100%;">
 									<option value="">Seleccione..</option>
 								</select>
 							</form>

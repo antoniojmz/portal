@@ -36,6 +36,37 @@
 					<i class="m-menu__ver-arrow la la-angle-right"></i>
 				</a>
 			</li>
+			@if ($data['idPerfil']==2)
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a  href="#" class="m-menu__link m-menu__toggle">
+					<span class="m-menu__item-here"></span>
+					<i class="m-menu__link-icon flaticon-chat-1"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								Chat Proveedores
+							</span>
+						</span>
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item " aria-haspopup="true" >
+							<a href='{!! URL::route("buzon") !!}' class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Buzon de mensajes
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			@endif
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>

@@ -1,3 +1,16 @@
+// blockUi Metronic
+var MyblockPage = function(){
+    mApp.blockPage({
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Please wait..."
+    })
+}
+// UnblockUi Metronic
+var MyunblockPage = function(){
+        mApp.unblockPage();  
+}
 //Fotmato de moneda
 function number_format(amount, decimals) {
     amount += ''; // por si pasan un numero en vez de un string
@@ -45,6 +58,47 @@ function filtrar_objeto(my_object, my_criteria){
 }
 ///////////////////////////////////////////////////// AJAX //////////////////////////////////////////////////////
 var procesarajax = function(datos){
+    MyblockPage();
+    var resp = '';
+    $.ajax({
+        url:datos.ruta,
+        headers: {'X-CSRF-TOKEN': datos.token},
+        type:datos.tipo,
+        async: datos.async,
+        dataType: 'JSON',
+        data: datos.data,
+    })
+    .done(function(response) {
+        resp = {'code': '200', 'respuesta':response};
+    })
+    .fail(function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 422){
+            msg = 'Validación';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500]. Si el error persiste comuníquese con informática.';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        resp = {'code': 'error', 'mensaje': msg, 'detalle':jqXHR};
+        // mensajesAlerta('Error',msg, 'error');
+    });
+    MyunblockPage();
+    return resp;
+};
+
+///////////////////////////// AJAX SIN BLOCK UI //////////////////////////////////////////////
+var procesarajaxChat = function(datos){
     var resp = '';
     $.ajax({
         url:datos.ruta,
@@ -81,8 +135,9 @@ var procesarajax = function(datos){
     });
     return resp;
 };
-
+//////////////////////////////////////////////////////////////////////////
 var procesarajaxfile = function(datos){
+    MyblockPage();
     var resp = '';
     $.ajax({
         headers: {'X-CSRF-TOKEN': datos.token},
@@ -119,6 +174,7 @@ var procesarajaxfile = function(datos){
         }
 
     });
+    MyunblockPage();
     return resp;
 };
 
