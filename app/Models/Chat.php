@@ -23,9 +23,11 @@ class Chat extends Authenticatable
     
     // Chat para proveedores(Cargar mensajes)
     public function listChat(){
+        log::info("pase por aqui");
         $idUser = Auth::id();
-        $sql = "select c.* from v_chat c where c.idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') and idChat = (SELECT MAX(vc.idchat) FROM v_chat vc) order by idChatMessage ASC";
+        $sql = "select c.* from v_chat c where c.idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') and idChat = (SELECT MAX(vc.idchat) FROM v_chat vc where vc.idUser=".$idUser.") order by idChatMessage ASC";
         $sql2= "select max(idchat) as idChat from v_chat where idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d')";
+        log::info($sql);
         $idChat = DB::select($sql2);
         $result ['idChat'] = $idChat[0]->idChat;
         $result['chat'] = DB::select($sql);

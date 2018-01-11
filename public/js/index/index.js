@@ -60,8 +60,6 @@ var ManejoRespuestaProcesarChat = function (respuesta){
 }
 
 var ManejoRespuestaProcesarGetChat = function (respuesta){
-	console.log(respuesta);
-	console.log(respuesta.respuesta);
 	if(respuesta.code==200){
 		var idChat = respuesta.respuesta.idChat;
 		idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
@@ -141,21 +139,21 @@ $(document).ready(function() {
 		    // console.log("Soy administrador home");
 		break;
 		case "2":
-		    console.log("Soy cliente home");
+		    // console.log("Soy cliente home");
 		    LoadMailbox();
 		break; 
 		case "3":
-		    console.log("Soy proveedor home");
-			// setInterval("LoadMessage()", 500);
-		    LoadMessage();
+		    // console.log("Soy proveedor home");
+			setInterval("LoadMessage()", 500);
+		    // LoadMessage();
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
 		break;
 
 	}
-	// setTimeout(function(){Salir();}, 600000);
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	setTimeout(function(){Salir();}, 600000);
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {
