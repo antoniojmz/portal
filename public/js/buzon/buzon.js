@@ -1,5 +1,5 @@
-var limpiar=limpiarDte=limpiarProveedores=limpiarUsuarios=printCounter=0;
-var RegistroClientes ='';
+var errorLoad = errorLoadAll = refreshMessage = VarIdChat = 0;
+
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -8,173 +8,123 @@ var parametroAjax = {
     'async': false
 };
 
-var ManejoRespuestaC = function(respuesta){
+var parametroAjaxGET = {
+    'token': $('input[name=_token]').val(),
+    'tipo': 'GET',
+    'data': {},
+    'ruta': '',
+    'async': false
+};
+
+var ManejoRespuestaC = function(respuesta,idChat){
     if (respuesta.code = '200'){
-        cargartablaClientes(respuesta.respuesta);
+        var res = respuesta.respuesta
+        if (refreshMessage == 0){$(".divForm").toggle();}
+        refreshMessage = 1;
+        var arrayC = [];
+        var valuechat = 0;
+        for (i = 0; i < res.length; i++) {
+            if (valuechat == 0){
+                $("#idChat").val(res[i].idChat);valuechat = 1
+                $("#NombreUsuario").text(res[i].Usuario+" - "+res[i].Proveedor);
+                var image = '/img/default.png'
+                var foto = res[i].imageUsuario
+                if ( foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
+                $('#imgUserChat').attr('src',image)+ '?' + Math.random();
+            }
+            if (res[i].id_creador==d['idUser']){
+                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div></div></div></div>';
+            }else{
+                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username">'+res[i].Usuario+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div></div></div>';
+            }
+            $("#ChatBodyC").html(arrayC);
+        }
+        VarIdChat = idChat
     }else{
-        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+        toastr.error("Error al cargar la conversación, contacte al personal informático", "Error!");
     };
 }
 
+var enviarMessage = function(){
+    var message = $("#message").val();
+    var id_chat = $("#idChat").val();
+    if (message.length > 1){    
+        if (id_chat == 0){
+            toastr.warning("No fue posible identificar el origen del chat. Por favor, intente nuevamente", "Error!");
+            return;
+        }else{
+            parametroAjax.ruta = rutaGetChat;
+            parametroAjax.data = $("#FormChatC").serialize();
+            respuesta=procesarajaxChat(parametroAjax);
+            ManejoRespuestaProcesarChat(respuesta);
+        }
+    }    
+};
 
+var cargarFormulario = function(idChat){
+    parametroAjax.ruta=rutaC;
+    parametroAjax.data = {"idChat":idChat};
+    respuesta=procesarajaxChat(parametroAjax);
+    ManejoRespuestaC(respuesta,idChat);
+}
 
-var cargartablaDTE = function(data){
-    if(limpiarDte==1){destruirTabla('#tablaDTE');}
-    if (data.length>0){
-        $("#tablaDTE").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdProveedor","data": "IdProveedor",visible:0},
-                {"title": "IdCliente","data": "IdCliente",visible:0},
-                {
-                    "title": "Fecha de Recepción", 
-                    "data": "FechaRecepcion",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Tipo DTE","data": "TipoDTE"},
-                {"title": "Folio DTE","data": "FolioDTE"},
-                {
-                    "title": "Fecha de emisión", 
-                    "data": "FechaEmision",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "RUT Proveedor","data": "RutProveedor"},
-                {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "RUT Cliente","data": "RutCliente"},
-                {"title": "Nombre Cliente","data": "NombreCliente"},
-                {"title": "Monto Total DTE","data": "MontoExentoCLP"},
-                {"title": "Monto total OM","data": "MontoExentoOM"},
-                {
-                    "title": "Fecha de Estado Actual", 
-                    "data": "FechaEstadoActualDTE",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
-            ],
-        });
-        limpiarDte=1;
+var volverChat = function(){
+    $(".divForm").toggle();
+    $("#FormChatC")[0].reset();
+    refreshMessage = 0; 
+    $('#imgUserChat').attr('src','/img/default.png')+ '?' + Math.random();    
+}
+
+var cargarBuzon = function(res){
+    var array = [];
+    for (i = 0; i < res.length; i++) {    
+        var image = '/img/default.png'
+        var foto = res[i].imageUsuario; 
+        var operador = "No asignado";
+        if (foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
+        if (res[i].Operador != null){ operador=res[i].Operador}
+        var message = res[i].message;
+        var cadena =150;
+        if (message.length > cadena ){message = message.substr(0,cadena)+"...";} 
+        if (res[i].statusMessage==1){
+            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+        }else{
+            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+        }
+    } 
+    $("#divBandejaMensaje").html(array);
+}
+
+var LoadBuzon = function(){
+    parametroAjaxGET.ruta = RutabR;
+    respuesta=procesarajaxChat(parametroAjaxGET);
+    if (respuesta.code == 200){
+        cargarBuzon(respuesta.respuesta.v_chat);
     }else{
-        limpiarDte=0;
+        if(errorLoadAll==0){
+            toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
+            errorLoadAll=1;
+        }
     }
 }
 
-var pintarDatos = function(data){
-    if(data.CodigoSociedadSAP!=null){$("#CodigoSociedadSAP").text(data.CodigoSociedadSAP);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.RazonSocial!=null){$("#RazonSocial").text(data.RazonSocial);}
-    if(data.NombreFantasiaCliente!=null){$("#NombreFantasiaCliente").text(data.NombreFantasiaCliente);}
-    if(data.PersonaContactoCliente!=null){$("#PersonaContactoCliente").text(data.PersonaContactoCliente);}
-    if(data.TelefonoContactoCliente!=null){$("#TelefonoContactoCliente").text(data.TelefonoContactoCliente);}
-}
-
-
-var SeleccionarTablaClientes = function(){
-    var tableB = $('#tablaClientes').dataTable();
-    $('#tablaClientes tbody').on('click', 'tr', function (e) {
-        tableB.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-    });
-    $('#tablaClientes tbody').on('dblclick', 'tr', function () {
-        RegistroClientes = TablaTraerCampo('tablaClientes',this);
-        cargarFormularioVisualizacion(RegistroClientes);
-    });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
-}
-
-var ProcesarConsulta = function(){
-    var Selectcampo = $('#Selectcampo').val();
-    if (Selectcampo.length<1){
-        toastr.error("Debe seleccionar al menos un item", "Error!");
-        return;
+var selected = function(){
+    if (refreshMessage == 0){
+        LoadBuzon();           
+    }else{
+        if (VarIdChat != 0){cargarFormulario(VarIdChat);}
     }
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormProveedores").serialize();
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaC(respuesta);
-};
-
-var cargarFormularioVisualizacion = function(data){
-    $(".divForm").toggle();
-    parametroAjax.ruta=rutaD;
-    parametroAjax.data = {"IdCliente":data.IdCliente};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaD(respuesta);
-};
-
-var BotonVolver = function(){
-    $(".divForm").toggle();
-    $(".span").text("Desconocido");
-}
-
-var cargarFormulario = function(data){
-    console.log(data);
 }
 
 
-
-var cargarTabla = function(){
-    console.log("holas");
-    var t = $('#tablaBuzon').DataTable();
-    t.row.add( {
-        "usuario":       "Tiger Nixon",
-        "operador":   "System Architect",
-        "tiempo":     "$3,120"
-    } ).draw(false);
-
-    // var counter =1;
-
-    //  t.row.add( [
-    //         counter +'.1',
-    //         counter +'.2',
-    //         counter +'.3',
-    //         counter +'.4',
-    //         counter +'.5'
-    //     ] ).draw( false );
-
-
-  
-    console.log("chao");
-}
 $(document).ready(function(){
-    console.log(d);
-    $('#tablaBuzon').dataTable({
-        "language": {
-            "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-        },
-        "columnDefs": [
-            {orderable:false},
-        ],
-    });
-    cargarTabla();
+    cargarBuzon(d.v_chat);  
+    setInterval("selected()", 500);
     // $(".span").text("Desconocido");
     // $("#spanTitulo").text("Listado de Clientes");
     // cargartablaClientes(d.v_clientes);
     // crearcombo('#Selectcampo',d.v_busq_cliente);
     // $(document).on('click','#consultar',ProcesarConsulta);
-    // $(document).on('click','#volver',BotonVolver);
+    $(document).on('click','#ChatSubmitC',enviarMessage);
+    $(document).on('click','#volverChat',volverChat);
 });

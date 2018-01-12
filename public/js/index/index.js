@@ -1,4 +1,5 @@
 var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
+var errorLoad = errorLoadAll = 0;
 var cambiarSalir = function(){
 	v_salir = 1;
 }
@@ -66,17 +67,20 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 		var res = respuesta.respuesta.chat
 		var array = [];
 		for (i = 0; i < res.length; i++) { 
-			if (res[i].idUser==v['idUser']){
-				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div></div></div></div>';
+			if (res[i].id_creador==v['idUser']){
+				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
 			}else{
-				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div></div></div></div>';
+				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
 			}
 			$("#ChatBody").html(array);
 		}
 		var altura = $("#mCSB_3").prop("scrollHeight");
 		$("#mCSB_3").scrollTop(altura);
     }else{
-        toastr.warning("Ocurrio un error al cargar el chat", "Error!");
+    	if (errorLoad==0){
+        	toastr.warning("Ocurrio un error al cargar el chat", "Error!");
+        	errorLoad = 1;
+    	}
    }
 }
 
@@ -95,7 +99,10 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			$("#divBuzon").html(array);
 		}
     }else{
-        toastr.warning("Ocurrio un error al cargar el chat", "Error!");
+    	if (errorLoadAll==0){
+        	toastr.warning("Ocurrio un error al cargar el chat", "Error!");
+        	errorLoadAll = 1;
+    	}
    }
 }
 
@@ -122,7 +129,7 @@ var SendMessage = function(){
 var LoadMessage = function(){
 	parametroAjaxGET.ruta = rutaGetChat;
     respuesta=procesarajaxChat(parametroAjaxGET);
-    ManejoRespuestaProcesarGetChat(respuesta);
+    ManejoRespuestaProcesarGetChat(respuesta); 
 }
 
 var LoadMailbox = function(){
@@ -140,20 +147,21 @@ $(document).ready(function() {
 		break;
 		case "2":
 		    // console.log("Soy cliente home");
-		    LoadMailbox();
+		    // LoadMailbox();
+			setInterval("LoadMailbox()", 500);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
-			setInterval("LoadMessage()", 500);
 		    // LoadMessage();
+			setInterval("LoadMessage()", 500);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
 		break;
 
 	}
-	setTimeout(function(){Salir();}, 600000);
-	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	// setTimeout(function(){Salir();}, 600000);
+	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {

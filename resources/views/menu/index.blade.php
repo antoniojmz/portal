@@ -41,7 +41,6 @@
 	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
 	{!! Html::style('plugins/validator/formValidation.min.css') !!}
 	{!! Html::style('plugins/DataTables-1.10.10/buttons.dataTables.min.css') !!}
-	{!! Html::style('') !!}
 	<style TYPE="text/css">
 	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
 		margin-top:-1.0rem;
@@ -111,6 +110,12 @@
 	.m-messenger .m-messenger__messages .m-messenger__message.m-messenger__message--out .m-messenger__message-content {
 		background: #00c5dc; 
 	}
+	.m-messenger .m-messenger__messages .m-messenger__message .m-messenger__message-body .m-messenger__message-content{
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 	.m-messenger.m-messenger.m-messenger--message-arrow .m-messenger__message.m-messenger__message--out .m-messenger__message-arrow {
 		color: #00c5dc;
 	}
@@ -134,6 +139,10 @@
 	#my-portlet__footer{
 		padding-bottom: 0px;
     	padding-top: 5px;
+	}
+	.m-widget3 .m-widget3__item{
+		margin-bottom: 0px;
+
 	}
 </style>
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
@@ -168,8 +177,10 @@
 </head>
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 @php $data = Session::get('perfiles'); @endphp
+@if (isset($data))
 <input type="hidden" id="idUsertext" value="<?php echo $data['v_detalle'][0]->idUser ?>" >
 <input type="hidden" id="idPerfiltext" value="<?php echo $data['idPerfil'] ?>" >
+@endif
 	<form id="formLogout" method="POST" style="display: none;">
 		{{ csrf_field() }}
 	</form>
@@ -232,6 +243,7 @@
 			</div>
 			<div id="my-portlet__footer" class="m-portlet__foot">
 				<form id="FormChat">
+					<input type="hidden" name="caso" id="caso" value="1">
 					<input type="hidden" name="idChat" id="idChat" value="0">
 					<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
