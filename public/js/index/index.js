@@ -136,15 +136,19 @@ var SendMessage = function(){
 }
 
 var LoadMessage = function(){
-	parametroAjaxGET.ruta = rutaGetChat;
-    respuesta=procesarajaxChat(parametroAjaxGET);
-    ManejoRespuestaProcesarGetChat(respuesta); 
+	if (v_salir==0){
+		parametroAjaxGET.ruta = rutaGetChat;
+    	respuesta=procesarajaxChat(parametroAjaxGET);
+    	ManejoRespuestaProcesarGetChat(respuesta); 
+	}
 }
 
 var LoadMailbox = function(){
-	parametroAjaxGET.ruta = rutaGetAllChat;
-    respuesta=procesarajaxChat(parametroAjaxGET);
-    ManejoRespuestaProcesarGetAllChat(respuesta);
+	if (v_salir==0){
+		parametroAjaxGET.ruta = rutaGetAllChat;
+    	respuesta=procesarajaxChat(parametroAjaxGET);
+    	ManejoRespuestaProcesarGetAllChat(respuesta);
+	}
 }
 $(document).ready(function() {
 	moment.lang('es');
@@ -169,8 +173,8 @@ $(document).ready(function() {
 		break;
 
 	}
-	setTimeout(function(){Salir();}, 600000);
-	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	// setTimeout(function(){Salir();}, 600000);
+	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {
