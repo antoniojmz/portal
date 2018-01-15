@@ -1,5 +1,5 @@
 var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
-var errorLoad = errorLoadAll = 0;
+var errorLoad = errorLoadAll = stopload =0;
 var cambiarSalir = function(){
 	v_salir = 1;
 }
@@ -21,6 +21,7 @@ var parametroAjax = {
 };
 
 var Salir = function(){
+	stopload = 1;
 	parametroAjax.ruta=salir;
 	parametroAjax.data = $("#formLogout").serialize();
 	procesarajax(parametroAjax);
@@ -136,18 +137,18 @@ var SendMessage = function(){
 }
 
 var LoadMessage = function(){
-	if (v_salir==0){
+	if (stopload==0){
 		parametroAjaxGET.ruta = rutaGetChat;
-    	respuesta=procesarajaxChat(parametroAjaxGET);
-    	ManejoRespuestaProcesarGetChat(respuesta); 
+		respuesta=procesarajaxChat(parametroAjaxGET);
+		ManejoRespuestaProcesarGetChat(respuesta); 
 	}
 }
 
 var LoadMailbox = function(){
-	if (v_salir==0){
+	if (stopload==0){
 		parametroAjaxGET.ruta = rutaGetAllChat;
-    	respuesta=procesarajaxChat(parametroAjaxGET);
-    	ManejoRespuestaProcesarGetAllChat(respuesta);
+		respuesta=procesarajaxChat(parametroAjaxGET);
+		ManejoRespuestaProcesarGetAllChat(respuesta);
 	}
 }
 $(document).ready(function() {
@@ -174,7 +175,7 @@ $(document).ready(function() {
 
 	}
 	// setTimeout(function(){Salir();}, 600000);
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {

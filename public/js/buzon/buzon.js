@@ -109,11 +109,13 @@ var LoadBuzon = function(){
 }
 
 var selected = function(){
-    if (refreshMessage == 0){
-        LoadBuzon();           
-    }else{
-        if (VarIdChat != 0){cargarFormulario(VarIdChat);}
-    }
+    if (stopload==0){
+        if (refreshMessage == 0){
+            LoadBuzon();           
+        }else{
+            if (VarIdChat != 0){cargarFormulario(VarIdChat);}
+        }
+    }    
 }
 
 $(document).ready(function(){

@@ -49,7 +49,7 @@ class Chat extends Authenticatable
 
     // Chat para proveedores(bandeja de entrada Clientes)
     public function listChatCliente(){
-        $sql = "select * from v_chat c where c.idChatMessage = (SELECT MAX(idChatMessage) FROM chatMessage cm where c.idChat=cm.idChat) and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') order by fechaChat DESC";
+        $sql = "select * from v_chat c where c.idChatMessage = (SELECT MAX(idChatMessage) FROM chatMessage cm where c.idChat=cm.idChat) and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') order by FechaMessage DESC";
         $result = DB::select($sql);
         return $result;
     }
