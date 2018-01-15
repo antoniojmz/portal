@@ -64,7 +64,6 @@ Route::post('/chat', 'ChatController@postChat')->name('chat');
 Route::get('/chatC', 'ChatController@getChatcliente')->name('chatC');
 //Buzon de mensajes (Clientes)
 Route::get('/buzon', 'ChatController@getBuzon')->name('buzon');
-Route::get('/buzonR', 'ChatController@getBuzonR')->name('buzonR');
 // Conversaciones entre proveedores y clientes
 Route::post('/conversacion', 'ChatController@postConversacion')->name('conversacion');
 

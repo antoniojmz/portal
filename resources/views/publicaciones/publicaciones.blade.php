@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10 table-responsive">
-				<table id="tablaPublicaciones" class="display m-portlet__body" cellspacing="0" width="100%"></table>
+				<table id="tablaPublicaciones" class="display compact" cellspacing="0" width="100%"></table>
 			</div>
 			<div class="col-md-1"></div>
 		</div>

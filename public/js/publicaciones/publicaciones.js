@@ -65,7 +65,7 @@ var cargarTablaPublicaciones = function(data){
             "columnDefs": [
                 {
                     "targets": [ 1 ],
-                    "searchable": false
+                    "searchable": true
                 },
                 {"sWidth": "26%", "aTargets": [1]},
                 {"sWidth": "14%", "aTargets": [2]},

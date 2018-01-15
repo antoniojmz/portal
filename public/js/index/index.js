@@ -87,16 +87,25 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 	if(respuesta.code==200){
 		var res = respuesta.respuesta
-		if (res.length > 0){
-			$("#countChat").html('<span class="m-nav__link-badge m-badge m-badge--accent">'+res.length+'</span>');
-		}
 		var array = [];
+		var count = 0;
 		for (i = 0; i < res.length; i++) { 
 			var operador = '';
 			var usuario = '';
 			res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
-			array[i]='<div class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i]['Proveedor']+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i]['Usuario']+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i]['fechaChat']).fromNow()+' </span></div>';
+			if (res[i].statusMessage==1){
+				count++;
+				array[i]='<div style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+			}else{
+				array[i]='<div class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+			}
+			
 			$("#divBuzon").html(array);
+		}
+		if (count > 0){
+			$("#countChat").html('<span class="m-nav__link-badge m-badge m-badge--accent">'+count+'</span>');
+		}else{
+			$("#countChat").html('');
 		}
     }else{
     	if (errorLoadAll==0){
@@ -160,8 +169,8 @@ $(document).ready(function() {
 		break;
 
 	}
-	// setTimeout(function(){Salir();}, 600000);
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	setTimeout(function(){Salir();}, 600000);
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {

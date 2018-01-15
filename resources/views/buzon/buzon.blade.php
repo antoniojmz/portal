@@ -1,5 +1,13 @@
 @extends('menu.index')
 @section('content')
+<style type="text/css" media="screen">
+	.m-widget3 .m-widget3__item .m-widget3__header .m-widget3__user-img{
+		margin:4px;
+	}	
+	.m-portlet{
+		padding: 0px;
+	}
+</style>
 <div class="container col-md-10">
 	<div class="col-lg-12 divForm m-portlet">
 		<div class="m-portlet__head">
@@ -11,17 +19,13 @@
 				</center>
 			</div>
 		</div>
-
 		<div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-max-height="450" data-scrollable="true" data-max-height="500" data-mobile-max-height="450">
 			<div id="divBandejaMensaje" class="m-widget3" ></div>
 		</div>
 	</div>
 	<div class="col-lg-12 divForm" style="display:none;">
-		
-
-
 		<div class="m-portlet">
-			<div class="m-portlet__head">
+			<div class="m-portlet__head">	
 				<div class="m-portlet__head-caption">
 					<div class="m-portlet__head-title">
 						<div class="m-card-user m-card-user--skin-dark">
@@ -31,6 +35,15 @@
 						</div>
 						<h3 id="NombreUsuario" class="m-portlet__head-text"></h3>
 					</div>
+				</div>
+				<div class="m-portlet__head-tools">
+					<ul class="m-portlet__nav">
+						<li class="m-portlet__nav-item">
+							<a id="volverChat" href="#" class="m-nav__link">
+								volver
+							</a>
+						</li>								
+					</ul>
 				</div>
 			</div>
 			<div class="m-portlet__body">
@@ -60,30 +73,16 @@
 				</form>
 			</div>
 		</div>
-
-
-
-
-		<button type="button" id="volverChat"> volver</button>
 	</div>
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('buzon') }}"
 	var rutaC = "{{ URL::route('conversacion') }}"
 	var rutaS = "{{ URL::route('chat') }}"
-	var RutabR = "{{ URL::route('buzonR') }}"
+	var RutabR = "{{ URL::route('chatC') }}"
 	var d = [];
 	d['v_chat'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_chat) }}'));
 	d['idUser'] = JSON.parse(rhtmlspecialchars('{{ json_encode($idUser) }}'));
-	console.log(d);
 </script>
 <script src="{{ asset('js/buzon/buzon.js') }}"></script>
 @endsection
-
-
-
-
-
-
-
-

@@ -99,7 +99,7 @@ var LoadBuzon = function(){
     parametroAjaxGET.ruta = RutabR;
     respuesta=procesarajaxChat(parametroAjaxGET);
     if (respuesta.code == 200){
-        cargarBuzon(respuesta.respuesta.v_chat);
+        cargarBuzon(respuesta.respuesta);
     }else{
         if(errorLoadAll==0){
             toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
@@ -116,15 +116,10 @@ var selected = function(){
     }
 }
 
-
 $(document).ready(function(){
     cargarBuzon(d.v_chat);  
     setInterval("selected()", 500);
-    // $(".span").text("Desconocido");
-    // $("#spanTitulo").text("Listado de Clientes");
-    // cargartablaClientes(d.v_clientes);
-    // crearcombo('#Selectcampo',d.v_busq_cliente);
-    // $(document).on('click','#consultar',ProcesarConsulta);
+    // selected();
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });
