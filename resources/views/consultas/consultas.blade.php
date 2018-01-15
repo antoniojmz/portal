@@ -246,7 +246,6 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						 table-striped table-hover
 						<table id="tablaReportes" class="display compact table table-bordered" cellspacing="0"></table>
 					</div>
 				</div>

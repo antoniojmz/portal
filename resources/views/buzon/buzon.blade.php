@@ -8,6 +8,12 @@
 		padding: 0px;
 	}
 </style>
+<?php 
+	$value=0;
+	if(!empty($_GET['value'])){
+		$value = $_GET['value'];
+	} 
+?>
 <div class="container col-md-10">
 	<div class="col-lg-12 divForm m-portlet">
 		<div class="m-portlet__head">
@@ -83,6 +89,7 @@
 	var d = [];
 	d['v_chat'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_chat) }}'));
 	d['idUser'] = JSON.parse(rhtmlspecialchars('{{ json_encode($idUser) }}'));
+	d['idChat'] = JSON.parse(rhtmlspecialchars('{{ json_encode($value) }}'));
 </script>
 <script src="{{ asset('js/buzon/buzon.js') }}"></script>
 @endsection

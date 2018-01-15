@@ -57,7 +57,7 @@ var ManejoRespuestaProcesarChat = function (respuesta){
             toastr.warning(respuesta.respuesta.des_code, "Info!");
         }
     }else{
-        toastr.error("Contacte al personal informatico", "Error!");
+        toastr.error("Disculpe, No conseguimos enviar su mensaje", "Error!");
     }
 }
 
@@ -77,12 +77,7 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 		}
 		var altura = $("#mCSB_3").prop("scrollHeight");
 		$("#mCSB_3").scrollTop(altura);
-    }else{
-    	if (errorLoad==0){
-        	toastr.warning("Ocurrio un error al cargar el chat", "Error!");
-        	errorLoad = 1;
-    	}
-   }
+    }
 }
 
 var ManejoRespuestaProcesarGetAllChat = function (respuesta){
@@ -96,9 +91,9 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
 			if (res[i].statusMessage==1){
 				count++;
-				array[i]='<div style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
 			}else{
-				array[i]='<div class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
 			}
 			
 			$("#divBuzon").html(array);
@@ -108,12 +103,11 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 		}else{
 			$("#countChat").html('');
 		}
-    }else{
-    	if (errorLoadAll==0){
-        	toastr.warning("Ocurrio un error al cargar el chat", "Error!");
-        	errorLoadAll = 1;
-    	}
-   }
+    }
+}
+
+var LoadConversation = function(data){
+	window.location.href = "/buzon?value="+data;
 }
 
 var ShowMessage = function(){
@@ -175,7 +169,7 @@ $(document).ready(function() {
 
 	}
 	// setTimeout(function(){Salir();}, 600000);
-	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {

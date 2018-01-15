@@ -1,6 +1,6 @@
-var errorLoad = errorLoadAll = refreshMessage = VarIdChat = 0;
+var errorLoad = errorLoadAll = refreshMessage = VarIdChat = VarReload = 0;
 
-var parametroAjax = {
+var parametroAjaxB = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
     'data': {},
@@ -8,7 +8,7 @@ var parametroAjax = {
     'async': false
 };
 
-var parametroAjaxGET = {
+var parametroAjaxGETB = {
     'token': $('input[name=_token]').val(),
     'tipo': 'GET',
     'data': {},
@@ -45,6 +45,20 @@ var ManejoRespuestaC = function(respuesta,idChat){
     };
 }
 
+var ManejoRespuestaProcesarBChat = function (respuesta){ 
+    if(respuesta.code==200){
+        var res = JSON.parse(respuesta.respuesta.f_registro_chat);
+        if(res.code==200){
+            $("#idChat").val(res.idChat);
+            $("#message").val("");
+        }else{
+            toastr.warning(respuesta.respuesta.des_code, "Info!");
+        }
+    }else{
+        toastr.error("Disculpe, No conseguimos enviar su mensaje", "Error!");
+    }
+}
+
 var enviarMessage = function(){
     var message = $("#message").val();
     var id_chat = $("#idChat").val();
@@ -53,26 +67,31 @@ var enviarMessage = function(){
             toastr.warning("No fue posible identificar el origen del chat. Por favor, intente nuevamente", "Error!");
             return;
         }else{
-            parametroAjax.ruta = rutaGetChat;
-            parametroAjax.data = $("#FormChatC").serialize();
-            respuesta=procesarajaxChat(parametroAjax);
-            ManejoRespuestaProcesarChat(respuesta);
+            parametroAjaxB.ruta = rutaGetChat;
+            parametroAjaxB.data = $("#FormChatC").serialize();
+            respuesta=procesarajaxChat(parametroAjaxB);
+            ManejoRespuestaProcesarBChat(respuesta);
         }
     }    
 };
 
 var cargarFormulario = function(idChat){
-    parametroAjax.ruta=rutaC;
-    parametroAjax.data = {"idChat":idChat};
-    respuesta=procesarajaxChat(parametroAjax);
+    parametroAjaxB.ruta=rutaC;
+    parametroAjaxB.data = {"idChat":idChat};
+    respuesta=procesarajaxChat(parametroAjaxB);
     ManejoRespuestaC(respuesta,idChat);
 }
 
 var volverChat = function(){
-    $(".divForm").toggle();
     $("#FormChatC")[0].reset();
     refreshMessage = 0; 
     $('#imgUserChat').attr('src','/img/default.png')+ '?' + Math.random();    
+    if (VarReload == 1){
+        VarReload = 0;
+        window.location.href = "/buzon";
+    }else{
+        $(".divForm").toggle();
+    }
 }
 
 var cargarBuzon = function(res){
@@ -84,20 +103,20 @@ var cargarBuzon = function(res){
         if (foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
         if (res[i].Operador != null){ operador=res[i].Operador}
         var message = res[i].message;
-        var cadena =150;
+        var cadena =60;
         if (message.length > cadena ){message = message.substr(0,cadena)+"...";} 
         if (res[i].statusMessage==1){
-            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
         }else{
-            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
         }
     } 
     $("#divBandejaMensaje").html(array);
 }
 
 var LoadBuzon = function(){
-    parametroAjaxGET.ruta = RutabR;
-    respuesta=procesarajaxChat(parametroAjaxGET);
+    parametroAjaxGETB.ruta = RutabR;
+    respuesta=procesarajaxChat(parametroAjaxGETB);
     if (respuesta.code == 200){
         cargarBuzon(respuesta.respuesta);
     }else{
@@ -118,10 +137,15 @@ var selected = function(){
     }    
 }
 
+var Cargarconversacion = function(idChat){
+    if (idChat > 0){cargarFormulario(idChat);VarReload=1;}
+}
+
 $(document).ready(function(){
-    cargarBuzon(d.v_chat);  
-    setInterval("selected()", 500);
+    cargarBuzon(d.v_chat);
+    Cargarconversacion(d['idChat']);  
     // selected();
+    setInterval("selected()", 500);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });

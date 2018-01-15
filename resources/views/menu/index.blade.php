@@ -215,7 +215,7 @@
 		</div>
 	</div>
 	<div id="divChat" class="divChats" style="display:none;">
-		<div class="m-portlet">
+		<div class="m-portlet" style="border-radius:10px 10px 0px 0px;">
 			<div id="divButtonChat" class="m-portlet__head">
 				<div class="m-portlet__head-caption">
 					<div class="m-portlet__head-title">
