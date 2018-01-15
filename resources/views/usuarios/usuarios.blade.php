@@ -23,7 +23,7 @@
 			<br />
 			<div class="row">
 				<div class="col-md-12 table-responsive">
-					<table id="tablaUsuarios" class="display m-portlet__body" cellspacing="0" width="100%"></table>
+					<table id="tablaUsuarios" class="display compact" cellspacing="0" width="100%"></table>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 						<div class="col-md-7">
 							<form id="FormPerfil" method="POST">
 								<input type="hidden" id="idUser2">
-								<select class="comboclear" id="idPerfil" name="idPerfil" style="width:100%;">
+								<select class="comboclear form-control m-select2" id="idPerfil" name="idPerfil" style="width:100%;">
 									<option value="">Seleccione..</option>
 								</select>
 							</form>
@@ -72,7 +72,7 @@
 
 	
 					<div class="table-responsive" id="divTablaPerfiles" style="display:none;">
-						<table id="tablaPerfiles" class="display m-portlet__body" cellspacing="0" width="100%">	</table>
+						<table id="tablaPerfiles" class="display compact" cellspacing="0" width="100%">	</table>
 					</div>
 				</div>
 				<div class="col-md-2"></div>

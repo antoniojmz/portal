@@ -31,8 +31,7 @@ var cargarTablaAccesos = function(data){
 	  	},
         "columnDefs": [
         {
-            "targets": [ 1 ],
-            "searchable": false
+            "targets": [ 1 ]
         }],
         "data": data,
         "columns":[

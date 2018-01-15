@@ -35,8 +35,9 @@ class HomeController extends Controller
     
     public function getHome()
     {   
-        $usuario = Auth::user();
-        $data['idPerfil'] = $usuario->idPerfil;
+        // $data['user'] = Auth::user();
+        // $idUser = Auth::id();
+        // $data['idPerfil'] = $data['user']->idPerfil;
         $model= new Home();
         $data['v_publicaciones'] = $model->listPublicacionesHome();
         return view('menu.home', $data);

@@ -134,7 +134,7 @@ var cargarTablaUsuarios = function(data){
             "columnDefs": [
             {
                 "targets": [ 1 ],
-                "searchable": false
+                "searchable": true
             },
             {"sWidth": "20%", "aTargets": [1]},
             {"sWidth": "15%", "aTargets": [2]},
