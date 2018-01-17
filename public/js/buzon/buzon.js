@@ -145,7 +145,7 @@ $(document).ready(function(){
     cargarBuzon(d.v_chat);
     Cargarconversacion(d['idChat']);  
     // selected();
-    setInterval("selected()", 500);
+    setInterval("selected()", 2500);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });

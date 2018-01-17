@@ -155,21 +155,21 @@ $(document).ready(function() {
 		break;
 		case "2":
 		    // console.log("Soy cliente home");
-		    LoadMailbox();
-			// setInterval("LoadMailbox()", 500);
+		    // LoadMailbox();
+			setInterval("LoadMailbox()", 2500);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
 		    // LoadMessage();
-			setInterval("LoadMessage()", 3000);
+			setInterval("LoadMessage()", 2500);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
 		break;
 
 	}
-	// setTimeout(function(){Salir();}, 600000);
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	setTimeout(function(){Salir();}, 600000);
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {
