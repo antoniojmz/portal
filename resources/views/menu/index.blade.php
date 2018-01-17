@@ -18,12 +18,12 @@
 	<!--Begin::Web font -->
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 	<script language="JavaScript" type="text/javascript">
-		WebFont.load({
-			google: {"families":["Montserrat:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-			active: function() {
-				sessionStorage.fonts = true;
-			}
-		});
+        WebFont.load({
+            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
 		var v_salir = 0;
 		var salir = "{{ URL::route('logout') }}";
 	</script>
@@ -31,8 +31,8 @@
 	<!-- ////////////////////////////////////////////////////////////////////////////// -->
 	<!-- begin::Base Styles -->
 	<!-- ////////////////////////////////////////////////////////////////////////////// -->
-	{!! Html::style('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.css') !!}
-	{!! Html::style('theme/dist/html/demo3/assets/demo/demo3/base/style.bundle.css') !!}
+	{!! Html::style('theme/dist/html/demo2/assets/vendors/base/vendors.bundle.css') !!}
+	{!! Html::style('theme/dist/html/demo2/assets/demo/demo2/base/style.bundle.css') !!}
 	<!-- Estilos Plugins -->
 	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.css') !!}
 	{!! Html::style('plugins/font-awesome-4.7.0/css/font-awesome.min.css') !!}
@@ -148,9 +148,9 @@
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
 <!--begin::Base Scripts -->
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
-{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }}
-{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
-{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
+{{ HTML::script('theme/dist/html/demo2/assets/vendors/base/vendors.bundle.js') }}
+{{ HTML::script('theme/dist/html/demo2/assets/demo/demo2/base/scripts.bundle.js') }}
+{{ HTML::script('theme/dist/html/demo2/assets/app/js/dashboard.js') }}
 {{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
 <!-- Scritp Plugins -->
 <!-- datatables -->
@@ -175,7 +175,8 @@
 {{ HTML::script('js/utils/utils.js') }}
 {{ HTML::script('js/index/index.js') }}
 </head>
-<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
 @php $data = Session::get('perfiles'); @endphp
 @if (isset($data))
 <input type="hidden" id="idUsertext" value="<?php echo $data['v_detalle'][0]->idUser ?>" >
@@ -184,17 +185,22 @@
 	<form id="formLogout" method="POST" style="display: none;">
 		{{ csrf_field() }}
 	</form>
-	<div id="divSeparacion" class="m-grid m-grid--hor m-grid--root m-page">
-		@include('menu.menu_superior')
-		<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-			@include('menu.menu_izquierdo')
-			<div class="m-grid__item m-grid__item--fluid m-wrapper">
-				<br />
-				@yield('content')
+		<div class="m-grid m-grid--hor m-grid--root m-page">
+			@include('menu.menu_header')
+			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+				<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver	m-container m-container--responsive m-container--xxl m-page__container">
+					<div class="m-grid__item m-grid__item--fluid m-wrapper">
+						<div class="m-content">
+							@yield('content')
+						</div>
+					</div>
+				</div>
 			</div>
+			@include('menu.menu_footer')
 		</div>
-		@include('menu.menu_footer')
-	</div>
+		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
+			<i class="la la-arrow-up"></i>
+		</div>
 @if (isset($data))
 	@if ($data['idPerfil']==3)
 	<div id="divChatMin" class="divChats">

@@ -155,13 +155,13 @@ $(document).ready(function() {
 		break;
 		case "2":
 		    // console.log("Soy cliente home");
-		    // LoadMailbox();
-			setInterval("LoadMailbox()", 500);
+		    LoadMailbox();
+			// setInterval("LoadMailbox()", 500);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
 		    // LoadMessage();
-			setInterval("LoadMessage()", 500);
+			setInterval("LoadMessage()", 3000);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
