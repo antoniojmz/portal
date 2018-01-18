@@ -65,7 +65,7 @@
 					<input type="hidden" name="idChat" id="idChat" value="0">
 					<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-						<div class="m-messenger__form">
+						<div class="m-messenger__form" style="padding-bottom: 2px;">
 							<div class="m-messenger__form-controls">
 								<textarea name="message" id="message" placeholder="Ingrese su mennsaje..." class="m-messenger__form-input" maxlength="990"></textarea>
 							</div>

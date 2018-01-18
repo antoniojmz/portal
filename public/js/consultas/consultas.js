@@ -68,7 +68,10 @@ var cargartablaDetalles = function(data){
     if (data.length>0){
         $("#tablaDetalles").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -93,7 +96,10 @@ var cargartablaReferencias = function(data){
     if (data.length>0){
         $("#tablaReferencias").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -126,7 +132,10 @@ var cargartablaEstados = function(data){
     if (data.length>0){
         $("#tablaEstados").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -161,6 +170,9 @@ var cargartablaTrazas = function(data){
         $("#tablaTrazas").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             'bSort': false,
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -193,7 +205,8 @@ var cargartablaReportes = function(data){
         $("#tablaReportes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
-            // "scrollY": '50vh',
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -203,8 +216,7 @@ var cargartablaReportes = function(data){
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
                 {
-                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
-                    // "data": "PdfDTE",
+                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
                     "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
                     "orderable":false,
                     "render": function(data, type, row, meta){
@@ -324,7 +336,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -335,7 +347,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'excel',
                     text: 'Exportar',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -346,7 +358,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'pdf',
                     text: 'PDF',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
                     pageSize:'LETTER',
                     title:'Listado DTEs',
@@ -431,6 +443,7 @@ var cal4 = function (){$("#fechaP").click();};
 var cal5 = function (){$("#fechaV").click();};
 var cal6 = function (){$("#fechaR").click();};
 $(document).ready(function(){
+    ClassActive("LiDtes");
     cargartablaReportes(d.v_dtes)
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Consultas DTE");

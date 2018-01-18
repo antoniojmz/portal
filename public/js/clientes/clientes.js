@@ -32,8 +32,10 @@ var cargartablaDTE = function(data){
     if (data.length>0){
         $("#tablaDTE").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -94,7 +96,10 @@ var cargartablaProveedores = function(data){
     if (data.length>0){
         $("#tablaProveedores").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -118,7 +123,10 @@ var cargartablaUsuarios = function(data){
     if (data.length>0){
         $("#tablaUsuarios").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -151,6 +159,9 @@ var cargartablaClientes = function(data){
     if (data.length>0){
         $("#tablaClientes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -169,7 +180,7 @@ var cargartablaClientes = function(data){
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado de Proveedores',
                     exportOptions: {
                         modifier: {
@@ -180,7 +191,7 @@ var cargartablaClientes = function(data){
                 {
                     extend: 'excel',
                     text: 'Exportar',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado de Proveedores',
                     exportOptions: {
                         modifier: {
@@ -191,7 +202,7 @@ var cargartablaClientes = function(data){
                 {
                     extend: 'pdf',
                     text: 'PDF',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
                     pageSize:'LETTER',
                     title:'Listado de Proveedores',
@@ -252,6 +263,7 @@ var BotonVolver = function(){
 }
 
 $(document).ready(function(){
+    ClassActive("LiClientes");
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Listado de Clientes");
     cargartablaClientes(d.v_clientes);

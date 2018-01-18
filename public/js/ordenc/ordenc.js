@@ -127,7 +127,8 @@ var cargartablaReportes = function(data){
         $("#tablaReportes").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
-            "scrollY": '50vh',
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -172,7 +173,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -183,7 +184,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'excel',
                     text: 'Exportar',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -194,7 +195,7 @@ var cargartablaReportes = function(data){
                 {
                     extend: 'pdf',
                     text: 'PDF',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
                     pageSize:'LETTER',
                     title:'Listado DTEs',
@@ -264,6 +265,7 @@ var crearAllcombos = function(d){
 
 var cal1 = function (){$("#fecha").click();};
 $(document).ready(function(){
+    ClassActive("LiOc");
     cargartablaReportes(d.v_ocs)
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Consultas OC");

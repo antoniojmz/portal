@@ -105,7 +105,6 @@ var actualizarFoto = function(){
 $(document).ready(function(){
     $('.input').prop('disabled', true);
     $('.input').addClass('spanDisable');
-    
     pintarDatosActualizar(d.v_datos);
     $(document).on('click','#modificar',BotonModificar);
     $(document).on('click','#guardar',validador);

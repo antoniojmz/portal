@@ -61,7 +61,7 @@ var cargarTablaPublicaciones = function(data){
             "scrollX": true,
             "scrollY": '45vh',
             "order": [[0,'desc'],[2,'desc']],
-            "scrollCollapse": false,
+            "scrollCollapse": true,
             "columnDefs": [
                 {
                     "targets": [ 1 ],
@@ -157,6 +157,8 @@ var seleccionarTablaPublicaciones = function(data){
                 switch(key) {
                     case "1":
                         cargarForm();
+    $("#spanTitulo").text("Listado de publicaciones");
+                      
                         pintarDatosActualizar(RegistroPublicacion);
                         break;
                     case "2":
@@ -173,6 +175,7 @@ var seleccionarTablaPublicaciones = function(data){
 }
 
 var pintarDatosActualizar= function(data){
+    $("#spanTitulo").text("Editar publicación");
     $("#divImagen").show();
     if(data.idNoticia!=null){$("#idNoticia").val(data.idNoticia);}
     if(data.fechaInicio!=null){$("#fechaInicio").val(moment(data.fechaInicio,"YYYY-MM-DD").format("DD-MM-YYYY"));}
@@ -262,7 +265,8 @@ var ProcesarPublicacion = function (){
 }
 
 var cargarForm = function(){
-	$(".divForm").toggle();	
+    $("#spanTitulo").text("Registrar publicación");
+    $(".divForm").toggle();	
     $("#idNoticia").val("");
     $("#urlImage").val("");
     $('#imgPublicacion').attr('src','img/default-img.png')+ '?' + Math.random();    
@@ -271,6 +275,7 @@ var cargarForm = function(){
 }
 
 var volverForm = function(){
+    $("#spanTitulo").text("Listado de publicaciones");
 	$(".divForm").toggle();
     $("#divImagen").hide();
     $("#urlImage").val("");
@@ -342,6 +347,8 @@ var buscarPublicaciones = function(){
 }
 
 $(document).ready(function(){
+    ClassActive("LiAdministracion");
+    $("#spanTitulo").text("Listado de publicaciones");
     buscarPublicaciones();
     crearallcombos(d);    
 	cargarCalendarios();
@@ -358,6 +365,7 @@ $(document).ready(function(){
 	     }
 	});
     $(document).on('click','#agregar',cargarForm);
+    $("#spanTitulo").text("Listado de publicaciones");
     $(document).on('click','#cancelar',volverForm);
     $(document).on('click','#volverT',volverForm);
     $(document).on('click','#guardar',validador);

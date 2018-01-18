@@ -40,111 +40,7 @@
 	{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
 	{!! Html::style('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css') !!}
 	{!! Html::style('plugins/validator/formValidation.min.css') !!}
-	{!! Html::style('plugins/DataTables-1.10.10/buttons.dataTables.min.css') !!}
-	<style TYPE="text/css">
-	.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {
-		margin-top:-1.0rem;
-	}
-	.help-block{
-		color:#FF0000;
-		font-size: 9px;
-	}
-	.gavatar{
-		display:inline-block;
-		border-radius:120px;
-		width:120px;
-		height:120px;
-		margin:20px;
-	} 
-	#spanTitulo{
-		font-size: 150%;
-	}
-	.spanSubTitulo{
-		font-size: 120%;
-	}
-	.spanDisable{
-		background-color: #F4F5F8;
-	}
-	#divChat{
-		width: 350px;
-		height: 300px;
-		position: fixed;
-		bottom: 92px;
-		right: 70px;
-		cursor: pointer;
-		text-align: center;
-		vertical-align: middle;
-		padding-top: 9px;
-		z-index: 11;
-		background-color:#FFF;
-		padding: 0px;
-		border-radius:10px 10px 0px 0px;
-	}
-	#divChatMin{
-		width: 350px;
-		height: 50px;
-		position: fixed;
-		bottom: 0px;
-		right: 70px;
-		cursor: pointer;
-		text-align: center;
-		vertical-align: middle;
-		padding-top: 9px;
-		z-index: 11; 
-		background-color:#1192f6;
-		border-radius:10px 10px 0px 0px;
-		color: #FFF;
-		padding-top: 5px;
-	}
-	#divTituloMin{
-		font-size:14px;
-		text-align:left;
-	}
-	.tituloMin{
-		margin-left:15px;
-	}
-	#tituloMax{
-		font-size: 14px;
-		color:#FFF;
-	}
-	.m-messenger .m-messenger__messages .m-messenger__message.m-messenger__message--out .m-messenger__message-content {
-		background: #00c5dc; 
-	}
-	.m-messenger .m-messenger__messages .m-messenger__message .m-messenger__message-body .m-messenger__message-content{
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-	.m-messenger.m-messenger.m-messenger--message-arrow .m-messenger__message.m-messenger__message--out .m-messenger__message-arrow {
-		color: #00c5dc;
-	}
-	#divPortlet{
-		border-radius:10px 10px 0px 0px;
-	}
-	#divButtonChat{
-		border-radius:10px 10px 0px 0px;
-		background-color:#1192F6;
-	}
-	#HrefMin{
-		float:right;
-		margin-right:1px;
-		/*z-index: 1000;*/
-	}
-	#HrefMax{
-		float:right;
-		margin-right:15px;
-		margin-top:5px;
-	}
-	#my-portlet__footer{
-		padding-bottom: 0px;
-    	padding-top: 5px;
-	}
-	.m-widget3 .m-widget3__item{
-		margin-bottom: 0px;
-
-	}
-</style>
+	{!! Html::style('css/app/app.css') !!}
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
 <!--begin::Base Scripts -->
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
@@ -174,9 +70,10 @@
 {{ HTML::script('plugins/Jquery.expander/jquery.expander.js') }}
 {{ HTML::script('js/utils/utils.js') }}
 {{ HTML::script('js/index/index.js') }}
+<script src="http://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
 </head>
 
-<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
+<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
 @php $data = Session::get('perfiles'); @endphp
 @if (isset($data))
 <input type="hidden" id="idUsertext" value="<?php echo $data['v_detalle'][0]->idUser ?>" >
@@ -185,22 +82,22 @@
 	<form id="formLogout" method="POST" style="display: none;">
 		{{ csrf_field() }}
 	</form>
-		<div class="m-grid m-grid--hor m-grid--root m-page">
-			@include('menu.menu_header')
-			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
-				<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver	m-container m-container--responsive m-container--xxl m-page__container">
-					<div class="m-grid__item m-grid__item--fluid m-wrapper">
-						<div class="m-content">
-							@yield('content')
-						</div>
+	<div id="divSeparacion" class="m-grid m-grid--hor m-grid--root m-page">
+		@include('menu.menu_header')
+		<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+			<!-- <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver	m-container m-container--responsive m-container--xxl m-page__container"> -->
+				<div class="m-grid__item m-grid__item--fluid m-wrapper">
+					<div class="m-content">
+						@yield('content')
 					</div>
 				</div>
-			</div>
-			@include('menu.menu_footer')
+			<!-- </div> -->
 		</div>
-		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-			<i class="la la-arrow-up"></i>
-		</div>
+		@include('menu.menu_footer')
+	</div>
+	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
+		<i class="la la-arrow-up"></i>
+	</div>
 @if (isset($data))
 	@if ($data['idPerfil']==3)
 	<div id="divChatMin" class="divChats">
@@ -240,7 +137,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="m-portlet__body">
+			<div class="m-portlet__body" style="background-color:#F2F3F8">
 				<div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-max-height="200" data-scrollable="true" data-max-height="250" data-mobile-max-height="200">
 					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
 						<div id="ChatBody" class="m-messenger__messages"></div>
@@ -253,7 +150,7 @@
 					<input type="hidden" name="idChat" id="idChat" value="0">
 					<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-						<div class="m-messenger__form">
+						<div class="m-messenger__form" style="margin-bottom: 15px;">
 							<div class="m-messenger__form-controls">
 								<textarea name="message" id="message" placeholder="Inicie el chat..." class="m-messenger__form-input" maxlength="990"></textarea>
 							</div>
@@ -269,7 +166,7 @@
 		</div>
 	</div> 
 	@endif
-	@endif
+@endif
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
 	</div>

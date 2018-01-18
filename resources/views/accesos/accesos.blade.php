@@ -1,23 +1,29 @@
 @extends('accesos.index')
 @section('content')
-<div class="container col-md-10" style="background-color: white;">
-	<div class="row">
-		<div class="col-md-12">
-			<br>
-			<center><span id="spanTitulo"></span></center>
-			<hr>
-		</div>
+<div class="row"> 
+	<div class="col-lg-3"></div>
+	<div class="col-lg-6">
+		<div class="m-portlet">
+	        <div class="m-portlet__head">
+	            <div class="m-portlet__head-caption">
+	                <center>
+	                    <span id="spanTitulo"></span>
+	                </center>
+	            </div>
+	        </div>
+	        <div class="m-portlet__body">
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10">
+						<div class="table-responsive">
+							<table id="tablaAccesos" class="display table" cellspacing="0" width="100%"></table>
+						</div>
+					</div>
+				</div>
+	        </div>
+	    </div>
 	</div>
-	<div id="divTabla" class="col-md-12 divForm">
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8 table-responsive">
-				<table id="tablaAccesos" class="display compact" cellspacing="0" width="100%"></table>
-				<br>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-	</div>
+	<div class="col-lg-3"></div>
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('accesos') }}"

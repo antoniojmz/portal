@@ -1,18 +1,6 @@
 @extends('menu.index')
 @section('content')
-<style type="text/css" media="screen">
-	table{
-		font-size:11px;
-	}
-	table thead th{
-		font-size:11px;
-		text-align : center;
-	}
-	table tbody tr td{
-		text-align : justify;
-	}
-</style>
-<div class="container col-md-12 m-portlet">
+<div class="col-md-12 m-portlet">
 	<div class="divForm">
 		<div class="row">
 			<div class="col-md-12">
@@ -246,7 +234,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						<table id="tablaReportes" class="display compact table table-bordered" cellspacing="0"></table>
+						<table id="tablaReportes" class="display compact table" cellspacing="0"></table>
 					</div>
 				</div>
 			</div>
@@ -411,7 +399,7 @@
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
 									<div class="table-responsive">
-										<table id="tablaDetalles" class="display compact" cellspacing="0" width="100%"></table>
+										<table id="tablaDetalles" class="display table" cellspacing="0" width="100%"></table>
 									</div>
 								</div>
 								<div class="col-md-1"></div>
@@ -424,7 +412,7 @@
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
 									<div class="table-responsive">
-										<table id="tablaReferencias" class="display compact" cellspacing="0" width="100%"></table>
+										<table id="tablaReferencias" class="display table" cellspacing="0" width="100%"></table>
 									</div>
 								</div>
 								<div class="col-md-1"></div>
@@ -437,7 +425,7 @@
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
 									<div class="table-responsive">
-										<table id="tablaEstados" class="display compact" cellspacing="0" width="100%"></table>
+										<table id="tablaEstados" class="display table" cellspacing="0" width="100%"></table>
 									</div>
 								</div>
 								<div class="col-md-1"></div>
@@ -479,7 +467,7 @@
       <div class="modal-body">
       	<div class="col-md-12">
 			<div class="table-responsive">
-				<table id="tablaTrazas" class="display compact" cellspacing="0" width="100%"></table>
+				<table id="tablaTrazas" class="display table" cellspacing="0" width="100%"></table>
 			</div>
 		</div>
       </div>

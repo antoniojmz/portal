@@ -130,7 +130,7 @@ var cargarTablaUsuarios = function(data){
             "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
             "scrollY": '45vh',
-            "scrollCollapse": false,
+            "scrollCollapse": true,
             "columnDefs": [
             {
                 "targets": [ 1 ],
@@ -224,7 +224,6 @@ var cargarTablaEmpresas = function(data){
        $("#divTablaPerfiles").show();
        $("#tablaEmpresas").dataTable({ 
             "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            "scrollCollapse": false,
             "paging": false,
             "searching": false,
             // "info": false,
@@ -432,6 +431,7 @@ var cambiarEstatusPerfil = function(data){
 
 
 $(document).ready(function(){
+    ClassActive("LiProveedores");
     $("#usrUserName").inputmask({
         mask: "99999999-*", placeholder:"________-_"
     });

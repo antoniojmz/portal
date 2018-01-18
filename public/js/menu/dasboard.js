@@ -96,6 +96,9 @@ var cargartablaDetalles = function(data){
         $("#tablaDetalles").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             'bSort': false,
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -121,6 +124,9 @@ var cargartablaReferencias = function(data){
         $("#tablaReferencias").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             'bSort': false,
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -145,6 +151,9 @@ var cargartablaEstados = function(data){
         $("#tablaEstados").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             'bSort': false,
+            "scrollX": true,
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -170,7 +179,8 @@ var cargartablaReportesEstadisticos = function(data){
         $("#tablaReportesEstadisticos").dataTable({
             'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
-            "scrollY": '50vh',
+            "scrollY": '45vh',
+            "scrollCollapse": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },
@@ -564,6 +574,7 @@ var cargarPanel = function(idPerfil){
 }
 
 $(document).ready(function(){
+    ClassActive("LiDashboard");    
 	cargarPanel(d.idPerfil);
     $(document).on('click','.LinkFacP',cambiarTabla);
     $(document).on('click','#volverTabProv',BotonVolver);

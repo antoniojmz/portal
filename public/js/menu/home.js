@@ -98,6 +98,7 @@ var Principio = function (){
 }
 
 $(document).ready(function(){
+    ClassActive("LiHome");    	
 	switch(d['v_perfil']) {
 	case "1":
 	    // console.log("Soy administrador home");

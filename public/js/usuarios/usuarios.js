@@ -129,7 +129,7 @@ var cargarTablaUsuarios = function(data){
             "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "scrollX": true,
             "scrollY": '45vh',
-            "scrollCollapse": false,
+            "scrollCollapse": true,
             "columnDefs": [
             {
                 "targets": [ 1 ],
@@ -323,6 +323,7 @@ var cargarFormulario= function(){
 }
 
 var volverPerfiles = function(){
+    $("#spanTitulo").text("Usuarios registrados");
     if (manejoRefresh==1){
         cambiarSalir();
         location.reload();
@@ -336,6 +337,7 @@ var volverPerfiles = function(){
 }
 
 var administrarPerfiles= function(data){
+    $("#spanTitulo").text("Administrar Perfiles de usuario");
     manejoRefresh=0;
     $("#idUser2").val(data.idUser)
     buscarPerfiles(data);
@@ -343,6 +345,7 @@ var administrarPerfiles= function(data){
 }
 
 var pintarDatosActualizar= function(data){
+    $("#spanTitulo").text("Editar Usuario");
     $("#perfiles").text("N/A o Inactivo")
     $('#divConsulta').show();
     $('#divSpanPerfiles').show();
@@ -366,6 +369,7 @@ var pintarDatosActualizar= function(data){
 }
 
 var BotonCancelar = function(){
+    $("#spanTitulo").text("Usuarios registrados");
     $(".divForm").toggle();    
     $('#divConsulta').hide();
     $('#FormUsuario')[0].reset();
@@ -383,6 +387,7 @@ var mostrarDesconocidos = function(){
 }
 
 var BotonAgregar = function(){
+    $("#spanTitulo").text("Registrar Usuario");
     cargarFormulario();
     mostrarDesconocidos();
     $("#divConsulta").hide();
@@ -461,6 +466,8 @@ var cambiarEstatusPerfil = function(data){
 
 
 $(document).ready(function(){
+    ClassActive("LiAdministracion");
+    $("#spanTitulo").text("Usuarios registrados");
     $("#usrUserName").inputmask({
         mask: "99999999-*", placeholder:"________-_"
     });

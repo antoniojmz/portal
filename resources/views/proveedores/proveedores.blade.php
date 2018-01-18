@@ -52,7 +52,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						<table id="tablaProveedores" class="display compact" cellspacing="0" width="100%"></table>
+						<table id="tablaProveedores" class="display table" cellspacing="0" width="100%"></table>
 					</div>
 				</div>
 			</div>
@@ -203,7 +203,7 @@
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
 									<div class="table-responsive">
-										<table id="tablaDTE" class="display compact" cellspacing="0" width="100%"></table>
+										<table id="tablaDTE" class="display table compact" cellspacing="0" width="100%"></table>
 									</div>
 								</div>
 								<div class="col-md-1"></div>
@@ -216,7 +216,7 @@
 									<div class="col-md-1"></div>
 									<div class="col-md-10">
 										<div class="table-responsive">
-											<table id="tablaClientes" class="display compact" cellspacing="0" width="100%"></table>
+											<table id="tablaClientes" class="display table" cellspacing="0" width="100%"></table>
 										</div>
 									</div>
 									<div class="col-md-1"></div>
@@ -229,7 +229,7 @@
 									<div class="col-md-1"></div>
 									<div class="col-md-10">
 										<div class="table-responsive">
-											<table id="tablaUsuarios" class="display compact" cellspacing="0" width="100%"></table>
+											<table id="tablaUsuarios" class="display table compact" cellspacing="0" width="100%"></table>
 										</div>
 									</div>
 									<div class="col-md-1"></div>

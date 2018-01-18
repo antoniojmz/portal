@@ -142,6 +142,7 @@ var Cargarconversacion = function(idChat){
 }
 
 $(document).ready(function(){
+    ClassActive("LiChatP");
     cargarBuzon(d.v_chat);
     Cargarconversacion(d['idChat']);  
     // selected();

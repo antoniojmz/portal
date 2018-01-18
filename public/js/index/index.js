@@ -1,5 +1,5 @@
 var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
-var errorLoad = errorLoadAll = stopload =0;
+var errorLoad = errorLoadAll = stopload = stopRead = 0;
 var cambiarSalir = function(){
 	v_salir = 1;
 }
@@ -51,6 +51,9 @@ var ManejoRespuestaProcesarChat = function (respuesta){
 	if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_chat);
         if(res.code==200){
+			console.log(stopRead);
+			stopRead = 0;
+			console.log(stopRead);
         	$("#idChat").val(res.idChat);
         	$("#message").val("");
         }else{
@@ -71,7 +74,8 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 			if (res[i].id_creador==v['idUser']){
 				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
 			}else{
-				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
+				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
+				if(res[i].statusAdmin==1){stopRead = 1;}
 			}
 			$("#ChatBody").html(array);
 		}
@@ -99,27 +103,34 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			$("#divBuzon").html(array);
 		}
 		if (count > 0){
-			$("#countChat").html('<span class="m-nav__link-badge m-badge m-badge--accent">'+count+'</span>');
+			// $("#countChat").html('<span class="m-nav__link-badge m-badge m-badge--accent">'+count+'</span>');
+			$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
+			$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
 		}else{
-			$("#countChat").html('');
+			$("#notificacionPri").html('');
+			$("#notificacionSec").html('');
 		}
     }
 }
 
-var LoadConversation = function(data){
-	window.location.href = "/buzon?value="+data;
-}
-
+// Maximizar ventana de chat
 var ShowMessage = function(){
 	$("#divChatMin").hide("slow");
 	$("#divChat").show("fast");
 }
 
+// Minimizar ventana de chat
 var HideMessage = function(){
 	$("#divChat").hide("fast");
 	$("#divChatMin").show("slow");
 }
 
+// Envio a la pantalla de mensajes con el chat seleccionado
+var LoadConversation = function(data){
+	window.location.href = "/buzon?value="+data;
+}
+
+//Enviar mensajes
 var SendMessage = function(){
 	var message = $("#message").val();
 	if (message.length > 1){	
@@ -130,6 +141,7 @@ var SendMessage = function(){
 	}
 }
 
+// Carga de mensajes
 var LoadMessage = function(){
 	if (stopload==0){
 		parametroAjaxGET.ruta = rutaGetChat;
@@ -138,6 +150,7 @@ var LoadMessage = function(){
 	}
 }
 
+//Carga de buzon de mensajes
 var LoadMailbox = function(){
 	if (stopload==0){
 		parametroAjaxGET.ruta = rutaGetAllChat;
@@ -145,8 +158,32 @@ var LoadMailbox = function(){
 		ManejoRespuestaProcesarGetAllChat(respuesta);
 	}
 }
+
+//Funcion que coloca el menu activo (Donde el usuario acaba de hacer click)
+var ClassActive = function(id){
+	$(".m-menu__item").removeClass("m-menu__item--active");
+	$("#"+id).addClass("m-menu__item--active");
+}
+
+var notificacionChat = function(){
+	if (stopRead == 1){
+		$("#divChatMin").animate({'background-color': "#00c5dc;"}, 900);
+		$("#divChatMin").animate({'background-color': "#840ad9;"}, 900);
+		$("#divChatMin").animate({'background-color': "#1192f6;"}, 900);	
+	}else{
+		$("#divChatMin").stop().animate();
+		// $("#divChatMin").animate({'background-color': "#1192f6;"});	
+	}
+} 
+
 $(document).ready(function() {
+	// moment en idioma español
 	moment.lang('es');
+	// Carga inicial del buzon de notificacones de Chat con Proveedores
+	$("#divBuzon").html("<br />No se encontraron resultados...");
+	$('#divBuzon').css('text-align','center');
+	$('#divBuzon').css('font-size','12px');
+	//Datos de usuario para cargar el contenido dependiendo del perfil
 	v['v_perfil'] = $("#idPerfiltext").val();
 	v['idUser'] = $("#idUsertext").val();
 	switch(v['v_perfil']) {
@@ -156,19 +193,21 @@ $(document).ready(function() {
 		case "2":
 		    // console.log("Soy cliente home");
 		    // LoadMailbox();
-			setInterval("LoadMailbox()", 2500);
+			setInterval("LoadMailbox()", 2000);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
+			setInterval("notificacionChat()", 3000);
 		    // LoadMessage();
-			setInterval("LoadMessage()", 2500);
+			setInterval("LoadMessage()", 2000);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
 		break;
-
 	}
+	//Cierre de sesion despues de 10 min de inactividad
 	setTimeout(function(){Salir();}, 600000);
+	// Cierre de session por manupulacion de url o cierre del navegador
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
@@ -177,4 +216,4 @@ $(document).ready(function() {
 	        cambiarSalir();
 	    }
 	});
-}); 
+});
