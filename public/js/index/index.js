@@ -226,9 +226,9 @@ $(document).ready(function() {
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	// setTimeout(function(){Salir();}, 600000);
+	setTimeout(function(){Salir();}, 600000);
 	// Cierre de session por manupulacion de url o cierre del navegador
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {
