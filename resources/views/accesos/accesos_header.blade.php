@@ -1,12 +1,8 @@
-@php
-$data = Session::get('perfiles');
-@endphp
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 	{{ csrf_field() }}
 	<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 </form>
 <header class="m-grid__item m-header"  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
-	@if (isset($data))
 	<div class="m-header__top">
 		<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
 			<div class="m-stack m-stack--ver m-stack--desktop">
@@ -27,6 +23,8 @@ $data = Session::get('perfiles');
 						</div>
 					</div>
 				</div>
+				@php $data = Session::get('perfiles'); @endphp
+				@if (isset($data))
 				<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 					<div class="row m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark " id="divInfoUsuario">
 						<ul class="m-menu__nav  m-menu__nav--submenu-arrow">
@@ -104,8 +102,8 @@ $data = Session::get('perfiles');
 						</div>
 					</div>
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>
-	@endif
 </header>
