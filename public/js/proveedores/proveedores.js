@@ -31,10 +31,8 @@ var cargartablaDTE = function(data){
     if(limpiarDte==1){destruirTabla('#tablaDTE');}
     if (data.length>0){
         $("#tablaDTE").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -95,7 +93,7 @@ var cargartablaClientes = function(data){
     if(limpiarClientes==1){destruirTabla('#tablaClientes');}
     if (data.length>0){
         $("#tablaClientes").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             "scrollCollapse": true,
             "language": {
@@ -120,7 +118,7 @@ var cargartablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');}
     if (data.length>0){
         $("#tablaUsuarios").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             "scrollCollapse": true,
             "language": {
@@ -161,10 +159,11 @@ var cargartablaProveedores = function(data){
     if (limpiar>0){destruirTabla('#tablaProveedores');}
     if (data.length>0){
         $("#tablaProveedores").dataTable({
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '50vh',
             "scrollCollapse": true,
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
             },

@@ -57,7 +57,8 @@ var cargarTablaPublicaciones = function(data){
     if (data.length>0){
         $("#spanNoReg").text("");
         $("#tablaPublicaciones").dataTable({ 
-            "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "aLengthMenu": DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "order": [[0,'desc'],[2,'desc']],

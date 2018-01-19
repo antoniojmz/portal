@@ -21,11 +21,10 @@ var ManejoRespuestaProcesar = function(respuesta){
 
 var cargarTablaAccesos = function(data){
     $("#tablaAccesos").dataTable({ 
-        "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+        'bSort': false,
         "scrollCollapse": false,
         "paging": false,
         "searching": false,
-		// "info": false,
     	"language": {
 	    	"info": "Seleccione un perfíl con doble click..."
 	  	},

@@ -1,6 +1,6 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10 m-portlet">
+<div class="col-md-12 m-portlet">
 	<div class="divForm">
 		<div class="row">
 			<div class="col-md-12">
@@ -155,13 +155,11 @@
 						<!-- tab de detalle DTE -->
 						<div class="tab-pane" id="m_builder_header" aria-expanded="false">
 							<div class="row">
-								<div class="col-md-1"></div>
-								<div class="col-md-10">
+								<div class="col-md-12">
 									<div class="table-responsive">
 										<table id="tablaDTE" class="display compact table" cellspacing="0" width="100%"></table>
 									</div>
 								</div>
-								<div class="col-md-1"></div>
 							</div>
 						</div>
 						@if ($idPerfil!=3)

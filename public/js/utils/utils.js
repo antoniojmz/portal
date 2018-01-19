@@ -1,3 +1,6 @@
+// Combo desplegable de datatable
+DataTableLengthMenu = [[5,10, 25, 50, 100, -1],[5,10, 25, 50, 100, "Todos"]]
+
 // blockUi Metronic
 var MyblockPage = function(){
     mApp.blockPage({

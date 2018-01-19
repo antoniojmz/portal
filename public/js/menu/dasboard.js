@@ -94,10 +94,7 @@ var cargartablaDetalles = function(data){
     if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
     if (data.length>0){
         $("#tablaDetalles").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
-            "scrollY": '45vh',
+            'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -122,10 +119,7 @@ var cargartablaReferencias = function(data){
     if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
     if (data.length>0){
         $("#tablaReferencias").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
-            "scrollY": '45vh',
+            'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -149,10 +143,7 @@ var cargartablaEstados = function(data){
     if (limpiarEstados>0){destruirTabla('#tablaEstados');}
     if (data.length>0){
         $("#tablaEstados").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
-            "scrollY": '45vh',
+            'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -177,7 +168,7 @@ var cargartablaReportesEstadisticos = function(data){
     	$("#divBienvenida").hide();
 		$(".divTablaFacP").toggle();
         $("#tablaReportesEstadisticos").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -209,7 +200,7 @@ var cargartablaReportesEstadisticos = function(data){
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -220,7 +211,7 @@ var cargartablaReportesEstadisticos = function(data){
                 {
                     extend: 'excel',
                     text: 'Exportar',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
                         modifier: {
@@ -231,7 +222,7 @@ var cargartablaReportesEstadisticos = function(data){
                 {
                     extend: 'pdf',
                     text: 'PDF',
-                    className: 'btn m-btn--pill',
+                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
                     pageSize:'LETTER',
                     title:'Listado DTEs',

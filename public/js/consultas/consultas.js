@@ -67,7 +67,7 @@ var cargartablaDetalles = function(data){
     if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
     if (data.length>0){
         $("#tablaDetalles").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -95,7 +95,7 @@ var cargartablaReferencias = function(data){
     if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
     if (data.length>0){
         $("#tablaReferencias").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -131,7 +131,7 @@ var cargartablaEstados = function(data){
     if (limpiarEstados>0){destruirTabla('#tablaEstados');}
     if (data.length>0){
         $("#tablaEstados").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -168,10 +168,10 @@ var cargartablaTrazas = function(data){
     if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
     if (data.length>0){
         $("#tablaTrazas").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            'bSort': false,
-            "scrollX": true,
-            "scrollY": '45vh',
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
             "scrollCollapse": true,
             "language": {
                     "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
@@ -203,7 +203,8 @@ var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
     if (data.length>0){
         $("#tablaReportes").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,

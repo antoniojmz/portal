@@ -125,9 +125,10 @@ var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
     if (data.length>0){
         $("#tablaReportes").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
-            "scrollY": '45vh',
+            "scrollY": '50vh',
             "scrollCollapse": true,
             "language": {
                 "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"

@@ -31,7 +31,7 @@ var cargartablaDTE = function(data){
     if(limpiarDte==1){destruirTabla('#tablaDTE');}
     if (data.length>0){
         $("#tablaDTE").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -95,7 +95,7 @@ var cargartablaProveedores = function(data){
     if(limpiarProveedores==1){destruirTabla('#tablaProveedores');}
     if (data.length>0){
         $("#tablaProveedores").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -122,7 +122,7 @@ var cargartablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');}
     if (data.length>0){
         $("#tablaUsuarios").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             // "scrollX": true,
             // "scrollY": '45vh',
@@ -158,7 +158,8 @@ var cargartablaClientes = function(data){
     if (limpiar>0){destruirTabla('#tablaClientes');}
     if (data.length>0){
         $("#tablaClientes").dataTable({
-            'aLengthMenu': [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,

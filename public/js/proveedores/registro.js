@@ -127,7 +127,8 @@ var cargarTablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');$('#tablaUsuarios thead').empty();}
     if (data.length>0){  
         $("#tablaUsuarios").dataTable({ 
-            "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "aLengthMenu": DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -223,7 +224,9 @@ var cargarTablaEmpresas = function(data){
         $("#spanAlert").text("");
        $("#divTablaPerfiles").show();
        $("#tablaEmpresas").dataTable({ 
-            "aLengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            "aLengthMenu": DataTableLengthMenu,
+            // 'bSort': false,
+            "scrollCollapse": true,
             "paging": false,
             "searching": false,
             // "info": false,
