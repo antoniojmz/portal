@@ -39,7 +39,9 @@ var ManejoRespuestaC = function(respuesta,idChat){
             }
             $("#ChatBodyC").html(arrayC);
         }
-        VarIdChat = idChat
+        var top = $("#styleScroll").prop("scrollHeight");
+        $("#styleScroll").scrollTop(top);
+        VarIdChat = idChat;
     }else{
         toastr.error("Error al cargar la conversación, contacte al personal informático", "Error!");
     };
@@ -96,21 +98,25 @@ var volverChat = function(){
 
 var cargarBuzon = function(res){
     var array = [];
-    for (i = 0; i < res.length; i++) {    
-        var image = '/img/default.png'
-        var foto = res[i].imageUsuario; 
-        var operador = "No asignado";
-        if (foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
-        if (res[i].Operador != null){ operador=res[i].Operador}
-        var message = res[i].message;
-        var cadena =60;
-        if (message.length > cadena ){message = message.substr(0,cadena)+"...";} 
-        if (res[i].statusMessage==1){
-            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
-        }else{
-            array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
-        }
-    } 
+    if (res.length > 0){
+        for (i = 0; i < res.length; i++) {    
+            var image = '/img/default.png'
+            var foto = res[i].imageUsuario; 
+            var operador = "No asignado";
+            if (foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
+            if (res[i].Operador != null){ operador=res[i].Operador}
+            var message = res[i].message;
+            var cadena =60;
+            if (message.length > cadena ){message = message.substr(0,cadena)+"...";} 
+            if (res[i].statusMessage==1){
+                array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+            }else{
+                array[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+            }
+        } 
+    }else{
+        array ='<div style="font-size:12px;color:#898b96"><br><center>No hay mensajes pendientes...</center></div>';
+    }
     $("#divBandejaMensaje").html(array);
 }
 
@@ -145,8 +151,8 @@ $(document).ready(function(){
     ClassActive("LiChatP");
     cargarBuzon(d.v_chat);
     Cargarconversacion(d['idChat']);  
-    // selected();
-    setInterval("selected()", 2500);
+    selected();
+    // setInterval("selected()", 2500);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });

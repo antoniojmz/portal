@@ -47,6 +47,15 @@ class Chat extends Authenticatable
         return $result;
     }
 
+    // Cambiar status (Leido)
+    public function statusChat($datos){
+        $values=array('statusAdmin'=>0);
+        return DB::table('chatMessage')
+            ->where('idChat',$datos['idChat'])
+            ->update($values);
+    }
+    
+
     // Chat para proveedores(bandeja de entrada Clientes)
     public function listChatCliente(){
         $sql = "select * from v_chat c where c.idChatMessage = (SELECT MAX(idChatMessage) FROM chatMessage cm where c.idChat=cm.idChat) and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') order by FechaMessage DESC";

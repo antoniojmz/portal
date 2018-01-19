@@ -47,14 +47,21 @@ toastr.options = {
 };
 
 
+var ManejoRespuestaCambiarStatusChat = function (respuesta){	
+	if(respuesta.code==200){
+		$("#divChatMin").stop();
+		stopRead = 0;	
+    }
+}
+
 var ManejoRespuestaProcesarChat = function (respuesta){	
 	if(respuesta.code==200){
         var res = JSON.parse(respuesta.respuesta.f_registro_chat);
         if(res.code==200){
-			console.log(stopRead);
 			stopRead = 0;
-			console.log(stopRead);
+			$("#divChatMin").stop();	
         	$("#idChat").val(res.idChat);
+        	$('#message').focus();
         	$("#message").val("");
         }else{
             toastr.warning(respuesta.respuesta.des_code, "Info!");
@@ -79,8 +86,8 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 			}
 			$("#ChatBody").html(array);
 		}
-		var altura = $("#mCSB_3").prop("scrollHeight");
-		$("#mCSB_3").scrollTop(altura);
+		var top = $("#styleScroll").prop("scrollHeight");
+		$("#styleScroll").scrollTop(top);
     }
 }
 
@@ -115,8 +122,11 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 
 // Maximizar ventana de chat
 var ShowMessage = function(){
+	$('#message').focus();
 	$("#divChatMin").hide("slow");
 	$("#divChat").show("fast");
+	$("#divChatMin").stop();
+	cambiarStatusMessage();
 }
 
 // Minimizar ventana de chat
@@ -139,6 +149,15 @@ var SendMessage = function(){
 	    respuesta=procesarajaxChat(parametroAjax);
 	    ManejoRespuestaProcesarChat(respuesta);
 	}
+}
+
+// Cambiar el status de los mensajes enviados por el administrador 
+//(Marcar como leido)
+var cambiarStatusMessage = function(){
+	parametroAjax.ruta = rutaStatusChat;
+    parametroAjax.data = $("#FormChat").serialize();
+    respuesta=procesarajaxChat(parametroAjax);
+    ManejoRespuestaCambiarStatusChat(respuesta);
 }
 
 // Carga de mensajes
@@ -165,14 +184,14 @@ var ClassActive = function(id){
 	$("#"+id).addClass("m-menu__item--active");
 }
 
+// Cambio de color en la barra del chat (Nuevo mensaje)
 var notificacionChat = function(){
 	if (stopRead == 1){
-		$("#divChatMin").animate({'background-color': "#00c5dc;"}, 900);
-		$("#divChatMin").animate({'background-color': "#840ad9;"}, 900);
-		$("#divChatMin").animate({'background-color': "#1192f6;"}, 900);	
+		$("#divChatMin").animate({'background-color': "#00c5dc;"}, 1000);
+		$("#divChatMin").animate({'background-color': "#840ad9;"}, 1000);
+		$("#divChatMin").animate({'background-color': "#1192f6;"}, 1000);	
 	}else{
-		$("#divChatMin").stop().animate();
-		// $("#divChatMin").animate({'background-color': "#1192f6;"});	
+		$("#divChatMin").animate({'background-color': "#1192f6;"});	
 	}
 } 
 
@@ -180,9 +199,10 @@ $(document).ready(function() {
 	// moment en idioma español
 	moment.lang('es');
 	// Carga inicial del buzon de notificacones de Chat con Proveedores
-	$("#divBuzon").html("<br />No se encontraron resultados...");
+	$("#divBuzon").html("<br />No hay mensajes pendientes...");
 	$('#divBuzon').css('text-align','center');
 	$('#divBuzon').css('font-size','12px');
+	$('#divBuzon').css('color','#898b96');
 	//Datos de usuario para cargar el contenido dependiendo del perfil
 	v['v_perfil'] = $("#idPerfiltext").val();
 	v['idUser'] = $("#idUsertext").val();
@@ -193,22 +213,22 @@ $(document).ready(function() {
 		case "2":
 		    // console.log("Soy cliente home");
 		    // LoadMailbox();
-			setInterval("LoadMailbox()", 2000);
+			setInterval("LoadMailbox()", 1300);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
-			setInterval("notificacionChat()", 3000);
+			setInterval("notificacionChat()", 3200);
 		    // LoadMessage();
-			setInterval("LoadMessage()", 2000);
+			setInterval("LoadMessage()", 1300);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	setTimeout(function(){Salir();}, 600000);
+	// setTimeout(function(){Salir();}, 600000);
 	// Cierre de session por manupulacion de url o cierre del navegador
-	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
 	$(document.body).on("keydown", this, function (event) {

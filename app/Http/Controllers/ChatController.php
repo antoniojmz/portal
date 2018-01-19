@@ -49,6 +49,14 @@ class ChatController extends Controller
         return $result;
     }
 
+    // Cambiar status al Chat(Mensaje leido)
+    protected function postStatuschat(Request $request){
+        $datos = $request->all();
+        $model= new Chat();
+        $result = $model->statusChat($datos);
+        return $result;
+    }
+
     // Buzon de mensajes (Clientes)
     protected function getBuzon(){
         $model= new Chat();

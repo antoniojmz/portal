@@ -52,12 +52,11 @@
 					</ul>
 				</div>
 			</div>
-			<div class="m-portlet__body">
-				<div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-max-height="200" data-scrollable="true" data-max-height="250" data-mobile-max-height="200">
-					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-						<div id="ChatBodyC" class="m-messenger__messages"></div>
-					</div>
+			<div  id="styleScroll" class="m-portlet__body scrollBar" style="background-color:#FFF"> 	
+				<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+					<div id="ChatBodyC" class="m-messenger__messages"></div>
 				</div>
+		      	<div class="forceOverflow"></div>
 			</div>
 			<div id="my-portlet__footer" class="m-portlet__foot">
 				<form id="FormChatC">

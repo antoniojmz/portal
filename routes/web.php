@@ -62,6 +62,9 @@ Route::post('/activarPu', 'PublicacionesController@postPublicacionactivo')->name
 Route::get('/chat', 'ChatController@getChat')->name('chat');
 Route::post('/chat', 'ChatController@postChat')->name('chat');
 Route::get('/chatC', 'ChatController@getChatcliente')->name('chatC');
+// Cambiar status a la conversacion (Leido)
+Route::post('/statusChat', 'ChatController@postStatuschat')->name('statusChat');
+
 //Buzon de mensajes (Clientes)
 Route::get('/buzon', 'ChatController@getBuzon')->name('buzon');
 // Conversaciones entre proveedores y clientes

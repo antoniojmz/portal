@@ -259,3 +259,33 @@ input[type=search]:focus {
 	border-bottom:1px solid #000 !important;
 	width: 200px;
 }
+
+.scrollBar{
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 249px;
+	background: #F5F5F5;
+}
+
+.forceOverflow{
+	min-height: 5px;
+}
+
+#styleScroll:-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+	border-radius: 15px;
+	background-color: #FFF;
+}
+
+#styleScroll::-webkit-scrollbar{
+	width: 5px;
+	height: 30px;
+	background-color: #F2F2F8;
+}
+
+#styleScroll::-webkit-scrollbar-thumb{
+	border-radius: 60px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+	background-color: #E8E8F0;
+	height: 55px;
+}
