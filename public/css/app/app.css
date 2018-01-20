@@ -118,9 +118,11 @@
 }
 table{
 	font-size:12px;
+	color:#575962;
 }
 table thead th{
 	/*font-size:12px;*/
+	font-weight:normal!important;
 	color:#575962;
 	background-color:#FFF; 
 }
@@ -152,30 +154,28 @@ table.dataTable thead th, table.dataTable thead td{
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
 	all: unset;
-	margin:5px;
 	color: #898b96 !important;
-	border-color:#F2F2F8; 
-	background-color:#F2F2F8;
-	font-weight: 400;
-	border: 1px solid transparent;
-	font-size: 1rem;
-	line-height: 1;
-	border-radius: 60px !important;
+	width: auto;
 	display: inline-block;
 	font-weight: 400;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
 	user-select: none;
-	padding: .65rem 1rem;
+	border: 1px solid transparent;
+	padding: .60rem 1rem;
 	font-size: 1rem;
 	line-height: 1.25;
 	transition: all .15s ease-in-out;
+	border-color:#F2F2F8; 
+	background-color:#F2F2F8;
+    border-radius: 1.9rem!important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
 	all: unset;
 	color: #FFF !important;
+	width: 7px;
 	display: inline-block;
 	font-weight: 400;
 	text-align: center;
@@ -183,18 +183,18 @@ table.dataTable thead th, table.dataTable thead td{
 	vertical-align: middle;
 	user-select: none;
 	border: 1px solid transparent;
-	padding: .65rem 1rem;
+	padding: .60rem 1rem;
 	font-size: 1rem;
 	line-height: 1.25;
 	transition: all .15s ease-in-out;
 	background-color: #00c5dc;
 	border-color: #00c5dc;
-	border-radius: 60px !important;
-
+    border-radius: 1.9rem!important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
 	all: unset;
 	color: #FFF !important;
+	width: 7px;
 	display: inline-block;
 	font-weight: 400;
 	text-align: center;
@@ -202,13 +202,13 @@ table.dataTable thead th, table.dataTable thead td{
 	vertical-align: middle;
 	user-select: none;
 	border: 1px solid transparent;
-	padding: .65rem 1rem;
+	padding: .60rem 1rem;
 	font-size: 1rem;
 	line-height: 1.25;
-	border-radius: .25rem;
 	transition: all .15s ease-in-out;
-	background-color:#00c5dc !important;
-	border-color:#00c5dc !important;
+	background-color: #00c5dc;
+	border-color: #00c5dc;
+    border-radius: 1.9rem!important;
 }
 
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{

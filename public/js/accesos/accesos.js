@@ -25,23 +25,23 @@ var cargarTablaAccesos = function(data){
         "scrollCollapse": false,
         "paging": false,
         "searching": false,
-    	"language": {
-	    	"info": "Seleccione un perfíl con doble click..."
-	  	},
-        "columnDefs": [
-        {
-            "targets": [ 1 ]
-        }],
-        "data": data,
-        "columns":[
-        {"title": "Id","data": "IdUser",visible:0},
-        {"title": "Nombres","data": "usrNombreFull"},
-        {"title": "Login","data": "usrUserName"},
-        {"title": "idPerfil","data": "idPerfil",visible:0},
-        {"title": "Perfíl","data": "des_perfil"},
-        {"title": "Estado","data": "estado_perfil"},
-        ],
-    });
+        "language": {
+          "info": "Seleccione un perfíl con doble click..."
+      },
+      "columnDefs": [
+      {
+        "targets": [ 1 ]
+    }],
+    "data": data,
+    "columns":[
+    {"title": "Id","data": "IdUser",visible:0},
+    {"title": "Nombres","data": "usrNombreFull"},
+    {"title": "Login","data": "usrUserName"},
+    {"title": "idPerfil","data": "idPerfil",visible:0},
+    {"title": "Perfíl","data": "des_perfil"},
+    {"title": "Estado","data": "estado_perfil"},
+    ],
+});
 };
 
 var seleccionarAcceso = function(data){
@@ -52,9 +52,10 @@ var seleccionarAcceso = function(data){
 }
 
 $(document).ready(function(){
-	$("#spanTitulo").text("Elige acceso");
-	cargarTablaAccesos(d.v_accesos);
-	var tableB = $('#tablaAccesos').dataTable();
+    setTimeout(function(){Salir();}, 600000);
+    $("#spanTitulo").text("Elige acceso");
+    cargarTablaAccesos(d.v_accesos);
+    var tableB = $('#tablaAccesos').dataTable();
     $('#tablaAccesos tbody').on('click', 'tr', function (e) {
         tableB.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
@@ -63,4 +64,5 @@ $(document).ready(function(){
     tableB.on('dblclick', 'tr', function () {
     	seleccionarAcceso(RegistroAcceso);
     });
+    $(document).on('click','#btn-logout',Salir);
 });

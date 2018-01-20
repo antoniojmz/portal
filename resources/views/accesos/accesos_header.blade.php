@@ -1,7 +1,4 @@
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-	{{ csrf_field() }}
-	<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
-</form>
+@php $data = Session::get('perfiles'); @endphp
 <header class="m-grid__item m-header"  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
 	<div class="m-header__top">
 		<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
@@ -23,9 +20,9 @@
 						</div>
 					</div>
 				</div>
-				@if (isset($data))
 				<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 					<div class="row m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark " id="divInfoUsuario">
+						@if (isset($data))
 						<ul class="m-menu__nav  m-menu__nav--submenu-arrow">
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 								<span class="m-menu__link-text">
@@ -51,6 +48,7 @@
 								</span>
 							</li>
 						</ul>
+						@endif
 					</div>
 					<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 						<div class="m-stack__item m-topbar__nav-wrapper">
@@ -87,7 +85,7 @@
 												<div class="m-dropdown__content">
 													<ul class="m-nav m-nav--skin-light">
 														<li class="m-nav__item">
-															<a href="{{ route('logout') }}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+															<a id="btn-logout" href="#" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
 																Logout
 															</a>
 														</li>
@@ -101,7 +99,6 @@
 						</div>
 					</div>
 				</div>
-				@endif
 			</div>
 		</div>
 	</div>

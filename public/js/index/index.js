@@ -1,5 +1,6 @@
 var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
 var errorLoad = errorLoadAll = stopload = stopRead = 0;
+var salir = "{{ URL::route('logout') }}";
 var cambiarSalir = function(){
 	v_salir = 1;
 }
@@ -20,14 +21,6 @@ var parametroAjax = {
     'async': false
 };
 
-var Salir = function(){
-	stopload = 1;
-	parametroAjax.ruta=salir;
-	parametroAjax.data = $("#formLogout").serialize();
-	procesarajax(parametroAjax);
-	window.location.href = "/";
-}
-
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -45,7 +38,6 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
-
 
 var ManejoRespuestaCambiarStatusChat = function (respuesta){	
 	if(respuesta.code==200){
@@ -110,7 +102,6 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			$("#divBuzon").html(array);
 		}
 		if (count > 0){
-			// $("#countChat").html('<span class="m-nav__link-badge m-badge m-badge--accent">'+count+'</span>');
 			$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
 			$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
 		}else{
@@ -231,6 +222,7 @@ $(document).ready(function() {
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
+    $(document).on('click','#btn-logout',Salir);
 	$(document.body).on("keydown", this, function (event) {
 	    if (event.keyCode == 116) {
 	        cambiarSalir();

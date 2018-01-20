@@ -1,0 +1,21 @@
+@media screen and (min-width:992px){
+    .m-brand{
+        width: 100px;
+    }
+    #divInfoUsuario{
+        color:#FFF;
+        float: left;
+        width: 80%;
+        float: left;
+    }
+}
+@media screen and (max-width:992px){
+    #divInfoUsuario{
+        display: none;
+    }
+}
+@media (min-width: 993px){
+    .m-header--fixed.m-header--minimize-off .m-header{
+        height: 0px;
+    }
+}

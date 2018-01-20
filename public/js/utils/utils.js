@@ -297,23 +297,6 @@ var AjustarTabla = function(tabla){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var mes_combo = [{ id: 1, text: 'Enero' }, { id: 2, text: 'Febrero' }, { id: 3, text: 'Marzo' }, { id: 4, text: 'Abril' }, { id: 5, text: 'Mayo' }, { id: 6, text: 'Junio' }, { id: 7, text: 'Julio' }, { id: 8, text: 'Agosto' }, { id: 9, text: 'Septiembre' }, { id: 10, text: 'Octubre' }, { id: 11, text: 'Noviembre' }, { id: 12, text: 'Diciembre' } ];
-var orden_combo = [{ id: 1, text: '1' }, { id: 2, text: '2' }, { id: 3, text: '3' }, { id: 4, text: '4' }, { id: 5, text: '5' }, { id: 6, text: '6' }, { id: 7, text: '7' }, { id: 8, text: '8' }, { id: 9, text: '9' }, { id: 10, text: '10' }, { id: 11, text: '11' }, { id: 12, text: '12' } ];
-var mensajesAlerta = function (titulo, mensaje, tipo){
-    $.messager.show({
-        title: titulo,
-        msg:'<div class="messager-icon messager-'+tipo+'"></div><div> '+mensaje,
-        timeout:4000,
-        showType:'show',
-        style:{
-            left:'',
-            right:0,
-            top:document.body.scrollTop+document.documentElement.scrollTop,
-            bottom:''
-        }
-    });
-}
-
 var rhtmlspecialchars = function (str) {
     if (typeof(str) == "string") {
         str = str.replace(/&gt;/ig, ">");
@@ -324,27 +307,6 @@ var rhtmlspecialchars = function (str) {
     }
     return str;
 }
-
-var tiempotranscurrido = function(fechaI, fechaF){
-    if (fechaI + '' == '') return '';
-
-    fechaF || ( fechaF = moment() );
-    // var b = moment([1980, 03, 23]);
-    var a = moment(moment(fechaF,'DD-MM-YYYY').format('YYYY-MM-DD'));
-    var b = moment(moment(fechaI,'DD-MM-YYYY').format('YYYY-MM-DD'));
-
-    var years = a.diff(b, 'year');
-    b.add(years, 'years');
-
-    var months = a.diff(b, 'months');
-    b.add(months, 'months');
-
-    var days = a.diff(b, 'days');
-
-    // console.log(years + ' año' + ((years>1)?'s ': ' ') + months + ' mes' + ((months>1)?'es ': ' ') + days + ' día' + ((days>1)?'s ': ' '));
-    return (years + ' año' + ((years>1)?'s ': ' ') + months + ' mes' + ((months>1)?'es ': ' ') + days + ' día' + ((days>1)?'s ': ' '));
-}
-
 
 // OpenWindowWithPost('public/pdf/Digitalización rápida en ByN a archivo PDF_1.pdf','','fgfgdrg',respuesta);
 function OpenWindowWithPost(url, windowoption, name, params){
@@ -366,6 +328,7 @@ function OpenWindowWithPost(url, windowoption, name, params){
     document.body.removeChild(form);
 }
 
+// OpenWindowWithGet('public/pdf/Digitalización rápida en ByN a archivo PDF_1.pdf','','fgfgdrg',respuesta);
 function OpenWindowWithGet(url, windowoption, name, params){
     var form = document.createElement("form");
     form.setAttribute("method", "get");
@@ -392,17 +355,14 @@ function SaveToDisk(fileURL, fileName) {
         save.href = fileURL;
         save.target = '_blank';
         save.download = fileName || 'unknown';
-
         var evt = new MouseEvent('click', {
             'view': window,
             'bubbles': true,
             'cancelable': false
         });
         save.dispatchEvent(evt);
-
         (window.URL || window.webkitURL).revokeObjectURL(save.href);
     }
-
     // for IE < 11
     else if ( !! window.ActiveXObject && document.execCommand)     {
         var _window = window.open(fileURL, '_blank');
@@ -411,15 +371,11 @@ function SaveToDisk(fileURL, fileName) {
         _window.close();
     }
 }
-// Carga de contenido para que no cambie la url de la aplicacion
-function load(route){
-    var url = document.createElement("a");
-    url.href = route;
-    console.log("Entre a cargar una pantalla");
-    console.log(url.href);
-    console.log("aqui esta mi url especifica");
-    console.log(url.pathname);
-    $.get(url.pathname,function(resul){
 
-    })
+//Funcion para salir de la aplicacion
+var Salir = function(){
+    parametroAjax.ruta=RutaSalir;
+    parametroAjax.data = $("#formLogout").serialize();
+    window.location.href = "/";
+    procesarajax(parametroAjax);
 }

@@ -234,7 +234,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						<table id="tablaReportes" class="display compact table" cellspacing="0"></table>
+						<table id="tablaReportes" class="display table compact" cellspacing="0" width="100%"></table>
 					</div>
 				</div>
 			</div>

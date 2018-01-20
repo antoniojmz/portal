@@ -27,6 +27,7 @@
 </div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('accesos') }}"
+	var RutaSalir = "{{ URL::route('logout') }}";
 	var d = [];
 	d['v_accesos'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_accesos) }}'));
 </script>

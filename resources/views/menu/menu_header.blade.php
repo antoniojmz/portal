@@ -2,16 +2,6 @@
 $data = Session::get('perfiles');
 $nroPerfiles = Session::get('nroPerfiles');
 @endphp
-<style type="text/css" media="screen">
-	.class{
-		
-	}
-	
-</style>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-	{{ csrf_field() }}
-	<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
-</form>
 <header class="m-grid__item m-header"  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
 	@if (isset($data))
 	<div class="m-header__top">
@@ -178,7 +168,7 @@ $nroPerfiles = Session::get('nroPerfiles');
 														</li>
 														<li class="m-nav__separator m-nav__separator--fit"></li>
 														<li class="m-nav__item">
-															<a href="{{ route('logout') }}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+															<a id="btn-logout" href="#" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
 																Logout
 															</a>
 														</li>
