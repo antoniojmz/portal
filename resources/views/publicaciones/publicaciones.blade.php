@@ -199,9 +199,6 @@
         </div>
     </div>    
 </div>
-<div class="container col-md-10 m-portlet">
-
-</div>
 <script Language="Javascript">
 	var ruta = "{{ URL::route('publicaciones') }}"
 	var rutaL = "{{ URL::route('listpublicaciones') }}"

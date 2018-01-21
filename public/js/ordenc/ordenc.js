@@ -130,9 +130,8 @@ var cargartablaReportes = function(data){
             "scrollX": true,
             "scrollY": '50vh',
             "scrollCollapse": true,
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdOC","data": "IdOC",visible:0},

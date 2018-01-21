@@ -71,9 +71,9 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 		var array = [];
 		for (i = 0; i < res.length; i++) { 
 			if (res[i].id_creador==v['idUser']){
-				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
+				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
 			}else{
-				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div>';
+				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
 				if(res[i].statusAdmin==1){stopRead = 1;}
 			}
 			$("#ChatBody").html(array);
@@ -94,9 +94,9 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
 			if (res[i].statusMessage==1){
 				count++;
-				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
 			}else{
-				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+' </span></div>';
+				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
 			}
 			
 			$("#divBuzon").html(array);
@@ -188,7 +188,7 @@ var notificacionChat = function(){
 
 $(document).ready(function() {
 	// moment en idioma español
-	moment.lang('es');
+	moment.locale('es');
 	// Carga inicial del buzon de notificacones de Chat con Proveedores
 	$("#divBuzon").html("<br />No hay mensajes pendientes...");
 	$('#divBuzon').css('text-align','center');
@@ -208,8 +208,9 @@ $(document).ready(function() {
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
-			setInterval("notificacionChat()", 3200);
+			// notificacionChat();
 		    // LoadMessage();
+			setInterval("notificacionChat()", 3200);
 			setInterval("LoadMessage()", 1300);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);

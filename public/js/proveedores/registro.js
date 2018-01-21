@@ -128,6 +128,8 @@ var cargarTablaUsuarios = function(data){
     if (data.length>0){  
         $("#tablaUsuarios").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
@@ -144,9 +146,6 @@ var cargarTablaUsuarios = function(data){
             {"sWidth": "10%", "aTargets": [9]},
             {"sWidth": "15%", "aTargets": [10]},
             ],
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
             "data": data,
             "columns":[
             {"title": "Id","data": "idUser",visible:0},

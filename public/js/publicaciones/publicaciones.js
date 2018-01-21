@@ -58,6 +58,7 @@ var cargarTablaPublicaciones = function(data){
         $("#spanNoReg").text("");
         $("#tablaPublicaciones").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
+            "pagingType": "full_numbers",
             // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
@@ -75,9 +76,7 @@ var cargarTablaPublicaciones = function(data){
                 {"sWidth": "16%", "aTargets": [5]},
                 {"sWidth": "10%", "aTargets": [6]}
             ],
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
             {"title": "Id","data": "idNoticia",visible:0},

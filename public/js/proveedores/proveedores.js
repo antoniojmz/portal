@@ -34,9 +34,8 @@ var cargartablaDTE = function(data){
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -96,9 +95,8 @@ var cargartablaClientes = function(data){
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdCliente","data": "IdCliente",visible:0},
@@ -121,9 +119,8 @@ var cargartablaUsuarios = function(data){
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
@@ -164,9 +161,8 @@ var cargartablaProveedores = function(data){
             "scrollX": true,
             "scrollY": '50vh',
             "scrollCollapse": true,
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "Id","data": "IdProveedor",visible:0},

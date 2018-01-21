@@ -2,7 +2,7 @@
 $data = Session::get('perfiles');
 $nroPerfiles = Session::get('nroPerfiles');
 @endphp
-<header class="m-grid__item m-header"  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
+<header class="m-grid__item m-header"  data-minimize="minimize" data-minimize-offset="10" data-minimize-mobile-offset="10">
 	@if (isset($data))
 	<div class="m-header__top">
 		<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">

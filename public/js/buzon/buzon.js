@@ -33,9 +33,9 @@ var ManejoRespuestaC = function(respuesta,idChat){
                 $('#imgUserChat').attr('src',image)+ '?' + Math.random();
             }
             if (res[i].id_creador==d['idUser']){
-                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div></div></div></div>';
+                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div></div>';
             }else{
-                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username">'+res[i].Usuario+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("mm:ss")+'</div></div></div></div></div></div>';
+                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username">'+res[i].Usuario+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div>';
             }
             $("#ChatBodyC").html(arrayC);
         }
@@ -152,7 +152,7 @@ $(document).ready(function(){
     cargarBuzon(d.v_chat);
     Cargarconversacion(d['idChat']);  
     // selected();
-    setInterval("selected()", 2500);
+    setInterval("selected()", 1500);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });

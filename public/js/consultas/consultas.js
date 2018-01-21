@@ -72,9 +72,8 @@ var cargartablaDetalles = function(data){
             // "scrollX": true,
             // "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -100,9 +99,8 @@ var cargartablaReferencias = function(data){
             // "scrollX": true,
             // "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -136,9 +134,8 @@ var cargartablaEstados = function(data){
             // "scrollX": true,
             // "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -173,9 +170,8 @@ var cargartablaTrazas = function(data){
             // "scrollX": true,
             // "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -208,9 +204,8 @@ var cargartablaReportes = function(data){
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},

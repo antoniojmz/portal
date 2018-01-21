@@ -96,9 +96,8 @@ var cargartablaDetalles = function(data){
         $("#tablaDetalles").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -121,9 +120,8 @@ var cargartablaReferencias = function(data){
         $("#tablaReferencias").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -145,9 +143,8 @@ var cargartablaEstados = function(data){
         $("#tablaEstados").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             "scrollCollapse": true,
-            "language": {
-                    "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
@@ -172,9 +169,8 @@ var cargartablaReportesEstadisticos = function(data){
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
-            "language": {
-                "url": "/plugins/DataTables-1.10.10/de_DE-all.txt"
-            },
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
             "data": data,
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},

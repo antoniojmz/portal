@@ -1,6 +1,41 @@
 // Combo desplegable de datatable
 DataTableLengthMenu = [[5,10, 25, 50, 100, -1],[5,10, 25, 50, 100, "Todos"]]
 
+//Idioma Español para DataTable
+var LenguajeTabla = {
+    "sProcessing": "Procesando...",
+    "sLengthMenu": "Ver listado de _MENU_",
+    "sZeroRecords": "No hay registros seleccionados",
+    "sInfo": "_START_ al _END_ de _TOTAL_ registros",
+    "sInfoEmpty": "0 al 0 de 0 registros",
+    "sInfoFiltered": "(filtrado de _MAX_ registros)",
+    "sInfoPostFix": "",
+    "sSearch": "Filtrar : ",
+    "sUrl": "",
+    "oPaginate": {
+        "sFirst":    "<i class='la la-angle-double-left'></i>",
+        "sPrevious": "<i class='la la-angle-left'></i>",
+        "sNext":     "<i class='la la-angle-right'></i>",
+        "sLast":     "<i class='la la-angle-double-right'></i>",
+    }
+}
+
+// Arreglo para el orden de las noticias
+var orden_combo = [
+    {"id":"1","text":"1"},
+    {"id":"2","text":"2"},
+    {"id":"3","text":"3"},
+    {"id":"4","text":"4"},
+    {"id":"5","text":"5"},
+    {"id":"6","text":"6"},
+    {"id":"7","text":"7"},
+    {"id":"8","text":"8"},
+    {"id":"9","text":"9"},
+    {"id":"10","text":"10"},
+    {"id":"11","text":"11"},
+    {"id":"12","text":"12"}
+];
+
 // blockUi Metronic
 var MyblockPage = function(){
     mApp.blockPage({

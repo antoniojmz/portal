@@ -229,21 +229,32 @@ table.dataTable thead th, table.dataTable thead td{
 	background-color: ''; 
 }
 
-select {
+/*.dataTables_wrapper .dataTables_filter input{
+	margin-left: 0px;
+}*/
+
+.dataTables_wrapper .dataTables_length select{
 	all:unset;
-	border:0px;
-	border-bottom:1px solid #000 !important;
+	border:none;
+	border-bottom:1px solid #A9A9A9 !important;
 	background: #fff url("/img/arrowdown.gif") no-repeat 90% center;
 	padding:10px 10px 10px 5px;
 	width: 48px;
-	color: #A9A9A9 ;
+	color: #A9A9A9;
+	
 }
 
-select:focus{
-	border: 0px;
+.dataTables_wrapper .dataTables_length select:focus{
+	border:none;
+	margin: none;
 }
 
-input[type=search] {
+.dataTables_wrapper .dataTables_length select:before {
+    border:none;
+    margin:none;
+}
+
+.dataTables_wrapper .dataTables_filter input[type=search] {
 	font-size:18px;
 	padding:10px 10px 10px 5px;
 	border:none;
@@ -251,8 +262,8 @@ input[type=search] {
 	width: 200px;
 }
 
-input[type=search]:focus { 
-	all:unset;
+.dataTables_wrapper .dataTables_filter input[type=search]:focus { 
+	outline: none;
 	font-size:18px;
 	padding:10px 10px 10px 5px;
 	border:none;

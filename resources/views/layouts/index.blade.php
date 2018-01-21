@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		@php
-			header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
-			header('Cache-Control: no-store, no-cache, must-revalidate');
-			header('Cache-Control: post-check=0, pre-check=0', FALSE);
-			header('Pragma: no-cache');
-	    @endphp
-    	<title>{{ config('app.name', 'Laravel') }}</title>
+		<?php
+			header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+			header("Cache-Control: no-store, no-cache, must-revalidate");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
+		?>
 		<meta charset="utf-8" />
+		<meta http-equiv="Pragma" CONTENT="no-cache">
+		<meta http-equiv="Expires" CONTENT="-1">
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<title>{{ config('app.name', 'Laravel') }}</title>
 		<!--begin::Base Styles -->
     	{!! Html::style('theme/dist/html/default/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/default/assets/demo/default/base/style.bundle.css') !!}
@@ -24,7 +28,6 @@
     	</style>
 		{{ HTML::script('theme/dist/html/default/assets/vendors/base/vendors.bundle.js') }}
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/base/scripts.bundle.js') }}
-		{{ HTML::script('js/utils/utils.js') }}
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
 			var widgetId1;
@@ -47,7 +50,7 @@
 			});
 		</script>
 	</head>
-	<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		@yield('content')
 	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	</body>
