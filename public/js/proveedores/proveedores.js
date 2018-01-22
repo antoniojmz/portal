@@ -155,6 +155,7 @@ var pintarDatos = function(data){
 var cargartablaProveedores = function(data){
     if (limpiar>0){destruirTabla('#tablaProveedores');}
     if (data.length>0){
+        var columnReport = [[1],[2],[3],[4],[5],[6],[7],[8],[9]];
         $("#tablaProveedores").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
@@ -182,11 +183,19 @@ var cargartablaProveedores = function(data){
                     extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
+                    orientation:'landscape',
+                    pageSize:'TABLOID',
                     title:'Listado de Proveedores',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
+                    },
+                    customize: function (win) {
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size','11px');
                     }
                 },
                 {
@@ -195,8 +204,9 @@ var cargartablaProveedores = function(data){
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado de Proveedores',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
                     }
                 },
@@ -205,12 +215,25 @@ var cargartablaProveedores = function(data){
                     text: 'PDF',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
-                    pageSize:'LETTER',
+                    pageSize:'TABLOID',
                     title:'Listado de Proveedores',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current',
+                            page: 'all',
                         }
+                    },
+                    customize : function(doc){
+                        doc.defaultStyle.fontSize = 8; 
+                        var colCount = new Array();
+                        $($("#tablaProveedores").dataTable()).find('tbody tr:first-child td').each(function(){
+                            if($(this).attr('colspan')){
+                                for(var i=1;i<=$(this).attr('colspan');$i++){
+                                    colCount.push('*');
+                                }
+                            }else{ colCount.push('*'); }
+                        });
+                        doc.content[1].table.widths = colCount;
                     }
                 }
             ]
@@ -232,10 +255,10 @@ var SeleccionarTablaProveedores = function(){
     $('#tablaProveedores tbody').on('dblclick', 'tr', function () {
         RegistroProveedor = TablaTraerCampo('tablaProveedores',this);
         cargarFormularioVisualizacion(RegistroProveedor);
+        $("#ahref1").click();
+        $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
+    tableB.on('dblclick', 'tr', function () { $('#close').trigger('click'); });
 }
 
 var ProcesarConsulta = function(){

@@ -1,5 +1,5 @@
-var limpiar=limpiarEstados=limpiarDetalles=limpiarReferencias=printCounter=ajax=0;
-var RegistroDTEEstadisticos ='';
+var limpiar=limpiarEstados=limpiarDetalles=limpiarTrazas=limpiarReferencias=printCounter=ajax=0;
+var RegistroDTEEstadisticos = RegistroDTEEstadisticos2 = '';
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -15,6 +15,14 @@ var cambiarTabla = function (){
     $("#divBienvenida").show();
 	$(".divTablaFacP").toggle();
 } 
+
+var ManejoRespuestaT = function(respuesta){
+    if (respuesta.code = '200'){
+        cargartablaTrazas(respuesta.respuesta.v_dte_estados);
+    }else{
+        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+    };
+}
 
 var ManejoRespuestaE = function(respuesta){
 	if(respuesta.code==200){
@@ -159,13 +167,49 @@ var cargartablaEstados = function(data){
     }
 }
 
+var cargartablaTrazas = function(data){
+    if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
+    if (data.length>0){
+        $("#tablaTrazas").dataTable({
+            'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
+            // "scrollX": true,
+            // "scrollY": '45vh',
+            "scrollCollapse": true,
+            "pagingType": "full_numbers",
+            "language": LenguajeTabla,
+            "data": data,
+            "columns":[
+                {"title": "IdDTE","data": "IdDTE",visible:0},
+                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
+                {
+                    "title": "Fecha de Estado", 
+                    "data": "FechaEstado",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {"title": "Comentario de Estado","data": "ComentarioEstado"}
+            ],
+        });
+        limpiarTrazas=1;
+    }else{
+        limpiarTrazas=0;
+    }
+}
+
 var cargartablaReportesEstadisticos = function(data){
     if (limpiar>0){destruirTabla('#tablaReportesEstadisticos');}
     if (data.length>0){
     	$("#divBienvenida").hide();
 		$(".divTablaFacP").toggle();
+		var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
         $("#tablaReportesEstadisticos").dataTable({
             'aLengthMenu': DataTableLengthMenu,
+            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -176,10 +220,39 @@ var cargartablaReportesEstadisticos = function(data){
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
+                {
+                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
+                    "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
+                    "orderable":false,
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = '<center><a target="_blank" class="m-menu__link" data-toggle="tooltip" title="XML" href="' + data.XmlDTE + '"><i class="fa fa-file-code-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a target="_blank" class="m-menu__link" data-toggle="tooltip" title="PDF" href="' + data.PdfDTE + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a id="LinkTrazas" class="m-menu__link" data-toggle="tooltip" title="Traza DTE" href="#"><i class="fa fa-history" aria-hidden="true"></i></a></center>';
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
-                {"title": "Fecha Emisión","data": "FechaEmision"},
-                {"title": "Fecha Recepción Cliente","data": "FechaRecepcion"},
+                {
+                    "title": "Fecha Emisión", 
+                    "data": "FechaEmision",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Recepción", 
+                    "data": "FechaRecepcion",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
                 {"title": "RUT Proveedor","data": "RutProveedor"},
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
                 {"title": "RUT Cliente","data": "RutCliente"},
@@ -188,8 +261,60 @@ var cargartablaReportesEstadisticos = function(data){
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"},
-                {"title": "Fecha de Estado Actual","data": "FechaEstadoActualDTE"}
+                {
+                    "title": "Fecha Autorizacion SII", 
+                    "data": "FechaAutorizacionSII",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha OC", 
+                    "data": "FechaOC",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Pago", 
+                    "data": "FechaPago",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "Fecha Vencimiento", 
+                    "data": "FechaVencimiento",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {"title": "Tipo Acuse","data": "DesTipoAcuse"},
+                {"title": "Existencia SII","data": "DesExistenciaSII"},
+                {"title": "Existencia Paperles","data": "DesExistenciaPaperles"},
+                {
+                    "title": "Fecha de Estado Actual", 
+                    "data": "FechaEstadoActualDTE",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }
+                        return data;
+                    }
+                },
+                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"}
             ],
             dom: 'Bfrtip',
             buttons: [
@@ -197,11 +322,19 @@ var cargartablaReportesEstadisticos = function(data){
                     extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado DTEs',
+                    orientation:'landscape',
+                    pageSize:'TABLOID',
+                    title:'Listado de DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
+                    },
+                    customize: function (win) {
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size','11px');
                     }
                 },
                 {
@@ -210,8 +343,9 @@ var cargartablaReportesEstadisticos = function(data){
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
                     }
                 },
@@ -220,12 +354,25 @@ var cargartablaReportesEstadisticos = function(data){
                     text: 'PDF',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
-                    pageSize:'LETTER',
-                    title:'Listado DTEs',
+                    pageSize:'TABLOID',
+                    title:'Listado de DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current',
+                            page: 'all',
                         }
+                    },
+                    customize : function(doc){
+                        doc.defaultStyle.fontSize = 8; 
+                        var colCount = new Array();
+                        $($("#tablaReportesEstadisticos").dataTable()).find('tbody tr:first-child td').each(function(){
+                            if($(this).attr('colspan')){
+                                for(var i=1;i<=$(this).attr('colspan');$i++){
+                                    colCount.push('*');
+                                }
+                            }else{ colCount.push('*'); }
+                        });
+                        doc.content[1].table.widths = colCount;
                     }
                 }
             ]
@@ -248,11 +395,19 @@ var seleccionartablaReportesEstadisticos=function(){
     $('#tablaReportesEstadisticos tbody').on('dblclick', 'tr', function () {
         RegistroDTEEstadisticos = TablaTraerCampo('tablaReportesEstadisticos',this);
         cargarFormularioVisualizacion(RegistroDTEEstadisticos);
+        $("#ahref1").click();
+        $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
     tableB.on('dblclick', 'tr', function () {
         $('#close').trigger('click');
     });	
+
+    var table = $('#tablaReportesEstadisticos').DataTable();
+    $('#tablaReportesEstadisticos tbody').on('click', 'tr', function () {
+        RegistroDTEEstadisticos2 = table.row(this).data();
+    });
 };
+
 var cargarFormularioVisualizacion = function(data){
     if(ajax==0){
 	    ajax=1
@@ -262,6 +417,14 @@ var cargarFormularioVisualizacion = function(data){
 	    ManejoRespuestaD(respuesta);
     }
 };
+
+var CargarTrazas = function(){
+    parametroAjax.ruta=rutaT;
+    parametroAjax.data = RegistroDTEEstadisticos2;
+    respuesta=procesarajax(parametroAjax);
+    ManejoRespuestaT(respuesta);
+    $('#ModalTrazas').modal("show");
+}
 
 var FiltrarwidgetsProveedor = function(caso){
     if(ajax==0){
@@ -553,6 +716,7 @@ var cargarPanel = function(idPerfil){
 			widget2(d.v_widget2);
 			widget3(d.v_widget2);
 			widget4(d.v_widget4);
+    		$(document).on('click','#LinkTrazas',CargarTrazas);
 		break;
 		default:
 			console.log("No tengo perfil definido");

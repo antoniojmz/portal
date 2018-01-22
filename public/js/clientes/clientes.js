@@ -154,6 +154,7 @@ var pintarDatos = function(data){
 var cargartablaClientes = function(data){
     if (limpiar>0){destruirTabla('#tablaClientes');}
     if (data.length>0){
+        var columnReport = [[1],[2],[3],[4],[5],[6]];
         $("#tablaClientes").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
@@ -178,35 +179,56 @@ var cargartablaClientes = function(data){
                     extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado de Proveedores',
+                    orientation:'landscape',
+                    pageSize:'TABLOID',
+                    title:'Listado de Clientes',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
+                    },
+                    customize: function (win) {
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size','11px');
                     }
                 },
                 {
                     extend: 'excel',
                     text: 'Exportar',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado de Proveedores',
+                    title:'Listado de Clientes',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
                     }
                 },
                 {
                     extend: 'pdf',
-                    text: 'PDF',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
-                    pageSize:'LETTER',
-                    title:'Listado de Proveedores',
+                    pageSize:'TABLOID',
+                    title:'Listado de Clientes',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current',
+                            page: 'all',
                         }
+                    },
+                    customize : function(doc){
+                        doc.defaultStyle.fontSize = 8; 
+                        var colCount = new Array();
+                        $($("#tablaClientes").dataTable()).find('tbody tr:first-child td').each(function(){
+                            if($(this).attr('colspan')){
+                                for(var i=1;i<=$(this).attr('colspan');$i++){
+                                    colCount.push('*');
+                                }
+                            }else{ colCount.push('*'); }
+                        });
+                        doc.content[1].table.widths = colCount;
                     }
                 }
             ]
@@ -228,10 +250,10 @@ var SeleccionarTablaClientes = function(){
     $('#tablaClientes tbody').on('dblclick', 'tr', function () {
         RegistroClientes = TablaTraerCampo('tablaClientes',this);
         cargarFormularioVisualizacion(RegistroClientes);
+        $("#ahref1").click();
+        $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });
+    tableB.on('dblclick', 'tr', function () { $('#close').trigger('click'); });
 }
 
 var ProcesarConsulta = function(){

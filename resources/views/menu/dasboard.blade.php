@@ -291,7 +291,7 @@
                     <div class="m-portlet__head-tools">
                         <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_page" role="tab" aria-expanded="true">
+                                <a id="ahref1" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_builder_page" role="tab" aria-expanded="true">
                                     Cabecera
                                 </a>
                             </li>
@@ -501,6 +501,29 @@
             </div>
         </div>
     </div>
+<!-- Modal -->
+<div id="ModalTrazas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Traza DTE</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table id="tablaTrazas" class="display table" cellspacing="0" width="100%"></table>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
     @break
     @default
         {{"Perfíl no encontrado"}}
@@ -513,6 +536,7 @@
     var ruta = "{{ URL::route('facturacion') }}"
     var rutaD = "{{ URL::route('detallesDTE') }}"
     var rutaF = "{{ URL::route('filtrarwidget') }}"
+    var rutaT = "{{ URL::route('trazaDTE') }}" 
     var d = [];
     d['idPerfil'] = JSON.parse(rhtmlspecialchars('{{ json_encode($data["idPerfil"]) }}'));
     d['v_widget1'] = JSON.parse(rhtmlspecialchars('{{ json_encode($widget["v_widget1"]) }}'));

@@ -48,9 +48,7 @@ var cargarNoticias = function(data){
 	res.length < 13 ? image = 'img/default-img.png' : image=res;
 	$('#imageNoticia').attr('src',res)+ '?' + Math.random();
 	$(".FormNoticias").toggle();
-	$('html,body').animate({
-		scrollTop: $("#divSeparacion").offset().top
-	});
+	$('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
 }
 
 var volverNoticias = function(data){

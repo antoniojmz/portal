@@ -198,6 +198,7 @@ var cargartablaTrazas = function(data){
 var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
     if (data.length>0){
+        var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
         $("#tablaReportes").dataTable({
             'aLengthMenu': DataTableLengthMenu,
             // 'bSort': false,
@@ -212,7 +213,7 @@ var cargartablaReportes = function(data){
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
                 {"title": "IdCliente","data": "IdCliente",visible:0},
                 {
-                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
+                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
                     "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
                     "orderable":false,
                     "render": function(data, type, row, meta){
@@ -222,26 +223,6 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                // {
-                //     "title": "XML", 
-                //     "data": "XmlDTE",
-                //     "render": function(data, type, row, meta){
-                //         if(type === 'display'){
-                //             data = '<center></center>';
-                //         }
-                //         return data;
-                //     }
-                // },
-                // {
-                //     "title": "Traza", 
-                //     "data": "FechaEstadoActualDTE",
-                //     "render": function(data, type, row, meta){
-                //         if(type === 'display'){
-                //             data = '<center></center>';
-                //         }
-                //         return data;
-                //     }
-                // },
                 {"title": "Tipo DTE","data": "TipoDTE"},
                 {"title": "Folio DTE","data": "FolioDTE"},
                 {
@@ -333,11 +314,19 @@ var cargartablaReportes = function(data){
                     extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado DTEs',
+                    orientation:'landscape',
+                    pageSize:'TABLOID',
+                    title:'Listado de DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
+                    },
+                    customize: function (win) {
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size','11px');
                     }
                 },
                 {
@@ -346,8 +335,9 @@ var cargartablaReportes = function(data){
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current'
+                            page: 'all'
                         }
                     }
                 },
@@ -356,12 +346,25 @@ var cargartablaReportes = function(data){
                     text: 'PDF',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
-                    pageSize:'LETTER',
-                    title:'Listado DTEs',
+                    pageSize:'TABLOID',
+                    title:'Listado de DTEs',
                     exportOptions: {
+                        columns: columnReport,
                         modifier: {
-                            page: 'current',
+                            page: 'all',
                         }
+                    },
+                    customize : function(doc){
+                        doc.defaultStyle.fontSize = 8; 
+                        var colCount = new Array();
+                        $($("#tablaReportes").dataTable()).find('tbody tr:first-child td').each(function(){
+                            if($(this).attr('colspan')){
+                                for(var i=1;i<=$(this).attr('colspan');$i++){
+                                    colCount.push('*');
+                                }
+                            }else{ colCount.push('*'); }
+                        });
+                        doc.content[1].table.widths = colCount;
                     }
                 }
             ]
@@ -383,6 +386,8 @@ var SeleccionarTablaReportes = function(){
     $('#tablaReportes tbody').on('dblclick', 'tr', function () {
         RegistroDTE = TablaTraerCampo('tablaReportes',this);
         cargarFormularioVisualizacion(RegistroDTE);
+        $("#ahref1").click();
+        $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
 
     var table = $('#tablaReportes').DataTable();
