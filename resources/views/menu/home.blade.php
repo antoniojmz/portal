@@ -218,9 +218,7 @@
 							@php 
 								array_pop($paginas); 
 								array_pop($nombresDiv); 
-								print_r ($total);	
 								$total = $total -1;
-								print_r ($total);	
 							@endphp
 						@endif
 					  	@foreach ($paginas as $key => $value)
