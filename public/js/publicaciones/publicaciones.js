@@ -1,5 +1,5 @@
 var RegistroPublicacion = '';
-var limpiarPublicaciones=0;
+var limpiarPublicaciones=actulizarFecha=0;
 
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
@@ -157,8 +157,7 @@ var seleccionarTablaPublicaciones = function(data){
                 switch(key) {
                     case "1":
                         cargarForm();
-    $("#spanTitulo").text("Listado de publicaciones");
-                      
+                        $("#spanTitulo").text("Listado de publicaciones");
                         pintarDatosActualizar(RegistroPublicacion);
                         break;
                     case "2":
@@ -175,6 +174,7 @@ var seleccionarTablaPublicaciones = function(data){
 }
 
 var pintarDatosActualizar= function(data){
+    actulizarFecha = 1;
     $("#spanTitulo").text("Editar publicación");
     $("#divImagen").show();
     if(data.idNoticia!=null){$("#idNoticia").val(data.idNoticia);}
@@ -235,9 +235,11 @@ var ProcesarPublicacion = function (){
         var now = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear();
         var fecha_now= moment(now,"DD-MM-YYYY").format("YYYY-MM-DD");
         var fecha_ini= moment(fecha_i,"DD-MM-YYYY").format("YYYY-MM-DD");
-        if(fecha_ini < fecha_now){
-            toastr.warning("La Fecha Inicio de Publicación no puede ser menor a la fecha actual.", "Aviso!");
-            return;
+        if(actulizarFecha==0){
+            if(fecha_ini < fecha_now){
+                toastr.warning("La Fecha Inicio de Publicación no puede ser menor a la fecha actual.", "Aviso!");
+                return;
+            }
         }
         if (fecha_f.length>3){
             var fecha_fin= moment(fecha_f,"DD-MM-YYYY").format("YYYY-MM-DD");
@@ -265,6 +267,7 @@ var ProcesarPublicacion = function (){
 }
 
 var cargarForm = function(){
+    actulizarFecha = 0;
     $("#spanTitulo").text("Registrar publicación");
     $(".divForm").toggle();	
     $("#idNoticia").val("");

@@ -1,16 +1,7 @@
 @extends('menu.index')
 @section('content')
 @php $nombres = array();$nombresDiv = array();$nombresHref = array(); $nombresLiNav= array(); $total =1; @endphp
-<div class="container col-md-12">
-	<!-- <div class="m-subheader">
-	    <div class="d-flex align-items-center">
-	        <div class="mr-auto">
-	            <div class="m-subheader__title ">
-	                Bienvenido a tu Portal de Proveedores
-	            </div>
-	        </div>
-	    </div>
-	</div> -->
+<div class="col-md-12">
 	    @php
 		$data = Session::get('perfiles');
 		$widget = Session::get('widget');
@@ -43,7 +34,7 @@
 								<div class="m-widget19">
 									<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
 										<img id="imageNoticia" src="img/default-img.png" alt="">
-										<h3 id="tituloNoticia" class="m-widget19__title m--font-light"></h3>
+										<h3 style="color: white; text-shadow: black 0.1em 0.1em 0.2em" id="tituloNoticia" class="m-widget19__title m--font-light"></h3>
 									</div>
 									<div class="m-widget19__content">
 										<div class="m-widget19__header">
@@ -53,7 +44,13 @@
 												</h6>	
 											</div>
 										</div>
-										<div id="detalleNoticia" class="m-widget19__body"></div>
+										<div class="m-widget19__body">
+											<div class="row">
+												<div class="col-md-12">
+													<div id="detalleNoticia"></div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -82,9 +79,9 @@
 			<div class="m-content FormNoticias">
 			@if (isset($v_publicaciones))
         		@if (count($v_publicaciones['principal']) > 0)
-        			<div class="row" id="divPrincipal">
-						@foreach ($v_publicaciones['principal'] as $key => $value)
-							@php array_push($nombres, $value->idNoticia); @endphp
+        			@foreach ($v_publicaciones['principal'] as $key => $value)
+						@php array_push($nombres, $value->idNoticia); @endphp
+	        			<div class="row" id="divPrincipal">
 						    <form id="Form<?php echo $value->idNoticia;?>">
 						    	<div style="display:none;">
 							    	<input type="hidden" id="idNoticiaForm<?php echo $value->idNoticia;?>" value="<?php echo $value->idNoticia;?>">
@@ -98,38 +95,31 @@
 							    		<?php echo $value->detalle;?>
 							    	</span>
 						    	</div>
-						    	<!-- <div class="col-md-12"> -->
-			    				<div class="row">
-			    				<div class="col-md-12">
-			    				<div class="col-md-12">
-			    				<div class="col-md-12" style="background-color: white;width: 100%;">
-			    						
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<br>
-												<h3 class="m-portlet__head-text">
-													{{$value->titulo}}
-												</h3>
-												<hr>
+						    </form>
+						    <div class="col-xl-12">
+							    <div class="m-portlet">
+									<div class="m-portlet__body  m-portlet__body--no-padding">
+										<div class="m-portlet__head">
+											<div class="m-portlet__head-caption">
+												<div class="m-portlet__head-title">
+													<h3 class="m-portlet__head-text">
+														{{$value->titulo}}
+													</h3>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="">
-										<div id="m_widget5_tab1_content" aria-expanded="true">
-											<div class="m-widget5">
-												<div class="row">
-												<!-- <div class="col-xl-12"> -->
-													<div class="col-xl-6" style="margin: 0;padding: 0;">
-														<!-- <div class="m-widget5__content"> -->
-															@php  
-																$avatarUser = $value->urlImage;
-																(strlen($avatarUser) > 10) ? $avatar=$avatarUser : $avatar="img/default-img.png";
-															@endphp
-															<img src="{{ asset($avatar) }}" alt="">
-														<!-- </div> -->
-													</div>
-													<div class="col-xl-6">
+										<div class="row m-row--no-padding m-row--col-separator-xl">
+											<div class="col-xl-6">
+												@php  
+													$avatarUser = $value->urlImage;
+													(strlen($avatarUser) > 10) ? $avatar=$avatarUser : $avatar="img/default-img.png";
+												@endphp
+												<img src="{{ asset($avatar) }}"  width="100%" height="100%" alt="">
+											</div>
+											<div class="col-xl-6">
+												<!--begin:: Widgets/Profit Share-->
+												<div class="m-widget1">
+													<div class="m-widget1__item">
 														<div class="m-widget5__content">
 															<h4 class="m-widget5__title">
 																{{$value->descripcion}}
@@ -140,21 +130,17 @@
 														</div>
 														<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom idForm" value="<?php echo $value->idNoticia;?>">Leer mas</button>
 													</div>
-												<!-- </div> -->
-												</div>		
+												</div>
 											</div>
 										</div>
 									</div>
-			    				</div>
-			    				</div>
-			    				</div>
 								</div>
-								<!-- </div> -->
-						    </form>
-						@endforeach	
-					</div>
+						    </div>
+
+						</div>
+					@endforeach	
 					<p></p>					
-        			<div id="divNoticias<?php echo $total; ?>" class="row divNoticias">
+	        		<div id="divNoticias<?php echo $total; ?>" class="row divNoticias">
 				@endif
         		@if (count($v_publicaciones['noticias']) > 0)
 					@foreach ($v_publicaciones['noticias'] as $key => $value)
@@ -221,20 +207,45 @@
 				$paginas[$i-1] = $i; 
 			} ?>
 			<div class="row" style="display:flex;justify-content:center;">
-		    	<div class="pagination-sm" style="padding:10px;margin:10px;">
+		    	<div class="pagination-sm">
 				    <ul class="pagination nav nav-tabs m-tabs m-tabs-line m-tabs-line--left m-tabs-line--primary">
-						<li id="liNavPrincipio" class="livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link" id="hrefPrincipio">&nbsp;&nbsp;&laquo;&nbsp;&nbsp;</a></li>
+						<li id="liNavPrincipio" class="livPag nav-item m-tabs__item">
+							<a class="nav-link m-tabs__link" id="hrefPrincipio">
+								<i class='la la-angle-double-left'></i>
+							</a>
+						</li>
+						@if(fmod(count($v_publicaciones['noticias']),3) == 0)
+							@php 
+								array_pop($paginas); 
+								array_pop($nombresDiv); 
+								print_r ($total);	
+								$total = $total -1;
+								print_r ($total);	
+							@endphp
+						@endif
 					  	@foreach ($paginas as $key => $value)
 						    @if ($cActiva==0)
 								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="active livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link hrefactive active" id="href{{$value}}" href="#">&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;</a></li>
+						    	<li id="liNav{{$value}}" class="active livPag nav-item m-tabs__item">
+						    		<a class="nav-link m-tabs__link hrefactive active" id="href{{$value}}" href="#">
+						    			&nbsp;&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;&nbsp;
+						    		</a>
+						    	</li>
 						    @else
 								@php array_push($nombresHref,$value); @endphp
-						    	<li id="liNav{{$value}}" class="livPag nav-item m-tabs__item"><a class="nav-link m-tabs__link hrefactive" id="href{{$value}}" href="#">&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;</a></li>
+						    	<li id="liNav{{$value}}" class="livPag nav-item m-tabs__item">
+						    		<a class="nav-link m-tabs__link hrefactive" id="href{{$value}}" href="#">
+						    			&nbsp;&nbsp;&nbsp;{{$value}}&nbsp;&nbsp;&nbsp;
+						    		</a>
+						    	</li>
 						    @endif
 							@php $cActiva=1; @endphp	
 					  	@endforeach	
-						<li id="liNavFinal nav-item m-tabs__item" class="livPag"><a class="nav-link m-tabs__link" id="hrefFinal" href="#">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;</a></li>
+						<li id="liNavFinal nav-item m-tabs__item" class="livPag">
+							<a class="nav-link m-tabs__link" id="hrefFinal" href="#">
+								<i class='la la-angle-double-right'></i>
+							</a>
+						</li>
 				  	</ul>
 		    	</div>
 			</div>

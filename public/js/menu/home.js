@@ -58,6 +58,10 @@ var volverNoticias = function(data){
 }
 
 var paginacion = function (data,total){
+	// var result = d['v_count'] / total;
+	// console.log(data);
+	// if (data.length > result){ data.pop(); }
+	// console.log(data);
 	$.each(data, function(index,value) {
 		$("#href"+value).click(function(){
 			Principio();		
