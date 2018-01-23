@@ -23,28 +23,39 @@ var ManejoRespuestaC = function(respuesta,idChat){
         refreshMessage = 1;
         var arrayC = [];
         var valuechat = 0;
-        for (i = 0; i < res.length; i++) {
-            if (valuechat == 0){
-                $("#idChat").val(res[i].idChat);valuechat = 1
-                $("#NombreUsuario").text(res[i].Usuario+" - "+res[i].Proveedor);
-                var image = '/img/default.png'
-                var foto = res[i].imageUsuario
-                if ( foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
-                $('#imgUserChat').attr('src',image)+ '?' + Math.random();
-            }
-
-            if (res[i].IdPerfil==3){
-                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username">'+res[i].Usuario+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div>';
-            }else{
-                var UserResponse = '';
-                res[i].id_creador==d['idUser'] ? UserResponse='Yo' : UserResponse=res[i].creador;
-                arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username" style="color:#FFF">'+UserResponse+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div></div>';
-            }
-            $("#ChatBodyC").html(arrayC);
+        if(res!=null){
+            console.log("1 NO ES NULO");
+        }else{
+            console.log("1 es nulo");
         }
-        var top = $("#styleScroll").prop("scrollHeight");
-        $("#styleScroll").scrollTop(top);
-        VarIdChat = idChat;
+        
+        if (typeof res != 'undefined') {
+            console.log("2 NO ES NULO");
+            for (i = 0; i < res.length; i++) {
+                if (valuechat == 0){
+                    $("#idChat").val(res[i].idChat);valuechat = 1
+                    $("#NombreUsuario").text(res[i].Usuario+" - "+res[i].Proveedor);
+                    var image = '/img/default.png'
+                    var foto = res[i].imageUsuario
+                    if ( foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
+                    $('#imgUserChat').attr('src',image)+ '?' + Math.random();
+                }
+
+                if (res[i].IdPerfil==3){
+                    arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username">'+res[i].Usuario+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div>';
+                }else{
+                    var UserResponse = '';
+                    res[i].id_creador==d['idUser'] ? UserResponse='Yo' : UserResponse=res[i].creador;
+                    arrayC[i]='<div class="row"><div class="col-md-12"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-username" style="color:#FFF">'+UserResponse+'</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div></div></div></div>';
+                }
+                $("#ChatBodyC").html(arrayC);
+            }
+            var top = $("#styleScroll").prop("scrollHeight");
+            $("#styleScroll").scrollTop(top);
+            VarIdChat = idChat;
+        }else{
+            console.log("2 es nulo");
+        }
     }else{
         toastr.error("Error al cargar la conversación, contacte al personal informático", "Error!");
     };
@@ -155,7 +166,7 @@ $(document).ready(function(){
     cargarBuzon(d.v_chat);
     Cargarconversacion(d['idChat']);  
     // selected();
-    setInterval("selected()", 1800);
+    setInterval("selected()", 2200);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
 });

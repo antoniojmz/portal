@@ -204,14 +204,14 @@ $(document).ready(function() {
 		case "2":
 		    // console.log("Soy cliente home");
 		    // LoadMailbox();
-			setInterval("LoadMailbox()", 1800);
+			setInterval("LoadMailbox()", 2200);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
 			// notificacionChat();
 		    // LoadMessage();
 			setInterval("notificacionChat()", 3200);
-			setInterval("LoadMessage()", 1800);
+			setInterval("LoadMessage()", 2200);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
