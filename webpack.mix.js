@@ -34,10 +34,8 @@ mix.scripts([
 	'public/plugins/validator/es_ES.js',
 	'public/plugins/Jquery-Price-Format/jquery.priceformat.js',
 	'public/plugins/Jquery.expander/jquery.expander.js',
-	'public/js/utils/utils.js',
 	], 'public/js/core/core.js')
 .styles([
 	'public/plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css',
-	'public/plugins/validator/formValidation.css',
 	], 'public/css/core/core.css');
 
