@@ -69,14 +69,16 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 		idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
 		var res = respuesta.respuesta.chat
 		var array = [];
-		for (i = 0; i < res.length; i++) { 
-            if (res[i].IdPerfil==3){
-				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-			}else{
-				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-				if(res[i].statusAdmin==1){stopRead = 1;}
+	    if(res!=null){
+			for (i = 0; i < res.length; i++) { 
+	            if (res[i].IdPerfil==3){
+					array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
+				}else{
+					array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
+					if(res[i].statusAdmin==1){stopRead = 1;}
+				}
+				$("#ChatBody").html(array);
 			}
-			$("#ChatBody").html(array);
 		}
 		var top = $("#styleScroll").prop("scrollHeight");
 		$("#styleScroll").scrollTop(top);
@@ -88,26 +90,30 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 		var res = respuesta.respuesta
 		var array = [];
 		var count = 0;
-		for (i = 0; i < res.length; i++) { 
-			var operador = '';
-			var usuario = '';
-			res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
-			if (res[i].statusMessage==1){
-				count++;
-				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
-			}else{
-				array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
-			}
-			
-			$("#divBuzon").html(array);
-		}
-		if (count > 0){
-			$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
-			$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
-		}else{
-			$("#notificacionPri").html('');
-			$("#notificacionSec").html('');
-		}
+	    if(res!=null){
+	        if (res.length > 0){
+				for (i = 0; i < res.length; i++) { 
+					var operador = '';
+					var usuario = '';
+					res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
+					if (res[i].statusMessage==1){
+						count++;
+						array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
+					}else{
+						array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
+					}
+					
+					$("#divBuzon").html(array);
+				}
+				if (count > 0){
+					$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
+					$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
+				}else{
+					$("#notificacionPri").html('');
+					$("#notificacionSec").html('');
+				}
+			}	
+		}	
     }
 }
 
@@ -218,9 +224,9 @@ $(document).ready(function() {
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	// setTimeout(function(){Salir();}, 600000);
+	setTimeout(function(){Salir();}, 600000);
 	// Cierre de session por manupulacion de url o cierre del navegador
-	// window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
+	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
     $(document).on('click','#btn-logout',Salir);
