@@ -130,14 +130,15 @@ var cargarBuzon = function(res){
 var LoadBuzon = function(){
     parametroAjaxGETB.ruta = RutabR;
     respuesta=procesarajaxChat(parametroAjaxGETB);
-    if (respuesta.code == 200){
-        cargarBuzon(respuesta.respuesta);
-    }else{
-        if(errorLoadAll==0){
-            toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
-            errorLoadAll=1;
-        }
-    }
+    $.get(RutabR, function(data) {cargarBuzon(data);});
+    // if (respuesta.code == 200){
+    //     cargarBuzon(respuesta.respuesta);
+    // }else{
+    //     if(errorLoadAll==0){
+    //         toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
+    //         errorLoadAll=1;
+    //     }
+    // }
 }
 
 var selected = function(){

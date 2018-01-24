@@ -41,7 +41,31 @@
 		{!! Html::style('css/core/core.css') !!}
 		{!! Html::style('css/app/app.css') !!}
 		<!--begin::Base Scripts -->
-		{{ HTML::script('js/core/core.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
+		{{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
+		<!-- Scritp Plugins -->
+		<!-- datatables -->
+		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/dataTables.buttons.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/jszip.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/pdfmake.min.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/vfs_fonts.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.html5.js') }}
+		{{ HTML::script('plugins/DataTables-1.10.10/buttons.print.min.js') }}
+		{{ HTML::script('plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js') }}
+		<!-- date-range-picker -->
+		{{ HTML::script('plugins/daterangepicker/moment-with-locale-es.js') }}
+		{{ HTML::script('plugins/daterangepicker/daterangepicker.js') }}
+		{{ HTML::script('plugins/datepicker/bootstrap-datepicker.es.js') }}
+		{{ HTML::script('plugins/validator/valtexto.min.js') }}
+		{{ HTML::script('plugins/validator/formValidation.min.js') }}
+		{{ HTML::script('plugins/validator/fvbootstrap.min.js') }}
+		{{ HTML::script('plugins/validator/es_ES.js') }}
+		{{ HTML::script('plugins/Jquery-Price-Format/jquery.priceformat.min.js') }}
+		{{ HTML::script('plugins/Jquery.expander/jquery.expander.js') }}
+		{{ HTML::script('js/utils/utils.js') }}
 		{{ HTML::script('js/index/index.js') }}
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
