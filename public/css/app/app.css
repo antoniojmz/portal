@@ -125,6 +125,9 @@
 		width: 294px;
 		right: 70px;
 	}
+	.m-messenger .m-messenger__messages .m-messenger__message .m-messenger__message-body .m-messenger__message-content{
+		width: 245px!important;
+	}
 }
 
 @media screen and (max-width:360px){
@@ -137,6 +140,9 @@
 	#divChatMin{
 		right: 70px;
 		width: 242px;
+	}
+	.m-messenger .m-messenger__messages .m-messenger__message .m-messenger__message-body .m-messenger__message-content{
+		width: 200px!important;
 	}
 } 
 

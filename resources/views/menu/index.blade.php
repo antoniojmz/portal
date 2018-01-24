@@ -26,6 +26,13 @@
 	        });
 			var v_salir = 0;
 			var salir = "{{ URL::route('logout') }}";
+			var rutaGetChat = "{{ URL::route('chat') }}"
+			var rutaGetAllChat = "{{ URL::route('chatC') }}"
+			var rutaStatusChat = "{{ URL::route('statusChat') }}"
+			var RutaSalir = "{{ URL::route('logout') }}";
+			var v = [];
+			v['v_perfil'] = '';
+			v['idUser'] = '';
 		</script>
 		<!-- begin::Base Styles -->
 		{!! Html::style('theme/dist/html/demo2/assets/vendors/base/vendors.bundle.css') !!}
@@ -130,15 +137,6 @@
 	@endif
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
-		</div>
-		<script Language="Javascript">
-			var rutaGetChat = "{{ URL::route('chat') }}"
-			var rutaGetAllChat = "{{ URL::route('chatC') }}"
-			var rutaStatusChat = "{{ URL::route('statusChat') }}"
-			var RutaSalir = "{{ URL::route('logout') }}";
-			var v = [];
-			v['v_perfil'] = '';
-			v['idUser'] = '';
-		</script>  
+		</div> 
 	</body>
 </html>

@@ -251,7 +251,7 @@
 	    @break
 	    @default
 	        {{"Perfíl no encontrado"}}
-	        <script Language="Javascript">
+	        <script>
 	            Salir();
 	        </script>
 	    @endswitch
