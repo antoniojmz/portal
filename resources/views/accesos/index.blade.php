@@ -32,6 +32,10 @@
 		{!! Html::style('css/app/app.css') !!}
 		{!! Html::style('css/accesos/accesos.css') !!}
 		<!-- Archivos Javascritp -->
+		{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
+		{{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
 		{{ HTML::script('js/core/core.js') }}
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
