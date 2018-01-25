@@ -64,10 +64,13 @@ var ManejoRespuestaProcesarChat = function (respuesta){
 }
 
 var ManejoRespuestaProcesarGetChat = function (respuesta){
+	// if(respuesta.code==200){
 	if(respuesta!=null){
+	// 	var idChat = respuesta.respuesta.idChat;
 		var idChat = respuesta.idChat;
 		idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
 		var res = respuesta.chat
+	// 	var res = respuesta.respuesta.chat
 		var array = [];
 	    if(res!=null){
 			for (i = 0; i < res.length; i++) { 
@@ -83,25 +86,6 @@ var ManejoRespuestaProcesarGetChat = function (respuesta){
 		var top = $("#styleScroll").prop("scrollHeight");
 		$("#styleScroll").scrollTop(top);
     }	
-	// if(respuesta.code==200){
-	// 	var idChat = respuesta.respuesta.idChat;
-	// 	idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
-	// 	var res = respuesta.respuesta.chat
-	// 	var array = [];
-	//     if(res!=null){
-	// 		for (i = 0; i < res.length; i++) { 
-	//             if (res[i].IdPerfil==3){
-	// 				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-	// 			}else{
-	// 				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-	// 				if(res[i].statusAdmin==1){stopRead = 1;}
-	// 			}
-	// 			$("#ChatBody").html(array);
-	// 		}
-	// 	}
-	// 	var top = $("#styleScroll").prop("scrollHeight");
-	// 	$("#styleScroll").scrollTop(top);
- //    }
 }
 
 var ManejoRespuestaProcesarGetAllChat = function (respuesta){
@@ -109,7 +93,9 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 		var res = respuesta;
 		var array = [];
 		var count = 0;
+		// if(respuesta.code==200){
 	    if(res!=null){
+			// var res = respuesta.respuesta
 	        if (res.length > 0){
 				for (i = 0; i < res.length; i++) { 
 					var operador = '';
@@ -134,43 +120,14 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 			}	
 		}	
     }
-	// if(respuesta.code==200){
-	// 	var res = respuesta.respuesta
-	// 	var array = [];
-	// 	var count = 0;
-	//     if(res!=null){
-	//         if (res.length > 0){
-	// 			for (i = 0; i < res.length; i++) { 
-	// 				var operador = '';
-	// 				var usuario = '';
-	// 				res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
-	// 				if (res[i].statusMessage==1){
-	// 					count++;
-	// 					array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
-	// 				}else{
-	// 					array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
-	// 				}
-					
-	// 				$("#divBuzon").html(array);
-	// 			}
-	// 			if (count > 0){
-	// 				$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
-	// 				$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
-	// 			}else{
-	// 				$("#notificacionPri").html('');
-	// 				$("#notificacionSec").html('');
-	// 			}
-	// 		}	
-	// 	}	
- //    }
 }
 
 // Maximizar ventana de chat
 var ShowMessage = function(){
-	$('#message').focus();
+	$("#divChatMin").stop();
 	$("#divChatMin").hide("slow");
 	$("#divChat").show("fast");
-	$("#divChatMin").stop();
+	$('#message').focus();
 	cambiarStatusMessage();
 }
 
