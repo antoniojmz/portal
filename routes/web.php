@@ -68,7 +68,7 @@ Route::post('/statusChat', 'ChatController@postStatuschat')->name('statusChat');
 //Buzon de mensajes (Clientes)
 Route::get('/buzon', 'ChatController@getBuzon')->name('buzon');
 // Conversaciones entre proveedores y clientes
-Route::post('/conversacion', 'ChatController@postConversacion')->name('conversacion');
+Route::get('/conversacion', 'ChatController@getConversacion')->name('conversacion');
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function (){
 	//accesos (Seleccionar acceso para ingresar a la aplicacion)

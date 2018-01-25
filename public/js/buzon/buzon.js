@@ -83,9 +83,13 @@ var enviarMessage = function(){
 };
 
 var cargarFormulario = function(idChat){
-    parametroAjaxB.ruta=rutaC;
-    parametroAjaxB.data = {"idChat":idChat};
-    respuesta=procesarajaxChat(parametroAjaxB);
+    // $.get(rutaC,{"idChat":idChat})
+    // .done(function(data) {
+    //     ManejoRespuestaC(data,idChat);
+    // });
+    parametroAjaxGETB.ruta=rutaC;
+    parametroAjaxGETB.data = {"idChat":idChat};
+    respuesta=procesarajaxChat(parametroAjaxGETB);
     ManejoRespuestaC(respuesta,idChat);
 }
 
@@ -128,9 +132,9 @@ var cargarBuzon = function(res){
 }
 
 var LoadBuzon = function(){
-    parametroAjaxGETB.ruta = RutabR;
-    respuesta=procesarajaxChat(parametroAjaxGETB);
     $.get(RutabR, function(data) {cargarBuzon(data);});
+    // parametroAjaxGETB.ruta = RutabR;
+    // respuesta=procesarajaxChat(parametroAjaxGETB);
     // if (respuesta.code == 200){
     //     cargarBuzon(respuesta.respuesta);
     // }else{

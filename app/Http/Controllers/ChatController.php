@@ -66,7 +66,7 @@ class ChatController extends Controller
     }
 
     // Cargar el historial de conversacion en el panel de administrador
-    protected function postConversacion(Request $request){
+    protected function getConversacion(Request $request){
         $datos = $request->all();
         $model= new Chat();
         $result = $model->listConversacion($datos['idChat']);
