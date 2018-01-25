@@ -12,10 +12,6 @@ let mix = require('laravel-mix');
  */
 
 mix.scripts([
-	'public/theme/dist/html/demo2/assets/vendors/base/vendors.bundle.js',
-	'public/theme/dist/html/demo2/assets/demo/demo2/base/scripts.bundle.js',
-	'public/theme/dist/html/demo2/assets/app/js/dashboard.js',
-	'public/theme/dist/html/default/assets/demo/default/custom/header/actions.js',
 	'public/plugins/DataTables-1.10.10/media/js/jquery.dataTables.js',
 	'public/plugins/DataTables-1.10.10/dataTables.buttons.js',
 	'public/plugins/DataTables-1.10.10/jszip.js',
