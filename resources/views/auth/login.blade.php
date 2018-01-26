@@ -1,7 +1,6 @@
 @extends('layouts.index')
 @section('content')
     <div class="container">
-        <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
             <div class="m-login m-login--singin  m-login--5" id="m_login" style="background-image: url(theme/dist/html/default/assets/app/media/img//bg/bg-3.jpg);">
                 <div class="m-login__wrapper-1 m-portlet-full-height">
@@ -71,7 +70,7 @@
                                 <div class="row m-login__form-sub">
                                     <div class="col-md-12 col-lg-12 col-sm-12">
                                         <center>
-                                            <!-- <div id="pp-grecaptcha"></div> -->
+                                            <div id="pp-grecaptcha"></div>
                                         </center>
                                     </div>
                                 </div>
@@ -93,7 +92,6 @@
                                     Enter your email to reset your password:
                                 </div>
                             </div>
-                            <!-- <form class="m-login__form m-form" action="POST"> -->
                             <form id="FormRecuperacion" class="form-horizontal m-login__form m-form" method="POST" action="">
                                 {{ csrf_field() }}
                                 <div class="form-group m-form__group">
@@ -102,7 +100,7 @@
                                 <br>
                                 <div class="form-group m-form__group">
                                     <center>
-                                        <!-- <div id="pp-grecaptcha-1"></div> -->
+                                        <div id="pp-grecaptcha-1"></div>
                                     </center>
                                 </div>
 
@@ -120,9 +118,6 @@
                 </div>
             </div>
         </div>
-        <!-- end:: Page -->
     </div>
-    <!--begin::Page Snippets -->
     <script type="text/javascript" src="{{ URL::asset('js/login/login.js') }}"></script>
-    <!--end::Page Snippets -->
 @endsection

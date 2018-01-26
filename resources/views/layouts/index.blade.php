@@ -16,7 +16,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>{{ config('app.name', 'Laravel') }}</title>
-		<!--begin::Base Styles -->
     	{!! Html::style('theme/dist/html/default/assets/vendors/base/vendors.bundle.css') !!}
     	{!! Html::style('theme/dist/html/default/assets/demo/default/base/style.bundle.css') !!}
     	<link rel="icon" href="{!! asset('theme/dist/html/default/assets/demo/default/media/img/logo/favicon.ico') !!}"/>
