@@ -64,13 +64,13 @@ var ManejoRespuestaProcesarChat = function (respuesta){
 }
 
 var ManejoRespuestaProcesarGetChat = function (respuesta){
-	// if(respuesta.code==200){
-	if(respuesta!=null){
-	// 	var idChat = respuesta.respuesta.idChat;
-		var idChat = respuesta.idChat;
+	if(respuesta.code==200){
+	// if(respuesta!=null){
+		var idChat = respuesta.respuesta.idChat;
+		// var idChat = respuesta.idChat;
 		idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
-		var res = respuesta.chat
-	// 	var res = respuesta.respuesta.chat
+		// var res = respuesta.chat
+		var res = respuesta.respuesta.chat
 		var array = [];
 	    if(res!=null){
 			for (i = 0; i < res.length; i++) { 
@@ -93,9 +93,9 @@ var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 		var res = respuesta;
 		var array = [];
 		var count = 0;
-		// if(respuesta.code==200){
-	    if(res!=null){
-			// var res = respuesta.respuesta
+		if(respuesta.code==200){
+	    // if(res!=null){
+			var res = respuesta.respuesta
 	        if (res.length > 0){
 				for (i = 0; i < res.length; i++) { 
 					var operador = '';
@@ -166,20 +166,20 @@ var cambiarStatusMessage = function(){
 // Carga de mensajes
 var LoadMessage = function(){
 	if (stopload==0){
-		$.get(rutaGetChat, function(data) {ManejoRespuestaProcesarGetChat(data);});
-		// ManejoRespuestaProcesarGetChat(data); 
-		// parametroAjaxGET.ruta = rutaGetChat;
-		// respuesta=procesarajaxChat(parametroAjaxGET);
+		// $.get(rutaGetChat, function(data) {ManejoRespuestaProcesarGetChat(data);});
+		parametroAjaxGET.ruta = rutaGetChat;
+		respuesta=procesarajaxChat(parametroAjaxGET);
+		ManejoRespuestaProcesarGetChat(respuesta); 
 	}
 }
 
 //Carga de buzon de mensajes
 var LoadMailbox = function(){
 	if (stopload==0){
-		$.get(rutaGetAllChat, function(data) {ManejoRespuestaProcesarGetAllChat(data);});
-		// parametroAjaxGET.ruta = rutaGetAllChat;
-		// respuesta=procesarajaxChat(parametroAjaxGET);
-		// ManejoRespuestaProcesarGetAllChat(respuesta);
+		// $.get(rutaGetAllChat, function(data) {ManejoRespuestaProcesarGetAllChat(data);});
+		parametroAjaxGET.ruta = rutaGetAllChat;
+		respuesta=procesarajaxChat(parametroAjaxGET);
+		ManejoRespuestaProcesarGetAllChat(respuesta);
 	}
 }
 
@@ -232,7 +232,7 @@ $(document).ready(function() {
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	// setTimeout(function(){Salir();}, 600000);
+	setTimeout(function(){Salir();}, 600000);
 	// Cierre de session por manupulacion de url o cierre del navegador
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);

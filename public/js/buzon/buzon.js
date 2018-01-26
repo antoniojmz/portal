@@ -162,4 +162,9 @@ $(document).ready(function(){
     setInterval("selected()", 2200);
     $(document).on('click','#ChatSubmitC',enviarMessage);
     $(document).on('click','#volverChat',volverChat);
+    $("#message").on('keypress',function(e){
+        if(e.which == 13){
+            SendMessage();
+        }
+    });
 });
