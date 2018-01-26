@@ -10,8 +10,8 @@
 </style>
 <?php 
 	$value=0;
-	if(!empty($_GET['value'])){
-		$value = $_GET['value'];
+	if(!empty($_POST['idSubmitchat'])){
+		$value = $_POST['idSubmitchat'];
 	} 
 ?>
 <div class="container col-md-10">
@@ -60,6 +60,7 @@
 			</div>
 			<div id="my-portlet__footer" class="m-portlet__foot">
 				<form id="FormChatC">
+					{{ csrf_field() }}
 					<input type="hidden" name="caso" id="caso" value="2">
 					<input type="hidden" name="idChat" id="idChat" value="0">
 					<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">

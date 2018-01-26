@@ -24,8 +24,8 @@ Route::post('/ver_noticia', 'HomeController@postNoticia')->name('ver_noticia');
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
 
-Route::get('/consultas', 'ConsultaController@getConsultas')->name('consultas');
-Route::post('/consultas', 'ConsultaController@postConsultas')->name('consultas');
+Route::any('/consultas', 'ConsultaController@getConsultas')->name('consultas');
+Route::post('/consultasB', 'ConsultaController@postConsultas')->name('consultasB');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
 Route::post('/trazaDTE', 'ConsultaController@postBuscartraza')->name('trazaDTE');
 
@@ -66,7 +66,7 @@ Route::get('/chatC', 'ChatController@getChatcliente')->name('chatC');
 Route::post('/statusChat', 'ChatController@postStatuschat')->name('statusChat');
 
 //Buzon de mensajes (Clientes)
-Route::get('/buzon', 'ChatController@getBuzon')->name('buzon');
+Route::any('/buzon', 'ChatController@getBuzon')->name('buzon');
 // Conversaciones entre proveedores y clientes
 Route::get('/conversacion', 'ChatController@getConversacion')->name('conversacion');
 

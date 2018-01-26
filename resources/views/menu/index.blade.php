@@ -14,7 +14,7 @@
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="csrf-token" content="{{ csrf_token() }}">
+    	<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>{{ config('app.name', 'Laravel') }}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script language="JavaScript" type="text/javascript">
@@ -41,13 +41,9 @@
 		{!! Html::style('css/core/core.css') !!}
 		{!! Html::style('css/app/app.css') !!}
 		<!--begin::Base Scripts -->
-		{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }}
-		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }}
-		{{ HTML::script('theme/dist/html/demo3/assets/app/js/dashboard.js') }}
-		{{ HTML::script('theme/dist/html/default/assets/demo/default/custom/header/actions.js') }}
-		<!-- Scritp Plugins -->
 		{{ HTML::script('js/core/core.js') }}
 		{{ HTML::script('js/index/index.js') }}
+		<!-- Scritp Plugins -->
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
 	@php $data = Session::get('perfiles'); @endphp
@@ -55,6 +51,10 @@
 	<input type="hidden" id="idUsertext" value="<?php echo $data['v_detalle'][0]->idUser ?>" >
 	<input type="hidden" id="idPerfiltext" value="<?php echo $data['idPerfil'] ?>" >
 	@endif
+		<form id="formIdChat" method="POST" action='{!! URL::route("buzon") !!}' style="display: none;">
+			{{ csrf_field() }}
+			<input type="hidden" id="idSubmitchat" name="idSubmitchat">
+		</form>
 		<form id="formLogout" method="POST" style="display: none;">
 			{{ csrf_field() }}
 		</form>
@@ -119,6 +119,7 @@
 				</div>
 				<div id="my-portlet__footer" class="m-portlet__foot">
 					<form id="FormChat">
+						{{ csrf_field() }}
 						<input type="hidden" name="caso" id="caso" value="1">
 						<input type="hidden" name="idChat" id="idChat" value="0">
 						<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">

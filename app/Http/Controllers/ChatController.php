@@ -58,12 +58,15 @@ class ChatController extends Controller
     }
 
     // Buzon de mensajes (Clientes)
-    protected function getBuzon(){
+    protected function getBuzon(Request $request){
+        $datos = $request->all();
         $model= new Chat();
         $data['idUser'] = Auth::id();
         $data['v_chat'] = $model->listChatCliente();
         return View::make('buzon.buzon',$data);
     }
+
+    
 
     // Cargar el historial de conversacion en el panel de administrador
     protected function getConversacion(Request $request){

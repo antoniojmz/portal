@@ -30,11 +30,13 @@ class ConsultaController extends Controller
         $model= new Consulta();
         $data['v_busq_consulta'] = $model->listBusquedaDte();
         $data['v_tipo_dte'] = $model->listTipoDTE();
-        // if(isset($datos['IdDTE'])){
-            // $data['v_dtes'] = $model->BusDtesGraf($datos['IdDTE']);
-        // }else{
+        $data['method'] = 1;
+        if(isset($datos['idSubmitDtes'])){
+            $data['v_dtes'] = $model->BusDtesGraf($datos['idSubmitDtes']);
+            $data['method'] = 2;
+        }else{
             $data['v_dtes'] = $model->listDtes();
-        // }
+        }
         return View::make('consultas.consultas',$data);
     }
 

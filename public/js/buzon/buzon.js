@@ -1,4 +1,4 @@
-var errorLoad = errorLoadAll = refreshMessage = VarIdChat = VarReload = 0;
+var errorLoad = errorLoadAll = refreshMessage = VarIdChat = 0;
 
 var parametroAjaxB = {
     'token': $('input[name=_token]').val(),
@@ -95,14 +95,9 @@ var cargarFormulario = function(idChat){
 
 var volverChat = function(){
     $("#FormChatC")[0].reset();
-    refreshMessage = 0; 
     $('#imgUserChat').attr('src','/img/default.png')+ '?' + Math.random();    
-    if (VarReload == 1){
-        VarReload = 0;
-        window.location.href = "/buzon";
-    }else{
-        $(".divForm").toggle();
-    }
+    refreshMessage = 0; 
+    $(".divForm").toggle();
 }
 
 var cargarBuzon = function(res){
@@ -132,17 +127,17 @@ var cargarBuzon = function(res){
 }
 
 var LoadBuzon = function(){
-    $.get(RutabR, function(data) {cargarBuzon(data);});
-    // parametroAjaxGETB.ruta = RutabR;
-    // respuesta=procesarajaxChat(parametroAjaxGETB);
-    // if (respuesta.code == 200){
-    //     cargarBuzon(respuesta.respuesta);
-    // }else{
-    //     if(errorLoadAll==0){
-    //         toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
-    //         errorLoadAll=1;
-    //     }
-    // }
+    // $.get(RutabR, function(data) {cargarBuzon(data);});
+    parametroAjaxGETB.ruta = RutabR;
+    respuesta=procesarajaxChat(parametroAjaxGETB);
+    if (respuesta.code == 200){
+        cargarBuzon(respuesta.respuesta);
+    }else{
+        if(errorLoadAll==0){
+            toastr.warning("Ocurrio un error al refrescar el buzon de mensajes", "Error!");
+            errorLoadAll=1;
+        }
+    }
 }
 
 var selected = function(){
@@ -156,7 +151,7 @@ var selected = function(){
 }
 
 var Cargarconversacion = function(idChat){
-    if (idChat > 0){cargarFormulario(idChat);VarReload=1;}
+    if (idChat > 0){cargarFormulario(idChat);}
 }
 
 $(document).ready(function(){

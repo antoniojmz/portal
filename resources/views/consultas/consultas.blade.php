@@ -2,23 +2,45 @@
 @section('content')
 <div class="col-md-12 m-portlet">
 	<div class="divForm">
+		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<br>
 				<center><span id="spanTitulo"></span></center>
-				<hr>
 			</div>
 		</div>
-		<center>
-			<h6>
-				<span>
-					<a id="ahrefFiltros" href="#">
-						Filtros de busqueda
+		<hr>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<center>
+					<h6>
+						<span>
+							<a id="ahrefFiltros" href="#">
+								Filtros de busqueda
+							</a>
+						</span>
+					</h6>
+				</center>
+			</div>
+			<div class="col-md-4">
+				<center>
+				    <a href='{!! URL::route("consultas") !!}' title="Refrescar" class="btn m-btn--pill btn-primary">
+						<span>
+							<i class="flaticon-interface-9"></i>
+							<span>Refrescar</span>
+						</span>
 					</a>
-				</span>
-			</h6>
-		</center>
-		<div id="divForm" class="col-md-12 divForm">
+				    &nbsp;&nbsp;
+				    <a href='{!! URL::route("dashboard") !!}' title="Ir al Dashboard" class="btn m-btn--pill btn-primary">
+						<span>
+							<i class="flaticon-time-2"></i>
+							<span>Dashboard</span>
+						</span>
+					</a>
+				</center>	
+			</div>
+		</div>
+		<div id="divForm" class="col-md-12 divForm" style="display:none;">
 			<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 			{!! Form::open(['id'=>'FormConsultas',
 			'autocomplete' => 'off']) !!}
@@ -478,7 +500,7 @@
   </div>
 </div>
 <script Language="Javascript">
-	var ruta = "{{ URL::route('consultas') }}" 
+	var ruta = "{{ URL::route('consultasB') }}" 
 	var rutaD = "{{ URL::route('detallesDTE') }}" 
 	var rutaT = "{{ URL::route('trazaDTE') }}" 
 	var d = [];

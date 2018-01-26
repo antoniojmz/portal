@@ -1,5 +1,5 @@
-var limpiar=limpiarEstados=limpiarDetalles=limpiarTrazas=limpiarReferencias=printCounter=ajax=0;
-var RegistroDTEEstadisticos = RegistroDTEEstadisticos2 = '';
+var ajax=0;
+
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -8,422 +8,31 @@ var parametroAjax = {
     'async': false
 };
 
-/////////////////////////////////////////
-// Mostrar los dte de las estadisticas //
-/////////////////////////////////////////
-var cambiarTabla = function (){
-    $("#divBienvenida").show();
-	$(".divTablaFacP").toggle();
-} 
-
-var ManejoRespuestaT = function(respuesta){
-    if (respuesta.code = '200'){
-        cargartablaTrazas(respuesta.respuesta.v_dte_estados);
+var verDtes = function(data){
+    if (data!=null){
+        MyblockPage();
+        $("#idSubmitDtes").val(data);
+        $("#formIdDtes").submit();
     }else{
-        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
-    };
-}
-
-var ManejoRespuestaE = function(respuesta){
-	if(respuesta.code==200){
-		var res = JSON.parse(respuesta.respuesta.v_info);
-		switch(res.code) {
-            case "204":
-                cargartablaReportesEstadisticos(respuesta.respuesta.v_dtes);
-                break;
-            default:
-                toastr.error(res.des_code, "Error!");
-            break;
-        } 
-    }else{
-        toastr.error("Contacte al personal informatico", "Error!");
+        toastr.warning("Se esperaban parametros de entrada", "Error!");
     }
-}
-
-var ManejoRespuestaD = function(respuesta){
-    if (respuesta.code = '200'){
-    		$("#divFormTabla").hide();
-    		$("#divFormTab").show();
-            pintarDatos(RegistroDTEEstadisticos);
-            cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
-            cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
-            cargartablaEstados(respuesta.respuesta.v_dte_estados);
-    }else{
-        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
-    };
 }
 
 var ManejoRespuestaF = function(respuesta){
-	ajax=0;
+    ajax=0;
     if (respuesta.code = '200'){
-    	var res = JSON.parse(respuesta.respuesta.v_info);
-    	if (res.code = '204'){
-			widget1(respuesta.respuesta.v_widget1);
-			widget2(respuesta.respuesta.v_widget2);
-			widget3(respuesta.respuesta.v_widget2);
-			widget4(respuesta.respuesta.v_widget4);
-    	}else{
-        	toastr.error(res.des_code, "Error!");	
-    	}
+        var res = JSON.parse(respuesta.respuesta.v_info);
+        if (res.code = '204'){
+            widget1(respuesta.respuesta.v_widget1);
+            widget2(respuesta.respuesta.v_widget2);
+            widget3(respuesta.respuesta.v_widget2);
+            widget4(respuesta.respuesta.v_widget4);
+        }else{
+            toastr.error(res.des_code, "Error!");   
+        }
     }else{
         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
-}
-
-var cargartablaReportesEstadisticosAjax = function(data){
-	parametroAjax.ruta=ruta;
-    parametroAjax.data = {"IdDTE": data}
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaE(respuesta);
-}
-
-var pintarDatos = function(data){
-    if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
-    if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
-    if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
-    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
-    if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
-    if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
-    if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
-    if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
-    if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
-    // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
-    // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
-    // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
-    // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
-    if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
-    if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
-}
-
-var cargartablaDetalles = function(data){
-    if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
-    if (data.length>0){
-        $("#tablaDetalles").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "Código Producto","data": "CodigoProducto"},
-                {"title": "Nombre Producto","data": "NombreProducto"},
-                {"title": "Valor Unitario","data": "ValorUnitario"},
-                {"title": "Cantidad","data": "Cantidad"},
-                {"title": "Total Linea","data": "TotalLinea"}
-            ],
-        });
-        limpiarDetalles=1;
-    }else{
-        limpiarDetalles=0;
-    }
-}
-
-var cargartablaReferencias = function(data){
-    if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
-    if (data.length>0){
-        $("#tablaReferencias").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdReferencia","data": "IdReferencia",visible:0},
-                {"title": "Tipo de Referencia","data": "TipoReferencia"},
-                {"title": "Folio de Referencia","data": "FolioReferencia"},
-                {"title": "Fecha de Referencia","data": "FechaReferencia"}
-            ],
-        });
-        limpiarReferencias=1;
-    }else{
-        limpiarReferencias=0;
-    }
-}
-
-var cargartablaEstados = function(data){
-    if (limpiarEstados>0){destruirTabla('#tablaEstados');}
-    if (data.length>0){
-        $("#tablaEstados").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {"title": "Fecha de Estado","data": "FechaEstado"},
-                {"title": "Comentario de Estado","data": "ComentarioEstado"}
-            ],
-        });
-        limpiarEstados=1;
-    }else{
-        limpiarEstados=0;
-    }
-}
-
-var cargartablaTrazas = function(data){
-    if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
-    if (data.length>0){
-        $("#tablaTrazas").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {
-                    "title": "Fecha de Estado", 
-                    "data": "FechaEstado",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Comentario de Estado","data": "ComentarioEstado"}
-            ],
-        });
-        limpiarTrazas=1;
-    }else{
-        limpiarTrazas=0;
-    }
-}
-
-var cargartablaReportesEstadisticos = function(data){
-    if (limpiar>0){destruirTabla('#tablaReportesEstadisticos');}
-    if (data.length>0){
-    	$("#divBienvenida").hide();
-		$(".divTablaFacP").toggle();
-		var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
-        $("#tablaReportesEstadisticos").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            "scrollX": true,
-            "scrollY": '45vh',
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdProveedor","data": "IdProveedor",visible:0},
-                {"title": "IdCliente","data": "IdCliente",visible:0},
-                {
-                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
-                    "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
-                    "orderable":false,
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = '<center><a target="_blank" class="m-menu__link" data-toggle="tooltip" title="XML" href="' + data.XmlDTE + '"><i class="fa fa-file-code-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a target="_blank" class="m-menu__link" data-toggle="tooltip" title="PDF" href="' + data.PdfDTE + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a id="LinkTrazas" class="m-menu__link" data-toggle="tooltip" title="Traza DTE" href="#"><i class="fa fa-history" aria-hidden="true"></i></a></center>';
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Tipo DTE","data": "TipoDTE"},
-                {"title": "Folio DTE","data": "FolioDTE"},
-                {
-                    "title": "Fecha Emisión", 
-                    "data": "FechaEmision",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Fecha Recepción", 
-                    "data": "FechaRecepcion",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "RUT Proveedor","data": "RutProveedor"},
-                {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "RUT Cliente","data": "RutCliente"},
-                {"title": "Nombre Cliente","data": "NombreCliente"},
-                {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
-                {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
-                {"title": "Monto IVA DTE","data": "MontoIVACLP"},
-                {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {
-                    "title": "Fecha Autorizacion SII", 
-                    "data": "FechaAutorizacionSII",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Fecha OC", 
-                    "data": "FechaOC",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Fecha Pago", 
-                    "data": "FechaPago",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Fecha Vencimiento", 
-                    "data": "FechaVencimiento",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Tipo Acuse","data": "DesTipoAcuse"},
-                {"title": "Existencia SII","data": "DesExistenciaSII"},
-                {"title": "Existencia Paperles","data": "DesExistenciaPaperles"},
-                {
-                    "title": "Fecha de Estado Actual", 
-                    "data": "FechaEstadoActualDTE",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"}
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    orientation:'landscape',
-                    pageSize:'TABLOID',
-                    title:'Listado de DTEs',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all'
-                        }
-                    },
-                    customize: function (win) {
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size','11px');
-                    }
-                },
-                {
-                    extend: 'excel',
-                    text: 'Exportar',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado DTEs',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all'
-                        }
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    text: 'PDF',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    orientation:'landscape',
-                    pageSize:'TABLOID',
-                    title:'Listado de DTEs',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all',
-                        }
-                    },
-                    customize : function(doc){
-                        doc.defaultStyle.fontSize = 8; 
-                        var colCount = new Array();
-                        $($("#tablaReportesEstadisticos").dataTable()).find('tbody tr:first-child td').each(function(){
-                            if($(this).attr('colspan')){
-                                for(var i=1;i<=$(this).attr('colspan');$i++){
-                                    colCount.push('*');
-                                }
-                            }else{ colCount.push('*'); }
-                        });
-                        doc.content[1].table.widths = colCount;
-                    }
-                }
-            ]
-        });
-        limpiar=1;
-        seleccionartablaReportesEstadisticos();
-    }else{
-        limpiar=0;
-        toastr.warning("No se encontraron resultados", "Info!");
-    }
-};
-
-var seleccionartablaReportesEstadisticos=function(){
-    var tableB = $('#tablaReportesEstadisticos').dataTable();
-    limpiar=1;
-    $('#tablaReportesEstadisticos tbody').on('click', 'tr', function (e) {
-        tableB.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-    });
-    $('#tablaReportesEstadisticos tbody').on('dblclick', 'tr', function () {
-        RegistroDTEEstadisticos = TablaTraerCampo('tablaReportesEstadisticos',this);
-        cargarFormularioVisualizacion(RegistroDTEEstadisticos);
-        $("#ahref1").click();
-        $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
-    });
-    tableB.on('dblclick', 'tr', function () {
-        $('#close').trigger('click');
-    });	
-
-    var table = $('#tablaReportesEstadisticos').DataTable();
-    $('#tablaReportesEstadisticos tbody').on('click', 'tr', function () {
-        RegistroDTEEstadisticos2 = table.row(this).data();
-    });
-};
-
-var cargarFormularioVisualizacion = function(data){
-    if(ajax==0){
-	    ajax=1
-	    parametroAjax.ruta=rutaD;
-	    parametroAjax.data = {"IdDTE":data.IdDTE};
-	    respuesta=procesarajax(parametroAjax);
-	    ManejoRespuestaD(respuesta);
-    }
-};
-
-var CargarTrazas = function(){
-    parametroAjax.ruta=rutaT;
-    parametroAjax.data = RegistroDTEEstadisticos2;
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaT(respuesta);
-    $('#ModalTrazas').modal("show");
 }
 
 var FiltrarwidgetsProveedor = function(caso){
@@ -434,13 +43,6 @@ var FiltrarwidgetsProveedor = function(caso){
 	    respuesta=procesarajax(parametroAjax);
 	    ManejoRespuestaF(respuesta);
     }
-};
-
-var BotonVolver = function(){
-    // $(".divForm").toggle();
-    $("#divFormTabla").show();
-    $("#divFormTab").hide();
-    ajax=0;
 };
 
 //////////////////////////////////////////
@@ -630,10 +232,10 @@ var widget3 = function(v_widget2){
 	$("#spanDes2").text("0 DTE Recepcionado por el Cliente");
 	$("#spanDes3").text("0 DTE Contabilizado por el Cliente");
 	$("#spanDes4").text("0 DTE Programado para Pago");
-	$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax();");
-	$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax();");
-	$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax();");
-	$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax();");
+	$("#href1").attr("onclick","verDtes();");
+	$("#href2").attr("onclick","verDtes();");
+	$("#href3").attr("onclick","verDtes();");
+	$("#href4").attr("onclick","verDtes();");
 	if (v_widget2.length>0){
 		var total=0;
 		for (var i = 0; i < v_widget2.length; i++) {
@@ -645,25 +247,25 @@ var widget3 = function(v_widget2){
 				case "1":
 					$("#spanMonto1").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-					$("#href1").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#href1").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes1").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 				break;
 				case "2":
 					$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-					$("#href2").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#href2").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes2").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 				break;
 				case "6":
 					$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-					$("#href3").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#href3").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes3").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 				break;                       
 				case "9":
 					$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
-					$("#href4").attr("onclick","cargartablaReportesEstadisticosAjax('"+v_widget2[i].id_dtes+"');");
+					$("#href4").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 				break;
 			}
@@ -716,7 +318,7 @@ var cargarPanel = function(idPerfil){
 			widget2(d.v_widget2);
 			widget3(d.v_widget2);
 			widget4(d.v_widget4);
-    		$(document).on('click','#LinkTrazas',CargarTrazas);
+    		// $(document).on('click','#LinkTrazas',CargarTrazas);
 		break;
 		default:
 			console.log("No tengo perfil definido");
@@ -727,8 +329,6 @@ var cargarPanel = function(idPerfil){
 $(document).ready(function(){
     ClassActive("LiDashboard");    
 	cargarPanel(d.idPerfil);
-    $(document).on('click','.LinkFacP',cambiarTabla);
-    $(document).on('click','#volverTabProv',BotonVolver);
 	$("#FiltroAnio").click(function(){
 		FiltrarwidgetsProveedor(13);
 	});

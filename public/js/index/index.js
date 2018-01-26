@@ -139,7 +139,8 @@ var HideMessage = function(){
 
 // Envio a la pantalla de mensajes con el chat seleccionado
 var LoadConversation = function(data){
-	window.location.href = "/buzon?value="+data;
+	$("#idSubmitchat").val(data);
+	$("#formIdChat").submit();
 }
 
 //Enviar mensajes
@@ -235,6 +236,7 @@ $(document).ready(function() {
 	// Cierre de session por manupulacion de url o cierre del navegador
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
+    $(document).on('click','.btn',cambiarSalir);
     $(document).on('click','.m-nav__link',cambiarSalir);
     $(document).on('click','#btn-logout',Salir);
 	$(document.body).on("keydown", this, function (event) {
