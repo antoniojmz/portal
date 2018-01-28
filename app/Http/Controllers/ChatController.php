@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 use Form;
 use Lang;
@@ -11,13 +14,13 @@ use View;
 use Redirect;
 use SerializesModels;
 use Log;
-use Auth;
 use Session;
+use Config;
+use Mail;
+use Storage;
+use DB;
 
 // Modelo
-use App\Models\Publicacion;
-use App\Models\Proveedor;
-use App\Models\User;
 use App\Models\Chat;
 
 class ChatController extends Controller
@@ -30,7 +33,9 @@ class ChatController extends Controller
     // Chat para proveedores(Cargar mensajes)
     protected function getChat(){
         $model= new Chat();
-        $result = $model->listChat();
+        $IdChat = 0;
+        $caso = 1;
+        $result = $model->listChat($caso,$IdChat);
         return $result;
     }
 
@@ -50,7 +55,7 @@ class ChatController extends Controller
     }
 
     // Cambiar status al Chat(Mensaje leido)
-    protected function postStatuschat(Request $request){
+    protected function getStatuschat(Request $request){
         $datos = $request->all();
         $model= new Chat();
         $result = $model->statusChat($datos);
@@ -66,8 +71,6 @@ class ChatController extends Controller
         return View::make('buzon.buzon',$data);
     }
 
-    
-
     // Cargar el historial de conversacion en el panel de administrador
     protected function getConversacion(Request $request){
         $datos = $request->all();
@@ -75,7 +78,5 @@ class ChatController extends Controller
         $result = $model->listConversacion($datos['idChat']);
         return $result;
     }
-    
-
 
 }

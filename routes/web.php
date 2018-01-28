@@ -63,7 +63,7 @@ Route::get('/chat', 'ChatController@getChat')->name('chat');
 Route::post('/chat', 'ChatController@postChat')->name('chat');
 Route::get('/chatC', 'ChatController@getChatcliente')->name('chatC');
 // Cambiar status a la conversacion (Leido)
-Route::post('/statusChat', 'ChatController@postStatuschat')->name('statusChat');
+Route::get('/statusChat', 'ChatController@getStatuschat')->name('statusChat');
 
 //Buzon de mensajes (Clientes)
 Route::any('/buzon', 'ChatController@getBuzon')->name('buzon');

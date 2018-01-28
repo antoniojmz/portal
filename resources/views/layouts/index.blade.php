@@ -29,6 +29,12 @@
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/base/scripts.bundle.js') }}
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
+			WebFont.load({
+				google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+				active: function() {
+					sessionStorage.fonts = true;
+				}
+			});
 			var widgetId1;
 			var widgetId2;
 			var onloadCallback = function() {
@@ -41,12 +47,6 @@
 					'theme' : 'light'
 				});	
 			};
-			WebFont.load({
-				google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-				active: function() {
-					sessionStorage.fonts = true;
-				}
-			});
 		</script>
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">

@@ -29,8 +29,7 @@
 		{!! Html::style('theme/dist/html/demo2/assets/vendors/base/vendors.bundle.css') !!}
 		{!! Html::style('theme/dist/html/demo2/assets/demo/demo2/base/style.bundle.css') !!}
 		{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
-		{!! Html::style('css/app/app.css') !!}
-		{!! Html::style('css/accesos/accesos.css') !!}
+		{!! Html::style('css/core/core.css') !!}
 		<!-- Archivos Javascritp -->
 		{{ HTML::script('js/core/core.js') }}
 	</head>

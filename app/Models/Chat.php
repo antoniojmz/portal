@@ -22,14 +22,19 @@ class Chat extends Authenticatable
      */
     
     // Chat para proveedores(Cargar mensajes)
-    public function listChat(){
-        $idUser = Auth::id();
-        $sql = "select c.* from v_chat c where c.idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') and idChat = (SELECT MAX(vc.idchat) FROM v_chat vc where vc.idUser=".$idUser.") order by idChatMessage ASC";
-        $sql2= "select max(idchat) as idChat from v_chat where idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d')";
-        $idChat = DB::select($sql2);
-        $result ['idChat'] = $idChat[0]->idChat;
-        $result['chat'] = DB::select($sql);
-        return $result;
+    public function listChat($caso,$IdChat){
+        switch ($caso) {
+            case 1:
+            // caso 1 proveedor
+                $idUser = Auth::id();
+                $sql = "select c.* from v_chat c where c.idUser=".$idUser." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') and idChat = (SELECT MAX(vc.idchat) FROM v_chat vc where vc.idUser=".$idUser.") order by idChatMessage ASC";
+            break;
+            case 2:
+            // caso 2 cliente
+                $sql = "select c.* from v_chat c where c.idChat=".$IdChat." and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') order by idChatMessage ASC";
+            break;
+        }
+       return DB::select($sql);
     }
     
     // Chat para proveedores(Enviar mensajes)
@@ -43,7 +48,9 @@ class Chat extends Authenticatable
         foreach ($execute[0] as $key => $value) {
             $result['f_registro_chat']=$value;
         }
-        $result['listChat'] = $this->listChat();
+        $data = json_decode($result['f_registro_chat']);
+        $result['IdChat'] = $data->idChat;
+        $result['chat'] = $this->listChat($datos['caso'],$result['IdChat']);
         return $result;
     }
 
@@ -55,19 +62,16 @@ class Chat extends Authenticatable
             ->update($values);
     }
     
-
     // Chat para proveedores(bandeja de entrada Clientes)
     public function listChatCliente(){
         $sql = "select * from v_chat c where c.idChatMessage = (SELECT MAX(idChatMessage) FROM chatMessage cm where c.idChat=cm.idChat) and DATE_FORMAT(fechaChat, '%Y %M %d') = DATE_FORMAT(NOW(), '%Y %M %d') order by FechaMessage DESC";
-        $result = DB::select($sql);
-        return $result;
+        return DB::select($sql);
     }
 
     // Cargar historial de conversacion entre el cliente y el proveedor
     public function listConversacion($idChat){
         $sql = " select * from v_chat where idChat=".$idChat." order by idChatMessage ASC;";
-        $result = DB::select($sql);
-        return $result;
+        return DB::select($sql);
     }
 
 }

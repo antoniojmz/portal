@@ -67,7 +67,7 @@
 					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
 						<div class="m-messenger__form" style="padding-bottom: 2px;">
 							<div class="m-messenger__form-controls">
-								<textarea name="message" id="message" placeholder="Ingrese su mennsaje..." class="m-messenger__form-input" maxlength="990"></textarea>
+								<textarea name="messageB" id="messageB" placeholder="Ingrese su mennsaje..." class="m-messenger__form-input" maxlength="990"></textarea>
 							</div>
 							<div class="m-messenger__form-tools">
 								<a href="#" id="ChatSubmitC" class="m-nav__link m-portlet__nav-link btn btn-info m-btn m-btn--icon m-btn--icon-only m-btn--pill">
@@ -82,10 +82,7 @@
 	</div>
 </div>
 <script Language="Javascript">
-	var ruta = "{{ URL::route('buzon') }}"
 	var rutaC = "{{ URL::route('conversacion') }}"
-	var rutaS = "{{ URL::route('chat') }}"
-	var RutabR = "{{ URL::route('chatC') }}"
 	var d = [];
 	d['v_chat'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_chat) }}'));
 	d['idUser'] = JSON.parse(rhtmlspecialchars('{{ json_encode($idUser) }}'));

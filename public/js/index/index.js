@@ -1,6 +1,5 @@
 var imgProgreso = '<img alt="" src="/img/giphy.gif" height="50" width="50"/>';
-var errorLoad = errorLoadAll = stopload = stopRead = 0;
-var salir = "{{ URL::route('logout') }}";
+var stopRead = 0;
 var cambiarSalir = function(){
 	v_salir = 1;
 }
@@ -51,73 +50,85 @@ var ManejoRespuestaProcesarChat = function (respuesta){
         var res = JSON.parse(respuesta.respuesta.f_registro_chat);
         if(res.code==200){
 			stopRead = 0;
-			$("#divChatMin").stop();	
-        	$("#idChat").val(res.idChat);
-        	$('#message').focus();
-        	$("#message").val("");
-        }else{
-            toastr.warning(respuesta.respuesta.des_code, "Info!");
+			$("#message").val("");
+			pintarChat(respuesta.respuesta.IdChat,respuesta.respuesta.chat);
         }
-    }else{
-        toastr.error("Disculpe, No conseguimos enviar su mensaje", "Error!");
     }
 }
 
 var ManejoRespuestaProcesarGetChat = function (respuesta){
-	if(respuesta.code==200){
-	// if(respuesta!=null){
-		var idChat = respuesta.respuesta.idChat;
-		// var idChat = respuesta.idChat;
-		idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
-		// var res = respuesta.chat
-		var res = respuesta.respuesta.chat
-		var array = [];
-	    if(res!=null){
-			for (i = 0; i < res.length; i++) { 
-	            if (res[i].IdPerfil==3){
-					array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-				}else{
-					array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
-					if(res[i].statusAdmin==1){stopRead = 1;}
-				}
-				$("#ChatBody").html(array);
+	if(respuesta!=null){
+		if(respuesta.code==200){
+			var res = respuesta.respuesta;
+			var IdChat = 0
+			if (res.length > 0){IdChat = respuesta.respuesta[0].idChat;}
+			pintarChat(IdChat,respuesta.respuesta);
+    	}	
+	}	
+}
+
+var pintarChat = function (IdChat,chat){
+	var idChat = IdChat;
+	idChat == null ? $("#idChat").val(0) : $("#idChat").val(idChat);
+	var res = chat
+	var array = [];
+    if(res!=null){
+		for (i = 0; i < res.length; i++) { 
+            if (res[i].IdPerfil==3){
+				array[i]='<div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content" style="width: 280px;"><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="color:#FFF;text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
+			}else{
+				array[i]='<div class="m-messenger__message m-messenger__message--in"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow" style="color:#FFF"></div><div class="m-messenger__message-content" style="background-color:#FFF;width:280px;"><div class="m-messenger__message-username">Ejecutivo</div><div class="m-messenger__message-text">'+res[i].message+'</div><div class="m-messenger__message-username" style="text-align:right;">'+moment(res[i].FechaMessage, 'YYYY-MM-DD HH:mm:ss',true).format("HH:mm")+'</div></div></div></div>';
+				if(res[i].statusAdmin==1){stopRead = 1;}
 			}
+			$("#ChatBody").html(array);
 		}
-		var top = $("#styleScroll").prop("scrollHeight");
-		$("#styleScroll").scrollTop(top);
-    }	
+	var top = $("#styleScroll").prop("scrollHeight");
+	$("#styleScroll").scrollTop(top);
+	}
 }
 
 var ManejoRespuestaProcesarGetAllChat = function (respuesta){
 	if(respuesta!=null){
 		var res = respuesta;
-		var array = [];
+		var arrayAlert = [];
+    	var arrayBuzon = [];
+    	var AlertPrincipal = '';
+		var AlertSecundario = '';
 		var count = 0;
 		if(respuesta.code==200){
-	    // if(res!=null){
 			var res = respuesta.respuesta
 	        if (res.length > 0){
 				for (i = 0; i < res.length; i++) { 
-					var operador = '';
-					var usuario = '';
+					// var operador = '';
+					// var usuario = '';
 					res[i]['Operador'] == null ? operador = "No asignado" : operador = res[i]['Operador']; 
+	                var image = '/img/default.png'
+	                var foto = res[i].imageUsuario; 
+	                if (foto != null){if (foto.length > 13){ image = res[i].imageUsuario;}}
+	                var message = res[i].message;
+	                var cadena =60;
+	                if (message.length > cadena ){message = message.substr(0,cadena)+"...";} 
 					if (res[i].statusMessage==1){
 						count++;
-						array[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
+                    	arrayBuzon[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FDF2A0"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+						arrayAlert[i]='<div onclick="LoadConversation('+res[i].idChat +')" style="background-color:#FDF2A0;" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+' </span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
 					}else{
-						array[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
+                    	arrayBuzon[i] = '<div onclick="cargarFormulario('+res[i].idChat+');" class="m-widget3__item" style="background-color:#FFFFFF"><div class="m-widget3__header"><div class="m-widget3__user-img"><img class="m-widget3__img" src="'+image+'" alt=""></div><div class="m-widget3__info"><div class="row"><div class="col-md-3"><span class="m-widget3__username">'+res[i].Usuario+'</span><br><span class="m-widget3__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div><div class="col-md-9"><div class="row"><div style="padding-top: 10px;" class="col-md-9"><span class="m-widget3__username">'+message+'</span></div><div class="col-md-3"><span style="float:right;padding-right:20px;" class="m-widget3__time">'+operador+'</span></div></div></div></div></div></div></div>';
+						arrayAlert[i]='<div onclick="LoadConversation('+res[i].idChat +')" class="m-list-timeline__item" data-toggle="tooltip" title="'+res[i].Proveedor+'"><span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span><span class="m-list-timeline__text">'+res[i].Usuario+'</span><span class="m-list-timeline__text">'+operador+'</span><span class="m-list-timeline__time">'+moment(res[i].FechaMessage).fromNow()+'</span></div>';
 					}
-					
-					$("#divBuzon").html(array);
 				}
 				if (count > 0){
-					$("#notificacionPri").html('<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>');
-					$("#notificacionSec").html('<span class="m-badge m-badge--success">'+count+'</span>');
-				}else{
-					$("#notificacionPri").html('');
-					$("#notificacionSec").html('');
+					AlertPrincipal = '<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>';
+					AlertSecundario = '<span class="m-badge m-badge--success">'+count+'</span>';
 				}
-			}	
+			}else{
+				arrayAlert = '<br />No hay mensajes pendientes...';
+            	arrayBuzon ='<div style="font-size:12px;color:#898b96"><br><center>No hay mensajes pendientes...</center></div>';
+			}
+			$("#notificacionPri").html(AlertPrincipal);
+			$("#notificacionSec").html(AlertSecundario);
+			$("#divBuzon").html(arrayAlert);
+			$("#divBandejaMensaje").html(arrayBuzon);				
 		}	
     }
 }
@@ -146,41 +157,36 @@ var LoadConversation = function(data){
 //Enviar mensajes
 var SendMessage = function(){
 	var message = $("#message").val();
-	if (message.length > 1){	
+	if (message.length > 0){	
 	    parametroAjax.ruta = rutaGetChat;
 	    parametroAjax.data = $("#FormChat").serialize();
 	    respuesta=procesarajaxChat(parametroAjax);
 	    ManejoRespuestaProcesarChat(respuesta);
 	}
+	$("#message").blur();
 }
 
 // Cambiar el status de los mensajes enviados por el administrador 
 //(Marcar como leido)
 var cambiarStatusMessage = function(){
-	parametroAjax.ruta = rutaStatusChat;
-    parametroAjax.data = $("#FormChat").serialize();
-    respuesta=procesarajaxChat(parametroAjax);
+	parametroAjaxGET.ruta = rutaStatusChat;
+    parametroAjaxGET.data = $("#FormChat").serialize();
+    respuesta=procesarajaxChat(parametroAjaxGET);
     ManejoRespuestaCambiarStatusChat(respuesta);
 }
 
 // Carga de mensajes
 var LoadMessage = function(){
-	if (stopload==0){
-		// $.get(rutaGetChat, function(data) {ManejoRespuestaProcesarGetChat(data);});
-		parametroAjaxGET.ruta = rutaGetChat;
-		respuesta=procesarajaxChat(parametroAjaxGET);
-		ManejoRespuestaProcesarGetChat(respuesta); 
-	}
+	parametroAjaxGET.ruta = rutaGetChat;
+	respuesta=procesarajaxChat(parametroAjaxGET);
+	ManejoRespuestaProcesarGetChat(respuesta); 
 }
 
 //Carga de buzon de mensajes
 var LoadMailbox = function(){
-	if (stopload==0){
-		// $.get(rutaGetAllChat, function(data) {ManejoRespuestaProcesarGetAllChat(data);});
-		parametroAjaxGET.ruta = rutaGetAllChat;
-		respuesta=procesarajaxChat(parametroAjaxGET);
-		ManejoRespuestaProcesarGetAllChat(respuesta);
-	}
+	parametroAjaxGET.ruta = rutaGetAllChat;
+	respuesta=procesarajaxChat(parametroAjaxGET);
+	ManejoRespuestaProcesarGetAllChat(respuesta);
 }
 
 //Funcion que coloca el menu activo (Donde el usuario acaba de hacer click)
@@ -203,11 +209,6 @@ var notificacionChat = function(){
 $(document).ready(function() {
 	// moment en idioma español
 	moment.locale('es');
-	// Carga inicial del buzon de notificacones de Chat con Proveedores
-	$("#divBuzon").html("<br />No hay mensajes pendientes...");
-	$('#divBuzon').css('text-align','center');
-	$('#divBuzon').css('font-size','12px');
-	$('#divBuzon').css('color','#898b96');
 	//Datos de usuario para cargar el contenido dependiendo del perfil
 	v['v_perfil'] = $("#idPerfiltext").val();
 	v['idUser'] = $("#idUsertext").val();
@@ -217,22 +218,26 @@ $(document).ready(function() {
 		break;
 		case "2":
 		    // console.log("Soy cliente home");
-		    // LoadMailbox();
-			setInterval("LoadMailbox()", 2200);
+		    LoadMailbox();
+			setInterval("LoadMailbox()", 5000);
 		break; 
 		case "3":
 		    // console.log("Soy proveedor home");
-			// notificacionChat();
-		    // LoadMessage();
+		    LoadMessage();
+			setInterval("LoadMessage()", 5000);	
 			setInterval("notificacionChat()", 3200);
-			setInterval("LoadMessage()", 2200);
 		    $(document).on('click','#divChatMin',ShowMessage);
 		    $(document).on('click','#divButtonChat',HideMessage);
 		    $(document).on('click','#ChatSubmit',SendMessage);
+		    $("#message").on('keypress',function(e){
+				if(e.which == 13){
+					SendMessage();
+				}
+			});
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	setTimeout(function(){Salir();}, 600000);
+	// setTimeout(function(){Salir();}, 600000);
 	// Cierre de session por manupulacion de url o cierre del navegador
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);

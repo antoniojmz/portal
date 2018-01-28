@@ -39,7 +39,6 @@
 		{!! Html::style('theme/dist/html/demo2/assets/demo/demo2/base/style.bundle.css') !!}
 		{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
 		{!! Html::style('css/core/core.css') !!}
-		{!! Html::style('css/app/app.css') !!}
 		<!--begin::Base Scripts -->
 		{{ HTML::script('js/core/core.js') }}
 		{{ HTML::script('js/index/index.js') }}

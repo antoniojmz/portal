@@ -12,7 +12,7 @@ var ManejoRespuestaProcesar = function(respuesta){
         if(respuesta.respuesta.code==200){
             window.location.href = "/"+respuesta.respuesta.des_code;
         }else{
-            toastr.error("Ocurrio un error mientras se cargaba su perfíl", "Info!");
+            toastr.warning(respuesta.respuesta.des_code, "Info!");
         }
     }else{
         toastr.error("Contacte al personal informatico", "Error!");

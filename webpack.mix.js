@@ -39,5 +39,6 @@ mix.scripts([
 .styles([
 	'public/plugins/jQuery-contextMenu-master/dist/jquery.contextMenu.css',
 	'public/plugins/validator/formValidation.css',
+	'public/css/app/app.css',
 	], 'public/css/core/core.css');
 
