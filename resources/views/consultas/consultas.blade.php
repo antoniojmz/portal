@@ -99,7 +99,7 @@
 					                    'class'         => 'form-control input',
 					                    'placeholder'   => '',
 					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}
+					                    'maxlength'     => '10'])!!}
 									</div>
 									<div class="col-md-6">
 										{{ Form::label('null', 'Nombre Cliente:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}
@@ -119,7 +119,7 @@
 					                    'class'         => 'form-control input',
 					                    'placeholder'   => '',
 					                    'style'         => 'width:100%;height:35px',
-					                    'maxlength'     => '50'])!!}
+					                    'maxlength'     => '10'])!!}
 									</div>
 									<div class="col-md-6">
 										{{ Form::label('null', 'Nombre Proveedor:',array('style' => 'text-align:center;line-height:300%','class' => 'label-input','id' => '','align' => 'center'))}}

@@ -449,6 +449,12 @@ $(document).ready(function(){
     $(".span").text("Desconocido");
     $("#spanTitulo").text("Consultas DTE");
     crearAllcombos(d)
+    $("#RutCliente").focusout(function() {
+        $("#RutCliente").val(formatoRut($("#RutCliente").val()));
+    });
+    $("#RutProveedor").focusout(function() {
+        $("#RutProveedor").val(formatoRut($("#RutProveedor").val()));
+    });
     $('#fecha').daterangepicker({}, function(start, end, label) {
         $('#fecha').text(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY")+" al "+moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
         $('#f_desde').val(moment(start._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));

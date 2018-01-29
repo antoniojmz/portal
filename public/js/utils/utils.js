@@ -1,3 +1,8 @@
+var formatoRut = function(rut){
+    var ced = rut.substring(0, 8);
+    var ver = rut.substring(rut.length-1);
+    return ced+"-"+ver;
+}
 // Combo desplegable de datatable
 DataTableLengthMenu = [[5,10, 25, 50, 100, -1],[5,10, 25, 50, 100, "Todos"]]
 

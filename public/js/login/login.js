@@ -169,10 +169,7 @@ var SnippetLogin = function() {
 jQuery(document).ready(function() {
     SnippetLogin.init();
     $("#usrUserName").focusout(function() {
-        var valor = $("#usrUserName").val();
-        var ced = valor.substring(0, 8);
-        var ver = valor.substring(valor.length-1);
-        $("#usrUserName").val(ced+"-"+ver);
+        $("#usrUserName").val(formatoRut($("#usrUserName").val()));
     });
 
 });
