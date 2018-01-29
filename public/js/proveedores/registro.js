@@ -435,7 +435,7 @@ var cambiarEstatusPerfil = function(data){
 $(document).ready(function(){
     ClassActive("LiProveedores");
     $("#usrUserName").inputmask({
-        mask: "99999999-*", placeholder:"________-_"
+        mask: "99999999-*"
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);    

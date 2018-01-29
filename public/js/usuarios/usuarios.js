@@ -470,7 +470,7 @@ $(document).ready(function(){
     ClassActive("LiAdministracion");
     $("#spanTitulo").text("Usuarios registrados");
     $("#usrUserName").inputmask({
-        mask: "99999999-*", placeholder:"________-_"
+        mask: "99999999-*"
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);    

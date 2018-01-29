@@ -169,6 +169,7 @@ var SnippetLogin = function() {
 jQuery(document).ready(function() {
     SnippetLogin.init();
     $("#usrUserName").inputmask({
-            mask: "99999999-*", placeholder:"________-_"
+            mask: "99999999-*"
     });
+
 });
