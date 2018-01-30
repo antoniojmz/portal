@@ -17,6 +17,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::post('/keep', 'HomeController@postKeep')->name('keep');
 Route::get('/home', 'HomeController@getHome')->name('home');
 Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 Route::post('/ver_noticia', 'HomeController@postNoticia')->name('ver_noticia');

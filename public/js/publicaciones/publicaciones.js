@@ -54,12 +54,10 @@ var ManejoRespuestaProcesarA = function(respuesta){
 
 var cargarTablaPublicaciones = function(data){
     if(limpiarPublicaciones==1){destruirTabla('#tablaPublicaciones');$('#tablaPublicaciones thead').empty();}
-    if (data.length>0){
         $("#spanNoReg").text("");
         $("#tablaPublicaciones").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
             "pagingType": "full_numbers",
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "order": [[0,'desc'],[2,'desc']],
@@ -131,12 +129,8 @@ var cargarTablaPublicaciones = function(data){
             {"title": "idOrden","data": "idOrden",visible:0}
             ],
         });
-        seleccionarTablaPublicaciones();
         limpiarPublicaciones=1;
-    }else{
-        $("#spanNoReg").text("No hay publicaciones registradas.");
-        limpiarPublicaciones=0;
-    }
+    if (data.length>0){seleccionarTablaPublicaciones();}
 };
 
 var seleccionarTablaPublicaciones = function(data){

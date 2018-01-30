@@ -29,12 +29,8 @@ var ManejoRespuestaD = function(respuesta){
 
 var cargartablaDTE = function(data){
     if(limpiarDte==1){destruirTabla('#tablaDTE');}
-    if (data.length>0){
         $("#tablaDTE").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -85,19 +81,12 @@ var cargartablaDTE = function(data){
             ],
         });
         limpiarDte=1;
-    }else{
-        limpiarDte=0;
-    }
 }
 
 var cargartablaProveedores = function(data){
     if(limpiarProveedores==1){destruirTabla('#tablaProveedores');}
-    if (data.length>0){
         $("#tablaProveedores").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -111,19 +100,12 @@ var cargartablaProveedores = function(data){
             ],
         });
         limpiarProveedores=1;
-    }else{
-        limpiarProveedores=0;
-    }
 }
 
 var cargartablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');}
-    if (data.length>0){
         $("#tablaUsuarios").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -136,9 +118,6 @@ var cargartablaUsuarios = function(data){
             ],
         });
         limpiarUsuarios=1;
-    }else{
-        limpiarUsuarios=0;
-    }
 }
 
 var pintarDatos = function(data){
@@ -153,11 +132,9 @@ var pintarDatos = function(data){
 
 var cargartablaClientes = function(data){
     if (limpiar>0){destruirTabla('#tablaClientes');}
-    if (data.length>0){
         var columnReport = [[1],[2],[3],[4],[5],[6]];
         $("#tablaClientes").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -233,12 +210,8 @@ var cargartablaClientes = function(data){
                 }
             ]
         });
-        SeleccionarTablaClientes();
         limpiar=1;
-    }else{
-        limpiar=0;
-        toastr.warning("No se encontraron resultados", "Info!");
-    }
+    if (data.length>0){SeleccionarTablaClientes();}
 };
 
 var SeleccionarTablaClientes = function(){
@@ -269,6 +242,7 @@ var ProcesarConsulta = function(){
 };
 
 var cargarFormularioVisualizacion = function(data){
+    if(data.length == 0){return;}
     $(".divForm").toggle();
     parametroAjax.ruta=rutaD;
     parametroAjax.data = {"IdCliente":data.IdCliente};

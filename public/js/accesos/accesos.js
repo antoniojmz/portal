@@ -62,7 +62,25 @@ var seleccionarAcceso = function(data){
     ManejoRespuestaProcesar(respuesta);
 }
 
+var SessionTimeoutAcces = function() {
+    $.sessionTimeout({
+        title: "Notificación de cierre de sesión",
+        message: "Tu sesión esta por experirar, deseas continuar?",
+        keepAliveUrl:"/keep",
+        redirUrl:"/admin/accesos?logout=1",
+        logoutUrl: "/admin/accesos?logout=1",
+        warnAfter: 600000,
+        redirAfter: 615000,
+        ignoreUserActivity: !0,
+        countdownMessage: "La sesión finalizará en {timer} segundos.",
+        countdownBar: !0,
+        logoutButton: "Cerrar sesión",
+        keepAliveButton: "Mantener en linea",
+    });
+}
+
 $(document).ready(function(){
+    SessionTimeoutAcces();
     setTimeout(function(){Salir();}, 600000);
     $("#spanTitulo").text("Elige acceso");
     cargarTablaAccesos(d.v_accesos);

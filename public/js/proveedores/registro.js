@@ -125,12 +125,10 @@ var ManejoRespuestaProcesarPerfil = function(respuesta){
 
 var cargarTablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');$('#tablaUsuarios thead').empty();}
-    if (data.length>0){  
         $("#tablaUsuarios").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -162,10 +160,9 @@ var cargarTablaUsuarios = function(data){
             {"title": "Estatus Bloqueo","data": "DescripcionBloqueo"}   
             ],
         });
-        seleccionarTablaUsuarios();
         limpiarUsuarios=1;
-    }else{
-        limpiarUsuarios=0;
+    if (data.length>0){  
+        seleccionarTablaUsuarios();
     }
 };
 
@@ -219,16 +216,13 @@ var seleccionarTablaUsuarios = function(data){
 
 var cargarTablaEmpresas = function(data){
     if(limpiarPerfiles==1){destruirTabla('#tablaEmpresas');}
-    if (data.length>0){
         $("#spanAlert").text("");
        $("#divTablaPerfiles").show();
        $("#tablaEmpresas").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
-            // 'bSort': false,
             "scrollCollapse": true,
             "paging": false,
             "searching": false,
-            // "info": false,
             "columnDefs": [
             {
                 "targets": [ 1 ],
@@ -243,11 +237,10 @@ var cargarTablaEmpresas = function(data){
             {"title": "Estado","data": "des_estadoProveedor"},
             ],
         });
-        seleccionarTablaEmpresas();
         limpiarPerfiles=1;
+    if (data.length>0){
+        seleccionarTablaEmpresas();
     }else{
-        limpiarPerfiles=0;
-        $("#spanAlert").text("Este usuario no tiene periles asociados");
        $("#divTablaPerfiles").hide();  
     }   
 };

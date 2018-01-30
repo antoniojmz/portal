@@ -124,12 +124,10 @@ var ManejoRespuestaProcesarPerfil = function(respuesta){
 
 var cargarTablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');$('#tablaUsuarios thead').empty();}
-    if (data.length>0){  
         $("#tablaUsuarios").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -161,11 +159,8 @@ var cargarTablaUsuarios = function(data){
             {"title": "Estatus Bloqueo","data": "DescripcionBloqueo"}
             ],
         });
-        seleccionarTablaUsuarios();
         limpiarUsuarios=1;
-    }else{
-        limpiarUsuarios=0;
-    }
+    if (data.length>0){seleccionarTablaUsuarios();}
 };
 
 var seleccionarTablaUsuarios = function(data){
@@ -249,16 +244,14 @@ var seleccionarTablaUsuarios = function(data){
 
 var cargarTablaPerfiles = function(data){
     if(limpiarPerfiles==1){destruirTabla('#tablaPerfiles');}
-    if (data.length>0){
         $("#spanAlert").text("");
-       $("#divTablaPerfiles").show();
-       $("#tablaPerfiles").dataTable({ 
+        $("#divTablaPerfiles").show();
+        $("#tablaPerfiles").dataTable({ 
             "aLengthMenu": DataTableLengthMenu,
             'bSort': false,
             "scrollCollapse": false,
             "paging": false,
             "searching": false,
-            // "info": false,
             "language": {
                 "info": "Seleccione un perfíl con doble click..."
             },
@@ -277,10 +270,10 @@ var cargarTablaPerfiles = function(data){
             {"title": "Estado","data": "estado_perfil"},
             ],
         });
-        seleccionarTablaPerfiles();
         limpiarPerfiles=1;
+    if (data.length>0){
+        seleccionarTablaPerfiles();
     }else{
-        limpiarPerfiles=0;
         $("#spanAlert").text("Este usuario no tiene periles asociados");
        $("#divTablaPerfiles").hide();  
     }   

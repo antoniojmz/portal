@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 use Session;
 use Log;
@@ -11,6 +12,7 @@ use Auth;
 // Modelo
 use App\Models\Home;
 use App\Models\Consulta;
+
 
 class HomeController extends Controller
 {
@@ -82,5 +84,9 @@ class HomeController extends Controller
         $model= new Consulta();
         $result = $model->filtrarFecha($datos['caso']);
         return $result;
+    }
+
+    public function postKeep(Request $request){
+        return "refresh session";
     }
 }

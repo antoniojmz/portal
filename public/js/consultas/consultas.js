@@ -65,12 +65,8 @@ var pintarDatos = function(data){
 
 var cargartablaDetalles = function(data){
     if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
-    if (data.length>0){
         $("#tablaDetalles").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -85,19 +81,12 @@ var cargartablaDetalles = function(data){
             ],
         });
         limpiarDetalles=1;
-    }else{
-        limpiarDetalles=0;
-    }
 }
 
 var cargartablaReferencias = function(data){
     if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
-    if (data.length>0){
         $("#tablaReferencias").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -120,19 +109,12 @@ var cargartablaReferencias = function(data){
             ],
         });
         limpiarReferencias=1;
-    }else{
-        limpiarReferencias=0;
-    }
 }
 
 var cargartablaEstados = function(data){
     if (limpiarEstados>0){destruirTabla('#tablaEstados');}
-    if (data.length>0){
         $("#tablaEstados").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -154,21 +136,14 @@ var cargartablaEstados = function(data){
             ],
         });
         limpiarEstados=1;
-    }else{
-        limpiarEstados=0;
-    }
 }
 
 
 
 var cargartablaTrazas = function(data){
     if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
-    if (data.length>0){
         $("#tablaTrazas").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
-            // "scrollX": true,
-            // "scrollY": '45vh',
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -190,18 +165,13 @@ var cargartablaTrazas = function(data){
             ],
         });
         limpiarTrazas=1;
-    }else{
-        limpiarTrazas=0;
-    }
 }
 
 var cargartablaReportes = function(data){
     if (limpiar>0){destruirTabla('#tablaReportes');}
-    if (data.length>0){
         var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
         $("#tablaReportes").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
@@ -369,12 +339,8 @@ var cargartablaReportes = function(data){
                 }
             ]
         });
-        SeleccionarTablaReportes();
         limpiar=1;
-    }else{
-        limpiar=0;
-        toastr.warning("No se encontraron resultados", "Info!");
-    }
+    if (data.length>0){SeleccionarTablaReportes();}
 };
 
 var SeleccionarTablaReportes = function(){
@@ -404,6 +370,7 @@ var ProcesarConsulta = function(){
 };
 
 var cargarFormularioVisualizacion = function(data){
+    if(data.length == 0){return;}
     $(".divForm").toggle();
     parametroAjax.ruta=rutaD;
     parametroAjax.data = {"IdDTE":data.IdDTE};

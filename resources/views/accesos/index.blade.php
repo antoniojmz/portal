@@ -24,6 +24,7 @@
 	                sessionStorage.fonts = true;
 	            }
 	        });
+			var RutaSalir = "{{ URL::route('logout') }}";
 		</script>
 		<!-- Archivos de Estilos -->
 		{!! Html::style('theme/dist/html/demo2/assets/vendors/base/vendors.bundle.css') !!}
@@ -31,10 +32,13 @@
 		{!! Html::style('plugins/DataTables-1.10.10/media/css/jquery.dataTables.min.css') !!}
 		{!! Html::style('css/core/core.css') !!}
 		<!-- Archivos Javascritp -->
-		{{ HTML::script('js/core/core.js') }}
+		{{ HTML::script('theme/dist/html/demo3/assets/vendors/base/vendors.bundle.js') }} 
+		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }} 
+		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.js') }} 
+		{{ HTML::script('js/utils/utils.js') }}
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
-		<form id="formLogout" style="display: none;"> 
+		<form id="formLogout" name="formLogout" style="display: none;" method="POST" action="/logout"> 
 			{{ csrf_field() }}
 		</form>
 		<div class="m-grid m-grid--hor m-grid--root m-page">
@@ -49,5 +53,12 @@
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
 		</div>
+		@if(!empty($_GET['logout'])){
+			@if (isset($_GET['logout']))
+				<script>
+		    		Salir();
+				</script>
+			@endif
+		@endif
 	</body>
 </html>

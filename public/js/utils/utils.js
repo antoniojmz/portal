@@ -1,8 +1,19 @@
+// Habilitar token para todos los ajax.
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+// Formatear rut en inputs
 var formatoRut = function(rut){
+    var response = "";
     var ced = rut.substring(0, 8);
     var ver = rut.substring(rut.length-1);
-    return ced+"-"+ver;
+    rut.length < 9 ? response = "" : response = ced+"-"+ver;   
+    return response;
 }
+
 // Combo desplegable de datatable
 DataTableLengthMenu = [[5,10, 25, 50, 100, -1],[5,10, 25, 50, 100, "Todos"]]
 
@@ -10,7 +21,7 @@ DataTableLengthMenu = [[5,10, 25, 50, 100, -1],[5,10, 25, 50, 100, "Todos"]]
 var LenguajeTabla = {
     "sProcessing": "Procesando...",
     "sLengthMenu": "Ver listado de _MENU_",
-    "sZeroRecords": "No hay registros seleccionados",
+    "sZeroRecords": "No se encontraron registros...",
     "sInfo": "_START_ al _END_ de _TOTAL_ registros",
     "sInfoEmpty": "0 al 0 de 0 registros",
     "sInfoFiltered": "(filtrado de _MAX_ registros)",

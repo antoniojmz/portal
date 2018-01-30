@@ -29,10 +29,8 @@ var ManejoRespuestaD = function(respuesta){
 
 var cargartablaDTE = function(data){
     if(limpiarDte==1){destruirTabla('#tablaDTE');}
-    if (data.length>0){
         $("#tablaDTE").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -83,17 +81,12 @@ var cargartablaDTE = function(data){
             ],
         });
         limpiarDte=1;
-    }else{
-        limpiarDte=0;
-    }
 }
 
 var cargartablaClientes = function(data){
     if(limpiarClientes==1){destruirTabla('#tablaClientes');}
-    if (data.length>0){
         $("#tablaClientes").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -107,17 +100,12 @@ var cargartablaClientes = function(data){
             ],
         });
         limpiarClientes=1;
-    }else{
-        limpiarClientes=0;
-    }
 }
 
 var cargartablaUsuarios = function(data){
     if(limpiarUsuarios==1){destruirTabla('#tablaUsuarios');}
-    if (data.length>0){
         $("#tablaUsuarios").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollCollapse": true,
             "pagingType": "full_numbers",
             "language": LenguajeTabla,
@@ -130,9 +118,6 @@ var cargartablaUsuarios = function(data){
             ],
         });
         limpiarUsuarios=1;
-    }else{
-        limpiarUsuarios=0;
-    }
 }
 
 var pintarDatos = function(data){
@@ -154,11 +139,9 @@ var pintarDatos = function(data){
 
 var cargartablaProveedores = function(data){
     if (limpiar>0){destruirTabla('#tablaProveedores');}
-    if (data.length>0){
         var columnReport = [[1],[2],[3],[4],[5],[6],[7],[8],[9]];
         $("#tablaProveedores").dataTable({
             'aLengthMenu': DataTableLengthMenu,
-            // 'bSort': false,
             "scrollX": true,
             "scrollY": '50vh',
             "scrollCollapse": true,
@@ -238,12 +221,8 @@ var cargartablaProveedores = function(data){
                 }
             ]
         });
-        SeleccionarTablaProveedores();
         limpiar=1;
-    }else{
-        limpiar=0;
-        toastr.warning("No se encontraron resultados", "Info!");
-    }
+    if (data.length>0){SeleccionarTablaProveedores();}
 };
 
 var SeleccionarTablaProveedores = function(){

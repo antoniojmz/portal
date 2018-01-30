@@ -45,6 +45,13 @@
 		<!-- Scritp Plugins -->
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
+	@if(!empty($_GET['logout'])){
+		@if (isset($_GET['logout']))
+    		<script>
+        		Salir();
+    		</script>
+		@endif
+	@endif
 	@php $data = Session::get('perfiles'); @endphp
 	@if (isset($data))
 	<input type="hidden" id="idUsertext" value="<?php echo $data['v_detalle'][0]->idUser ?>" >
@@ -143,5 +150,6 @@
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
 		</div> 
+</div>
 	</body>
 </html>

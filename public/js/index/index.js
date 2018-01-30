@@ -204,7 +204,24 @@ var notificacionChat = function(){
 	}else{
 		$("#divChatMin").animate({'background-color': "#1192f6;"});	
 	}
-} 
+}
+
+var SessionTimeout = function() {
+	$.sessionTimeout({
+        title: "Notificación de cierre de sesión",
+        message: "Tu sesión esta por experirar, deseas continuar?",
+        keepAliveUrl:"/keep",
+        redirUrl:"/home?logout=1",
+        logoutUrl: "/home?logout=1",
+        warnAfter: 600000,
+        redirAfter: 615000,
+        ignoreUserActivity: !0,
+        countdownMessage: "La sesión finalizará en {timer} segundos.",
+        countdownBar: !0,
+        logoutButton: "Cerrar sesión",
+        keepAliveButton: "Mantener en linea",
+    });
+}
 
 $(document).ready(function() {
 	// moment en idioma español
@@ -237,7 +254,7 @@ $(document).ready(function() {
 		break;
 	}
 	//Cierre de sesion despues de 10 min de inactividad
-	// setTimeout(function(){Salir();}, 600000);
+	SessionTimeout();
 	// Cierre de session por manupulacion de url o cierre del navegador
 	window.onbeforeunload = function (e) {if (v_salir == 0){Salir();}v_salir = 0;}
     $(document).on('click','.m-menu__link',cambiarSalir);
