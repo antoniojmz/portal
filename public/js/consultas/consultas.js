@@ -215,9 +215,27 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "RUT Proveedor","data": "RutProveedor"},
+                {
+                    "title": "RUT Proveedor", 
+                    "data": "RutProveedor",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "RUT Cliente","data": "RutCliente"},
+                {
+                    "title": "RUT Cliente", 
+                    "data": "RutCliente",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},

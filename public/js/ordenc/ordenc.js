@@ -158,8 +158,26 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "RUT Proveedor","data": "RUTEmisor"},
-                {"title": "RUT Cliente","data": "RUTReceptor"},
+                {
+                    "title": "RUT Proveedor", 
+                    "data": "RUTEmisor",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
+                {
+                    "title": "RUT Cliente", 
+                    "data": "RUTReceptor",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
                 {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
                 {"title": "Monto IVA DTE","data": "MontoIVACLP"},

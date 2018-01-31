@@ -147,7 +147,16 @@ var cargarTablaUsuarios = function(data){
             "columns":[
             {"title": "Id","data": "idUser",visible:0},
             {"title": "Nombres","data": "usrNombreFull"},
-            {"title": "Login","data": "usrUserName"},
+            {
+                "title": "Login", 
+                "data": "usrUserName",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = formateaRut(data, true)
+                    }
+                    return data;
+                }
+            },
             {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
             {"title": "Creado id","data": "auCreadoPor",visible:0},
             {"title": "Creado por","data": "creador"},
@@ -460,19 +469,30 @@ var cambiarEstatusPerfil = function(data){
     ManejoRespuestaProcesarP(respuesta);
 }
 
+var verificarRut = function(control){
+    var res = Valida_Rut(control);
+    var format = formateaRut(control.val(), res);
+    if (format != false){
+        errorRut = 0;       
+        $("#ErrorRut").text("");
+        return format;
+    }else{
+        errorRut = 1;       
+        $("#ErrorRut").text("Rut invalido");
+        return control.val();
+    }
+}
+
 
 $(document).ready(function(){
     ClassActive("LiAdministracion");
     $("#spanTitulo").text("Usuarios registrados");
-    $("#usrUserName")
-    .rut({formatOn: 'keyup', validateOn: 'keyup'})
-    .on('rutInvalido', function(){ 
-        errorRut = 1;       
-        $("#ErrorRut").text("Rut invalido");
-    })
-    .on('rutValido', function(){ 
-        errorRut = 0;       
-        $("#ErrorRut").text("");
+    $("#usrUserName").focusout(function() {
+        var valid = $("#usrUserName").val();
+        if (valid.length > 0){
+            var res = verificarRut($("#usrUserName"));
+            $("#usrUserName").val(res);
+        }else{$("#ErrorRut").text("");}
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);    

@@ -61,9 +61,27 @@ var cargartablaDTE = function(data){
                         return data;
                     }
                 },
-                {"title": "RUT Proveedor","data": "RutProveedor"},
+                {
+                    "title": "RUT Proveedor", 
+                    "data": "RutProveedor",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {"title": "RUT Cliente","data": "RutCliente"},
+                {
+                    "title": "RUT Cliente", 
+                    "data": "RutCliente",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Monto Total DTE","data": "MontoExentoCLP"},
                 {"title": "Monto total OM","data": "MontoExentoOM"},
@@ -94,7 +112,16 @@ var cargartablaProveedores = function(data){
             "columns":[
                 {"title": "IdCliente","data": "IdCliente",visible:0},
                 {"title": "IdProveedor","data": "IdProveedor",visible:0},
-                {"title": "RUT Cliente","data": "RutCliente"},
+                {
+                    "title": "RUT Cliente", 
+                    "data": "RutCliente",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Razon Social","data": "RazonSocial"}
             ],
@@ -112,7 +139,16 @@ var cargartablaUsuarios = function(data){
             "data": data,
             "columns":[
                 {"title": "IdCliente","data": "IdCliente",visible:0},
-                {"title": "Login","data": "usrUserName"},
+                {
+                    "title": "Login", 
+                    "data": "usrUserName",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre","data": "usrNombreFull"},
                 {"title": "Email","data": "usrEmail"}
             ],
@@ -143,7 +179,16 @@ var cargartablaClientes = function(data){
             "data": data,
             "columns":[
                 {"title": "Id","data": "IdCliente",visible:0},
-                {"title": "RUT Cliente","data": "RutCliente"},
+                {
+                    "title": "RUT Cliente", 
+                    "data": "RutCliente",
+                    "render": function(data, type, row, meta){
+                        if(type === 'display'){
+                            data = formateaRut(data, true)
+                        }
+                        return data;
+                    }
+                },
                 {"title": "Nombre Cliente","data": "NombreCliente"},
                 {"title": "Nombre Fantasia","data": "NombreFantasiaCliente"},
                 {"title": "Razon Social","data": "RazonSocial"},

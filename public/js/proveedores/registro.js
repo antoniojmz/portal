@@ -1,5 +1,5 @@
 var RegistroUsuario = RegistroPerfiles = '';
-var manejoRefresh=limpiarPerfiles=limpiarUsuarios=0;
+var manejoRefresh=limpiarPerfiles=limpiarUsuarios=errorRut=0;
 
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
@@ -148,7 +148,16 @@ var cargarTablaUsuarios = function(data){
             "columns":[
             {"title": "Id","data": "idUser",visible:0},
             {"title": "Nombres","data": "usrNombreFull"},
-            {"title": "Login","data": "usrUserName"},
+            {
+                "title": "Login", 
+                "data": "usrUserName",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = formateaRut(data, true)
+                    }
+                    return data;
+                }
+            },
             {"title": "fecha de creacion","data": "auCreadoEl",visible:0},
             {"title": "Creado id","data": "auCreadoPor",visible:0},
             {"title": "Creado por","data": "creador"},
@@ -380,11 +389,13 @@ var BotonAgregarEmpresa = function(){
 
 
 var ProcesarUsuario = function(){
-    var camposNuevo = {'usrEstado': $('#usrEstado').val(),'idEmpresa': $('#idEmpresa').val()}
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaProcesar(respuesta);
+    if (errorRut==0){
+        var camposNuevo = {'usrEstado': $('#usrEstado').val(),'idEmpresa': $('#idEmpresa').val()}
+        parametroAjax.ruta=ruta;
+        parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
+        respuesta=procesarajax(parametroAjax);
+        ManejoRespuestaProcesar(respuesta);
+    }
 };
 
 var buscarEmpresas = function(data){
@@ -424,11 +435,28 @@ var cambiarEstatusPerfil = function(data){
     ManejoRespuestaProcesarP(respuesta);
 }
 
+var verificarRut = function(control){
+    var res = Valida_Rut(control);
+    var format = formateaRut(control.val(), res);
+    if (format != false){
+        errorRut = 0;       
+        $("#ErrorRut").text("");
+        return format;
+    }else{
+        errorRut = 1;       
+        $("#ErrorRut").text("Rut invalido");
+        return control.val();
+    }
+}
 
 $(document).ready(function(){
     ClassActive("LiProveedores");
     $("#usrUserName").focusout(function() {
-        $("#usrUserName").val(formatoRut($("#usrUserName").val()));
+        var valid = $("#usrUserName").val();
+        if (valid.length > 0){
+            var res = verificarRut($("#usrUserName"));
+            $("#usrUserName").val(res);
+        }else{$("#ErrorRut").text("");}
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);    

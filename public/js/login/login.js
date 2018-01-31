@@ -171,16 +171,28 @@ var SnippetLogin = function() {
         }
     }
 }();
-jQuery(document).ready(function() {
-    SnippetLogin.init();
-    $("#usrUserName")
-    .rut({formatOn: 'keyup', validateOn: 'keyup'})
-    .on('rutInvalido', function(){ 
-        errorRut = 1;       
-        $("#ErrorRut").text("Rut invalido");
-    })
-    .on('rutValido', function(){ 
+
+var verificarRut = function(control){
+    var res = Valida_Rut(control);
+    var format = formateaRut(control.val(), res);
+    if (format != false){
         errorRut = 0;       
         $("#ErrorRut").text("");
+        return format;
+    }else{
+        errorRut = 1;       
+        $("#ErrorRut").text("Rut invalido");
+        return control.val();
+    }
+}
+
+jQuery(document).ready(function() {
+    SnippetLogin.init();
+    $("#usrUserName").focusout(function() {
+        var valid = $("#usrUserName").val();
+        if (valid.length > 0){
+            var res = verificarRut($("#usrUserName"));
+            $("#usrUserName").val(res);
+        }
     });
 });
