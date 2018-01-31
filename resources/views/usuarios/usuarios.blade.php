@@ -91,7 +91,8 @@
 						'class'         => 'form-control',
 						'placeholder'   => 'Login',
 						'style'         => 'width:100%;height:35px',
-						'maxlength'     => '10'])!!}
+						'maxlength'     => '12'])!!}
+						<small id="ErrorRut" class="rut-error"></small>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
@@ -118,8 +119,7 @@
 						'id'            => 'usrEmail',
 						'class'         => 'form-control',
 						'placeholder'   => 'Email',
-						'style'         => 'width:100%;height:35px',
-						'maxlength'     => '50'])!!}
+						'style'         => 'width:100%;height:35px'])!!}
 					</div>
 					<div class="col-md-4"></div>
 				</div>

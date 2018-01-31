@@ -1,3 +1,4 @@
+var errorRut = 0;
 var SnippetLogin = function() {
     var e = $("#m_login"),
         i = function(e, i, a) {
@@ -29,8 +30,9 @@ var SnippetLogin = function() {
         l = function() {
             $("#m_login_signin_submit").click(function(e) {
                 e.preventDefault();
+                console.log("pase");
                 var a = $(this),
-                    t = $("#FormLogin");
+                t = $("#FormLogin");
                 t.validate({ 
                     rules: {
                         'usrUserName': {
@@ -48,21 +50,24 @@ var SnippetLogin = function() {
                         'usrPassword': "Se requiere este campo.",
                         'g-recaptcha-response': "Se requiere este campo."
                     }
-                }), t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({
-                    url: "/login",
-                  success: function(e, r, n, l) {
-                        setTimeout(function() {
-                            var response = JSON.parse(e);
-                            if(response.code==200){
-                                window.location.href = response.des_code;
-                            }else{
-                                a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
-                            }
-                            grecaptcha.reset(widgetId1);
-                            grecaptcha.reset(widgetId2);
-                        }, 2e3)
-                    }
-                }))
+                })
+                if (errorRut==0){ 
+                t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({
+                        url: "/login",
+                      success: function(e, r, n, l) {
+                            setTimeout(function() {
+                                var response = JSON.parse(e);
+                                if(response.code==200){
+                                    window.location.href = response.des_code;
+                                }else{
+                                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
+                                }
+                                grecaptcha.reset(widgetId1);
+                                grecaptcha.reset(widgetId2);
+                            }, 2e3)
+                        }
+                    }))
+                }else{console.log("");}
             })
         },
 
@@ -168,8 +173,14 @@ var SnippetLogin = function() {
 }();
 jQuery(document).ready(function() {
     SnippetLogin.init();
-    $("#usrUserName").focusout(function() {
-        $("#usrUserName").val(formatoRut($("#usrUserName").val()));
+    $("#usrUserName")
+    .rut({formatOn: 'keyup', validateOn: 'keyup'})
+    .on('rutInvalido', function(){ 
+        errorRut = 1;       
+        $("#ErrorRut").text("Rut invalido");
+    })
+    .on('rutValido', function(){ 
+        errorRut = 0;       
+        $("#ErrorRut").text("");
     });
-
 });

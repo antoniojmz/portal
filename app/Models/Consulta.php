@@ -16,6 +16,9 @@ use Mail;
 use Storage;
 use Exception;
 
+//Modelos
+use App\Models\User;
+
 class Consulta extends Authenticatable
 {
     //use Notifiable;
@@ -67,6 +70,9 @@ class Consulta extends Authenticatable
     }
 
     public function BuscarDtes($d){
+        $user= new User();
+        $d['RutCliente'] =  $user->LimpiarRut($d['RutCliente']);
+        $d['RutProveedor'] =  $user->LimpiarRut($d['RutProveedor']);
         $caso = 0;
         $p = Session::get('perfiles');
         $sql = "Select * from v_dtes where ";

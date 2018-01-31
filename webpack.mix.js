@@ -34,6 +34,7 @@ mix.scripts([
 	'public/plugins/validator/es_ES.js',
 	'public/plugins/Jquery-Price-Format/jquery.priceformat.js',
 	'public/plugins/Jquery.expander/jquery.expander.js',
+	'public/plugins/jquery.rut/jquery.rut.js',
 	'public/js/utils/utils.js',
 	], 'public/js/core/core.js')
 .styles([

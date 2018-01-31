@@ -43,7 +43,8 @@
                             <form id="FormLogin" class="form-horizontal m-login__form m-form" method="POST" action="">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('usrUserName') ? ' has-error' : '' }} m-form__group">
-                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="RUT" maxlength="10" autofocus required>
+                                    <input id="usrUserName" type="text" class="form-control m-input" name="usrUserName" placeholder="RUT" maxlength="12" autofocus required>
+                                    <small id="ErrorRut" class="rut-error"></small>
                                 </div>
 
                                 <div class="form-group{{ $errors->has('usrPassword') ? ' has-error' : '' }} m-form__group">

@@ -330,8 +330,14 @@ table.dataTable thead th, table.dataTable thead td{
 	background-color: #E8E8F0;
 	height: 55px;
 }
+
 #divBuzon{
 	text-align: center;
 	font-size: 12px;
 	color: #898b96;
+}
+
+.rut-error{
+	color:#FF0000;
+	font-size:9px;
 }

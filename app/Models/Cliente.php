@@ -93,5 +93,4 @@ class Cliente extends Authenticatable
         $result['v_clientes_usuarios'] = DB::table('v_clientes_tienen_usuarios')->where('IdCliente',$id)->get();
         return $result;	
     }
-
 }

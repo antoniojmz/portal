@@ -46,6 +46,7 @@ class User extends Authenticatable
 
     // inicio de sesion de usuario
     public function verificarUsuario($data){
+        $data['usrUserName'] = $this->LimpiarRut($data['usrUserName']);
         $user = DB::table('v_usuarios')->where('usrUserName',$data['usrUserName'])->get();
         if (strlen($user)>3){
             if ($user[0]->usrEstado>0){
@@ -186,7 +187,7 @@ class User extends Authenticatable
 
     // registrar un nuevo usuario en la aplicacion
     public function regUsuario($datos){
-        // log::info($datos);
+        $datos['usrUserName'] = $this->LimpiarRut($datos['usrUserName']);
         $p = Session::get('perfiles');
         $idAdmin = Auth::id();
         $datos['idUser']==null ? $idUser=0 : $idUser= $datos['idUser'];
@@ -436,4 +437,9 @@ class User extends Authenticatable
             return '{"code":"500","des_code":"Ocurrio un error al enviar el email de recuperación"}';
         }
     }
+
+    public function LimpiarRut($rut){
+        return str_replace(".","",$rut);
+    }
+
 }

@@ -1,0 +1,37 @@
+{
+    "name": "rut",
+    "title": "jQuery Rut",
+    "description": "Plugin para validar, formatear y parsear un RUT chileno",
+    "keywords": [
+        "rut",
+        "chile"
+    ],
+    "version": "1.1.2",
+    "author": {
+        "name": "Pablo Andrés Marambio Cathalifaud",
+        "url": "https://github.com/pablomarambio"
+    },
+    "maintainers": [
+        {
+            "name": "Pablo Andrés Marambio Cathalifaud",
+            "url": "https://github.com/pablomarambio"
+        },
+        {
+            "name": "Jonathan Delgado",
+            "url": "https://github.com/alfa30"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "bugs": "https://github.com/pablomarambio/jquery.rut/issues",
+    "homepage": "https://github.com/pablomarambio/jquery.rut",
+    "docs": "https://github.com/pablomarambio/jquery.rut/blob/master/README.md",
+    "download": "http://code.jquery.com/#rut",
+    "dependencies": {
+        "jquery": ">=1.4"
+    }
+}

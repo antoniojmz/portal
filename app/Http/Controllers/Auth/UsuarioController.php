@@ -69,7 +69,6 @@ class UsuarioController extends Controller
         $p = Session::get('perfiles');
         $datos = $request->all();
         $datos['idEmpresa']=0; 
-        log::info($datos);
         // caso Administrador registra Usuario
         if ($p['idPerfil']==1){$datos['caso']=1;}
         // caso Cliente registra Usuario cliente

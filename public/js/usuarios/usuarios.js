@@ -1,5 +1,5 @@
 var RegistroUsuario = RegistroPerfiles = '';
-var manejoRefresh=limpiarPerfiles=limpiarUsuarios=0;
+var manejoRefresh=limpiarPerfiles=limpiarUsuarios=errorRut=0;
 
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
@@ -401,11 +401,13 @@ var BotonAgregarPerfil = function(){
 
 
 var ProcesarUsuario = function(){
-    var camposNuevo = {'usrEstado': $('#usrEstado').val()}
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaProcesar(respuesta);
+    if (errorRut==0){
+        var camposNuevo = {'usrEstado': $('#usrEstado').val()}
+        parametroAjax.ruta=ruta;
+        parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
+        respuesta=procesarajax(parametroAjax);
+        ManejoRespuestaProcesar(respuesta);
+    }
 };
 
 var buscarPerfiles = function(data){
@@ -462,8 +464,15 @@ var cambiarEstatusPerfil = function(data){
 $(document).ready(function(){
     ClassActive("LiAdministracion");
     $("#spanTitulo").text("Usuarios registrados");
-    $("#usrUserName").focusout(function() {
-        $("#usrUserName").val(formatoRut($("#usrUserName").val()));
+    $("#usrUserName")
+    .rut({formatOn: 'keyup', validateOn: 'keyup'})
+    .on('rutInvalido', function(){ 
+        errorRut = 1;       
+        $("#ErrorRut").text("Rut invalido");
+    })
+    .on('rutValido', function(){ 
+        errorRut = 0;       
+        $("#ErrorRut").text("");
     });
 	cargarTablaUsuarios(d.v_usuarios);
     crearallcombos(d);    
