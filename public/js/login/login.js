@@ -20,9 +20,6 @@ var SnippetLogin = function() {
             }), $("#m_login_forget_password_cancel").click(function(e) {
                 e.preventDefault(), t()
             }), 
-            // $("#m_login_signup").click(function(e) {
-            //     e.preventDefault(), a()
-            // }), 
             $("#m_login_signup_cancel").click(function(e) {
                 e.preventDefault(), t()
             })
@@ -58,70 +55,18 @@ var SnippetLogin = function() {
                             setTimeout(function() {
                                 var response = JSON.parse(e);
                                 if(response.code==200){
+                                    grecaptcha.reset(widgetId1);
+                                    grecaptcha.reset(widgetId2);
                                     window.location.href = response.des_code;
                                 }else{
                                     a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
                                 }
-                                grecaptcha.reset(widgetId1);
-                                grecaptcha.reset(widgetId2);
                             }, 2e3)
                         }
                     }))
                 }else{console.log("");}
             })
         },
-
-        // s = function() {
-        //     $("#m_login_signup_submit").click(function(a) {
-        //         a.preventDefault();
-        //         var r = $(this),
-        //             n = $(this).closest("form");
-        //         n.validate({
-        //             rules: {
-        //                 'fullname': {
-        //                     required: !0
-        //                 },
-        //                 'email': {
-        //                     required: !0,
-        //                     email: !0
-        //                 },
-        //                 'password': {
-        //                     required: !0
-        //                 },
-        //                 'rpassword': {
-        //                     required: !0
-        //                 },
-        //                 'agree': {
-        //                     required: !0
-        //                 },                     
-        //                 'g-recaptcha-response-2': {
-        //                     required: !0
-        //                 }
-        //             },
-        //             messages:{
-        //                 'fullname': "Se requiere este campo.",
-        //                 'email': {
-        //                     required: "Se requiere este campo.",
-        //                     email: "Ingrese una dirección de correo válida."
-        //                 },
-        //                 'password': "Se requiere este campo.",
-        //                 'rpassword': "Se requiere este campo.",
-        //                 'agree': "Se requiere este campo.",
-        //                 'g-recaptcha-response-2': "Se requiere este campo."
-                        
-        //             }
-        //         }), n.valid() && (r.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), n.ajaxSubmit({
-        //             url: "",
-        //             success: function(a, l, s, o) {
-        //                 setTimeout(function() {
-        //                     r.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), n.clearForm(), n.validate().resetForm(), t();
-        //                     var a = e.find(".m-login__signin form");
-        //                     a.clearForm(), a.validate().resetForm(), i(a, "success", "Thank you. To complete your registration please check your email.")
-        //                 }, 2e3)
-        //             }
-        //         }))
-        //     })
-        // },
         o = function() {
             $("#m_login_forget_password_submit").click(function(a) {
                 a.preventDefault();

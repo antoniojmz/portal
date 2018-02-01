@@ -1,8 +1,8 @@
 @extends('menu.index')
 @section('content')
 <div class="row"> 
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
         <div class="m-portlet">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -41,7 +41,7 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-3"></div>
+                        <div class="col-md-4"></div>
                         <div class="col-md-6">
                             <button name="cancelar" id="cancelar" class="btn m-btn--pill btn-outline-primary" type="button">
                                 <span>
@@ -57,12 +57,10 @@
                             </button>
                         </div>
                     </div>
-                    <br>
                 {!! Form::close() !!}
             </div>
         </div>
     </div>
-    <div class="col-lg-3"></div>
 </div>
 <script type="text/javascript">
     var ruta = "{{ URL::route('password') }}"

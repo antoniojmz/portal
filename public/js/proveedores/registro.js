@@ -132,21 +132,10 @@ var cargarTablaUsuarios = function(data){
             "scrollX": true,
             "scrollY": '45vh',
             "scrollCollapse": true,
-            "columnDefs": [
-            {
-                "targets": [ 1 ],
-                "searchable": true
-            },
-            {"sWidth": "20%", "aTargets": [1]},
-            {"sWidth": "15%", "aTargets": [2]},
-            {"sWidth": "20%", "aTargets": [5]},
-            {"sWidth": "20%", "aTargets": [8]},
-            {"sWidth": "10%", "aTargets": [9]},
-            {"sWidth": "15%", "aTargets": [10]},
-            ],
             "data": data,
             "columns":[
             {"title": "Id","data": "idUser",visible:0},
+            {"title": "Empresa","data": "NombreProveedor"},
             {"title": "Nombres","data": "usrNombreFull"},
             {
                 "title": "Login", 

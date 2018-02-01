@@ -280,20 +280,6 @@ $nroPerfiles = Session::get('nroPerfiles');
 								<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
 									<span class="m-menu__arrow m-menu__arrow--adjust"></span>
 									<ul class="m-menu__subnav">
-										@if ($data['idPerfil']==2)
-										<li class="m-menu__item"  aria-haspopup="true">
-											<a  href='{!! URL::route("Reg_proveedores") !!}' class="m-menu__link ">
-												<i class="m-menu__link-icon flaticon-user-add "></i>
-												<span class="m-menu__link-title">
-													<span class="m-menu__link-wrap">
-														<span class="m-menu__link-text">
-															Registro de proveedores
-														</span>
-													</span>
-												</span>
-											</a>
-										</li>
-										@endif
 										<li class="m-menu__item"  aria-haspopup="true">
 											<a  href='{!! URL::route("proveedores") !!}' class="m-menu__link">
 												<i class="m-menu__link-icon flaticon-truck"></i>
@@ -306,6 +292,20 @@ $nroPerfiles = Session::get('nroPerfiles');
 												</span>
 											</a>
 										</li>
+										@if ($data['idPerfil']==2)
+										<li class="m-menu__item"  aria-haspopup="true">
+											<a  href='{!! URL::route("Reg_proveedores") !!}' class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-user-add "></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Registro de usuarios
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										@endif
 									</ul>
 								</div>
 							</li>
@@ -413,7 +413,7 @@ $nroPerfiles = Session::get('nroPerfiles');
 												<span class="m-menu__link-title">
 													<span class="m-menu__link-wrap">
 														<span class="m-menu__link-text">
-															Registro de proveedores
+															Registro de usuarios
 														</span>
 													</span>
 												</span>

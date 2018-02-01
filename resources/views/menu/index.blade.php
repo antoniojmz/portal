@@ -68,7 +68,7 @@
 			@include('menu.menu_header')
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
 					<div class="m-grid__item m-grid__item--fluid m-wrapper">
-						<div class="m-content">
+						<div class="m-content" style="padding-left: 10px; padding-right: 10px;">
 							@yield('content')
 						</div>
 					</div>

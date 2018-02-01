@@ -60,7 +60,7 @@
 	</div>
 	<div class="divForm" style="display:none;">
 		<div class="m-portlet--tabs">
-			<div class="m-portlet__head">
+			<div class="m-portlet__head" style="border-bottom:none;">
 				<div class="m-portlet__head-tools">
 					<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
 						<li class="nav-item m-tabs__item">
@@ -91,7 +91,7 @@
 			<!--begin::Form-->
 
 			<form class="m-form m-form--label-align-right m-form--fit">
-				<div class="m-portlet__body">
+				<div class="m-portlet__body" style="padding-top: 10px;">
 					<div class="tab-content">
 						<!-- tab de cabecera -->
 						<div class="tab-pane active" id="m_builder_page" aria-expanded="true">

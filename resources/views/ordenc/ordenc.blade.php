@@ -1,6 +1,6 @@
 @extends('menu.index')
 @section('content')
-<div class="container col-md-10 m-portlet">
+<div class="container col-md-12 m-portlet">
 	<div class="divForm">
 		<div class="row">
 			<div class="col-md-12">

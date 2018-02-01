@@ -1,8 +1,8 @@
 @extends('menu.index')
 @section('content')
 <div class="row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
         <div class="m-portlet">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">

@@ -14,7 +14,7 @@
 		$value = $_POST['idSubmitchat'];
 	} 
 ?>
-<div class="container col-md-10">
+<div class="container col-md-12">
 	<div class="col-lg-12 divForm m-portlet">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
