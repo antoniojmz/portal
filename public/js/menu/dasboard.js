@@ -306,19 +306,15 @@ var cargarPanel = function(idPerfil){
     var res = parseInt(idPerfil);
     switch(res){
 		case 1:
-			console.log("Soy administrador");
+			// console.log("Soy administrador");
 		break;
-		case 2:
-            console.log("Soy cliente");
-        break;                      
-        case 3:
-			console.log("Soy proveedor");
+        case 2: case 3:
+			// console.log("Soy proveedor o cliente");
 			$(".m-widget14__legend").hide();
 			widget1(d.v_widget1);
 			widget2(d.v_widget2);
 			widget3(d.v_widget2);
 			widget4(d.v_widget4);
-    		// $(document).on('click','#LinkTrazas',CargarTrazas);
 		break;
 		default:
 			console.log("No tengo perfil definido");

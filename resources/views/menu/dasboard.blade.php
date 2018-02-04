@@ -82,10 +82,7 @@
     @case(1)
         <!-- caso administrador -->
     @break
-    @case(2)
-        <!-- caso cliente -->
-    @break
-    @case(3)
+    @case(2) @case(3)
     <form id="formIdDtes" method="POST" action='{!! URL::route("consultas") !!}' style="display: none;">
         {{ csrf_field() }}
         <input type="hidden" id="idSubmitDtes" name="idSubmitDtes">
@@ -265,7 +262,6 @@
             </div>
         </div>
     </div>
-<!-- Modal -->
     @break
     @default
         {{"Perfíl no encontrado"}}

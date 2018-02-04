@@ -31,7 +31,6 @@
     	</style>
 		{{ HTML::script('theme/dist/html/default/assets/vendors/base/vendors.bundle.js') }}
 		{{ HTML::script('theme/dist/html/default/assets/demo/default/base/scripts.bundle.js') }}
-		{{ HTML::script('plugins/jquery.rut/jquery.rut.js') }}
 		{{ HTML::script('js/utils/utils.js') }}
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>

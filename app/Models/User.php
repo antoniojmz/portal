@@ -111,23 +111,23 @@ class User extends Authenticatable
                 $widget['v_widget4']='';
                 $idCliente=DB::select("select IdCliente from v_clientes_tienen_usuarios where idUser=".$usuario->idUser);
                 $result['idClienteUsuario']=$idCliente[0]->IdCliente;
-                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente.") AS NroTotalDTE FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente." and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente.") AS NroTotalDTE FROM v_dtes where IdCliente = ".$idCliente[0]->IdCliente." and DATE_FORMAT(FechaEmision, '2017') = DATE_FORMAT(NOW(), '2017') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
                 $sql2="select group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.IdCliente = ".$idCliente[0]->IdCliente.") * 100) AS Porcentaje FROM v_dtes where IdCliente =".$idCliente[0]->IdCliente." GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
                 $sql3="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados order by FechaEstado DESC) t1 where IdCliente=".$idCliente[0]->IdCliente." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
-                log::info($sql1);
-                log::info($sql2);
-                log::info($sql3);
+                $widget['v_widget1']=DB::select($sql1);
+                $widget['v_widget2']=DB::select($sql2);
+                $widget['v_widget4']=DB::select($sql3);
                 break;
             case 3:
                 $result['v_detalle']= DB::table('v_proveedores')
                 ->where('idUser',$usuario->idUser)->get();
-                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor." and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                $result['idClienteUsuario'] = 0;
+                $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$result['v_detalle'][0]->IdProveedor." and DATE_FORMAT(FechaEmision, '2017') = DATE_FORMAT(NOW(), '%Y') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
                 $sql2="select group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.idProveedor = ".$result['v_detalle'][0]->IdProveedor.") * 100) AS Porcentaje FROM v_dtes where idProveedor =".$result['v_detalle'][0]->IdProveedor." GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
                 $sql3="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados order by FechaEstado DESC) t1 where IdProveedor=".$result['v_detalle'][0]->IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
                 $widget['v_widget1']=DB::select($sql1);
                 $widget['v_widget2']=DB::select($sql2);
                 $widget['v_widget4']=DB::select($sql3);
-                $result['idClienteUsuario'] = 0;
                 break;
         }
         Session::put('perfiles', $result);

@@ -27,7 +27,6 @@ var SnippetLogin = function() {
         l = function() {
             $("#m_login_signin_submit").click(function(e) {
                 e.preventDefault();
-                console.log("pase");
                 var a = $(this),
                 t = $("#FormLogin");
                 t.validate({ 
@@ -64,7 +63,7 @@ var SnippetLogin = function() {
                             }, 2e3)
                         }
                     }))
-                }else{console.log("");}
+                }
             })
         },
         o = function() {
