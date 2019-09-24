@@ -25,6 +25,8 @@ Route::post('/ver_noticia', 'HomeController@postNoticia')->name('ver_noticia');
 Route::post('/facturacion', 'HomeController@postFacturacion')->name('facturacion');
 Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrarwidget');
 
+Route::get('/viewXML', 'ConsultaController@getViewXML')->name('viewXML');
+
 Route::any('/consultas', 'ConsultaController@getConsultas')->name('consultas');
 Route::post('/consultasB', 'ConsultaController@postConsultas')->name('consultasB');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');

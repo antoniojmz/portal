@@ -40,6 +40,12 @@ class ConsultaController extends Controller
         return View::make('consultas.consultas',$data);
     }
 
+    protected function getViewXML(Request $request){
+        $datos = $request->all();
+
+        return View::make('consultas.viewXML', $data);
+    }
+
     protected function postConsultas(Request $request){
         $datos = $request->all();
         $model= new Consulta();
