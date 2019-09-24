@@ -257,7 +257,7 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "Fecha Pago",  visible:false, 
+                {"title": "Fecha Pago",  
                     "data": "FechaPago",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -267,7 +267,7 @@ var cargartablaReportes = function(data){
                     }
                 },
                 {
-                    "title": "Fecha Vencimiento",  visible:false, 
+                    "title": "Fecha Vencimiento", 
                     "data": "FechaVencimiento",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -276,7 +276,7 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "Tipo Acuse","data": "DesTipoAcuse"},
+                {"title": "Tipo Acuse","data": "DesTipoAcuse",  visible:false},
                 {"title": "Existencia SII","data": "DesExistenciaSII",  visible:false},
                 {"title": "Existencia Paperles","data": "DesExistenciaPaperles",  visible:false},
                 {
