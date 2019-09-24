@@ -42,6 +42,7 @@ class ConsultaController extends Controller
 
     protected function getViewXML(Request $request){
         $datos = $request->all();
+        $data['title'] = 'ViewXML DTE';
 
         return View::make('consultas.viewXML', $data);
     }
