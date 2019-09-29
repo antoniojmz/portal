@@ -2,3 +2,4 @@ node_modules
 public/imgNoticias
 storage/
 .env
+config/database.php
