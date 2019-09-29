@@ -216,7 +216,7 @@ var cargartablaReportes = function(data){
                     }
                 },
                 {
-                    "title": "RUT Proveedor", 
+                    "title": "RUT Proveedor",  visible:false, 
                     "data": "RutProveedor",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -225,10 +225,8 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "Nombre Proveedor","data": "NombreProveedor"},
-                {
-                    "title": "RUT Cliente", 
-                    "data": "RutCliente",
+                {"title": "Nombre Proveedor","data": "NombreProveedor",  visible:false},
+                {"title": "RUT Receptor DTE", "data": "RutCliente",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
                             data = formateaRut(data, true)
@@ -236,13 +234,12 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "Nombre Cliente","data": "NombreCliente"},
-                {"title": "Monto Neto DTE","data": "MontoNetoCLP"},
-                {"title": "Monto Exento DTE","data": "MontoExentoCLP"},
-                {"title": "Monto IVA DTE","data": "MontoIVACLP"},
+                {"title": "Receptor DTE","data": "NombreCliente"},
+                {"title": "Monto Neto DTE","data": "MontoNetoCLP",  visible:false},
+                {"title": "Monto Exento DTE","data": "MontoExentoCLP",  visible:false},
+                {"title": "Monto IVA DTE","data": "MontoIVACLP",  visible:false},
                 {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {
-                    "title": "Fecha Autorizacion SII", 
+                {"title": "Fecha Autorizacion SII",  visible:false, 
                     "data": "FechaAutorizacionSII",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -251,8 +248,7 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {
-                    "title": "Fecha OC", 
+                {"title": "Fecha OC",  visible:false, 
                     "data": "FechaOC",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -261,8 +257,7 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {
-                    "title": "Fecha Pago", 
+                {"title": "Fecha Pago",  
                     "data": "FechaPago",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
@@ -281,11 +276,11 @@ var cargartablaReportes = function(data){
                         return data;
                     }
                 },
-                {"title": "Tipo Acuse","data": "DesTipoAcuse"},
-                {"title": "Existencia SII","data": "DesExistenciaSII"},
-                {"title": "Existencia Paperles","data": "DesExistenciaPaperles"},
+                {"title": "Tipo Acuse","data": "DesTipoAcuse",  visible:false},
+                {"title": "Existencia SII","data": "DesExistenciaSII",  visible:false},
+                {"title": "Existencia Paperles","data": "DesExistenciaPaperles",  visible:false},
                 {
-                    "title": "Fecha de Estado Actual", 
+                    "title": "Fecha de Estado Actual",  visible:false, 
                     "data": "FechaEstadoActualDTE",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
