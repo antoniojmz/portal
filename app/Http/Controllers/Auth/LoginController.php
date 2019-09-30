@@ -54,13 +54,14 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-
-
     public function login(Request $request){
         $data= $request->All();
+
         if ($data['usrUserName'] && $data['usrPassword']){
             $model= new User();
+            
             $result = $model->verificarUsuario($data);
+
             return $result;  
         }else
             return '{"code":"-2","des_code":"Debe ingresar valores correctos"}';
@@ -70,8 +71,10 @@ class LoginController extends Controller
         $idUser = Auth::id();
         $model= new User();
         $result = $model->registrarVisita($idUser);
+
         $this->guard()->logout();
         $request->session()->invalidate();
+
         return redirect('/');
     }
 }

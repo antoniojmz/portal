@@ -1,4 +1,6 @@
-var ajax=0;
+var ajax = 0;
+var filtroFecha = 12;
+var nombreProveedor = "Todos los Proveeres";
 
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
@@ -20,6 +22,7 @@ var verDtes = function(data){
 
 var ManejoRespuestaF = function(respuesta){
     ajax=0;
+
     if (respuesta.code = '200'){
         var res = JSON.parse(respuesta.respuesta.v_info);
         if (res.code = '204'){
@@ -36,13 +39,54 @@ var ManejoRespuestaF = function(respuesta){
 }
 
 var FiltrarwidgetsProveedor = function(caso){
-    if(ajax==0){
-	    ajax=1
-	    parametroAjax.ruta=rutaF;
-	    parametroAjax.data = {"caso":caso};
-	    respuesta=procesarajax(parametroAjax);
-	    ManejoRespuestaF(respuesta);
-    }
+
+	$("body").addClass("loading");
+
+    setTimeout(function(){
+    	try{
+    		
+    		var nombreProveedor =  $("#IdProveedor option:selected").text();
+    		nombreProveedor = nombreProveedor ?  " por " + nombreProveedor : "";
+
+    		if(caso == 13){
+    			$("#widget14__title").text("Facturación del año actual");
+    			$("#widget14__desc").text("Facturas emitidas al Cliente " + nombreCliente + " " + nombreProveedor + " éste año.");
+
+    		}else if(caso == 1){
+    			$("#widget14__title").text("Facturación este mes");
+    			$("#widget14__desc").text("Facturas emitidas al Cliente " + nombreCliente + " " + nombreProveedor + " este mes.");
+    			
+    		}else if(caso == 3){
+    			$("#widget14__title").text("Facturación últimos 3 meses");
+    			$("#widget14__desc").text("Facturas emitidas al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 3 meses.");
+    			
+    		}else if(caso == 6){
+    			$("#widget14__title").text("Facturación últimos 6 meses");
+    			$("#widget14__desc").text("Facturas emitidas al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 6 meses.");
+    			
+    		}else if(caso == 12){
+    			$("#widget14__title").text("Facturación últimos 12 meses");
+    			$("#widget14__desc").text("Facturas emitidas al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 12 meses.");
+    			
+    		}
+
+
+		    if(ajax == 0){
+			    ajax=1;
+			    parametroAjax.ruta=rutaF;
+			    parametroAjax.data = {"caso":caso, "IdProveedor":$("#IdProveedor").val()};
+			    respuesta=procesarajax(parametroAjax);
+			    ManejoRespuestaF(respuesta);
+		    }
+
+		}catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+	  	$("body").removeClass("loading"); 
+
+    }, 8);
 };
 
 //////////////////////////////////////////
@@ -50,9 +94,11 @@ var FiltrarwidgetsProveedor = function(caso){
 //////////////////////////////////////////
 var widget1 = function(v_widget1){
 	$("#divFacturacion_por_mes").empty();
+
 	$("#divFacturacion_por_mes").append("<canvas  id='facturacion_por_mes'></canvas>");
 	var count =[];
 	var mes =[];
+	
 	if (v_widget1.length>0){
 		for (var i = 0; i < v_widget1.length; i++) { 
 			var res = v_widget1[i].IdMesGrupo
@@ -61,19 +107,14 @@ var widget1 = function(v_widget1){
 	}else{
 		count = [0,0,0,0,0,0,0,0,0,0,0,0]
 	}
+
 	var e = {
 		labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 		datasets: [
-		{
-			backgroundColor: mUtil.getColor("success"),
-			data: count
-		}
-		// ,
-		//  {
-		// 	backgroundColor: "#f3f3fb",
-		// 	// data: [mes]
-		// 	data: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 5, 5]
-		// }
+			{
+				backgroundColor: mUtil.getColor("success"),
+				data: count
+			}
 		]
 	}
 
@@ -126,6 +167,7 @@ var widget2 = function(v_widget2){
 	var object ={};
 	var result =[];
 	$(".m-widget14__legend").hide();
+
 	$(".m-widget14__legend-text").text("");
 	$("#spanPorcentaje").text("");
 	$("#spanPorcentaje").text("0%");
@@ -228,19 +270,23 @@ var widget3 = function(v_widget2){
 	$("#spanMontoTotal").text("$ 0");
 	$(".m-widget25__progress-number").text("$ 0");
 	$(".progress-bar").attr("style","width:0%;");
+
 	$("#spanDes1").text("0 DTE Emitido por el Proveedor");
 	$("#spanDes2").text("0 DTE Recepcionado por el Cliente");
 	$("#spanDes3").text("0 DTE Contabilizado por el Cliente");
 	$("#spanDes4").text("0 DTE Programado para Pago");
+
 	$("#href1").attr("onclick","verDtes();");
 	$("#href2").attr("onclick","verDtes();");
 	$("#href3").attr("onclick","verDtes();");
 	$("#href4").attr("onclick","verDtes();");
+
 	if (v_widget2.length>0){
 		var total=0;
 		for (var i = 0; i < v_widget2.length; i++) {
 			total += v_widget2[i].MontoTotal;
 		}
+		
 		$("#spanMontoTotal").text("$ "+number_format(total, '0'))
 		for (var i = 0; i < v_widget2.length; i++) {
 			switch(v_widget2[i].IdEstadoDTE){
@@ -249,25 +295,35 @@ var widget3 = function(v_widget2){
 					$("#progress1").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
 					$("#href1").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes1").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-				break;
+					break;
+
 				case "2":
 					$("#spanMonto2").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress2").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
 					$("#href2").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes2").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-				break;
+					break;
+
 				case "6":
 					$("#spanMonto3").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress3").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
 					$("#href3").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes3").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-				break;                       
+					break;
+
 				case "9":
 					$("#spanMonto4").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress4").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
 					$("#href4").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
-				break;
+					break;
+
+				default:
+					$("#spanMonto6").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
+					$("#progress6").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
+					$("#href6").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
+					$("#spanDes6").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+					break;
 			}
 		}
 	}
@@ -303,41 +359,73 @@ var widget4 = function(v_widget4){
 }
 
 var cargarPanel = function(idPerfil){
-    var res = parseInt(idPerfil);
-    switch(res){
-		case 1:
-			// console.log("Soy administrador");
-		break;
-        case 2: case 3:
-			// console.log("Soy proveedor o cliente");
-			$(".m-widget14__legend").hide();
-			widget1(d.v_widget1);
-			widget2(d.v_widget2);
-			widget3(d.v_widget2);
-			widget4(d.v_widget4);
-		break;
-		default:
-			console.log("No tengo perfil definido");
-		break;
-	}
+
+	$("body").addClass("loading");
+
+    setTimeout(function(){
+	    var res = parseInt(idPerfil);
+
+	    switch(res){
+			case 1:
+				// console.log("Soy administrador");
+				break;
+
+	        case 2: 
+	        case 3:
+				// console.log("Soy proveedor o cliente");
+				$(".m-widget14__legend").hide();
+				widget1(d.v_widget1);
+				widget2(d.v_widget2);
+				widget3(d.v_widget2);
+				widget4(d.v_widget4);
+				break;
+
+			default:
+				console.log("No tengo perfil definido");
+				break;
+		}
+
+		$("body").removeClass("loading"); 
+
+    }, 1);
+}
+
+var crearSelectProveedores = function(control, data){
+    $(control).select2({
+        allowClear: true,
+        data: data
+    }).on("change",function(e){
+        FiltrarwidgetsProveedor(filtroFecha);
+    });
 }
 
 $(document).ready(function(){
     ClassActive("LiDashboard");    
-	cargarPanel(d.idPerfil);
+
+    if(IdPerfil == 2) crearSelectProveedores('#IdProveedor', v_proveedores);
+    else nombreCliente = "";
+
+	//cargarPanel(d.idPerfil);
+	FiltrarwidgetsProveedor(filtroFecha);
+
 	$("#FiltroAnio").click(function(){
+		filtroFecha = 13;
 		FiltrarwidgetsProveedor(13);
 	});
 	$("#FiltroMes").click(function(){
+		filtroFecha = 1;
 		FiltrarwidgetsProveedor(1);
 	});
 	$("#FiltroTryMes").click(function(){
+		filtroFecha = 3;
 		FiltrarwidgetsProveedor(3);
 	});
 	$("#FiltroSixMes").click(function(){
+		filtroFecha = 6;
 		FiltrarwidgetsProveedor(6);
 	});
 	$("#FiltrotweMes").click(function(){
+		filtroFecha = 12;
 		FiltrarwidgetsProveedor(12);
 	});
 });

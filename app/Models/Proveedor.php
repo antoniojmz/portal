@@ -119,13 +119,14 @@ class Proveedor extends Authenticatable
     public function listRegProveedorCombo(){
         $p = Session::get('perfiles');
         $idperfil = $p['idPerfil'];
+        
         switch ($idperfil) {
             case 2:
                 return DB::table('v_proveedores_combo')
-                    ->select('id','text')
-                    ->where('Idcliente',$p['v_detalle'][0]->IdCliente)
-                    ->groupBy('id','text')    
-                    ->get();
+                            ->select('id', 'text')
+                            ->where('Idcliente', $p['v_detalle'][0]->IdCliente)
+                            ->groupBy('id','text')
+                            ->get();
                 break;
             case 3:
                 $idUser = Auth::id();
@@ -149,8 +150,7 @@ class Proveedor extends Authenticatable
                     ->where('idUser',$datos['idUser'])->get();
                 break;
             case 3:
-                return DB::table('v_proveedores_tienen_usuarios')
-                    ->where('idUser',$datos['idUser'])->get();
+                return DB::table('v_proveedores_tienen_usuarios')->where('idUser',$datos['idUser'])->get();
                 break;
         }
     }

@@ -28,7 +28,13 @@ Route::post('/filtrarwidget', 'HomeController@postFiltrarwidget')->name('filtrar
 Route::get('/viewXML', 'ConsultaController@getViewXML')->name('viewXML');
 Route::get('/viewPDF', 'ConsultaController@getViewPDF')->name('viewPDF');
 
-Route::any('/consultas', 'ConsultaController@getConsultas')->name('consultas');
+Route::get( '/consultasDTE', 'ConsultaController@getConsultas')->name('consultasDTE');
+Route::post('/consultasDTE', 'ConsultaController@getConsultas')->name('consultasDTE');
+
+Route::get('/busquedaDTE', 'ConsultaController@getBusqueda')->name('busquedaDTE');
+
+Route::post('/consultaDTE', 'ConsultaController@postConsultaDTE')->name('consultaDTE');
+
 Route::post('/consultasB', 'ConsultaController@postConsultas')->name('consultasB');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
 Route::post('/trazaDTE', 'ConsultaController@postBuscartraza')->name('trazaDTE');

@@ -30,23 +30,23 @@ $nroPerfiles = Session::get('nroPerfiles');
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 								<span class="m-menu__link-text">
 									@if (strlen($data['v_detalle'][0]->usrNombreFull)>1)
-									{{$data['v_detalle'][0]->usrNombreFull}}
+										{{$data['v_detalle'][0]->usrNombreFull}}
 									@endif
 								</span>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel">
 								<span class="m-menu__link-text">
 									@if (strlen($data['desPerfil'])>1)
-									{{$data['desPerfil']}}
+										{{$data['desPerfil']}}
 									@endif
 								</span>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel">
 								<span class="m-menu__link-text">
-									@if ($data['idPerfil']!=1)
-									@if (strlen($data['v_detalle'][0]->NombreEmpresa)>1)
-									{{$data['v_detalle'][0]->NombreEmpresa}}
-									@endif
+									@if ($data['idPerfil'] != 1)
+										@if (strlen($data['v_detalle'][0]->NombreEmpresa) > 1)
+											{{$data['v_detalle'][0]->NombreEmpresa}}
+										@endif
 									@endif
 								</span>
 							</li>
@@ -240,6 +240,7 @@ $nroPerfiles = Session::get('nroPerfiles');
 								</div>
 							</li>
 							@endif
+							@if ( $data['idPerfil']==3 )
 							<li id="LiClientes" class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 								<a  href="#" class="m-menu__link m-menu__toggle">
 									<!-- <span class="m-menu__item-here"></span> -->
@@ -267,6 +268,7 @@ $nroPerfiles = Session::get('nroPerfiles');
 									</ul>
 								</div>
 							</li>
+							@endif
 							@if ($data['idPerfil']==1 || $data['idPerfil']==2)
 							<li id="LiProveedores" class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
 								<a  href="#" class="m-menu__link m-menu__toggle">
@@ -324,7 +326,19 @@ $nroPerfiles = Session::get('nroPerfiles');
 									<span class="m-menu__arrow m-menu__arrow--adjust"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item"  aria-haspopup="true">
-											<a  href='{!! URL::route("consultas") !!}' class="m-menu__link ">
+											<a  href='{!! URL::route("busquedaDTE") !!}' class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-web"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Busqueda de DTEs
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li class="m-menu__item"  aria-haspopup="true">
+											<a  href='{!! URL::route("consultasDTE") !!}' class="m-menu__link ">
 												<i class="m-menu__link-icon flaticon-web"></i>
 												<span class="m-menu__link-title">
 													<span class="m-menu__link-wrap">
@@ -378,7 +392,7 @@ $nroPerfiles = Session::get('nroPerfiles');
 								<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
 									<span class="m-menu__arrow m-menu__arrow--adjust"></span>
 									<ul class="m-menu__subnav">
-										@if ($data['idPerfil']==1 || $data['idPerfil']==2)
+										@if ($data['idPerfil']==1)
 										<li class="m-menu__item"  aria-haspopup="true">
 											<a  href='{!! URL::route("usuarios") !!}' class="m-menu__link ">
 												<i class="m-menu__link-icon flaticon-user-settings"></i>

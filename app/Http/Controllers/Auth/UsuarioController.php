@@ -44,8 +44,10 @@ class UsuarioController extends Controller
     protected function postAccesos(Request $request){
         $datos = $request->all();
         $model= new User();
+
         if (count($datos)>0){
             $result = $model->mostrarPanel($datos['idPerfil'],$datos['des_perfil']);
+            
         }else{
             $result = '{"code":"500","des_code":"Haga doble click sobre la fila deseada"}';
         }

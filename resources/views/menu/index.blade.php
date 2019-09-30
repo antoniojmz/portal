@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" >
 	<head>
+		<title>{{ config('app.name', 'Laravel') }}</title>
 		<?php
 			header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
 			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -15,7 +16,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     	<meta name="csrf-token" content="{{ csrf_token() }}">
-		<title>{{ config('app.name', 'Laravel') }}</title>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script language="JavaScript" type="text/javascript">
 	        WebFont.load({
@@ -43,6 +44,32 @@
 		{{ HTML::script('js/core/core.js') }}
 		{{ HTML::script('js/index/index.js') }}
 		<!-- Scritp Plugins -->
+
+		<style>
+	        /* Start by setting display:none to make this hidden.
+	       Then we position it in relation to the viewport window with position:fixed. Width, height, top and left speak
+	       for themselves. Background we set to 80% white with  our animation centered, and no-repeating */
+	        .modal {
+	            display:    none;
+	            position:   fixed;
+	            z-index:    10000;
+	            top:        0;
+	            left:       0;
+	            height:     100%;
+	            width:      100%;
+	            background: rgba( 255, 255, 255, .8 ) url('icon/ajax-loader.gif') 50% 50%  no-repeat;
+	        }
+
+	        /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
+	        body.loading {
+	            overflow: hidden;   
+	        }
+
+	        /* Anytime the body has the loading class, our modal element will be visible */
+	        body.loading .modal {
+	            display: block;
+	        }
+	    </style>
 	</head>
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
 	@if(!empty($_GET['logout'])){
@@ -68,12 +95,13 @@
 			@include('menu.menu_header')
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
 					<div class="m-grid__item m-grid__item--fluid m-wrapper">
-						<div class="m-content" style="padding-left: 10px; padding-right: 10px;">
+						<div class="m-content" style="padding-left: 10px; padding-right: 10px; padding-top:10px;">
 							@yield('content')
 						</div>
 					</div>
 			</div>
 			@include('menu.menu_footer')
+			
 		</div>
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
@@ -150,6 +178,11 @@
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
 		</div> 
+	</div>
+</body>
+
+<div class="modal" style="text-align: center; vertical-align: middle;">
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando información del Proveedor...
 </div>
-	</body>
+
 </html>

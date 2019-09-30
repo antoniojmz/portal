@@ -8,21 +8,19 @@
                         <div class="m-login__contanier">
                             <div class="m-login__content">
                                 <div class="m-login__logo">
-                                    <a href="#">
-                                        <img src="{{ asset('theme/dist/html/default/assets/app/media/img/logos/logo-2.png') }}">
+                                    <a href="http://www.globas.cl" target="_blank" >
+                                        <img src="{{ asset('img/logo_globas.png') }}" width="250">
+
                                     </a>
                                 </div>
                                 <div class="m-login__title">
                                     <h3>
-                                        JOIN OUR GREAT METRO COMMUNITY GET FREE ACCOUNT
+                                        BIENVENIDOS AL PORTAL DE PROVEEDORES
                                     </h3>
-                                </div>
-                                <div class="m-login__desc">
-                                    Amazing Stuff is Lorem Here.Grownng Team
                                 </div>
                                 <div class="m-login__form-action">
                                     <button type="button" id="m_login_signup" class="btn btn-outline-focus m-btn--pill">
-                                        Get An Account
+                                        Activar Acceso
                                     </button>
                                 </div>
                             </div>
@@ -37,7 +35,7 @@
                         <div class="m-login__signin">
                             <div class="m-login__head">
                                 <h3 class="m-login__title">
-                                    Login To Your Account
+                                    Ingresar a tu Cuenta
                                 </h3>
                             </div>
                             <form id="FormLogin" class="form-horizontal m-login__form m-form" method="POST" action="">
@@ -51,7 +49,6 @@
                                     <input id="usrPassword" class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="usrPassword" required>
                                 </div>
 
-
                                  <div class="row m-login__form-sub">
                                     <div class="col m--align-left">
                                         <label class="m-checkbox m-checkbox--focus">
@@ -60,11 +57,13 @@
                                         </label>
                                     </div>
                                     <div class="col m--align-right">
-<!--                                          <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            Forgot Your Password?
-                                        </a> -->
+                                        <!-- 
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                Forgot Your Password?
+                                            </a> 
+                                        -->
                                         <a href="javascript:;" id="m_login_forget_password" class="m-link">
-                                            Olvido su contraseña ?
+                                            ¿Olvido su contraseña?
                                         </a>
                                     </div>
                                 </div>

@@ -36,7 +36,32 @@
 		{{ HTML::script('theme/dist/html/demo3/assets/demo/demo3/base/scripts.bundle.js') }} 
 		{{ HTML::script('plugins/DataTables-1.10.10/media/js/jquery.dataTables.js') }} 
 		{{ HTML::script('js/utils/utils.js') }}
+
+		<style>
+	        .modal {
+	            display:    none;
+	            position:   fixed;
+	            z-index:    10000;
+	            top:        0;
+	            left:       0;
+	            height:     100%;
+	            width:      100%;
+	            background: rgba( 255, 255, 255, .8 ) url('/icon/ajax-loader.gif') 50% 50%  no-repeat;
+	        }
+
+	        /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
+	        body.loading {
+	            overflow: hidden;   
+	        }
+
+	        /* Anytime the body has the loading class, our modal element will be visible */
+	        body.loading .modal {
+	            display: block;
+	        }
+
+	    </style>
 	</head>
+
 	<body onLoad="if ('Navigator' == navigator.appName)document.forms[0].reset();" class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default" style="background-color:#F2F3F8">
 		<form id="formLogout" name="formLogout" style="display: none;" method="POST" action="/logout"> 
 			{{ csrf_field() }}
@@ -48,7 +73,7 @@
 					@yield('content')
 				</div>
 			</div>
-			@include('accesos.accesos_footer')
+			@include('menu.menu_footer')
 		</div>
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
@@ -61,4 +86,7 @@
 			@endif
 		@endif
 	</body>
+		<div class="modal" style="text-align: center; vertical-align: middle;">
+			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando Perfil...
+		</div>
 </html>

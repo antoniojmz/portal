@@ -27,9 +27,7 @@ var cargarTablaAccesos = function(data){
         "searching": false,
         "pagingType": "full_numbers",
         "language": LenguajeTabla,
-        "columnDefs": [{
-            "targets": [1]
-        }],
+        "columnDefs": [{"targets": [1]}], 
         "data": data,
         "columns":[
             {"title": "Id","data": "IdUser",visible:0},
@@ -40,26 +38,42 @@ var cargarTablaAccesos = function(data){
             {"title": "Estado","data": "estado_perfil"},
         ],
     });
+
     SeleccionarTablaAccesos();
 };
 
 var SeleccionarTablaAccesos = function(){
     var tableB = $('#tablaAccesos').dataTable();
+    
     $('#tablaAccesos tbody').on('click', 'tr', function (e) {
         tableB.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
         RegistroAcceso = TablaTraerCampo('tablaAccesos',this);
     });
+    
     tableB.on('dblclick', 'tr', function () {
         seleccionarAcceso(RegistroAcceso);
     });
 }
 
-var seleccionarAcceso = function(data){
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = data;
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaProcesar(respuesta);
+var seleccionarAcceso = function(data){    
+    $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{
+            parametroAjax.ruta=ruta;
+            parametroAjax.data = data;
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaProcesar(respuesta);
+
+        }catch(err) {
+            $("body").removeClass("loading"); 
+            
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+    }, 2);
 }
 
 var SessionTimeoutAcces = function() {

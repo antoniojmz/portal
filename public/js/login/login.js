@@ -27,43 +27,56 @@ var SnippetLogin = function() {
         l = function() {
             $("#m_login_signin_submit").click(function(e) {
                 e.preventDefault();
-                var a = $(this),
-                t = $("#FormLogin");
-                t.validate({ 
-                    rules: {
-                        'usrUserName': {
-                            required: !0
+                $("body").addClass("loading");
+
+                try{
+                    var a = $(this),
+                    t = $("#FormLogin");
+                    t.validate({ 
+                        rules: {
+                            'usrUserName': {
+                                required: !0
+                            },
+                            'usrPassword': {
+                                required: !0
+                            },
+                            'g-recaptcha-response': {
+                                required: !0
+                            }
                         },
-                        'usrPassword': {
-                            required: !0
-                        },
-                        'g-recaptcha-response': {
-                            required: !0
+                        messages:{
+                            'usrUserName': "Se requiere este campo.",
+                            'usrPassword': "Se requiere este campo.",
+                            'g-recaptcha-response': "Se requiere este campo."
                         }
-                    },
-                    messages:{
-                        'usrUserName': "Se requiere este campo.",
-                        'usrPassword': "Se requiere este campo.",
-                        'g-recaptcha-response': "Se requiere este campo."
+                    })
+
+                    if (errorRut==0){ 
+                        t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({url: "/login",
+                            success: function(e, r, n, l) {
+                                
+                                setTimeout(function() {
+                                    var response = JSON.parse(e);
+                                    if(response.code==200){
+                                        grecaptcha.reset(widgetId1);
+                                        grecaptcha.reset(widgetId2);
+                                        window.location.href = response.des_code;
+                                    }else{
+                                        $("#FormLogin").reset();
+                                        a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
+                                    }
+                                }, 3)
+
+                            }
+                        }))
                     }
-                })
-                if (errorRut==0){ 
-                t.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), t.ajaxSubmit({
-                        url: "/login",
-                      success: function(e, r, n, l) {
-                            setTimeout(function() {
-                                var response = JSON.parse(e);
-                                if(response.code==200){
-                                    grecaptcha.reset(widgetId1);
-                                    grecaptcha.reset(widgetId2);
-                                    window.location.href = response.des_code;
-                                }else{
-                                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", response.des_code)
-                                }
-                            }, 2e3)
-                        }
-                    }))
+
+                }catch(err) {
+                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(t, "danger", err.message)
+                    console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
                 }
+
+                $("body").removeClass("loading"); 
             })
         },
         o = function() {

@@ -52,9 +52,7 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-7">
 							{!! Field::select('idProveedor', null, null,
-							[ 'label' => 'Empresa', 
-							'style' => 'width:100%;height:35px;',
-							'class' => 'form-control comboclear']) !!}
+							[ 'label' => 'Empresa',  'style' => 'width:100%;height:35px;', 'class' => 'form-control comboclear']) !!}
 						</div>
 						<div class="col-md-3">
 							<br>
@@ -80,130 +78,73 @@
 		<div class="row">
 			<div class="col-md-12">
 				<br>
-				<center><span id="spanTitulo">Registro de usuarios</span></center>
+				<center><span id="spanTituloFormulario">Registro de usuarios del Proveedor</span></center>
 				<hr>
 			</div>
 		</div>
 		{!! Form::open(['id'=>'FormUsuario','autocomplete' => 'off']) !!}
-		{!! Form::hidden('idUser', '', [
-		'id'            => 'idUser',
-		'class'         => 'form-control'])!!}
+		{!! Form::hidden('idUser', '', ['id' => 'idUser', 'class' => 'form-control'])!!}
 		<input type="hidden" name="_token" id="_token" value="{!! csrf_token() !!}">
 		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
+			<div class="col-md-3	">
 				<label class="label" for="usrUserName"><b>Login:</b></label>
-				{!! Form::text('usrUserName', '', [
-				'id'            => 'usrUserName',
-				'class'         => 'form-control',
-				'placeholder'   => 'Login',
-				'style'         => 'width:100%;height:35px',
-				'maxlength'     => '12'])!!}
+				{!! Form::text('usrUserName', '', 
+				['id' => 'usrUserName', 'class' => 'form-control', 'placeholder' => 'Login', 'style' => 'width:100%;height:35px', 'maxlength' => '12']) !!}
                 <small id="ErrorRut" class="rut-error"></small>		
 			</div>
-			<div class="col-md-4"></div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<label class="label" for="usrNombreFull"><b>Nombres:</b></label>
-				{!! Form::text('usrNombreFull', '', [
-				'id'            => 'usrNombreFull',
-				'class'         => 'form-control',
-				'placeholder'   => 'Nombres',
-				'style'         => 'width:100%;height:35px',
-				'maxlength'     => '50'])!!}
+				{!! Form::text('usrNombreFull', '', 
+				['id' => 'usrNombreFull', 'class' => 'form-control', 'placeholder' => 'Nombres', 'style' => 'width:100%;height:35px', 'maxlength' => '50'])!!}
 			</div>
-			<div class="col-md-4"></div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4 form-group">
+			<div class="col-md-3">
 				<label class="label" for="usrEmail"><b>Email:</b></label>
-				{!! Form::text('usrEmail', '', [
-				'id'            => 'usrEmail',
-				'class'         => 'form-control',
-				'placeholder'   => 'Email',
-				'style'         => 'width:100%;height:35px',
-				'maxlength'     => '50'])!!}
+				{!! Form::text('usrEmail', '', 
+				['id' => 'usrEmail', 'class' => 'form-control', 'placeholder' => 'Email', 'style' => 'width:100%;height:35px', 'maxlength' => '50']) !!}
 			</div>
-			<div class="col-md-4"></div>
-		</div>
-		<div id="divEmpresa" style="display:none;">
-		<br>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					{!! Field::select('idEmpresa', null, null,
-					[ 'label' => 'Empresa', 
-					'style' => 'width:100%;height:35px;',
-					'placeholder' => 'Seleccione...',
-					'class' => 'form-control comboclear']) !!}
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				{!! Field::select('usrEstado', null, null,
-				[ 'label' => 'Estado', 
-				'style' => 'width:100%;height:35px;',
-				'placeholder' => 'Seleccione...',
-				'class' => 'form-control comboclear']) !!}
+				[ 'label' => 'Estado', 'style' => 'width:100%;height:35px;', 'placeholder' => 'Seleccione...', 'class' => 'form-control comboclear']) !!}
+			</div>
+		</div>
+		<br>
+
+		<div class="row" id="divEmpresa" style="display:none;">
+			<div class="col-md-4">
+				{!! Field::select('idEmpresa', null, null,
+				[ 'label' => 'Empresa', 'style' => 'width:100%;height:35px;', 'placeholder' => 'Seleccione...', 'class' => 'form-control comboclear']) !!}
 			</div>
 			<div class="col-md-4"></div>
+			<div class="col-md-4"></div>
 		</div>
+		<br>
+
 		<div id="divConsulta" style="display:none;">
 			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<label class="label" for="usrUltimaVisita"><b>Última visita:</b></label>
 					<span id="usrUltimaVisita" class="form-control">Desconocido</span>
 				</div>
-				<div class="col-md-4"></div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<label class="label" for="auCreadoEl"><b>Creado el:</b></label>
 					<span id="auCreadoEl" class="form-control">Desconocido</span>
 				</div>
-				<div class="col-md-4"></div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<label class="label" for="creador"><b>Creado por:</b></label>
 					<span id="creador" class="form-control">Desconocido</span>
 				</div>
-				<div class="col-md-4"></div>
-			</div>
-			<br>			
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<label class="label" for="auModificadoEl"><b>modificado el:</b></label>
 					<span id="auModificadoEl" class="form-control">Desconocido</span>
 				</div>
-				<div class="col-md-4"></div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<label class="label" for="modificador"><b>Modificado por:</b></label>
 					<span id="modificador" class="form-control">Desconocido</span>
 				</div>
-				<div class="col-md-4"></div>
 			</div>
 		</div>
 		<br>
+
 		<div align="center">
 			<div class="pull-rigth">
 				<button name="cancelar" id="cancelar" class="btn m-btn--pill btn-outline-primary" type="button">

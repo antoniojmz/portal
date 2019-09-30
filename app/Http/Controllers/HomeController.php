@@ -12,6 +12,7 @@ use Auth;
 // Modelo
 use App\Models\Home;
 use App\Models\Consulta;
+use App\Models\Proveedor;
 
 
 class HomeController extends Controller
@@ -45,26 +46,35 @@ class HomeController extends Controller
         return view('menu.home', $data);
     }
 
-    public function getDashboard()
-    {   
+    public function getDashboard(){
+        //$model= new Consulta();
         $usuario = Auth::user();
-        $data['idPerfil'] = $usuario->idPerfil;
+
+        //$data = $model->filtrarFecha("12");
+        //$data['idPerfil'] = $usuario->idPerfil;
+
+        $modelPRV = new Proveedor();
+        $data['v_proveedores'] = $modelPRV->listRegProveedorCombo();
+
+        //return view('menu.dasboard', $data);
         return view('menu.dasboard', $data);
     }
 
     public function postFacturacion(Request $request){
         $datos = $request->all();
-        $model= new Consulta();
+        $model = new Consulta();
+        
         if(isset($datos['IdDTE'])){ 
             $result['v_dtes'] = $model->BusDtesGraf($datos['IdDTE']);
             $result['v_info'] = '{"code":"204", "des_code":"No content."}';  
+
         }else{
             $result['v_info'] = '{"code":"-2", "des_code":"Se esperaban parametros de entrada."}';  
             $result['v_dtes'] = '';  
+
         }
         return $result;
     }
-
     
     public function postNoticia(Request $request){
         $datos = $request->all();
@@ -81,8 +91,11 @@ class HomeController extends Controller
 
     public function postFiltrarwidget(Request $request){
         $datos = $request->all();
+        log::info($datos);
+
         $model= new Consulta();
-        $result = $model->filtrarFecha($datos['caso']);
+        $result = $model->filtrarFecha($datos);
+
         return $result;
     }
 

@@ -137,10 +137,8 @@ var cargarTablaUsuarios = function(data){
             {"title": "Id","data": "idUser",visible:0},
             {"title": "Empresa","data": "NombreProveedor"},
             {"title": "Nombres","data": "usrNombreFull"},
-            {
-                "title": "Login", 
-                "data": "usrUserName",
-                "render": function(data, type, row, meta){
+            {"title": "Login", "data": "usrUserName",
+                render: function(data, type, row, meta){
                     if(type === 'display'){
                         data = formateaRut(data, true)
                     }
@@ -166,14 +164,17 @@ var cargarTablaUsuarios = function(data){
 
 var seleccionarTablaUsuarios = function(data){
     var tableB = $('#tablaUsuarios').dataTable();
+    
     $('#tablaUsuarios tbody').on('click', 'tr', function (e) {
         tableB.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
         RegistroUsuario = TablaTraerCampo('tablaUsuarios',this);
     });
+
     tableB.on('dblclick', 'tr', function () {
         $('#close').trigger('click');
     });
+
     if (d.v_perfil.perfil==2 || d.v_perfil.perfil==3){
         $(function(){
             $.contextMenu({
@@ -222,17 +223,14 @@ var cargarTablaEmpresas = function(data){
             "paging": false,
             "searching": false,
             "columnDefs": [
-            {
-                "targets": [ 1 ],
-                "searchable": false
-            }],
+            {"targets": [ 1 ], "searchable": false}],
             "data": data,
             "columns":[
-            {"title": "Nombres","data": "usrNombreFull"},
-            {"title": "Login","data": "usrUserName"},
-            {"title": "IdProveedor","data": "IdProveedor",visible:0},
-            {"title": "Empresa","data": "NombreProveedor"},
-            {"title": "Estado","data": "des_estadoProveedor"},
+                {"title": "Nombres","data": "usrNombreFull"},
+                {"title": "Login","data": "usrUserName"},
+                {"title": "IdProveedor","data": "IdProveedor",visible:0},
+                {"title": "Empresa","data": "NombreProveedor"},
+                {"title": "Estado","data": "des_estadoProveedor"},
             ],
         });
         limpiarPerfiles=1;
@@ -270,16 +268,17 @@ var seleccionarTablaEmpresas = function(data){
             }
         });
     });
-};     
+};
+
 var crearallcombos = function(data){
     crearcombo('#idProveedor',data.v_proveedores_combos);
     crearcombo('#idEmpresa',data.v_proveedores_combos);
     crearcombo('#usrEstado',data.v_estados);
-}
+};
 
 var cargarFormulario= function(){
     $(".divForm").toggle();
-}
+};
 
 var volverPerfiles = function(){
     if (manejoRefresh==1){
@@ -292,7 +291,7 @@ var volverPerfiles = function(){
         $(".comboclear").val('').trigger("change");  
         $("#idUser2").val("")
     }
-}
+};
 
 var administrarEmpresas= function(data){
     manejoRefresh=0;
@@ -315,14 +314,41 @@ var desbloquearCuenta = function(data){
 }
 
 var pintarDatosActualizar= function(data){
+    console.log("divConsulta: " + $('#divConsulta').is(":visible"));
+    console.log("divInfoUsuario: " + $('#divInfoUsuario').is(":visible"));
+
     $("#divEmpresa").hide();
     $("#perfiles").text("N/A o Inactivo")
+
     $('#divConsulta').show();
+    $('#divInfoUsuario').show();
+    
     $('#divSpanPerfiles').show();
+
+    $('#spanTituloFormulario').html("<h4>Visualización de datos del Usuario</h4>");
+
     $("#idUser").val(data.idUser);
     $("#usrUserName").val(data.usrUserName);
     $("#usrEmail").val(data.usrEmail);
     $("#usrNombreFull").val(data.usrNombreFull);
+    $("#usrEstado").val(data.usrEstado).trigger("change");
+
+    if(data.usrUltimaVisita!=null){
+        $("#usrUltimaVisita").text(data.usrUltimaVisita);
+    }
+    if(data.auCreadoEl!=null){
+        $("#auCreadoEl").text(data.auCreadoEl);
+    }
+    if(data.creador!=null){
+        $("#creador").text(data.creador);
+    }
+    if(data.auModificadoEl!=null){
+        $("#auModificadoEl").text(data.auModificadoEl);
+    }
+    if(data.modificador!=null){
+        $("#modificador").text(data.modificador);
+    }
+
     if(data.des_Perfil!=null){
         var res = data.des_Perfil.split(",");
         var des='';
@@ -331,42 +357,46 @@ var pintarDatosActualizar= function(data){
         $("#perfiles").text(res);
     }
 
-    $("#usrEstado").val(data.usrEstado).trigger("change");
-    if(data.usrUltimaVisita!=null){$("#usrUltimaVisita").text(data.usrUltimaVisita);}
-    if(data.auCreadoEl!=null){$("#auCreadoEl").text(data.auCreadoEl);}
-    if(data.creador!=null){$("#creador").text(data.creador);}
-    if(data.auModificadoEl!=null){$("#auModificadoEl").text(data.auModificadoEl);}
-    if(data.modificador!=null){$("#modificador").text(data.modificador);}
+    console.log("divConsulta: " + $('#divConsulta').is(":visible"));
+    console.log("divInfoUsuario: " + $('#divInfoUsuario').is(":visible"));
+
 }
 
 var BotonCancelar = function(){
     $("#divEmpresa").hide();
     $(".divForm").toggle();    
     $('#divConsulta').hide();
+    $('#divInfoUsuario').hide();
+    
     $('#FormUsuario')[0].reset();
     $("#idUser").val("");
     $('#divSpanPerfiles').hide();
     mostrarDesconocidos();
-}
+};
 
 var mostrarDesconocidos = function(){
-    $("#usrUltimaVisita").text("Desconocido");
+    $("#usrUltimaVisita").text("Nunca");
     $("#auCreadoEl").text("Desconocido");
     $("#creador").text("Desconocido");
     $("#auModificadoEl").text("Desconocido");
     $("#modificador").text("Desconocido");
-}
+};
 
 var BotonAgregar = function(){
     cargarFormulario();
     mostrarDesconocidos();
     $("#divEmpresa").show();
+    
+    $('#spanTituloFormulario').html("<h4>Nuevo Usuario del Proveedor</h4>");
+
     $("#divConsulta").hide();
+    $('#divInfoUsuario').hide();
+
     $("#divSpanPerfiles").hide();
     $("#idUser").val("");
     $(".comboclear").val('').trigger("change");
     $('#FormUsuario')[0].reset();
-}
+};
 
 var BotonAgregarEmpresa = function(){
     var data = {'idProveedor': $('#idProveedor').val(), 'idUser': $('#idUser2').val()};
@@ -374,17 +404,28 @@ var BotonAgregarEmpresa = function(){
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarPerfil(respuesta);
-}
-
+};
 
 var ProcesarUsuario = function(){
-    if (errorRut==0){
-        var camposNuevo = {'usrEstado': $('#usrEstado').val(),'idEmpresa': $('#idEmpresa').val()}
-        parametroAjax.ruta=ruta;
-        parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
-        respuesta=procesarajax(parametroAjax);
-        ManejoRespuestaProcesar(respuesta);
-    }
+    $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{
+            if (errorRut==0){
+                var camposNuevo = {'usrEstado': $('#usrEstado').val(),'idEmpresa': $('#idEmpresa').val()}
+                parametroAjax.ruta=ruta;
+                parametroAjax.data = $("#FormUsuario").serialize() + '&' + $.param(camposNuevo);
+                respuesta=procesarajax(parametroAjax);
+                ManejoRespuestaProcesar(respuesta);
+            }
+        }catch(err) {
+            alert("Error inesperado al realizar la consulta de ordenes de compra: " + err.message);
+            console.log("Error inesperado al realizar la consulta de ordenes de compra: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 1);
 };
 
 var buscarEmpresas = function(data){
@@ -399,7 +440,7 @@ var reiniciarClave = function(){
     parametroAjax.data = RegistroUsuario;
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarR(respuesta);
-}
+};
 
 var validador = function(){
     $('#FormUsuario').formValidation('validate');
@@ -414,7 +455,7 @@ var cambiarEstatusUsuario = function(data){
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarI(respuesta);
-}
+};
 
 var cambiarEstatusPerfil = function(data){
     manejoRefresh=1;
@@ -422,7 +463,7 @@ var cambiarEstatusPerfil = function(data){
     parametroAjax.data = data;
     respuesta=procesarajax(parametroAjax);
     ManejoRespuestaProcesarP(respuesta);
-}
+};
 
 var verificarRut = function(control){
     var res = Valida_Rut(control);
@@ -440,6 +481,7 @@ var verificarRut = function(control){
 
 $(document).ready(function(){
     ClassActive("LiProveedores");
+    
     $("#usrUserName").focusout(function() {
         var valid = $("#usrUserName").val();
         if (valid.length > 0){
@@ -447,13 +489,16 @@ $(document).ready(function(){
             $("#usrUserName").val(res);
         }else{$("#ErrorRut").text("");}
     });
+
 	cargarTablaUsuarios(d.v_usuarios);
-    crearallcombos(d);    
+    crearallcombos(d);  
+
     $(document).on('click','#guardar',validador);
     $(document).on('click','#cancelar',BotonCancelar);
     $(document).on('click','#agregar',BotonAgregar);
     $(document).on('click','#agregarP',validadorEmpresa);
     $(document).on('click','#volverPerfiles',volverPerfiles);
+    
     $('#FormUsuario').formValidation({
         excluded:[':disabled'],
         // message: 'El módulo le falta un campo para ser completado',
