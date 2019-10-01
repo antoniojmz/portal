@@ -11,13 +11,28 @@ var parametroAjax = {
 };
 
 var verDtes = function(data){
-    if (data!=null){
-        MyblockPage();
-        $("#idSubmitDtes").val(data);
-        $("#formIdDtes").submit();
-    }else{
-        toastr.warning("Se esperaban parametros de entrada", "Error!");
-    }
+
+	$("body").addClass("loading");
+
+    setTimeout(function(){
+    	try{	
+		    if (data!=null){
+		        MyblockPage();
+		        $("#idSubmitDtes").val(data);
+		        $("#formIdDtes").submit();
+		        
+		    }else{
+		        toastr.warning("Se esperaban parametros de entrada", "Error!");
+		    }
+
+		}catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+	  	$("body").removeClass("loading"); 
+
+    }, 8);
 }
 
 var ManejoRespuestaF = function(respuesta){
