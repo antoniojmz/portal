@@ -1,0 +1,9 @@
+<div class="modal" style="text-align: center; vertical-align: middle;">
+	@if ( $data['idPerfil']==2 )
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando información del Comprador...
+	@elseif ( $data['idPerfil']==3 )
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando información del Proveedor...
+	@elseif ( $data['idPerfil']==1 )
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando información del Administrador...
+	@endif
+</div>

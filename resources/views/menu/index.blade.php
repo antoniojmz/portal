@@ -175,9 +175,6 @@
 		</div> 
 	</div>
 </body>
-
-<div class="modal" style="text-align: center; vertical-align: middle;">
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Cargando información del Proveedor...
-</div>
+@include('menu.modal')
 
 </html>
