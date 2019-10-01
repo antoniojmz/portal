@@ -402,11 +402,16 @@ var crearSelectProveedores = function(control, data){
 $(document).ready(function(){
     ClassActive("LiDashboard");    
 
-    if(IdPerfil == 2) crearSelectProveedores('#IdProveedor', v_proveedores);
-    else nombreCliente = "";
+    if(IdPerfil == 2){
+    	crearSelectProveedores('#IdProveedor', v_proveedores);
+    	FiltrarwidgetsProveedor(filtroFecha);
+
+    }else if(IdPerfil == 3){
+    	FiltrarwidgetsProveedor(filtroFecha);
+    }
 
 	//cargarPanel(d.idPerfil);
-	FiltrarwidgetsProveedor(filtroFecha);
+	//FiltrarwidgetsProveedor(filtroFecha);
 
 	$("#FiltroAnio").click(function(){
 		filtroFecha = 13;

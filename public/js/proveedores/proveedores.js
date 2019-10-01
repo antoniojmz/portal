@@ -174,100 +174,106 @@ var pintarDatos = function(data){
 }
 
 var cargartablaProveedores = function(data){
-    if (limpiar>0){destruirTabla('#tablaProveedores');}
-        var columnReport = [[1],[2],[3],[4],[5],[6],[7],[8],[9]];
-        $("#tablaProveedores").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollX": true,
-            "scrollY": '50vh',
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "Id","data": "IdProveedor",visible:0},
-                {
-                    "title": "RUT Proveedor", 
-                    "data": "RutProveedor",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = formateaRut(data, true)
-                        }
-                        return data;
+    if (limpiar>0){
+        destruirTabla('#tablaProveedores');
+    }
+
+    var columnReport = [[1],[2],[3],[4],[5],[6],[7],[8],[9]];
+    $("#tablaProveedores").dataTable({
+        'aLengthMenu': DataTableLengthMenu,
+        "scrollX": true,
+        "scrollY": '50vh',
+        "scrollCollapse": true,
+        "pagingType": "full_numbers",
+        "language": LenguajeTabla,
+        "data": data,
+        "columns":[
+            {"title": "Id","data": "IdProveedor",visible:0},
+            {
+                "title": "RUT Proveedor", 
+                "data": "RutProveedor",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = formateaRut(data, true)
+                    }
+                    return data;
+                }
+            },
+            {"title": "Razon Social","data": "RazonSocialProveedor"},
+            {"title": "Telefono Proveedor","data": "TelefonoProveedor"},
+            {"title": "Correo Electronico","data": "CorreoElectronico"},
+            {"title": "Persona Contacto","data": "PersonaContacto"},
+            {"title": "Nombre Fantasia","data": "NombreFantasia"},
+            {"title": "Teléfono de Contacto","data": "TelefonoContacto"},
+            {"title": "Datos Pago Registrado","data": "DatosPago"},
+            {"title": "Estado","data": "EstadoProveedor"}
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
+                orientation:'landscape',
+                pageSize:'TABLOID',
+                title:'Listado de Proveedores',
+                exportOptions: {
+                    columns: columnReport,
+                    modifier: {
+                        page: 'all'
                     }
                 },
-                {"title": "Razon Social","data": "RazonSocialProveedor"},
-                {"title": "Telefono Proveedor","data": "TelefonoProveedor"},
-                {"title": "Correo Electronico","data": "CorreoElectronico"},
-                {"title": "Persona Contacto","data": "PersonaContacto"},
-                {"title": "Nombre Fantasia","data": "NombreFantasia"},
-                {"title": "Teléfono de Contacto","data": "TelefonoContacto"},
-                {"title": "Datos Pago Registrado","data": "DatosPago"},
-                {"title": "Estado","data": "EstadoProveedor"}
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    orientation:'landscape',
-                    pageSize:'TABLOID',
-                    title:'Listado de Proveedores',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all'
-                        }
-                    },
-                    customize: function (win) {
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size','11px');
-                    }
-                },
-                {
-                    extend: 'excel',
-                    text: 'Exportar',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    title:'Listado de Proveedores',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all'
-                        }
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    text: 'PDF',
-                    className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
-                    orientation:'landscape',
-                    pageSize:'TABLOID',
-                    title:'Listado de Proveedores',
-                    exportOptions: {
-                        columns: columnReport,
-                        modifier: {
-                            page: 'all',
-                        }
-                    },
-                    customize : function(doc){
-                        doc.defaultStyle.fontSize = 8; 
-                        var colCount = new Array();
-                        $($("#tablaProveedores").dataTable()).find('tbody tr:first-child td').each(function(){
-                            if($(this).attr('colspan')){
-                                for(var i=1;i<=$(this).attr('colspan');$i++){
-                                    colCount.push('*');
-                                }
-                            }else{ colCount.push('*'); }
-                        });
-                        doc.content[1].table.widths = colCount;
+                customize: function (win) {
+                    $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size','11px');
+                }
+            },
+            {
+                extend: 'excel',
+                text: 'Exportar',
+                className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
+                title:'Listado de Proveedores',
+                exportOptions: {
+                    columns: columnReport,
+                    modifier: {
+                        page: 'all'
                     }
                 }
-            ]
-        });
-        limpiar=1;
-    if (data.length>0){SeleccionarTablaProveedores();}
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
+                orientation:'landscape',
+                pageSize:'TABLOID',
+                title:'Listado de Proveedores',
+                exportOptions: {
+                    columns: columnReport,
+                    modifier: {
+                        page: 'all',
+                    }
+                },
+                customize : function(doc){
+                    doc.defaultStyle.fontSize = 8; 
+                    var colCount = new Array();
+                    $($("#tablaProveedores").dataTable()).find('tbody tr:first-child td').each(function(){
+                        if($(this).attr('colspan')){
+                            for(var i=1;i<=$(this).attr('colspan');$i++){
+                                colCount.push('*');
+                            }
+                        }else{ colCount.push('*'); }
+                    });
+                    doc.content[1].table.widths = colCount;
+                }
+            }
+        ]
+    });
+
+    limpiar=1;
+    if (data.length>0){
+        SeleccionarTablaProveedores();
+    }
 };
 
 var SeleccionarTablaProveedores = function(){

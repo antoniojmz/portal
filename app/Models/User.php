@@ -122,7 +122,7 @@ class User extends Authenticatable
                 break;
 
             case 2:
-                $result['v_detalle']= DB::table('v_clientes')->where('idUser',$usuario->idUser)->get();
+                $result['v_detalle']=DB::table('v_clientes')->where('idUser',$usuario->idUser)->get();
                 
                 $idCliente=DB::select("select IdCliente from v_clientes_tienen_usuarios where idUser=".$usuario->idUser);
                 $result['idClienteUsuario']=$idCliente[0]->IdCliente;

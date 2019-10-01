@@ -109,7 +109,7 @@
 
     @case(2) 
     @case(3)
-        <form id="formIdDtes" method="POST" action='{!! URL::route("consultasDTE") !!}' style="display: none;">
+        <form id="formIdDtes" method="POST" action='{!! URL::route("busquedaDTE") !!}' style="display: none;">
             {{ csrf_field() }}
             <input type="hidden" id="idSubmitDtes" name="idSubmitDtes">
         </form>
@@ -323,8 +323,14 @@
 <script Language="Javascript">
     var rutaF = "{{ URL::route('filtrarwidget') }}";
     var IdPerfil = "{{ $data['idPerfil'] }}";
+</script>
+
+@if( $data['idPerfil'] == 2 || $data['idPerfil'] == 3 )
+<script Language="Javascript">
     var nombreCliente = "{{$data['v_detalle'][0]->NombreEmpresa}}";
     var v_proveedores = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores) }}'));
 </script>
+@endif
+
 <script src="{{ asset('js/menu/dasboard.js') }}"></script>
 @endsection

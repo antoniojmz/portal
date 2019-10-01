@@ -32,6 +32,7 @@ Route::get( '/consultasDTE', 'ConsultaController@getConsultas')->name('consultas
 Route::post('/consultasDTE', 'ConsultaController@getConsultas')->name('consultasDTE');
 
 Route::get('/busquedaDTE', 'ConsultaController@getBusqueda')->name('busquedaDTE');
+Route::post('/busquedaDTE', 'ConsultaController@getBusqueda')->name('busquedaDTE');
 
 Route::post('/consultaDTE', 'ConsultaController@postConsultaDTE')->name('consultaDTE');
 

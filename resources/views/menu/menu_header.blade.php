@@ -11,7 +11,8 @@ $nroPerfiles = Session::get('nroPerfiles');
 					<div class="m-stack m-stack--ver m-stack--general m-stack--inline">
 						<div class="m-stack__item m-stack__item--middle m-brand__logo">
 							<a href='{!! URL::route("home") !!}' class="m-brand__logo-wrapper m-nav__link">
-								<img alt="" src="{{ asset('theme/dist/html/demo2/assets/demo/demo2/media/img/logo/logo.png') }}"/>
+								<!--<img alt="" src="{{ asset('theme/dist/html/demo2/assets/demo/demo2/media/img/logo/logo.png') }}"/> -->
+								<img alt="" src="{{ asset('img/logo_globas.png') }}" style="width: 110px; margin-left: -20px">
 							</a>
 						</div>
 						<div class="m-stack__item m-stack__item--middle m-brand__tools">

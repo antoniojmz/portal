@@ -42,25 +42,55 @@ var ManejoRespuestaT = function(respuesta){
 }
 
 var pintarDatos = function(data){
-    if(data.TipoDTE!=null){$("#TipoDTE").text(data.TipoDTE);}
-    if(data.FolioDTE!=null){$("#FolioDTE").text(data.FolioDTE);}
-    if(data.FechaEmision!=null){$("#FechaEmision").text(data.FechaEmision);}
-    if(data.FechaRecepcion!=null){$("#FechaRecepcion").text(data.FechaRecepcion);}
-    if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
-    if(data.MontoNetoCLP!=null){$("#MontoNetoCLP").text(data.MontoNetoCLP);}
-    if(data.MontoExentoCLP!=null){$("#MontoExentoCLP").text(data.MontoExentoCLP);}
-    if(data.MontoIVACLP!=null){$("#MontoIVACLP").text(data.MontoIVACLP);}
-    if(data.MontoTotalCLP!=null){$("#MontoTotalCLP").text(data.MontoTotalCLP);}
-    // if(data.MontoNetoOM!=null){$("#MontoNetoOM").text(data.MontoNetoOM);}
-    // if(data.MontoExentoOM!=null){$("#MontoExentoOM").text(data.MontoExentoOM);}
-    // if(data.MontoIVAOM!=null){$("#MontoIVAOM").text(data.MontoIVAOM);}
-    // if(data.MontoTotalOM!=null){$("#MontoTotalOM").text(data.MontoTotalOM);}
-    if(data.EstadoActualDTE!=null){$("#EstadoActualDTE").text(data.EstadoActualDTE);}
-    if(data.FechaEstadoActualDTE!=null){$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);}
+    console.log("Pintando datos...");
 
+    if(data.TipoDTE!=null){
+        $("#formViewDTE #TipoDTE").text(data.TipoDTE);
+    }
+    if(data.FolioDTE!=null){
+        $("#formViewDTE #FolioDTE").text(new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.FolioDTE));
+        //$("#FolioDTE").text(data.FolioDTE);
+    }
+    if(data.FechaEmision!=null){
+        $("#formViewDTE #FechaEmision").text(moment(data.FechaEmision, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+        //$("#FechaEmision").text(data.FechaEmision);
+    }
+    if(data.FechaRecepcion!=null){
+        $("#formViewDTE #FechaRecepcion").text(moment(data.FechaRecepcion, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+        //$("#FechaRecepcion").text(data.FechaRecepcion);
+    }
+    if(data.RutProveedor!=null){$("#formViewDTE #RutProveedor").text(data.RutProveedor);}
+    if(data.NombreProveedor!=null){$("#formViewDTE #NombreProveedor").text(data.NombreProveedor);}
+    if(data.RutCliente!=null){$("#formViewDTE #RutCliente").text(data.RutCliente);}
+    if(data.NombreCliente!=null){$("#formViewDTE #NombreCliente").text(data.NombreCliente);}
+    if(data.EstadoActualDTE!=null){
+        $("#EstadoActualDTE").text(data.EstadoActualDTE);
+    }
+    if(data.FechaEstadoActualDTE!=null){
+        if(data.FechaEstadoActualDTE != "Sin Información"){
+            $("#formViewDTE #FechaEstadoActualDTE").text(moment(data.FechaEstadoActualDTE, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+            //$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
+        }else{
+            $("#formViewDTE #FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
+        }
+    }
+
+    if(data.MontoNetoCLP!=null){
+        $("#formViewDTE #MontoNetoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoNetoCLP));
+        //$("#MontoNetoCLP").text(data.MontoNetoCLP);
+    }
+    if(data.MontoExentoCLP!=null){
+        $("#formViewDTE #MontoExentoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoExentoCLP));
+        //$("#MontoExentoCLP").text(data.MontoExentoCLP);
+    }
+    if(data.MontoIVACLP!=null){
+        $("#formViewDTE #MontoIVACLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoIVACLP));
+        //$("#MontoIVACLP").text(data.MontoIVACLP);
+    }
+    if(data.MontoTotalCLP!=null){
+        $("#formViewDTE #MontoTotalCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoTotalCLP));
+        //$("#MontoTotalCLP").text(data.MontoTotalCLP);
+    }
 }
 
 var cargartablaDetalles = function(data){
@@ -138,8 +168,6 @@ var cargartablaEstados = function(data){
         limpiarEstados=1;
 }
 
-
-
 var cargartablaTrazas = function(data){
     if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
         $("#tablaTrazas").dataTable({
@@ -168,22 +196,26 @@ var cargartablaTrazas = function(data){
 }
 
 var cargartablaReportes = function(data){
-    if (limpiar>0){destruirTabla('#tablaReportes');}
-        var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
-        $("#tablaReportes").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollX": true,
-            "scrollY": '45vh',
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdProveedor","data": "IdProveedor",visible:0},
-                {"title": "IdCliente","data": "IdCliente",visible:0},
-                {
-                    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
+    if (limpiar>0){
+        destruirTabla('#tablaReportes');
+    }
+
+    var columnReport = [[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24]];       
+    $("#tablaReportes").dataTable({
+        "language": LenguajeTabla,
+        "searching": true, 
+        "paging": true, 
+        "info": true,
+        "order": [[ 2, "desc" ]], 
+        "data": data,
+        "pagingType": "full_numbers",
+
+        "columns":
+        [
+            {"title": "IdDTE","data": "IdDTE",visible:0},
+            {"title": "IdProveedor","data": "IdProveedor",visible:0},
+            {"title": "IdCliente","data": "IdCliente",visible:0},
+            {"title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
                     "data": {"PdfDTE":"PdfDTE","XmlDTE":"XmlDTE"},
                     "orderable":false,
                     "render": function(data, type, row, meta){
@@ -192,109 +224,104 @@ var cargartablaReportes = function(data){
                         }
                         return data;
                     }
-                },
-                {"title": "Tipo DTE","data": "TipoDTE"},
-                {"title": "Folio DTE","data": "FolioDTE"},
-                {
-                    "title": "Fecha Emisión", 
-                    "data": "FechaEmision",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
+            },
+            {"title": "Tipo DTE", "data": "TipoDTE", className: "text-center"},
+            {"title": "Folio DTE","data": "FolioDTE", className: "text-center", render: $.fn.dataTable.render.number( '.', ',', 0)},
+            {"title": "Fecha Emisión", "data": "FechaEmision", className: "text-center", 
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                    }
+                    return data;
+                }
+            },
+            {"title": "Fecha Recepción", "data": "FechaRecepcion", className: "text-center", 
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                    }
+                    return data;
+                }
+            },
+            {"title": "RUT Proveedor",  visible:false, "data": "RutProveedor", className: "text-center",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = formateaRut(data, true)
+                    }
+                    return data;
+                }
+            },
+            {"title": "Nombre Proveedor","data": "NombreProveedor",  visible:false},
+            {"title": "RUT Receptor DTE", "data": "RutCliente", className: "text-center", 
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = formateaRut(data, true)
+                    }
+                    return data;
+                }
+            },
+            {"title": "Receptor DTE","data": "NombreCliente"},
+            {"title": "Monto Neto DTE","data": "MontoNetoCLP",  visible:false},
+            {"title": "Monto Exento DTE","data": "MontoExentoCLP",  visible:false},
+            {"title": "Monto IVA DTE","data": "MontoIVACLP",  visible:false},
+            {"title": "Monto Total DTE","data": "MontoTotalCLP", className: "text-right", render: $.fn.dataTable.render.number( '.', ',', 0)},
+            {"title": "Fecha Autorizacion SII",  visible:false, "data": "FechaAutorizacionSII",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                    }
+                    return data;
+                }
+            },
+            {"title": "Fecha OC",  visible:false, "data": "FechaOC", className: "text-center",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                    }
+                    return data;
+                }
+            },
+            {"title": "Fecha Pago", "data": "FechaPago", className: "text-center",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        if(data != null){
                             data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }else{
+                            data = "-"; 
                         }
-                        return data;
                     }
-                },
-                {
-                    "title": "Fecha Recepción", 
-                    "data": "FechaRecepcion",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
+                    return data;
+                }
+            },
+            {"title": "Fecha Vencimiento", "data": "FechaVencimiento", className: "text-center",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        if(data != null){
                             data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        }else{
+                            data = "-"; 
                         }
-                        return data;
                     }
-                },
-                {
-                    "title": "RUT Proveedor",  visible:false, 
-                    "data": "RutProveedor",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = formateaRut(data, true)
-                        }
-                        return data;
+                    return data;
+                }
+            },
+            {"title": "Tipo Acuse","data": "DesTipoAcuse",  visible:false},
+            {"title": "Existencia SII","data": "DesExistenciaSII",  visible:false},
+            {"title": "Existencia Paperles","data": "DesExistenciaPaperles",  visible:false},
+            {"title": "Fecha de Estado Actual",  "data": "FechaEstadoActualDTE", visible:false, 
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
                     }
-                },
-                {"title": "Nombre Proveedor","data": "NombreProveedor",  visible:false},
-                {"title": "RUT Receptor DTE", "data": "RutCliente",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = formateaRut(data, true)
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Receptor DTE","data": "NombreCliente"},
-                {"title": "Monto Neto DTE","data": "MontoNetoCLP",  visible:false},
-                {"title": "Monto Exento DTE","data": "MontoExentoCLP",  visible:false},
-                {"title": "Monto IVA DTE","data": "MontoIVACLP",  visible:false},
-                {"title": "Monto Total DTE","data": "MontoTotalCLP"},
-                {"title": "Fecha Autorizacion SII",  visible:false, 
-                    "data": "FechaAutorizacionSII",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Fecha OC",  visible:false, 
-                    "data": "FechaOC",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Fecha Pago",  
-                    "data": "FechaPago",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {
-                    "title": "Fecha Vencimiento", 
-                    "data": "FechaVencimiento",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Tipo Acuse","data": "DesTipoAcuse",  visible:false},
-                {"title": "Existencia SII","data": "DesExistenciaSII",  visible:false},
-                {"title": "Existencia Paperles","data": "DesExistenciaPaperles",  visible:false},
-                {
-                    "title": "Fecha de Estado Actual",  visible:false, 
-                    "data": "FechaEstadoActualDTE",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Estado Actual de Pago","data": "EstadoActualDTE"}
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'print',
+                    return data;
+                }
+            },
+            {"title": "Estado Actual de Pago","data": "EstadoActualDTE", className: "text-center"}
+        ],
+    dom: 'lBfrtip', 
+    buttons: 
+                [
+                {   extend: 'print',
                     text: 'Imprimir',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
@@ -312,8 +339,7 @@ var cargartablaReportes = function(data){
                             .css('font-size','11px');
                     }
                 },
-                {
-                    extend: 'excel',
+                {   extend: 'excel',
                     text: 'Exportar',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     title:'Listado DTEs',
@@ -324,8 +350,7 @@ var cargartablaReportes = function(data){
                         }
                     }
                 },
-                {
-                    extend: 'pdf',
+                {   extend: 'pdf',
                     text: 'PDF',
                     className: 'btn m-btn--pill btn-accent btn-sm m-btn m-btn--custom',
                     orientation:'landscape',
@@ -350,18 +375,24 @@ var cargartablaReportes = function(data){
                         doc.content[1].table.widths = colCount;
                     }
                 }
-            ]
-        });
-        limpiar=1;
-    if (data.length>0){SeleccionarTablaReportes();}
+                ]
+    });
+    
+    limpiar=1;
+
+    if (data.length>0){
+        SeleccionarTablaReportes();
+    }
 };
 
 var SeleccionarTablaReportes = function(){
     var tableB = $('#tablaReportes').dataTable();
+
     $('#tablaReportes tbody').on('click', 'tr', function (e) {
         tableB.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
     });
+
     $('#tablaReportes tbody').on('dblclick', 'tr', function () {
         RegistroDTE = TablaTraerCampo('tablaReportes',this);
         cargarFormularioVisualizacion(RegistroDTE);
@@ -376,19 +407,48 @@ var SeleccionarTablaReportes = function(){
 }
 
 var ProcesarConsulta = function(){
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormConsultas").serialize();
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaC(respuesta);
+
+    $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            parametroAjax.ruta=ruta;
+            parametroAjax.data = $("#FormConsultas").serialize();
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaC(respuesta);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
+
 };
 
 var cargarFormularioVisualizacion = function(data){
-    if(data.length == 0){return;}
+    if(data.length == 0) return;
+
     $(".divForm").toggle();
-    parametroAjax.ruta=rutaD;
-    parametroAjax.data = {"IdDTE":data.IdDTE};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaD(respuesta);
+    $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{
+            parametroAjax.ruta=rutaD;
+            parametroAjax.data = {"IdDTE":data.IdDTE};
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaD(respuesta);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 1);
 };
 
 var BotonVolver = function(){
@@ -431,7 +491,7 @@ $(document).ready(function(){
     crearAllcombos(d)
 
     $(".span").text("Desconocido");
-    $("#spanTitulo").text("Consultas DTE");
+    $("#spanTitulo").text("Busqueda de DTEs");
 
     $('#RutCliente').rut();
     $('#RutProveedor').rut();

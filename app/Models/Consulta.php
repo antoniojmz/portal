@@ -82,96 +82,97 @@ class Consulta extends Authenticatable
         $d['RutProveedor'] =  $user->LimpiarRut($d['RutProveedor']);
         
         $p = Session::get('perfiles');
-        $sql = "Select * from v_dtes where ";
+        $sql = "SELECT * FROM v_dtes WHERE  ";
 
         switch ($p['idPerfil']){
-            // Perfil Cliente
             case 2:
                 $sql .= "IdCliente=".$p['v_detalle'][0]->IdCliente;
                 break;
-            // Perfil Proveedor
+
             case 3:
                 $sql .= "IdProveedor=".$p['v_detalle'][0]->IdProveedor;
                 break;
         }
 
-        foreach ($d as $key => $value) {
+        foreach ($d as $key => $value){
             if ($key<>'_token'){
                 if ($value <>null){
                     $caso += 1;
                     switch ($key) {
                         case 'f_desde':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaEmision AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaEmision AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hasta':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaEmision AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaEmision AS DATE) <= '".$f_hasta."' ";
                         break;
                         case 'f_desdeR':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaRecepcion AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaRecepcion AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaR':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaRecepcion AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaRecepcion AS DATE) <= '".$f_hasta."' ";
                         break;                        
                         case 'f_desdeA':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaAutorizacionSII AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaAutorizacionSII AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaA':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaAutorizacionSII AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaAutorizacionSII AS DATE) <= '".$f_hasta."' ";
                         break;
                         case 'f_desdeO':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaOC AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaOC AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaO':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaOC AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaOC AS DATE) <= '".$f_hasta."' ";
                         break;
                         case 'f_desdeP':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaPago AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaPago AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaP':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaPago AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaPago AS DATE) <= '".$f_hasta."'";
                         break;
                         case 'f_desdeV':
                             $f_desde = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaVencimiento AS DATE) >= '".$f_desde."'";
+                            $sql .= " AND CAST(FechaVencimiento AS DATE) >= '".$f_desde."'";
                         break;
                         case 'f_hastaV':
                             $f_hasta = $this->formatearFecha($value);
-                            $sql .= " and CAST(FechaVencimiento AS DATE) <= '".$f_hasta."' ";
+                            $sql .= " AND CAST(FechaVencimiento AS DATE) <= '".$f_hasta."'";
                         break;
                         case 'existencia':
                             if ($value==1){
-                                $sql .= " and ExistenciaSII=1 ";
+                                $sql .= " AND ExistenciaSII=1";
                             }
                             if ($value==2){
-                                $sql .= " and ExistenciaSII=1 and ExistenciaPaperles=1 ";
+                                $sql .= " AND ExistenciaSII=1 AND ExistenciaPaperles=1";
                             }
                         break;
                         case 'TipoAcuse':
-                                $sql .= " and TipoAcuse=".$value."";
+                                $sql .= " AND TipoAcuse=".$value."";
                         break;
                         case 'SelectDTE':
-                                $sql .= " and TipoDTE=".$value."";
+                                $sql .= " AND TipoDTE=".$value."";
                         break;
                         case 'selectEstado':
-                                $sql .= " and IdEstadoDTE=".$value."";
+                                $sql .= " AND IdEstadoDTE=".$value."";
                         break;
                         default:
-                            $sql .= " and upper(".$key.") like '%".$value."%'";
+                            $sql .= " AND upper(".$key.") LIKE '%".$value."%'";
                         break;
                     }
                 }  
             }   
         }
+
+        $sql .= "; ";
 
         if ($caso==0){
             $result['status']='{"code":"-1","des_code":"Debe seleccionar al menos un item."}';
@@ -179,6 +180,8 @@ class Consulta extends Authenticatable
         }
 
         $result['status']='{"code":"204","des_code":"No cotent"}';
+
+        //log::info("ConsultaSQL: " . $sql);
         $result['data']= DB::select($sql);
         return $result;
     }
@@ -283,7 +286,8 @@ class Consulta extends Authenticatable
                         $result['v_widget1']=DB::select($sql1);
 
                         $sql2 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.IdProveedor = ".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW()) * 100) AS Porcentaje FROM v_dtes WHERE IdProveedor =".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() GROUP BY IdEstadoDTE, EstadoActualDTE, IdProveedor";
-                        log::info($sql2);
+                        
+                        //log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
                         $sql4 = "select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where FechaEstado BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() ORDER BY FechaEstado DESC) t1 where IdProveedor=".$IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";

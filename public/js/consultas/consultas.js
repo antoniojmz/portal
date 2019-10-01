@@ -43,50 +43,50 @@ var ManejoRespuestaT = function(respuesta){
 
 var pintarDatos = function(data){
     if(data.TipoDTE!=null){
-        $("#TipoDTE").text(data.TipoDTE);
+        $("#formViewDTE #TipoDTE").text(data.TipoDTE);
     }
     if(data.FolioDTE!=null){
-        $("#FolioDTE").text(new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.FolioDTE));
+        $("#formViewDTE #FolioDTE").text(new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.FolioDTE));
         //$("#FolioDTE").text(data.FolioDTE);
     }
     if(data.FechaEmision!=null){
-        $("#FechaEmision").text(moment(data.FechaEmision, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+        $("#formViewDTE #FechaEmision").text(moment(data.FechaEmision, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
         //$("#FechaEmision").text(data.FechaEmision);
     }
     if(data.FechaRecepcion!=null){
-        $("#FechaRecepcion").text(moment(data.FechaRecepcion, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+        $("#formViewDTE #FechaRecepcion").text(moment(data.FechaRecepcion, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
         //$("#FechaRecepcion").text(data.FechaRecepcion);
     }
-    if(data.RutProveedor!=null){$("#RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#NombreCliente").text(data.NombreCliente);}
+    if(data.RutProveedor!=null){$("#formViewDTE #RutProveedor").text(data.RutProveedor);}
+    if(data.NombreProveedor!=null){$("#formViewDTE #NombreProveedor").text(data.NombreProveedor);}
+    if(data.RutCliente!=null){$("#formViewDTE #RutCliente").text(data.RutCliente);}
+    if(data.NombreCliente!=null){$("#formViewDTE #NombreCliente").text(data.NombreCliente);}
     if(data.EstadoActualDTE!=null){
-        $("#EstadoActualDTE").text(data.EstadoActualDTE);
+        $("#formViewDTE #EstadoActualDTE").text(data.EstadoActualDTE);
     }
     if(data.FechaEstadoActualDTE!=null){
         if(data.FechaEstadoActualDTE != "Sin Información"){
-            $("#FechaEstadoActualDTE").text(moment(data.FechaEstadoActualDTE, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
+            $("#formViewDTE #FechaEstadoActualDTE").text(moment(data.FechaEstadoActualDTE, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
             //$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
         }else{
-            $("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
+            $("#formViewDTE #FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
         }
     }
 
     if(data.MontoNetoCLP!=null){
-        $("#MontoNetoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoNetoCLP));
+        $("#formViewDTE #MontoNetoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoNetoCLP));
         //$("#MontoNetoCLP").text(data.MontoNetoCLP);
     }
     if(data.MontoExentoCLP!=null){
-        $("#MontoExentoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoExentoCLP));
+        $("#formViewDTE #MontoExentoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoExentoCLP));
         //$("#MontoExentoCLP").text(data.MontoExentoCLP);
     }
     if(data.MontoIVACLP!=null){
-        $("#MontoIVACLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoIVACLP));
+        $("#formViewDTE #MontoIVACLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoIVACLP));
         //$("#MontoIVACLP").text(data.MontoIVACLP);
     }
     if(data.MontoTotalCLP!=null){
-        $("#MontoTotalCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoTotalCLP));
+        $("#formViewDTE #MontoTotalCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoTotalCLP));
         //$("#MontoTotalCLP").text(data.MontoTotalCLP);
     }
 }
@@ -165,8 +165,6 @@ var cargartablaEstados = function(data){
         });
         limpiarEstados=1;
 }
-
-
 
 var cargartablaTrazas = function(data){
     if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
