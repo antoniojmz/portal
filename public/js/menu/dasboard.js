@@ -17,10 +17,10 @@ var verDtes = function(data){
     setTimeout(function(){
     	try{	
 		    if (data!=null){
-		        MyblockPage();
+		        //MyblockPage();
 		        $("#idSubmitDtes").val(data);
 		        $("#formIdDtes").submit();
-		        
+
 		    }else{
 		        toastr.warning("Se esperaban parametros de entrada", "Error!");
 		    }
