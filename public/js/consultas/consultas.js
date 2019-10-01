@@ -177,16 +177,15 @@ var cargartablaTrazas = function(data){
             "columns":[
                 {"title": "IdDTE","data": "IdDTE",visible:0},
                 {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {
-                    "title": "Fecha de Estado", 
-                    "data": "FechaEstado",
-                    "render": function(data, type, row, meta){
+                {"title": "Fecha de Estado", "data": "FechaEstado",
+                    render: function(data, type, row, meta){
                         if(type === 'display'){
                             data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
                         }
                         return data;
                     }
                 },
+                {"title": "Estado","data": "NombreEstado"}, 
                 {"title": "Comentario de Estado","data": "ComentarioEstado"}
             ],
         });
