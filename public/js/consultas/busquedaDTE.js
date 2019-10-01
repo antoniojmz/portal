@@ -158,7 +158,7 @@ var cargartablaEstados = function(data){
             {"title": "Fecha de Estado", "data": "FechaEstado",
                 render: function(data, type, row, meta){
                     if(type === 'display'){
-                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY HH:mm:ss");
                     }
                     return data;
                 }
@@ -187,7 +187,7 @@ var cargartablaTrazas = function(data){
                     "data": "FechaEstado",
                     "render": function(data, type, row, meta){
                         if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
+                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY HH:mm:ss");
                         }
                         return data;
                     }
