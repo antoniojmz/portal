@@ -17,7 +17,7 @@ var verDtes = function(data){
     setTimeout(function(){
     	try{	
 		    if (data!=null){
-		        //MyblockPage();
+		        MyblockPage();
 		        $("#idSubmitDtes").val(data);
 		        $("#formIdDtes").submit();
 
