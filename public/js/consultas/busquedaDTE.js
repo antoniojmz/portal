@@ -462,11 +462,12 @@ var BotonVolver = function(){
 
 var crearAllcombos = function(d){
     var acuse = [{"id":"1","text":"Recibido"},{"id":"2","text":"Por recibir"}];
-    var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"2","text":"Contabilizado por el cliente"},{"id":"2","text":"Programado para pago"}];
+    var estado = [{"id":"1","text":"Emitido por el proveedor"},{"id":"2","text":"Recepcionado por el cliente"},{"id":"6","text":"Contabilizado por el cliente"},{"id":"9","text":"Programado para pago"}];
+
     crearcombo('#Selectcampo',d.v_busq_consulta);
     crearcombo('#SelectDTE',d.v_tipo_dte);
     crearcombo('#TipoAcuse',acuse);
-    crearcombo('#selectEstado',estado);
+    crearcombo('#selectEstado', estado);
 }
 
 var CargarTrazas = function(){
