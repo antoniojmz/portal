@@ -140,30 +140,33 @@ var cargartablaReferencias = function(data){
 }
 
 var cargartablaEstados = function(data){
-    if (limpiarEstados>0){destruirTabla('#tablaEstados');}
-        $("#tablaEstados").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {
-                    "title": "Fecha de Estado", 
-                    "data": "FechaEstado",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
+    if (limpiarEstados>0){
+        destruirTabla('#tablaEstados');
+    }
+    
+    $("#tablaEstados").dataTable({
+        'aLengthMenu': DataTableLengthMenu,
+        "scrollCollapse": true,
+        "pagingType": "full_numbers",
+        "language": LenguajeTabla,
+        "data": data,
+        "columns":[
+            {"title": "IdDTE","data": "IdDTE",visible:0},
+            {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
+            {"title": "Fecha de Estado", "data": "FechaEstado",
+                render: function(data, type, row, meta){
+                    if(type === 'display'){
+                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
                     }
-                },
-                {"title": "Comentario de Estado","data": "ComentarioEstado"}
-            ],
-        });
-        limpiarEstados=1;
+                    return data;
+                }
+            },
+            {"title": "Estado","data": "NombreEstado"}, 
+            {"title": "Comentario de Estado","data": "ComentarioEstado"}
+        ],
+    });
+
+    limpiarEstados=1;
 }
 
 var cargartablaTrazas = function(data){

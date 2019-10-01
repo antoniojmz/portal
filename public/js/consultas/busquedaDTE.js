@@ -192,6 +192,7 @@ var cargartablaTrazas = function(data){
                         return data;
                     }
                 },
+                {"title": "Estado","data": "NombreEstado"}, 
                 {"title": "Comentario de Estado","data": "ComentarioEstado"}
             ],
         });
