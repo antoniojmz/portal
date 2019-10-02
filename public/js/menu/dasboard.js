@@ -66,7 +66,7 @@ var FiltrarwidgetsProveedor = function(caso){
     		nombreProveedor = nombreProveedor ?  " por " + nombreProveedor : "";
 
     		var nombreDTE =  $("#IdTipoDTE option:selected").text();
-    		nombreDTE = nombreDTE ? " DTE ";
+    		nombreDTE = nombreDTE ? nombreDTE : " DTE ";
 
     		filtroTipoDTE = $("#IdTipoDTE").val();
 
