@@ -339,5 +339,5 @@
 </script>
 @endif
 
-<script src="{{ asset('js/menu/dasboard.js') }}"></script>
+<script src="{{ asset('js/menu/dasboard.js?<?php echo date('Ymd_His'); ?>') }}"></script>
 @endsection
