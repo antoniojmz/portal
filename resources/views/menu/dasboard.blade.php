@@ -227,7 +227,7 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        Total DTE recibidos
+                                        DTEs Recibidos
                                         <span class="m-portlet__head-desc">
                                             Total de Facturas (afextas y exentas), Notas de Crédito, Notas de Débito Recibidas
                                         </span>
@@ -307,9 +307,9 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        Total DTE en Pronto Pago
+                                        DTEs en Pronto Pago
                                         <span class="m-portlet__head-desc">
-                                            Total de Facturas con Pronto Pago Solicitado
+                                            Total de Facturas en Proceso de Pronto Pago
                                         </span>
                                     </h3>
                                 </div>
