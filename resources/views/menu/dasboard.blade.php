@@ -10,7 +10,7 @@
 <div id="divBienvenida" class="m-subheader" style="padding-top: 10px;">
     <div class="d-flex align-items-center">
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="mr-auto">
                 <div class="m-subheader__title ">
                     @if( $data['idPerfil'] == 1 )
