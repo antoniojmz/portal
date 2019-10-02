@@ -216,7 +216,7 @@ class Consulta extends Authenticatable
         log::info("Caso: " . $caso);
 
         $tipo = $datos['IdTipoDTE'];
-        $tipo = $tipo ? ' AND IdTipoDTE = ' . $tipo . ' ' : ''; 
+        $tipo = $tipo ? ' AND TipoDTE = ' . $tipo . ' ' : ''; 
         log::info("TipoDTE: " . $tipo);
 
 
