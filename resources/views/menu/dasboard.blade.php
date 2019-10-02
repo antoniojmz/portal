@@ -10,7 +10,7 @@
 <div id="divBienvenida" class="m-subheader" style="padding-top: 10px;">
     <div class="d-flex align-items-center">
         <div class="row">
-            <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-sm-3 col-md-6 col-lg-6 col-xl-12">
                 <div class="mr-auto">
                 <div class="m-subheader__title ">
                     @if( $data['idPerfil'] == 1 )
@@ -25,26 +25,27 @@
                 </div>
                 </div>
             </div>
+
             @if( $data['idPerfil'] == 2 )
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
+            <div class="col-sm-6 col-md-3 col-lg-4 col-xl-4">
                 <div class="m-portlet__head-tools">
                     {!! Field::select('IdProveedor', null, null, ['label' => ' ', 'placeholder' => 'Todos los Proveedores', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
                 </div>
             </div>
             @endif
             @if( $data['idPerfil'] == 3 )
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
-                
+            <div class="col-sm-6 col-md-3 col-lg-4 col-xl-4">
+                <div class="m-portlet__head-tools">
                     {!! Field::select('IdCliente', null, null, ['label' => ' ', 'placeholder' => 'Todos los Clientes', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
-                
+                </div>
             </div>
             @endif
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
+            <div class="col-sm-6 col-md-3 col-lg-4 col-xl-4">
                 <div class="m-portlet__head-tools">
                     {!! Field::select('IdTipoDTE', null, null, ['label' => ' ', 'placeholder' => 'Todos los Tipos DTE', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
+            <div class="col-sm-6 col-md-3 col-lg-4 col-xl-4">
                 <div class="m-portlet__head-tools">
                     {!! Field::select('Periodo', null, null, ['label' => ' ', 'placeholder' => 'Últimos 12 Meses', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
                     <div hidden>
