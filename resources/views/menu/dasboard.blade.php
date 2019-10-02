@@ -128,9 +128,11 @@
         </form>
         
         <div class="divTablaFacP">
+            <!-- Panel Superior -->
             <div class="m-portlet">
                 <div class="m-portlet__body  m-portlet__body--no-padding">
                     <div class="row m-row--no-padding m-row--col-separator-xl">
+                        <!-- Grafico de DTEs x MES -->
                         <div class="col-xl-6">
                             <!--begin:: Widgets/Daily Sales-->
                             <div class="m-widget14">
@@ -146,6 +148,7 @@
                             </div>
                             <!--end:: Widgets/Daily Sales-->
                         </div>
+                        <!-- Grafico % DTEs x Estado -->
                         <div class="col-xl-6">
                             <!--begin:: Widgets/Profit Share-->
                             <div class="m-widget14">
@@ -218,8 +221,8 @@
             </div>
             <div class="row">
                 <div class="col-xl-8">
-                    <!--begin:: Widgets/Product Sales-->
-                    <div class="m-portlet m-portlet--bordered-semi m-portlet--space m-portlet--full-height ">
+                    <!-- DTEs x Estado -->
+                    <div class="m-portlet m-portlet--space m-portlet--full-height ">
                         <div class="m-portlet__head" style="padding-top: 10px; padding-bottom: 0px;">
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
@@ -279,18 +282,7 @@
                                         <span><a id="href4" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
                                     </div>
                                 </div>
-                                <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
-                                    <!--
-                                        <div class="m-widget25__progress" >
-                                            <span id="spanMonto5" class="m-widget25__progress-number"></span>
-                                            <div class="m--space-10"></div>
-                                            <div class="progress m-progress--sm">
-                                                <div id="progress5" class="progress-bar m--bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <span id="spanDes5" class="m-widget25__progress-sub"></span>
-                                            <span><a id="href5" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
-                                        </div>
-                                    -->
+                                <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">                                    
                                     <div class="m-widget25__progress" >
                                         <span id="spanMonto6" class="m-widget25__progress-number"></span>
                                         <div class="m--space-10"></div>
@@ -300,25 +292,70 @@
                                         <span id="spanDes6" class="m-widget25__progress-sub"></span>
                                         <span><a id="href6" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
                                     </div>
+                                    <div class="m-widget25__progress" >
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--end:: Widgets/Product Sales-->
+                    <!-- Fin DTEs x Estado -->
                 </div>
                 <div class="col-xl-4">
                     <div class="m-portlet m-portlet--full-height m-portlet--fit ">
-                        <div class="m-portlet__head">
+                        <div class="m-portlet__head" style="padding-top: 10px; padding-bottom: 0px;">
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        Cambios de estados
+                                        Total DTE en Pronto Pago
+                                        <span class="m-portlet__head-desc">
+                                            Total de Facturas con Pronto Pago Solicitado
+                                        </span>
                                     </h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="m-portlet__body">
-                            <div id="DivCambioEstados" class="m-widget4 m-widget4--chart-bottom" style="min-height: 350px"></div>
+                        <div class="m-portlet__body" style="padding-top: 0px;">
+                            <div class="m-widget25">
+                                <span id="spanMontoTotalPP" class="m-widget25__price m--font-brand"></span>
+                                <br>
+                                <span class="m-widget25__desc">
+                                    Total Pronto Pago solicitado el periodo seleccionado
+                                </span>
+                                <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
+                                    <div class="m-widget25__progress">
+                                        <span id="spanMonto11" class="m-widget25__progress-number"></span>
+                                        <div class="m--space-10"></div>
+                                        <div class="progress m-progress--sm">
+                                            <div id="progress11" class="progress-bar m--bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span id="spanDes11" class="m-widget25__progress-sub"></span>
+                                        <span><a id="href11" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
+                                    </div>
+                                </div>
+                                <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
+                                    <div class="m-widget25__progress">
+                                        <span id="spanMonto12" class="m-widget25__progress-number"></span>
+                                        <div class="m--space-10"></div>
+                                        <div class="progress m-progress--sm">
+                                            <div id="progress12" class="progress-bar m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span id="spanDes12" class="m-widget25__progress-sub"></span>
+                                        <span><a id="href12" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
+                                    </div>
+                                </div>
+                                <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
+                                    <div class="m-widget25__progress">
+                                        <span id="spanMonto14" class="m-widget25__progress-number"></span>
+                                        <div class="m--space-10"></div>
+                                        <div class="progress m-progress--sm">
+                                            <div id="progress12" class="progress-bar m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span id="spanDes13" class="m-widget25__progress-sub"></span>
+                                        <span><a id="href13" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

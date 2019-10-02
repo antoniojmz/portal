@@ -293,6 +293,8 @@ var widget2 = function(v_widget2){
 
 var widget3 = function(v_widget2){
 	$("#spanMontoTotal").text("$ 0");
+	$("#spanMontoTotalPP").text("$ 0");
+
 	$(".m-widget25__progress-number").text("$ 0");
 	$(".progress-bar").attr("style","width:0%;");
 
