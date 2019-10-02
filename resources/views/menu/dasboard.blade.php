@@ -10,7 +10,7 @@
 <div id="divBienvenida" class="m-subheader" style="padding-top: 10px;">
     <div class="d-flex align-items-center">
         <div class="row">
-            <div class="col-sm-3 col-md-5 col-lg-5 col-xl-5">
+            <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
                 <div class="mr-auto">
                 <div class="m-subheader__title ">
                     @if( $data['idPerfil'] == 1 )
@@ -32,15 +32,22 @@
                 </div>
             </div>
             @endif
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
+            @if( $data['idPerfil'] == 3 )
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
+                
+                    {!! Field::select('IdCliente', null, null, ['label' => ' ', 'placeholder' => 'Todos los Clientes', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+                
+            </div>
+            @endif
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
                 <div class="m-portlet__head-tools">
                     {!! Field::select('IdTipoDTE', null, null, ['label' => ' ', 'placeholder' => 'Todos los Tipos DTE', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                <div>
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
                 <div class="m-portlet__head-tools">
-                    <label class="label" for=""></label>
+                    {!! Field::select('Periodo', null, null, ['label' => ' ', 'placeholder' => 'Últimos 12 Meses', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+                    <div hidden>
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                             <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
