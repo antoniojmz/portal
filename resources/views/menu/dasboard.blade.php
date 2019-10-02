@@ -9,98 +9,98 @@
 <!-- BEGIN: Subheader -->
 <div id="divBienvenida" class="m-subheader" style="padding-top: 10px;">
     <div class="d-flex align-items-center">
-        <div class="col-md-5">
-            <div class="mr-auto">
-            <div class="m-subheader__title ">
-                @if( $data['idPerfil'] == 1 )
+        <div class="row">
+            <div class="col-sm-3 col-md-5 col-lg-5 col-xl-5">
+                <div class="mr-auto">
+                <div class="m-subheader__title ">
+                    @if( $data['idPerfil'] == 1 )
 
-                @elseif( $data['idPerfil'] == 2 )
-                    Bienvenido al Dashboard de Cliente [Todos los Proveedores]
+                    @elseif( $data['idPerfil'] == 2 )
+                        Bienvenido al Dashboard de Cliente [Todos los Proveedores]
 
-                @elseif( $data['idPerfil'] == 3 )
-                    Bienvenido a tu Portal de Proveedores
+                    @elseif( $data['idPerfil'] == 3 )
+                        Bienvenido a tu Portal de Proveedores
 
-                @endif
+                    @endif
+                </div>
+                </div>
             </div>
-            </div>
-        </div>
-        <div class="col-md-3">
             @if( $data['idPerfil'] == 2 )
-            <div>
-            <div class="m-portlet__head-tools">
-                {!! Field::select('IdProveedor', null, null, ['label' => ' ', 'placeholder' => 'Todos los Proveedores', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
-            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="m-portlet__head-tools">
+                    {!! Field::select('IdProveedor', null, null, ['label' => ' ', 'placeholder' => 'Todos los Proveedores', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+                </div>
             </div>
             @endif
-        </div>
-        <div class="col-md-2">
-            <div class="m-portlet__head-tools">
-                {!! Field::select('IdTipoDTE', null, null, ['label' => ' ', 'placeholder' => 'Todos los Tipos DTE', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="m-portlet__head-tools">
+                    {!! Field::select('IdTipoDTE', null, null, ['label' => ' ', 'placeholder' => 'Todos los Tipos DTE', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+                </div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <div>
-            <div class="m-portlet__head-tools">
-                <label class="label" for=""></label>
-                <ul class="m-portlet__nav">
-                    <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                        <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                            Filtrar x Periodo
-                        </a>
-                        <div class="m-dropdown__wrapper">
-                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
-                            <div class="m-dropdown__inner">
-                                <div class="m-dropdown__body">
-                                    <div class="m-dropdown__content">
-                                        <ul class="m-nav">
-                                            <li class="m-nav__item">
-                                                <a href="javascript:void(0);" id="FiltroAnio" class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                    <span class="m-nav__link-text">
-                                                        Este Año
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item">
-                                                <a href="javascript:void(0);" id="FiltroMes" class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                    <span class="m-nav__link-text">
-                                                        Este Mes
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item">
-                                                <a href="javascript:void(0);" id="FiltroTryMes" class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                    <span class="m-nav__link-text">
-                                                        Últumos 3 meses
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item">
-                                                <a href="javascript:void(0);" id="FiltroSixMes" class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                    <span class="m-nav__link-text">
-                                                        Últumos 6 meses
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item">
-                                                <a href="javascript:void(0);" id="FiltrotweMes" class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                    <span class="m-nav__link-text">
-                                                        Últumos 12 meses
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
+            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div>
+                <div class="m-portlet__head-tools">
+                    <label class="label" for=""></label>
+                    <ul class="m-portlet__nav">
+                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                            <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                Filtrar x Periodo
+                            </a>
+                            <div class="m-dropdown__wrapper">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">
+                                                <li class="m-nav__item">
+                                                    <a href="javascript:void(0);" id="FiltroAnio" class="m-nav__link">
+                                                        <i class="m-nav__link-icon flaticon-share"></i>
+                                                        <span class="m-nav__link-text">
+                                                            Este Año
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="javascript:void(0);" id="FiltroMes" class="m-nav__link">
+                                                        <i class="m-nav__link-icon flaticon-share"></i>
+                                                        <span class="m-nav__link-text">
+                                                            Este Mes
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="javascript:void(0);" id="FiltroTryMes" class="m-nav__link">
+                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                        <span class="m-nav__link-text">
+                                                            Últumos 3 meses
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="javascript:void(0);" id="FiltroSixMes" class="m-nav__link">
+                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                        <span class="m-nav__link-text">
+                                                            Últumos 6 meses
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="javascript:void(0);" id="FiltrotweMes" class="m-nav__link">
+                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                        <span class="m-nav__link-text">
+                                                            Últumos 12 meses
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                    </ul>
+                </div>
+                </div>
             </div>
         </div>
     </div>
