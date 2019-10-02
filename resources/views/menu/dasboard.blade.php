@@ -338,6 +338,5 @@
     var v_proveedores = "";
 </script>
 @endif
-
-<script src="{{ asset('js/menu/dasboard.js?<?php echo date('Ymd_His'); ?>') }}"></script>
+<script src="js/menu/dasboard.js?v=<?php echo date('Ymd_His'); ?>"></script>
 @endsection
