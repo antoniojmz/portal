@@ -325,10 +325,17 @@
     var IdPerfil = "{{ $data['idPerfil'] }}";
 </script>
 
-@if( $data['idPerfil'] == 2 || $data['idPerfil'] == 3 )
+@if( $data['idPerfil'] == 2 )
 <script Language="Javascript">
     var nombreCliente = "{{$data['v_detalle'][0]->NombreEmpresa}}";
     var v_proveedores = JSON.parse(rhtmlspecialchars('{{ json_encode($v_proveedores) }}'));
+</script>
+@endif
+
+@if( $data['idPerfil'] == 3 )
+<script Language="Javascript">
+    var nombreCliente = "";
+    var v_proveedores = "";
 </script>
 @endif
 
