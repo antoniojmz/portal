@@ -239,7 +239,7 @@ var widget2 = function(v_widget2){
 					$("#span9").text(res.Porcentaje+" % "+res.EstadoActualDTE);
 				break;
 
-				default:
+				case "99":
 					object['meta']={color: "#F514C7"};
 					$("#div99").show();
 					$("#span99").text(res.Porcentaje+" % "+res.EstadoActualDTE);
