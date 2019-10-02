@@ -211,9 +211,9 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        Facturación Total
+                                        Total DTE recibidos
                                         <span class="m-portlet__head-desc">
-                                            Total de Facturas Recibidas
+                                            Total de Facturas (afextas y exentas), Notas de Crédito, Notas de Débito Recibidas
                                         </span>
                                     </h3>
                                 </div>
@@ -224,7 +224,7 @@
                                 <span id="spanMontoTotal" class="m-widget25__price m--font-brand"></span>
                                 <br>
                                 <span class="m-widget25__desc">
-                                    Total Facturado este año
+                                    Total recibido el periodo seleccionado
                                 </span>
                                 <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
                                     <div class="m-widget25__progress">
