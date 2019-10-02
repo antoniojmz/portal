@@ -237,17 +237,17 @@ class Consulta extends Authenticatable
                     case 12:
                         $sql1 = "SELECT DATE_FORMAT(FechaEmision, '%m') MesGrupo, DATE_FORMAT(FechaEmision, '%m') as IdMesGrupo, DATE_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where IdCliente = " . $IdCliente . ") AS MontoVentaTotal, (SELECT COUNT(1) FROM v_dtes where IdCliente = " . $IdCliente . ") AS NroTotalDTE FROM v_dtes WHERE IdCliente = " . $IdCliente . " AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() " . $IdProveedor . " " . $tipo . " GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
 
-                        // log::info($sql1);
+                        log::info($sql1);
                         $result['v_widget1']=DB::select($sql1);
 
                         $sql2 = "SELECT group_concat(IdDTE) as id_dtes, IdEstadoDTE, EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.IdCliente = " . $IdCliente . ") * 100) AS Porcentaje FROM v_dtes WHERE IdCliente = " . $IdCliente . " AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() " . $IdProveedor . " " . $tipo . " GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
 
-                        //log::info($sql2);
+                        log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
                         $sql3 = "SELECT count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor FROM (SELECT * FROM v_dte_estados ORDER BY FechaEstado DESC) t1 WHERE IdCliente= ". $IdCliente . " " . $IdProveedor . " GROUP BY t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor LIMIT 50";
 
-                        //log::info($sql3);
+                        log::info($sql3);
                         $result['v_widget4']=DB::select($sql3);
 
                         break;
@@ -284,19 +284,19 @@ class Consulta extends Authenticatable
                         $result['v_info'] = '{"code":"204", "des_code":"No content."}';
                         $fecha = "";
 
-                        $sql1 = "SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$IdProveedor." and FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                        $sql1 = "SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') as IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes where idProveedor = ".$IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$IdProveedor." and FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() " . $tipo . " GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
 
-                        //log::info($sql1);
+                        log::info($sql1);
                         $result['v_widget1']=DB::select($sql1);
 
-                        $sql2 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.IdProveedor = ".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW()) * 100) AS Porcentaje FROM v_dtes WHERE IdProveedor =".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() GROUP BY IdEstadoDTE, EstadoActualDTE, IdProveedor";
+                        $sql2 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d where d.IdProveedor = ".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW()) * 100) AS Porcentaje FROM v_dtes WHERE IdProveedor =".$IdProveedor." AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() " . $tipo . " GROUP BY IdEstadoDTE, EstadoActualDTE, IdProveedor";
                         
-                        //log::info($sql2);
+                        log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
-                        $sql4 = "select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where FechaEstado BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() ORDER BY FechaEstado DESC) t1 where IdProveedor=".$IdProveedor." group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
+                        $sql4 = "select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where FechaEstado BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() ORDER BY FechaEstado DESC) t1 where IdProveedor=".$IdProveedor." " . $tipo . " group by t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor limit 50";
 
-                        //log::info($sql4);
+                        log::info($sql4);
                         $result['v_widget4']=DB::select($sql4); 
 
                         break;
@@ -304,19 +304,19 @@ class Consulta extends Authenticatable
                     case 13:
                         $result['v_info'] = '{"code":"204", "des_code":"No content."}';
 
-                        $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') AS IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes WHERE idProveedor = ".$IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$IdProveedor." and YEAR(FechaEmision) = YEAR(NOW()) and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
+                        $sql1="SELECT date_FORMAT(FechaEmision, '%m') MesGrupo, date_FORMAT(FechaEmision, '%m') AS IdMesGrupo, date_FORMAT(FechaEmision, '%M') NombreMesGrupo, SUM(montoTotalCLP) MontoTotalMesGrupo, COUNT(1) NroDTEGrupo, (SELECT SUM(montoTotalCLP) FROM v_dtes WHERE idProveedor = ".$IdProveedor.") AS MontoVentaTotal ,(SELECT COUNT(1) FROM v_dtes where idProveedor = ".$IdProveedor.") AS NroTotalDTE FROM v_dtes where idProveedor = ".$IdProveedor." and YEAR(FechaEmision) = YEAR(NOW()) and DATE_FORMAT(FechaEmision, '%Y') = DATE_FORMAT(NOW(), '%Y') " . $tipo . " GROUP BY MesGrupo, IdMesGrupo, NombreMesGrupo";
 
-                        //log::info($sql1);
+                        log::info($sql1);
                         $result['v_widget1']=DB::select($sql1);
 
-                        $sql2 = "SELECT group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) AS  MontoTotal, COUNT(1) AS cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d WHERE d.idProveedor = " . $IdProveedor . " and YEAR(FechaEmision) = YEAR(NOW())) * 100) AS Porcentaje FROM v_dtes where idProveedor =" . $IdProveedor . " and YEAR(FechaEmision) = YEAR(NOW()) GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
+                        $sql2 = "SELECT group_concat(IdDTE) as id_dtes, IdEstadoDTE,EstadoActualDTE, idProveedor, SUM(montoTotalCLP) AS  MontoTotal, COUNT(1) AS cantidad, ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM v_dtes d WHERE d.idProveedor = " . $IdProveedor . " and YEAR(FechaEmision) = YEAR(NOW())) * 100) AS Porcentaje FROM v_dtes where idProveedor =" . $IdProveedor . " and YEAR(FechaEmision) = YEAR(NOW()) " . $tipo . " GROUP BY IdEstadoDTE, EstadoActualDTE, idProveedor";
 
-                        //log::info($sql2);
+                        log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
-                        $sql4="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where YEAR(FechaEstado) = YEAR(NOW()) ORDER BY FechaEstado DESC) t1 where IdProveedor=".$IdProveedor." GROUP BY t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor LIMIT 50";
+                        $sql4="select count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor from (select * from v_dte_estados where YEAR(FechaEstado) = YEAR(NOW()) ORDER BY FechaEstado DESC) t1 where IdProveedor=".$IdProveedor." " . $tipo . "  GROUP BY t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor LIMIT 50";
 
-                        //log::info($sql4);
+                        log::info($sql4);
                         $result['v_widget4']=DB::select($sql4);
 
                         break;
