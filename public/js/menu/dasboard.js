@@ -65,29 +65,34 @@ var FiltrarwidgetsProveedor = function(caso){
     		var nombreProveedor =  $("#IdProveedor option:selected").text();
     		nombreProveedor = nombreProveedor ?  " por " + nombreProveedor : "";
 
+    		var nombreDTE =  $("#IdTipoDTE option:selected").text();
+    		nombreDTE = nombreDTE ? " DTE ";
+
+    		filtroTipoDTE = $("#IdTipoDTE").val();
+
     		if(caso == 13){
-    			$("#widget14__title").text("DTE Recibidos en el año actual");
+    			$("#widget14__title").text(nombreDTE + " Recibidos en el año actual");
     			$("#widget14__desc").text("DTE emitidos al Cliente " + nombreCliente + " " + nombreProveedor + " éste año.");
 
     		}else if(caso == 1){
-    			$("#widget14__title").text("DTE Recibidos este mes");
+    			$("#widget14__title").text(nombreDTE + " Recibidos este mes");
     			$("#widget14__desc").text("DTE emitidos al Cliente " + nombreCliente + " " + nombreProveedor + " este mes.");
     			
     		}else if(caso == 3){
-    			$("#widget14__title").text("DTE Recibidos en los últimos 3 meses");
+    			$("#widget14__title").text(nombreDTE + " Recibidos en los últimos 3 meses");
     			$("#widget14__desc").text("DTE emitidos al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 3 meses.");
     			
     		}else if(caso == 6){
-    			$("#widget14__title").text("DTE Recibidos en los últimos 6 meses");
+    			$("#widget14__title").text(nombreDTE + " Recibidos en los últimos 6 meses");
     			$("#widget14__desc").text("DTE emitidos al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 6 meses.");
     			
     		}else if(caso == 12){
-    			$("#widget14__title").text("DTE Recibidos en los últimos 12 meses");
+    			$("#widget14__title").text(nombreDTE + " Recibidos en los últimos 12 meses");
     			$("#widget14__desc").text("DTE emitidos al Cliente " + nombreCliente + " " + nombreProveedor + " los últimos 12 meses.");
     			
     		}
 
-    		filtroTipoDTE = $("#IdTipoDTE").val();
+    		
 
 
 		    if(ajax == 0){
