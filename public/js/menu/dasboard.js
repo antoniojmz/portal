@@ -1,5 +1,7 @@
 var ajax = 0;
 var filtroFecha = 12;
+var filtroTipoDTE = 0;
+
 var nombreProveedor = "Todos los Proveeres";
 
 var parametroAjax = {
@@ -85,11 +87,13 @@ var FiltrarwidgetsProveedor = function(caso){
     			
     		}
 
+    		filtroTipoDTE = $("#IdTipoDTE").val();
+
 
 		    if(ajax == 0){
 			    ajax=1;
 			    parametroAjax.ruta=rutaF;
-			    parametroAjax.data = {"caso":caso, "IdProveedor":$("#IdProveedor").val()};
+			    parametroAjax.data = {"caso":caso, "IdProveedor":$("#IdProveedor").val(), "IdTipoDTE":filtroTipoDTE};
 			    respuesta=procesarajax(parametroAjax);
 			    ManejoRespuestaF(respuesta);
 		    }
@@ -415,6 +419,16 @@ var crearSelectProveedores = function(control, data){
     });
 }
 
+
+var crearSelectTipoDTE = function(control, data){
+    $(control).select2({
+        allowClear: true,
+        data: data
+    }).on("change",function(e){
+        FiltrarwidgetsProveedor(filtroFecha);
+    });
+}
+
 $(document).ready(function(){
     ClassActive("LiDashboard");    
 
@@ -425,6 +439,8 @@ $(document).ready(function(){
     }else if(IdPerfil == 3){
     	FiltrarwidgetsProveedor(filtroFecha);
     }
+
+    crearSelectTipoDTE('#IdTipoDTE', v_tipodte);
 
 	//cargarPanel(d.idPerfil);
 	//FiltrarwidgetsProveedor(filtroFecha);

@@ -9,7 +9,7 @@
 <!-- BEGIN: Subheader -->
 <div id="divBienvenida" class="m-subheader" style="padding-top: 10px;">
     <div class="d-flex align-items-center">
-        <div class="col-md-7">
+        <div class="col-md-5">
             <div class="mr-auto">
             <div class="m-subheader__title ">
                 @if( $data['idPerfil'] == 1 )
@@ -34,13 +34,18 @@
             @endif
         </div>
         <div class="col-md-2">
+            <div class="m-portlet__head-tools">
+                {!! Field::select('IdTipoDTE', null, null, ['label' => ' ', 'placeholder' => 'Todos los Tipos DTE', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+            </div>
+        </div>
+        <div class="col-md-2">
             <div>
             <div class="m-portlet__head-tools">
                 <label class="label" for=""></label>
                 <ul class="m-portlet__nav">
                     <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                         <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                            Filtrar Fechas
+                            Filtrar x Periodo
                         </a>
                         <div class="m-dropdown__wrapper">
                             <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
@@ -138,10 +143,10 @@
                             <div class="m-widget14">
                                 <div class="m-widget14__header">
                                     <h3 class="m-widget14__title">
-                                        Facturación por estado
+                                        DTE recibidos por estado
                                     </h3>
                                     <span class="m-widget14__desc">
-                                        Resumen se Facturas por estado.
+                                        Resumen se DTE recibidos por estado.
                                     </span>
                                 </div>
                                 <div class="row  align-items-center">
@@ -323,6 +328,7 @@
 <script Language="Javascript">
     var rutaF = "{{ URL::route('filtrarwidget') }}";
     var IdPerfil = "{{ $data['idPerfil'] }}";
+    var v_tipodte = JSON.parse(rhtmlspecialchars('{{ json_encode($v_tipo_dte) }}'));
 </script>
 
 @if( $data['idPerfil'] == 2 )

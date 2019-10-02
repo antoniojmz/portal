@@ -56,6 +56,9 @@ class HomeController extends Controller
         $modelPRV = new Proveedor();
         $data['v_proveedores'] = $modelPRV->listRegProveedorCombo();
 
+        $modelTD= new Consulta();
+        $data['v_tipo_dte'] = $modelTD->listTipoDTE();        
+
         //return view('menu.dasboard', $data);
         return view('menu.dasboard', $data);
     }
