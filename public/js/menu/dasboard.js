@@ -426,7 +426,8 @@ var widget_pp_1 = function(data_pp_1){
 					totalOtrosEstadosMonto += data_pp_1[i].MontoTotal;
 					totalOtrosEstadosPorcentaje += data_pp_1[i].Porcentaje;
 					totalOtrosEstadosCantidad += data_pp_1[i].Cantidad;
-
+					console.log("IdEstadoPP: " + data_pp_1[i].IdEstadoPP );
+					
 					$("#spanMonto13").text("$ " + number_format(totalOtrosEstadosMonto, '0'));
 					$("#progress13").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");
 					$("#href13").attr("onclick","verDtes('" + data_pp_1[i].id_dtes + "');");
