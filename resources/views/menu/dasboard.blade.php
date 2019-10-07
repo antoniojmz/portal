@@ -332,10 +332,10 @@
                                 </span>
                                 <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
                                     <div class="m-widget25__progress">
-                                        <span id="spanMonto11" class="m-widget25__progress-number"></span>
+                                        <span id="spanMonto11" class="m-widget25__progress-number-pp"></span>
                                         <div class="m--space-10"></div>
                                         <div class="progress m-progress--sm">
-                                            <div id="progress11" class="progress-bar m--bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div id="progress11" class="progress-bar-pp m--bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <span id="spanDes11" class="m-widget25__progress-sub"></span>
                                         <span><a id="href11" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
@@ -343,10 +343,10 @@
                                 </div>
                                 <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
                                     <div class="m-widget25__progress">
-                                        <span id="spanMonto12" class="m-widget25__progress-number"></span>
+                                        <span id="spanMonto12" class="m-widget25__progress-number-pp"></span>
                                         <div class="m--space-10"></div>
                                         <div class="progress m-progress--sm">
-                                            <div id="progress12" class="progress-bar m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div id="progress12" class="progress-bar-pp m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <span id="spanDes12" class="m-widget25__progress-sub"></span>
                                         <span><a id="href12" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
@@ -354,10 +354,10 @@
                                 </div>
                                 <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
                                     <div class="m-widget25__progress">
-                                        <span id="spanMonto14" class="m-widget25__progress-number"></span>
+                                        <span id="spanMonto13" class="m-widget25__progress-number-pp"></span>
                                         <div class="m--space-10"></div>
                                         <div class="progress m-progress--sm">
-                                            <div id="progress12" class="progress-bar m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div id="progress13" class="progress-bar-pp m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <span id="spanDes13" class="m-widget25__progress-sub"></span>
                                         <span><a id="href13" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>

@@ -46,7 +46,9 @@ var ManejoRespuestaF = function(respuesta){
             widget1(respuesta.respuesta.v_widget1);
             widget2(respuesta.respuesta.v_widget2);
             widget3(respuesta.respuesta.v_widget2);
-            widget4(respuesta.respuesta.v_widget4);
+
+            widget_pp_1(respuesta.respuesta.v_widget_pp_1);
+            //widget4(respuesta.respuesta.v_widget4);
         }else{
             toastr.error(res.des_code, "Error!");   
         }
@@ -290,7 +292,6 @@ var widget2 = function(v_widget2){
 
 var widget3 = function(v_widget2){
 	$("#spanMontoTotal").text("$ 0");
-	$("#spanMontoTotalPP").text("$ 188.126.707");
 
 	$(".m-widget25__progress-number").text("$ 0");
 	$(".progress-bar").attr("style","width:0%;");
@@ -363,6 +364,73 @@ var widget3 = function(v_widget2){
 					$("#progress7").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");
 					$("#href7").attr("onclick","verDtes('" + v_widget2[i].id_dtes + "');");
 					$("#spanDes7").text(totalOtrosEstadosCantidad + " DTE en otros Estados");
+					break;
+			}
+		}
+	}
+}
+
+var widget_pp_1 = function(data_pp_1){
+	$("#spanMontoTotalPP").text("$ 0");
+
+	$(".m-widget25__progress-number-pp").text("$ 0");
+	$(".progress-bar-pp").attr("style","width:0%;");
+
+	$("#spanDes11").text("0 Pronto Pago Solicitados");
+	$("#spanDes12").text("0 Pronto Pago Aprobados");
+	$("#spanDes13").text("0 Pronto Pago Rechazados");
+
+	$("#href11").attr("onclick","verDtes();");
+	$("#href12").attr("onclick","verDtes();");
+	$("#href13").attr("onclick","verDtes();");
+
+	alert("Aqui " + data_pp_1.length);
+	if (data_pp_1.length > 0){
+		var total=0;
+
+		for (var i = 0; i < data_pp_1.length; i++) {
+			total += data_pp_1[i].MontoTotal;
+			console.log("Monto PP" + data_pp_1[i].IdEstadoPP + ": " +  data_pp_1[i].MontoTotal)
+		}
+
+		
+		$("#spanMontoTotalPP").text("$ " + number_format(total, '0'));
+		var totalOtrosEstadosMonto = 0;
+		var totalOtrosEstadosPorcentaje = 0;
+		var totalOtrosEstadosCantidad = 0;
+
+		for (var i = 0; i < data_pp_1.length; i++) {
+			switch(data_pp_1[i].IdEstadoPP){
+				case "1":
+					$("#spanMonto11").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
+					$("#progress11").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
+					$("#href11").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
+					$("#spanDes11").text(data_pp_1[i].Cantidad + " Pronto Pagos Solicitados");
+					break;
+
+				case "2":
+					$("#spanMonto12").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
+					$("#progress12").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
+					$("#href12").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
+					$("#spanDes12").text(data_pp_1[i].Cantidad + " Pronto Pago Aprobados");
+					break;
+
+				case "3":
+					$("#spanMonto13").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
+					$("#progress13").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
+					$("#href13").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
+					$("#spanDes13").text(data_pp_1[i].Cantidad + " Pronto Pago Rechazados");
+					break;
+
+				default:
+					totalOtrosEstadosMonto += data_pp_1[i].MontoTotal;
+					totalOtrosEstadosPorcentaje += data_pp_1[i].Porcentaje;
+					totalOtrosEstadosCantidad += data_pp_1[i].cantidad;
+
+					$("#spanMonto13").text("$ " + number_format(totalOtrosEstadosMonto, '0'));
+					$("#progress13").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");
+					$("#href13").attr("onclick","verDtes('" + data_pp_1[i].id_dtes + "');");
+					$("#spanDes13").text(totalOtrosEstadosCantidad + " Pronto Pago en otros Estados");
 					break;
 			}
 		}

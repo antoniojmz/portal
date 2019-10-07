@@ -284,13 +284,26 @@ class Consulta extends Authenticatable
                         //log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
+                        $sql_pp_1 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoPP, IdCliente, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as Cantidad, 
+                                            ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM dtes d WHERE d.IdCliente = " . $IdCliente . " AND  IdEstadoPP <> 0  AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() " . $tipo . " " . $IdProveedor . " ) * 100) AS Porcentaje 
+                                        FROM dtes 
+                                        WHERE IdCliente = " . $IdCliente . " 
+                                                AND IdEstadoPP <> 0 
+                                                AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() 
+                                                " . $IdProveedor . " " . $tipo . " 
+                                        GROUP BY IdEstadoPP, IdCliente";
+
+                        log::info($sql_pp_1);
+                        $result['v_widget_pp_1']=DB::select($sql_pp_1);
+
+
                         $sql3 = "SELECT count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdCliente 
                                     FROM (SELECT * FROM v_dte_estados WHERE IdCliente= ". $IdCliente . " " . $IdProveedor . " " . $tipo . "  ORDER BY FechaEstado DESC) t1 
                                     WHERE IdCliente= ". $IdCliente . " " . $IdProveedor . " 
                                     GROUP BY t1.IdEstadoDTE, t1.NombreEstado, t1.IdCliente LIMIT 50";
 
                         //log::info($sql3);
-                        $result['v_widget4']=DB::select($sql3);
+                        //$result['v_widget4']=DB::select($sql3);
 
                         break;
 
@@ -340,6 +353,25 @@ class Consulta extends Authenticatable
                         //log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
+                        $sql_pp_1 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoPP, IdProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as Cantidad, 
+                                            ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) 
+                                                                            FROM dtes d
+                                                                            WHERE d.IdCliente = " . $IdCliente . " 
+                                                                                    AND YEAR(FechaEmision) = YEAR(NOW())  
+                                                                                    " . $tipo . " 
+                                                                                    " . $IdProveedor . " ) * 100) AS Porcentaje, 
+                                            IdCliente 
+                                    FROM dtes 
+                                    WHERE IdCliente = " . $IdCliente . " 
+                                            AND IdEstadoPP <> 0 
+                                            AND YEAR(FechaEmision) = YEAR(NOW()) 
+                                            " . $IdProveedor . " 
+                                            " . $tipo . " 
+                                    GROUP BY IdEstadoPP, IdCliente";
+
+                        log::info($sql_pp_1);
+                        $result['v_widget_pp_1'] = DB::select($sql_pp_1);
+
 
                         $sql3= "SELECT count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdCliente 
                                     FROM (SELECT * 
@@ -354,7 +386,7 @@ class Consulta extends Authenticatable
                                     GROUP BY t1.IdEstadoDTE, t1.NombreEstado, t1.IdCliente LIMIT 50";
 
                         //log::info($sql3);
-                        $result['v_widget4']=DB::select($sql3);
+                        //$result['v_widget4']=DB::select($sql3);
                     break;
                 }
 
@@ -401,8 +433,23 @@ class Consulta extends Authenticatable
                                         " . $IdCliente . " 
                                 GROUP BY IdEstadoDTE, EstadoActualDTE, IdProveedor";
                         
-                        log::info($sql2);
+                        //log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
+
+                        $sql_pp_1 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoPP, idProveedor, SUM(montoTotalCLP) as MontoTotal, COUNT(1) as Cantidad, 
+                                    ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) 
+                                                                    FROM dtes d 
+                                                                    WHERE d.IdProveedor = " . $IdProveedor . " " . $IdCliente . " AND IdEstadoPP <> 0 
+                                                                            AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ". $caso ." MONTH) AND NOW() ) * 100) AS Porcentaje 
+                                FROM dtes 
+                                WHERE IdProveedor = ". $IdProveedor . " AND IdEstadoPP <> 0 
+                                        AND FechaEmision BETWEEN DATE_SUB(NOW(), INTERVAL ".$caso." MONTH) AND NOW() 
+                                        " . $tipo . " 
+                                        " . $IdCliente . " 
+                                GROUP BY IdEstadoPP, IdProveedor";
+                        
+                        log::info($sql_pp_1);
+                        $result['v_widget_pp_1']=DB::select($sql_pp_1);
 
                         $sql4 = "SELECT count(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor 
                                     FROM v_dte_estados t1 
@@ -412,8 +459,8 @@ class Consulta extends Authenticatable
                                             " . $IdCliente . " 
                                     GROUP BY t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor LIMIT 50"; 
 
-                        log::info($sql4);
-                        $result['v_widget4']=DB::select($sql4); 
+                        //log::info($sql4);
+                        //$result['v_widget4']=DB::select($sql4); 
 
                         break;
 
@@ -448,6 +495,19 @@ class Consulta extends Authenticatable
                         //log::info($sql2);
                         $result['v_widget2']=DB::select($sql2);
 
+                        $sql_pp_1 = "SELECT GROUP_CONCAT(IdDTE) as id_dtes, IdEstadoPP, idProveedor, SUM(montoTotalCLP) AS MontoTotal, 
+                                        COUNT(1) AS Cantidad, 
+                                        ROUND( SUM(montoTotalCLP) / (SELECT SUM(d.montoTotalCLP) FROM dtes d WHERE d.idProveedor = " . $IdProveedor . " AND IdEstadoPP <> 0 AND YEAR(FechaEmision) = YEAR(NOW())) * 100) AS Porcentaje 
+                                    FROM dtes 
+                                    WHERE IdProveedor =" . $IdProveedor . " AND IdEstadoPP <> 0 
+                                            AND YEAR(FechaEmision) = YEAR(NOW()) 
+                                            " . $tipo . " 
+                                            " . $IdCliente . " 
+                                    GROUP BY IdEstadoPP, IdProveedor";
+
+                        //log::info($sql2);
+                        $result['v_widget_pp_1']=DB::select($sql_pp_1);
+
                         $sql4="SELECT COUNT(1) as Cantidad, t1.IdEstadoDTE, t1.NombreEstado, t1.IdProveedor 
                                 FROM (SELECT * FROM v_dte_estados WHERE YEAR(FechaEstado) = YEAR(NOW()) " . $IdCliente . " ORDER BY FechaEstado DESC) t1 
                                 WHERE IdProveedor= ".$IdProveedor." 
@@ -456,7 +516,7 @@ class Consulta extends Authenticatable
                                 GROUP BY t1.IdEstadoDTE,t1.NombreEstado,t1.IdProveedor LIMIT 50";
 
                         //log::info($sql4);
-                        $result['v_widget4']=DB::select($sql4);
+                        //$result['v_widget4']=DB::select($sql4);
 
                         break;
 
