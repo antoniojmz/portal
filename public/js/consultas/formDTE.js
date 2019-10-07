@@ -89,7 +89,7 @@ var pintarDatos = function(data){
     }
 
     if(data.TipoDTE != null){
-        if(data.TipoDTE == 33 && data.data.EstadoActualDTE > 2 && data.data.EstadoActualDTE < 10){
+        if(data.TipoDTE == 33 && data.IdEstadoDTE > 2 && data.IdEstadoDTE < 10){
 
             $("#pronto_pago_").show();
             showInfoPP(data);
