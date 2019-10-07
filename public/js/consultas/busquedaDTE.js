@@ -244,7 +244,7 @@ var SeleccionarTablaReportes = function(){
 }
 
 var ProcesarCargaDTE = function() {
-    ProcesarConsulta();
+    ///ProcesarConsulta();
 }
 
 var ProcesarConsulta = function(){
