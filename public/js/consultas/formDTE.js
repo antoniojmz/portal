@@ -294,6 +294,11 @@ var CalcularSimulacionPP_v1 = function () {
     var ivaDescuentoPP = ivaDescuento * tasaDescuento / 100;
     var montoDescuentoPP = montoTotalPP * tasaDescuento / 100;
     var diferenciaPP = montoTotalPP - montoDescuentoPP;
+
+    console.log("netoDescuentoPP: " + netoDescuentoPP);
+    console.log("ivaDescuentoPP: " + ivaDescuentoPP);
+    console.log("montoDescuentoPP: " + montoDescuentoPP);
+    console.log("diferenciaPP: " + diferenciaPP);
     
     $("#formViewDTE #TipoCambioPP").text("723,50");
     $("#formViewDTE #TasaDescuentoDiaMensualPP").text(tasaMensual);
