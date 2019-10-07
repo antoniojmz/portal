@@ -425,7 +425,7 @@ var widget_pp_1 = function(data_pp_1){
 				default:
 					totalOtrosEstadosMonto += data_pp_1[i].MontoTotal;
 					totalOtrosEstadosPorcentaje += data_pp_1[i].Porcentaje;
-					totalOtrosEstadosCantidad += data_pp_1[i].cantidad;
+					totalOtrosEstadosCantidad += data_pp_1[i].Cantidad;
 
 					$("#spanMonto13").text("$ " + number_format(totalOtrosEstadosMonto, '0'));
 					$("#progress13").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");

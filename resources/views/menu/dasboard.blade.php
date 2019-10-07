@@ -354,7 +354,7 @@
                                 </div>
                                 <div class="m-widget25--progress" style="margin-top: 10px;padding-top: 0px;">
                                     <div class="m-widget25__progress">
-                                        <span id="spanMonto13" class="m-widget25__progress-number-pp"></span>
+                                        <span id="spanMonto13" class="m-widget25__progress-number"></span>
                                         <div class="m--space-10"></div>
                                         <div class="progress m-progress--sm">
                                             <div id="progress13" class="progress-bar-pp m--bg-accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
