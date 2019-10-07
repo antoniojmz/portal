@@ -401,21 +401,21 @@ var widget_pp_1 = function(data_pp_1){
 
 		for (var i = 0; i < data_pp_1.length; i++) {
 			switch(data_pp_1[i].IdEstadoPP){
-				case "1":
+				case 1:
 					$("#spanMonto11").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
 					$("#progress11").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
 					$("#href11").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
 					$("#spanDes11").text(data_pp_1[i].Cantidad + " Pronto Pagos Solicitados");
 					break;
 
-				case "2":
+				case 2:
 					$("#spanMonto12").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
 					$("#progress12").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
 					$("#href12").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
 					$("#spanDes12").text(data_pp_1[i].Cantidad + " Pronto Pago Aprobados");
 					break;
 
-				case "3":
+				case 3:
 					$("#spanMonto13").text("$ "+number_format(data_pp_1[i].MontoTotal, '0'));
 					$("#progress13").attr("style","width:"+data_pp_1[i].Porcentaje+"%;");
 					$("#href13").attr("onclick","verDtes('"+data_pp_1[i].id_dtes+"');");
@@ -427,7 +427,7 @@ var widget_pp_1 = function(data_pp_1){
 					totalOtrosEstadosPorcentaje += data_pp_1[i].Porcentaje;
 					totalOtrosEstadosCantidad += data_pp_1[i].Cantidad;
 					console.log("IdEstadoPP: " + data_pp_1[i].IdEstadoPP );
-					
+
 					$("#spanMonto13").text("$ " + number_format(totalOtrosEstadosMonto, '0'));
 					$("#progress13").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");
 					$("#href13").attr("onclick","verDtes('" + data_pp_1[i].id_dtes + "');");
