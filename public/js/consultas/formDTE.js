@@ -286,9 +286,9 @@ var CalcularSimulacionPP_v1 = function () {
     var diasAnticipo = $("#DiasAnticipoSolicitadaPP").text();
     var tasaDescuento = tasaDia * diasAnticipo;
 
-    var montoTotalPP = $("#MontoTotalCLP").text().replace("$", "").replace(".", "");
-    var ivaDescuento = $("#MontoIVACLP").text().replace("$", "").replace(".", "");
-    var netoDescuento = $("#MontoNetoCLP").text().replace("$", "").replace(".", "");
+    var montoTotalPP = $("#MontoTotalCLP").text().replace("$", "").replace(".", "").replace(".", "").replace(".", "");
+    var ivaDescuento = $("#MontoIVACLP").text().replace("$", "").replace(".", "").replace(".", "").replace(".", "");
+    var netoDescuento = $("#MontoNetoCLP").text().replace("$", "").replace(".", "").replace(".", "").replace(".", "");
 
     var netoDescuentoPP = netoDescuento * tasaDescuento / 100;
     var ivaDescuentoPP = ivaDescuento * tasaDescuento / 100;
