@@ -51,11 +51,18 @@ var pintarDatos = function(data){
         $("#formViewDTE #FechaRecepcion").text(moment(data.FechaRecepcion, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
         //$("#FechaRecepcion").text(data.FechaRecepcion);
     }
-    if(data.RutProveedor!=null){$("#formViewDTE #RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#formViewDTE #NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#formViewDTE #RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#formViewDTE #NombreCliente").text(data.NombreCliente);}
-
+    if(data.RutProveedor!=null){
+        $("#formViewDTE #RutProveedor").text(data.RutProveedor);
+    }
+    if(data.NombreProveedor!=null){
+        $("#formViewDTE #NombreProveedor").text(data.NombreProveedor);
+    }
+    if(data.RutCliente!=null){
+        $("#formViewDTE #RutCliente").text(data.RutCliente);
+    }
+    if(data.NombreCliente!=null){
+        $("#formViewDTE #NombreCliente").text(data.NombreCliente);
+    }
     if(data.EstadoActualDTE!=null){
         $("#formViewDTE #EstadoActualDTE").text(data.EstadoActualDTE);
     }
@@ -89,8 +96,8 @@ var pintarDatos = function(data){
     }
 
     if(data.TipoDTE != null){
-        if(data.TipoDTE == 33 && data.IdEstadoDTE > 2 && data.IdEstadoDTE < 10){
-
+        //if(data.TipoDTE == 33 && data.IdEstadoDTE >2 && data.IdEstadoDTE < 10){
+        if(data.TipoDTE == 33){
             $("#pronto_pago_").show();
             showInfoPP(data);
 
