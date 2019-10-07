@@ -384,7 +384,7 @@ var widget_pp_1 = function(data_pp_1){
 	$("#href12").attr("onclick","verDtes();");
 	$("#href13").attr("onclick","verDtes();");
 
-	alert("Aqui " + data_pp_1.length);
+	//alert("Aqui " + data_pp_1.length);
 	if (data_pp_1.length > 0){
 		var total=0;
 
