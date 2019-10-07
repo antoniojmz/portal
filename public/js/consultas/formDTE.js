@@ -55,6 +55,7 @@ var pintarDatos = function(data){
     if(data.NombreProveedor!=null){$("#formViewDTE #NombreProveedor").text(data.NombreProveedor);}
     if(data.RutCliente!=null){$("#formViewDTE #RutCliente").text(data.RutCliente);}
     if(data.NombreCliente!=null){$("#formViewDTE #NombreCliente").text(data.NombreCliente);}
+
     if(data.EstadoActualDTE!=null){
         $("#formViewDTE #EstadoActualDTE").text(data.EstadoActualDTE);
     }
@@ -88,7 +89,8 @@ var pintarDatos = function(data){
     }
 
     if(data.TipoDTE != null){
-        if(data.TipoDTE == 33){
+        if(data.TipoDTE == 33 && data.EstadoActualDTE > 2 AND data.EstadoActualDTE < 10){
+
             $("#pronto_pago_").show();
             showInfoPP(data);
 
