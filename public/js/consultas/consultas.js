@@ -1,5 +1,6 @@
 var limpiar=limpiarEstados=limpiarDetalles=limpiarTrazas=limpiarReferencias=printCounter=ajax=0;
-var RegistroDTE = RegistroDTE2='';
+var RegistroDTE = '';
+var RegistroDTE2='';
 var parametroAjax = {
     'token': $('input[name=_token]').val(),
     'tipo': 'POST',
@@ -22,177 +23,12 @@ var ManejoRespuestaC = function(respuesta){
     };
 }
 
-var ManejoRespuestaD = function(respuesta){
-    if (respuesta.code = '200'){
-            pintarDatos(RegistroDTE);
-            cargartablaDetalles(respuesta.respuesta.v_dte_detalles);
-            cargartablaReferencias(respuesta.respuesta.v_dte_referencias);
-            cargartablaEstados(respuesta.respuesta.v_dte_estados);
-    }else{
-        toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
-    };
-}
-
 var ManejoRespuestaT = function(respuesta){
     if (respuesta.code = '200'){
         cargartablaTrazas(respuesta.respuesta.v_dte_estados);
     }else{
         toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
     };
-}
-
-var pintarDatos = function(data){
-    if(data.TipoDTE!=null){
-        $("#formViewDTE #TipoDTE").text(data.TipoDTE);
-    }
-    if(data.FolioDTE!=null){
-        $("#formViewDTE #FolioDTE").text(new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.FolioDTE));
-        //$("#FolioDTE").text(data.FolioDTE);
-    }
-    if(data.FechaEmision!=null){
-        $("#formViewDTE #FechaEmision").text(moment(data.FechaEmision, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
-        //$("#FechaEmision").text(data.FechaEmision);
-    }
-    if(data.FechaRecepcion!=null){
-        $("#formViewDTE #FechaRecepcion").text(moment(data.FechaRecepcion, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
-        //$("#FechaRecepcion").text(data.FechaRecepcion);
-    }
-    if(data.RutProveedor!=null){$("#formViewDTE #RutProveedor").text(data.RutProveedor);}
-    if(data.NombreProveedor!=null){$("#formViewDTE #NombreProveedor").text(data.NombreProveedor);}
-    if(data.RutCliente!=null){$("#formViewDTE #RutCliente").text(data.RutCliente);}
-    if(data.NombreCliente!=null){$("#formViewDTE #NombreCliente").text(data.NombreCliente);}
-    if(data.EstadoActualDTE!=null){
-        $("#formViewDTE #EstadoActualDTE").text(data.EstadoActualDTE);
-    }
-    if(data.FechaEstadoActualDTE!=null){
-        if(data.FechaEstadoActualDTE != "Sin Información"){
-            $("#formViewDTE #FechaEstadoActualDTE").text(moment(data.FechaEstadoActualDTE, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY"));
-            //$("#FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
-        }else{
-            $("#formViewDTE #FechaEstadoActualDTE").text(data.FechaEstadoActualDTE);
-        }
-    }
-
-    if(data.MontoNetoCLP!=null){
-        $("#formViewDTE #MontoNetoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoNetoCLP));
-        //$("#MontoNetoCLP").text(data.MontoNetoCLP);
-    }
-    if(data.MontoExentoCLP!=null){
-        $("#formViewDTE #MontoExentoCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoExentoCLP));
-        //$("#MontoExentoCLP").text(data.MontoExentoCLP);
-    }
-    if(data.MontoIVACLP!=null){
-        $("#formViewDTE #MontoIVACLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoIVACLP));
-        //$("#MontoIVACLP").text(data.MontoIVACLP);
-    }
-    if(data.MontoTotalCLP!=null){
-        $("#formViewDTE #MontoTotalCLP").text( "$ " + new Intl.NumberFormat('es-CL',  { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0}).format(data.MontoTotalCLP));
-        //$("#MontoTotalCLP").text(data.MontoTotalCLP);
-    }
-}
-
-var cargartablaDetalles = function(data){
-    if(limpiarDetalles==1){destruirTabla('#tablaDetalles');}
-        $("#tablaDetalles").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "Código Producto","data": "CodigoProducto"},
-                {"title": "Nombre Producto","data": "NombreProducto"},
-                {"title": "Valor Unitario","data": "ValorUnitario"},
-                {"title": "Cantidad","data": "Cantidad"},
-                {"title": "Total Linea","data": "TotalLinea"}
-            ],
-        });
-        limpiarDetalles=1;
-}
-
-var cargartablaReferencias = function(data){
-    if (limpiarReferencias>0){destruirTabla('#tablaReferencias');}
-        $("#tablaReferencias").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdReferencia","data": "IdReferencia",visible:0},
-                {"title": "Tipo de Referencia","data": "TipoReferencia"},
-                {"title": "Folio de Referencia","data": "FolioReferencia"},
-                {
-                    "title": "Fecha de Referencia", 
-                    "data": "FechaReferencia",
-                    "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-            ],
-        });
-        limpiarReferencias=1;
-}
-
-var cargartablaEstados = function(data){
-    if (limpiarEstados>0){
-        destruirTabla('#tablaEstados');
-    }
-    
-    $("#tablaEstados").dataTable({
-        'aLengthMenu': DataTableLengthMenu,
-        "scrollCollapse": true,
-        "pagingType": "full_numbers",
-        "language": LenguajeTabla,
-        "data": data,
-        "columns":[
-            {"title": "IdDTE","data": "IdDTE",visible:0},
-            {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-            {"title": "Fecha de Estado", "data": "FechaEstado",
-                render: function(data, type, row, meta){
-                    if(type === 'display'){
-                        data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                    }
-                    return data;
-                }
-            },
-            {"title": "Estado","data": "NombreEstado"}, 
-            {"title": "Comentario de Estado","data": "ComentarioEstado"}
-        ],
-    });
-
-    limpiarEstados=1;
-}
-
-var cargartablaTrazas = function(data){
-    if (limpiarTrazas>0){destruirTabla('#tablaTrazas');}
-        $("#tablaTrazas").dataTable({
-            'aLengthMenu': DataTableLengthMenu,
-            "scrollCollapse": true,
-            "pagingType": "full_numbers",
-            "language": LenguajeTabla,
-            "data": data,
-            "columns":[
-                {"title": "IdDTE","data": "IdDTE",visible:0},
-                {"title": "IdEstadoDTE","data": "IdEstadoDTE",visible:0},
-                {"title": "Fecha de Estado", "data": "FechaEstado",
-                    render: function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = moment(data, 'YYYY-MM-DD HH:mm:ss',true).format("DD-MM-YYYY");
-                        }
-                        return data;
-                    }
-                },
-                {"title": "Estado","data": "NombreEstado"}, 
-                {"title": "Comentario de Estado","data": "ComentarioEstado"}
-            ],
-        });
-        limpiarTrazas=1;
 }
 
 var cargartablaReportes = function(data){
@@ -208,6 +44,7 @@ var cargartablaReportes = function(data){
         "info": true,
         "order": [[ 2, "desc" ]], 
         "data": data,
+        "pageLength": 25,  
         "pagingType": "full_numbers",
 
         "columns":
@@ -395,7 +232,7 @@ var SeleccionarTablaReportes = function(){
 
     $('#tablaReportes tbody').on('dblclick', 'tr', function () {
         RegistroDTE = TablaTraerCampo('tablaReportes',this);
-        cargarFormularioVisualizacion(RegistroDTE);
+        cargarFormularioVisualizacion(RegistroDTE.IdDTE);
         $("#ahref1").click();
         $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
@@ -433,30 +270,6 @@ var ProcesarCargaDTE = function(){
 
     }, 8);
 
-};
-
-var cargarFormularioVisualizacion = function(data){
-    if(data.length == 0) return;
-
-    $(".divForm").toggle();
-
-    $("body").addClass("loading");
-
-    setTimeout(function(){
-        try{
-            parametroAjax.ruta=rutaD;
-            parametroAjax.data = {"IdDTE":data.IdDTE};
-            respuesta=procesarajax(parametroAjax);
-            ManejoRespuestaD(respuesta);
-
-        }catch(err) {
-            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
-            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
-        }
-
-        $("body").removeClass("loading"); 
-
-    }, 1);
 };
 
 var BotonVolver = function(){
@@ -541,10 +354,25 @@ $(document).ready(function(){
     $(document).on('click','#volver',BotonVolver);
     $(document).on('click','#LinkTrazas',CargarTrazas);
     $(document).on('click','#ahrefFiltros',toggleFiltros);
+    $(document).on('click', '#btnSimularPP', CalcularSimulacionPP);
+    $(document).on('click', '#btnSolicitarPP', SolicitarPP);
+    $(document).on('click', '#btnConfirmarPP', ConfirmarPP);
+    
     $(document).on('click','#btnCal1',cal1);
     $(document).on('click','#btnCal2',cal2);
     $(document).on('click','#btnCal3',cal3);
     $(document).on('click','#btnCal4',cal4);
     $(document).on('click','#btnCal5',cal5);
     $(document).on('click','#btnCal6',cal6);
+
+    $("#FechaPagoSolicitadaPP").change(function() {
+        var fecha1 = moment(this.value, 'YYYY-MM-DD', true);
+        var fecha2 = moment($("#FechaVencimientoPP").text(), 'DD-MM-YYYY', true);
+        $("#formViewDTE #DiasAnticipoSolicitadaPP").text( fecha2.diff(fecha1, 'days')  );
+        $("#divBtnSimularPP").show();
+        $("#divTituloSimularPP").hide();
+        $("#divSimulacion1").hide();
+        $("#divSimulacion2").hide();
+        $("#divBtnSolicitarPP").hide();
+    });
 });

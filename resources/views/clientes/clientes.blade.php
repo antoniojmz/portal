@@ -72,6 +72,11 @@
 								Listado DTE
 							</a>
 						</li>
+						<li class="nav-item m-tabs__item">
+							<a class="nav-link m-tabs__link " data-toggle="tab" name="volver" id="volver" role="tab" aria-expanded="false">
+								Volver al listado
+							</a>
+						</li>
 						@if ($idPerfil!=3)
 							<li class="nav-item m-tabs__item">
 								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_builder_left_aside" role="tab" aria-expanded="false">
@@ -158,7 +163,7 @@
 								<div class="col-md-12">
 									<div class="table-responsive">
 										<table id="tablaDTE" class="display compact table" cellspacing="0" width="100%"></table>
-									</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -191,22 +196,6 @@
 						@endif
 					</div>
 				</div>
-				<div class="m-portlet__foot m-portlet__foot--fit">
-					<div class="m-form__actions">
-						<div class="row">
-							<div class="col-lg-12">
-						        <center>
-							        <button name="volver" id="volver" class="btn m-btn--pill btn-outline-primary" type="button">
-										<span>
-											<i class="la la-arrow-left"></i>
-											<span>Volver</span>
-										</span>
-							        </button>
-						        </center>
-							</div>
-						</div>
-					</div>
-				</div>
 			</form>
 			<!--end::Form-->
 		</div>
@@ -221,6 +210,3 @@
 </script>
 <script src="{{ asset('js/clientes/clientes.js') }}"></script>
 @endsection
-
-
-

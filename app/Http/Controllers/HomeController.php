@@ -46,7 +46,7 @@ class HomeController extends Controller
         return view('menu.home', $data);
     }
 
-    public function getDashboard(){
+    public function getDashboard(Request $request){
         //$model= new Consulta();
         $usuario = Auth::user();
 
@@ -55,6 +55,11 @@ class HomeController extends Controller
 
         $modelPRV = new Proveedor();
         $data['v_proveedores'] = $modelPRV->listRegProveedorCombo();
+        $data['v_clientes'] = $modelPRV->lisClientesProveedorCombo();
+
+        log::info( $data['v_clientes'] );
+
+        
 
         $modelTD= new Consulta();
         $data['v_tipo_dte'] = $modelTD->listTipoDTE();        

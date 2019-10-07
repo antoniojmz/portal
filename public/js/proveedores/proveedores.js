@@ -181,11 +181,10 @@ var cargartablaProveedores = function(data){
     var columnReport = [[1],[2],[3],[4],[5],[6],[7],[8],[9]];
     $("#tablaProveedores").dataTable({
         'aLengthMenu': DataTableLengthMenu,
-        "scrollX": true,
-        "scrollY": '50vh',
         "scrollCollapse": true,
         "pagingType": "full_numbers",
         "language": LenguajeTabla,
+        "pageLength": 25,  
         "data": data,
         "columns":[
             {"title": "Id","data": "IdProveedor",visible:0},
@@ -282,33 +281,65 @@ var SeleccionarTablaProveedores = function(){
         tableB.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
     });
+
     $('#tablaProveedores tbody').on('dblclick', 'tr', function () {
         RegistroProveedor = TablaTraerCampo('tablaProveedores',this);
         cargarFormularioVisualizacion(RegistroProveedor);
         $("#ahref1").click();
         $('html,body').animate({ scrollTop: $("#divSeparacion").offset().top });
     });
+
     tableB.on('dblclick', 'tr', function () { $('#close').trigger('click'); });
 }
 
 var ProcesarConsulta = function(){
-    var Selectcampo = $('#Selectcampo').val();
-    if (Selectcampo.length<1){
-        toastr.error("Debe seleccionar al menos un item", "Error!");
-        return;
-    }
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormProveedores").serialize();
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaC(respuesta);
+
+   $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            var Selectcampo = $('#Selectcampo').val();
+            if (Selectcampo.length<1){
+                toastr.error("Debe seleccionar al menos un item", "Error!");
+                return;
+            }
+            parametroAjax.ruta=ruta;
+            parametroAjax.data = $("#FormProveedores").serialize();
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaC(respuesta);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
+
 };
 
 var cargarFormularioVisualizacion = function(data){
-    $(".divForm").toggle();
-    parametroAjax.ruta=rutaD;
-    parametroAjax.data = {"IdProveedor":data.IdProveedor};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaD(respuesta);
+
+   $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            $(".divForm").toggle();
+            parametroAjax.ruta=rutaD;
+            parametroAjax.data = {"IdProveedor":data.IdProveedor};
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaD(respuesta);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
+
 };
 
 var BotonVolver = function(){
@@ -317,11 +348,26 @@ var BotonVolver = function(){
 }
 
 $(document).ready(function(){
-    ClassActive("LiProveedores");
-    $(".span").text("Desconocido");
-    $("#spanTitulo").text("Listado de proveedores");
-    cargartablaProveedores(d.v_proveedores);
-    crearcombo('#Selectcampo',d.v_busq_proveedor);
-    $(document).on('click','#consultar',ProcesarConsulta);
-    $(document).on('click','#volver',BotonVolver);
+
+   $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            ClassActive("LiProveedores");
+            $(".span").text("Desconocido");
+            $("#spanTitulo").text("Listado de proveedores");
+            cargartablaProveedores(d.v_proveedores);
+            crearcombo('#Selectcampo',d.v_busq_proveedor);
+            $(document).on('click','#consultar',ProcesarConsulta);
+            $(document).on('click','#volver',BotonVolver);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
+
 });

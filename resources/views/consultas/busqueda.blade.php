@@ -78,7 +78,7 @@
 											'class' => 'comboclear form-control m-select2']) !!}	
 									</div>
 									<div class="col-md-3">
-										<label class="label" for="FolioDTE"><b>RUT Receptor:</b></label>
+										<label class="label" for="FolioDTE"><b>Folio DTE</b></label>
 									    {!! Form::text('FolioDTE', '', ['id' => 'FolioDTE', 'class' => 'form-control input', 'placeholder'  => '',
 					                    'style' => 'width:100%;height:35px', 'maxlength' => '50']) !!}
 									</div>
@@ -264,6 +264,8 @@
 	d['v_dtes'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_dtes) }}'));
 	d['v_busq_consulta'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_busq_consulta) }}'));
 	d['v_tipo_dte'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_tipo_dte) }}'));
+	d['method'] = JSON.parse(rhtmlspecialchars('{{ json_encode($method) }}'));
 </script>
 <script src="{{ asset('js/consultas/busquedaDTE.js') }}"></script>
+<script src="{{ asset('js/consultas/formDTE.js') }}"></script>
 @endsection

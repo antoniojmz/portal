@@ -92,13 +92,10 @@ var FiltrarwidgetsProveedor = function(caso){
     			
     		}
 
-    		
-
-
 		    if(ajax == 0){
 			    ajax=1;
 			    parametroAjax.ruta=rutaF;
-			    parametroAjax.data = {"caso":caso, "IdProveedor":$("#IdProveedor").val(), "IdTipoDTE":filtroTipoDTE};
+			    parametroAjax.data = {"caso":caso, "IdProveedor":$("#IdProveedor").val(), "IdTipoDTE":filtroTipoDTE, "IdCliente":$("#IdCliente").val()};
 			    respuesta=procesarajax(parametroAjax);
 			    ManejoRespuestaF(respuesta);
 		    }
@@ -293,7 +290,7 @@ var widget2 = function(v_widget2){
 
 var widget3 = function(v_widget2){
 	$("#spanMontoTotal").text("$ 0");
-	$("#spanMontoTotalPP").text("$ 0");
+	$("#spanMontoTotalPP").text("$ 188.126.707");
 
 	$(".m-widget25__progress-number").text("$ 0");
 	$(".progress-bar").attr("style","width:0%;");
@@ -312,9 +309,14 @@ var widget3 = function(v_widget2){
 		var total=0;
 		for (var i = 0; i < v_widget2.length; i++) {
 			total += v_widget2[i].MontoTotal;
+			console.log("Monto " + v_widget2[i].IdEstadoDTE + ": " +  v_widget2[i].MontoTotal)
 		}
 		
-		$("#spanMontoTotal").text("$ "+number_format(total, '0'))
+		$("#spanMontoTotal").text("$ "+number_format(total, '0'));
+		var totalOtrosEstadosMonto = 0;
+		var totalOtrosEstadosPorcentaje = 0;
+		var totalOtrosEstadosCantidad = 0;
+
 		for (var i = 0; i < v_widget2.length; i++) {
 			switch(v_widget2[i].IdEstadoDTE){
 				case "1":
@@ -345,11 +347,22 @@ var widget3 = function(v_widget2){
 					$("#spanDes4").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
 					break;
 
-				default:
+				case "10":
 					$("#spanMonto6").text("$ "+number_format(v_widget2[i].MontoTotal, '0'));
 					$("#progress6").attr("style","width:"+v_widget2[i].Porcentaje+"%;");
 					$("#href6").attr("onclick","verDtes('"+v_widget2[i].id_dtes+"');");
 					$("#spanDes6").text(v_widget2[i].cantidad+" "+v_widget2[i].EstadoActualDTE);
+					break;
+
+				default:
+					totalOtrosEstadosMonto += v_widget2[i].MontoTotal;
+					totalOtrosEstadosPorcentaje += v_widget2[i].Porcentaje;
+					totalOtrosEstadosCantidad += v_widget2[i].cantidad;
+
+					$("#spanMonto7").text("$ " + number_format(totalOtrosEstadosMonto, '0'));
+					$("#progress7").attr("style","width:" + totalOtrosEstadosPorcentaje + "%;");
+					$("#href7").attr("onclick","verDtes('" + v_widget2[i].id_dtes + "');");
+					$("#spanDes7").text(totalOtrosEstadosCantidad + " DTE en otros Estados");
 					break;
 			}
 		}
@@ -419,17 +432,37 @@ var cargarPanel = function(idPerfil){
 
 var crearSelectProveedores = function(control, data){
     $(control).select2({
-        allowClear: true,
+        allowClear: false,
         data: data
     }).on("change",function(e){
         FiltrarwidgetsProveedor(filtroFecha);
     });
 }
 
+var crearSelectClientes = function(control, data){
+    $(control).select2({
+        allowClear: false,
+        data: data
+        //data: [{"id":5,"text":"EMPRESA_2"},{"id":1,"text":"Globas Consulting"}]
+    }).on("change",function(e){
+        FiltrarwidgetsProveedor(filtroFecha);
+    });
+}
+
+//{"items": x, "select": itemx}
+var crearSelectFiltrosPeriodo = function(){
+    $("#IdPeriodo").select2({
+        allowClear: false,
+        data: [{"id":"1", "text":"Este Mes"}, {"id":"3", "text": "Últimos 3 meses"}, {"id":"6", "text":"Últimos 6 meses"}, {"id":"12", "text":"Últimos 12 meses", "selected": true}, {"id":"13", "text":"Este Año"}]
+    }).on("change",function(e){
+    	filtroFecha = this.value;
+        FiltrarwidgetsProveedor(filtroFecha);
+    });
+}
 
 var crearSelectTipoDTE = function(control, data){
     $(control).select2({
-        allowClear: true,
+        allowClear: false,
         data: data
     }).on("change",function(e){
         FiltrarwidgetsProveedor(filtroFecha);
@@ -437,13 +470,15 @@ var crearSelectTipoDTE = function(control, data){
 }
 
 $(document).ready(function(){
-    ClassActive("LiDashboard");    
+    ClassActive("LiDashboard");
+    crearSelectFiltrosPeriodo();
 
     if(IdPerfil == 2){
     	crearSelectProveedores('#IdProveedor', v_proveedores);
     	FiltrarwidgetsProveedor(filtroFecha);
 
     }else if(IdPerfil == 3){
+    	crearSelectClientes('#IdCliente', v_clientes);
     	FiltrarwidgetsProveedor(filtroFecha);
     }
 
@@ -451,25 +486,4 @@ $(document).ready(function(){
 
 	//cargarPanel(d.idPerfil);
 	//FiltrarwidgetsProveedor(filtroFecha);
-
-	$("#FiltroAnio").click(function(){
-		filtroFecha = 13;
-		FiltrarwidgetsProveedor(13);
-	});
-	$("#FiltroMes").click(function(){
-		filtroFecha = 1;
-		FiltrarwidgetsProveedor(1);
-	});
-	$("#FiltroTryMes").click(function(){
-		filtroFecha = 3;
-		FiltrarwidgetsProveedor(3);
-	});
-	$("#FiltroSixMes").click(function(){
-		filtroFecha = 6;
-		FiltrarwidgetsProveedor(6);
-	});
-	$("#FiltrotweMes").click(function(){
-		filtroFecha = 12;
-		FiltrarwidgetsProveedor(12);
-	});
 });

@@ -85,6 +85,11 @@
 								</a>
 							</li>
 						@endif
+						<li class="nav-item m-tabs__item">
+							<a class="nav-link m-tabs__link" name="volver" id="volver" data-toggle="tab" role="tab" aria-expanded="false">
+								Volver al listado
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -234,22 +239,6 @@
 								</div>
 							</div>
 						@endif
-					</div>
-				</div>
-				<div class="m-portlet__foot m-portlet__foot--fit">
-					<div class="m-form__actions">
-						<div class="row">
-							<div class="col-lg-12">
-						        <center>
-							        <button name="volver" id="volver" class="btn m-btn--pill btn-outline-primary" type="button">
-										<span>
-											<i class="la la-arrow-left"></i>
-											<span>Volver</span>
-										</span>
-							        </button>
-						        </center>
-							</div>
-						</div>
 					</div>
 				</div>
 			</form>

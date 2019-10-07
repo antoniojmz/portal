@@ -12,7 +12,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="mr-auto">
-                <div class="m-subheader__title ">
+                <div class="m-subheader__title">
+                    <h3 class="m--font-danger">
                     @if( $data['idPerfil'] == 1 )
 
                     @elseif( $data['idPerfil'] == 2 )
@@ -22,6 +23,7 @@
                         Bienvenido a tu Portal de Proveedores
 
                     @endif
+                    </h1>
                 </div>
                 </div>
             </div>
@@ -47,7 +49,7 @@
             </div>
             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                 <div class="m-portlet__head-tools">
-                    {!! Field::select('Periodo', null, null, ['label' => ' ', 'placeholder' => 'Últimos 12 Meses', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
+                    {!! Field::select('IdPeriodo', null, null, ['label' => ' ', 'placeholder' => '', 'style' => 'width:100%;height:35px;', 'class' =>'form-control comboclear']) !!}
                     <div hidden>
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
@@ -293,7 +295,13 @@
                                         <span><a id="href6" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>
                                     </div>
                                     <div class="m-widget25__progress" >
-                                        
+                                        <span id="spanMonto7" class="m-widget25__progress-number"></span>
+                                        <div class="m--space-10"></div>
+                                        <div class="progress m-progress--sm">
+                                            <div id="progress7" class="progress-bar m--bg-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span id="spanDes7" class="m-widget25__progress-sub"></span>
+                                        <span><a id="href7" href="#" class="m-menu__link btn btn-link">Ver DTE´s </a></span>     
                                     </div>
                                 </div>
                             </div>
@@ -387,6 +395,7 @@
 <script Language="Javascript">
     var nombreCliente = "";
     var v_proveedores = "";
+    var v_clientes = JSON.parse(rhtmlspecialchars('{{ json_encode($v_clientes) }}'));
 </script>
 @endif
 <script src="js/menu/dasboard.js?v=<?php echo date('Ymd_His'); ?>"></script>

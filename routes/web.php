@@ -39,6 +39,7 @@ Route::post('/consultaDTE', 'ConsultaController@postConsultaDTE')->name('consult
 Route::post('/consultasB', 'ConsultaController@postConsultas')->name('consultasB');
 Route::post('/detallesDTE', 'ConsultaController@postBuscardetalle')->name('detallesDTE');
 Route::post('/trazaDTE', 'ConsultaController@postBuscartraza')->name('trazaDTE');
+Route::post('/solicitarPP', 'ConsultaController@postSolicitarPP')->name('solicitarPP');
 
 Route::get('/oc', 'OrdencController@getOrdenCompra')->name('oc');
 Route::post('/oc', 'OrdencController@postOrdenCompra')->name('oc');

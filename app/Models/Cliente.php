@@ -65,21 +65,27 @@ class Cliente extends Authenticatable
     }
 
     public function BuscarCliente($d){
-        $idUser = Auth::id();
+        
         $var = 0;
+        $idUser = Auth::id();
         $p = Session::get('perfiles');
-        $sql = "select IdCliente, RutCliente, NombreCliente, RazonSocial, PersonaContactoCliente, TelefonoContactoCliente, NombreFantasiaCliente from v_proveedores_clientes where upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%' ";
+
+        $sql = "SELECT IdCliente, RutCliente, NombreCliente, RazonSocial, PersonaContactoCliente, TelefonoContactoCliente, NombreFantasiaCliente FROM  v_proveedores_clientes WHERE upper(".$d['Selectcampo'].") like '%".$d['descripcion']."%' ";
+
         switch ($p['idPerfil']){
             // Perfil Cliente
             case 2:
-                $sql .= "and idUserCliente=".$idUser;
+                $sql .= "AND idUserCliente=".$idUser;
                 break;
             // Perfil Proveedor
             case 3:
-                $sql .= "and idUserProveedor=".$idUser;
+                $sql .= "AND idUserProveedor=".$idUser;
                 break;
         }
-        $sql .=" group by IdCliente, RutCliente, NombreCliente, RazonSocial, PersonaContactoCliente, TelefonoContactoCliente, NombreFantasiaCliente";
+
+        $sql .=" GROUP BY IdCliente, RutCliente, NombreCliente, RazonSocial, PersonaContactoCliente, TelefonoContactoCliente, NombreFantasiaCliente; ";
+
+        //log::info($sql);
         return DB::select($sql);
     }
 

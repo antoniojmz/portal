@@ -19,7 +19,6 @@
 			</div>
 		</div>
 	</div>
-
 	@include('consultas.formDTE')
 </div>
 
@@ -46,6 +45,7 @@
 
   </div>
 </div>
+
 <script Language="Javascript">
 	var ruta = "{{ URL::route('consultaDTE') }}";
 	
@@ -58,4 +58,5 @@
 	d['v_tipo_dte'] = JSON.parse(rhtmlspecialchars('{{ json_encode($v_tipo_dte) }}'));
 </script>
 <script src="{{ asset('js/consultas/consultas.js') }}"></script>
+<script src="{{ asset('js/consultas/formDTE.js') }}"></script>
 @endsection

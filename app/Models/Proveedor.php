@@ -124,16 +124,16 @@ class Proveedor extends Authenticatable
             case 2:
                 return DB::table('v_proveedores_combo')
                             ->select('id', 'text')
-                            ->where('Idcliente', $p['v_detalle'][0]->IdCliente)
+                            ->where('IdCliente', $p['v_detalle'][0]->IdCliente)
                             ->groupBy('id','text')
                             ->get();
                 break;
             case 3:
-                $idUser = Auth::id();
+                //$idUser = Auth::id();
                 // return DB::table('v_proveedores_combo')
                 return DB::table('v_proveedores_tienen_usuarios')
-                    ->select('IdProveedor as id','NombreProveedor as text')
-                    ->where('idUser',$idUser)
+                    ->selectRaw('IdProveedor as id, NombreProveedor as text')
+                    ->where('idUser', Auth::id())
                     ->groupBy('IdProveedor','NombreProveedor')    
                     ->get();
                 break;
@@ -143,14 +143,39 @@ class Proveedor extends Authenticatable
     public function listEmpresasProveedor($datos){
         $p = Session::get('perfiles');
         $idperfil = $p['idPerfil'];
+
+        log::info($datos);
+
         switch ($idperfil) {
             case 2:
                 return DB::table('v_clientes_tienen_proveedores')
                     ->where('IdCliente',$p['v_detalle'][0]->IdCliente)
-                    ->where('idUser',$datos['idUser'])->get();
+                    ->where('idUser', Auth::id())->get();
                 break;
+            
             case 3:
-                return DB::table('v_proveedores_tienen_usuarios')->where('idUser',$datos['idUser'])->get();
+                return DB::table('v_proveedores_tienen_usuarios')->where('idUser', Auth::id())->get();
+                break;
+        }
+    }
+
+    public function lisClientesProveedorCombo(){
+        $p = Session::get('perfiles');
+        $idperfil = $p['idPerfil'];
+
+        switch ($idperfil) {
+            case 2:
+                return DB::table('v_clientes_tienen_proveedores')
+                    ->selectRaw('IdCliente AS id, NombreCliente as text')
+                    ->where('IdCliente', $p['v_detalle'][0]->IdCliente)
+                    ->where('idUser', Auth::id())->get();
+                break;
+            
+            case 3:
+                return DB::table('v_clientes_tienen_proveedores')
+                            ->selectRaw('IdCliente as id, NombreCliente as text')
+                            ->where('IdProveedor', $p['v_detalle'][0]->IdProveedor)
+                            ->get();
                 break;
         }
     }

@@ -275,24 +275,53 @@ var SeleccionarTablaClientes = function(){
 }
 
 var ProcesarConsulta = function(){
-    var Selectcampo = $('#Selectcampo').val();
-    if (Selectcampo.length<1){
-        toastr.error("Debe seleccionar al menos un item", "Error!");
-        return;
-    }
-    parametroAjax.ruta=ruta;
-    parametroAjax.data = $("#FormProveedores").serialize();
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaC(respuesta);
+
+   $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            var Selectcampo = $('#Selectcampo').val();
+            if (Selectcampo.length<1){
+                toastr.error("Debe seleccionar al menos un item", "Error!");
+                return;
+            }
+            parametroAjax.ruta=ruta;
+            parametroAjax.data = $("#FormProveedores").serialize();
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaC(respuesta);
+
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
+
 };
 
 var cargarFormularioVisualizacion = function(data){
-    if(data.length == 0){return;}
-    $(".divForm").toggle();
-    parametroAjax.ruta=rutaD;
-    parametroAjax.data = {"IdCliente":data.IdCliente};
-    respuesta=procesarajax(parametroAjax);
-    ManejoRespuestaD(respuesta);
+
+   $("body").addClass("loading");
+
+    setTimeout(function(){
+        try{ 
+            if(data.length == 0){return;}
+            $(".divForm").toggle();
+            parametroAjax.ruta=rutaD;
+            parametroAjax.data = {"IdCliente":data.IdCliente};
+            respuesta=procesarajax(parametroAjax);
+            ManejoRespuestaD(respuesta);
+            
+        }catch(err) {
+            toastr.error("No se ejecuto la consulta, contacte al personal informático", "Error!");
+            console.log("No se ejecuto la consulta, contacte al personal informático: " + err.message);
+        }
+
+        $("body").removeClass("loading"); 
+
+    }, 8);
 };
 
 var BotonVolver = function(){

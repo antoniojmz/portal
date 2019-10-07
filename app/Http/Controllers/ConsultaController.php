@@ -52,9 +52,12 @@ class ConsultaController extends Controller
         $data['v_tipo_dte'] = $model->listTipoDTE();
         $data['method'] = 1;
 
+        log::info("idSubmitDtes: " . isset($datos['idSubmitDtes']) );
+
         if(isset($datos['idSubmitDtes'])){
             $data['v_dtes'] = $model->BusDtesGraf($datos['idSubmitDtes']);
             $data['method'] = 2;
+
         }else{
             $data['v_dtes'] = $model->listDtes();
         }
@@ -105,6 +108,14 @@ class ConsultaController extends Controller
         $datos = $request->all();
         $model= new Consulta();
         $result = $model->BuscarTraza($datos['IdDTE']);
+        return $result;
+    }
+
+    protected function postSolicitarPP(Request $request){
+        $datos = $request->all();
+        $model= new Consulta();
+
+        $result = $model->SolicitarProntoPago($datos);
         return $result;
     }    
 }
