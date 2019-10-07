@@ -243,6 +243,10 @@ var SeleccionarTablaReportes = function(){
     });
 }
 
+var ProcesarCargaDTE = function() {
+    ProcesarConsulta();
+}
+
 var ProcesarConsulta = function(){
 
     $("body").addClass("loading");
@@ -342,7 +346,7 @@ $(document).ready(function(){
         $('#f_hastaR').val(moment(end._d, 'MM-DD-YYYY HH:mm:ss',true).format("DD-MM-YYYY"));
     });
 
-    $(document).on('click','#consultar',ProcesarConsulta);
+    $(document).on('click','#consultar', ProcesarConsulta);
     $(document).on('click','#volver',BotonVolver);
     $(document).on('click','#LinkTrazas',CargarTrazas);
     $(document).on('click','#ahrefFiltros',toggleFiltros);
